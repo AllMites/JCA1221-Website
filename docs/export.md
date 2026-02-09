@@ -37,7 +37,7 @@ product-plan/prompts/
 └── section-prompt.md      # Prompt template for section-by-section
 ```
 
-These are pre-written prompts you copy/paste into your coding agent. They reference the instruction files and prompt your agent to ask important clarifying questions about authentication, user modeling, and tech stack before implementing.
+These are pre-written prompts you copy/paste into your coding agent. They reference the instruction files and guide your agent to review the designs and ask clarifying questions before implementing.
 
 ### Instructions
 
@@ -95,7 +95,7 @@ For each section:
 ```
 product-plan/sections/[section-id]/
 ├── README.md            # Feature overview, user flows
-├── tests.md             # Test-writing instructions (TDD)
+├── tests.md             # UI behavior test specs
 ├── components/
 │   ├── [Component].tsx  # Exportable components
 │   └── index.ts         # Exports
