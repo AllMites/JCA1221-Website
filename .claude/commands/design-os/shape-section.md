@@ -104,12 +104,12 @@ Create the file at `product/sections/[section-id]/spec.md` with this exact forma
 
 Immediately after writing the spec, run the full sample data generation process for this section:
 
-1. **Check for global data model** — Read `/product/data-model/data-model.md` if it exists. Use entity names and relationships as a guide for consistency.
+1. **Check for global data shape** — Read `/product/data-shape/data-shape.md` if it exists. Use entity names and relationships as a guide for consistency.
 
 2. **Analyze the spec** — Determine what data entities are implied by the user flows, what fields each entity needs, and what actions can be taken (these become callback props).
 
 3. **Create `product/sections/[section-id]/data.json`** with:
-   - A `_meta` section with human-readable descriptions of each data model and their relationships
+   - A `_meta` section with human-readable descriptions of each entity and their relationships
    - Realistic, believable sample data (not "Lorem ipsum" or "Test 123")
    - 5-10 sample records for main entities
    - Varied content: mix short/long text, different statuses

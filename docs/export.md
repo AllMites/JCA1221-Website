@@ -47,9 +47,8 @@ product-plan/
 └── instructions/
     ├── one-shot-instructions.md     # All milestones combined
     └── incremental/                 # Milestone-by-milestone implementation
-        ├── 01-foundation.md         # Design tokens, data model, routing
-        ├── 02-shell.md              # Application shell implementation
-        ├── 03-[section-id].md        # One per section (e.g., 03-invoices.md)
+        ├── 01-shell.md              # Design tokens + application shell
+        ├── 02-[section-id].md        # One per section (e.g., 02-invoices.md)
         └── ...
 ```
 
@@ -68,13 +67,12 @@ product-plan/design-system/
 └── fonts.md             # Google Fonts setup
 ```
 
-### Data Model
+### Data Shapes
 
 ```
-product-plan/data-model/
-├── README.md            # Entity descriptions
-├── types.ts             # TypeScript interfaces
-└── sample-data.json     # Combined sample data
+product-plan/data-shapes/
+├── README.md            # UI data contracts overview
+└── overview.ts          # Combined type reference (all sections)
 ```
 
 ### Shell Components

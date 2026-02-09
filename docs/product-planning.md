@@ -35,10 +35,10 @@ Based on your product overview, the AI will propose sections and discuss orderin
 
 **Creates:** `product/product-roadmap.md`
 
-## 3. Data Model
+## 3. Data Shape
 
 ```
-/data-model
+/data-shape
 ```
 
 Define the core entities in your product—the "nouns" of your system. What are the main things users create, view, and manage?
@@ -51,7 +51,7 @@ The focus is conceptual, not technical:
 
 Don't worry about database schemas or field types. Keep it minimal. The implementation agent will extend the model with additional details as needed.
 
-**Creates:** `product/data-model/data-model.md`
+**Creates:** `product/data-shape/data-shape.md`
 
 ## 4. Design Tokens
 

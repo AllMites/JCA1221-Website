@@ -24,7 +24,7 @@ Check if `product/sections/[section-id]/data.json` already exists.
 
 Read the existing `data.json` and `types.ts` files, then ask the user:
 
-"Sample data already exists for **[Section Title]**. What would you like to change about the existing data model or sample data?"
+"Sample data already exists for **[Section Title]**. What would you like to change about the existing data shape or sample data?"
 
 Wait for the user's response describing what they want changed. Once you receive their notes, **immediately proceed** to update `data.json` and `types.ts` based on their requested changes — do not present a draft for approval.
 
@@ -36,19 +36,19 @@ Stop here — the remaining steps below are for generating new data from scratch
 
 **If no sample data exists:** Continue to Step 3.
 
-## Step 3: Check for Global Data Model
+## Step 3: Check for Global Data Shape
 
-Check if `/product/data-model/data-model.md` exists.
+Check if `/product/data-shape/data-shape.md` exists.
 
 **If it exists:**
 - Read the file to understand the global entity definitions
-- Entity names in your sample data should match the global data model
+- Entity names in your sample data should match the global data shape
 - Use the descriptions and relationships as a guide
 
 **If it doesn't exist:**
 Show a warning but continue:
 
-"Note: A global data model hasn't been defined yet. I'll create entity structures based on the section spec, but for consistency across sections, consider running `/data-model` first."
+"Note: A global data shape hasn't been defined yet. I'll create entity structures based on the section spec, but for consistency across sections, consider running `/data-shape` first."
 
 ## Step 4: Analyze and Generate
 
@@ -59,7 +59,7 @@ Read and analyze `product/sections/[section-id]/spec.md` to understand:
 - What sample values would be realistic and helpful for design?
 - What actions can be taken on each entity? (These become callback props)
 
-**If a global data model exists:** Cross-reference the spec with the data model. Use the same entity names and ensure consistency.
+**If a global data shape exists:** Cross-reference the spec with the data shape. Use the same entity names and ensure consistency.
 
 **Immediately proceed** to generate both files — do not present a draft for approval.
 
@@ -67,7 +67,7 @@ Read and analyze `product/sections/[section-id]/spec.md` to understand:
 
 Create the data file with:
 
-- **A `_meta` section** - Human-readable descriptions of each data model and their relationships (displayed in the UI)
+- **A `_meta` section** - Human-readable descriptions of each entity and how they relate in the UI (displayed in the Design OS interface)
 - **Realistic sample data** - Use believable names, dates, descriptions, etc.
 - **Varied content** - Mix short and long text, different statuses, etc.
 - **Edge cases** - Include at least one empty array, one long description, etc.
@@ -77,8 +77,8 @@ Create the data file with:
 
 Every data.json MUST include a `_meta` object at the top level with:
 
-1. **`models`** - An object where each key is a model name and value is a plain-language description
-2. **`relationships`** - An array of strings explaining how models connect to each other
+1. **`models`** - An object where each key is an entity name and value is a plain-language description of what it represents in the UI
+2. **`relationships`** - An array of strings describing how entities relate from the user's perspective
 
 Example structure:
 
@@ -113,9 +113,9 @@ Example structure:
 
 The `_meta` descriptions should:
 - Use plain, non-technical language
-- Explain what each model represents in the context of the user's product
-- Describe relationships in terms of "contains", "belongs to", "links to", etc.
-- **Match the global data model descriptions if one exists**
+- Explain what each entity represents from the user's perspective
+- Describe relationships in terms of "contains", "belongs to", "links to" — these are conceptual, not database relationships
+- **Match the global data shape entity names if one exists**
 
 The data should directly support the user flows and UI requirements in the spec.
 
@@ -143,14 +143,14 @@ Generate TypeScript types based on the data structure.
    - Include optional callback props for each action (e.g., `onDelete?: (id: string) => void`)
 
 4. **Use consistent entity names:**
-   - If a global data model exists, use the same entity names
+   - If a global data shape exists, use the same entity names
    - This ensures consistency across sections
 
 Example types.ts:
 
 ```typescript
 // =============================================================================
-// Data Types
+// UI Data Shapes — These define the data the components expect to receive
 // =============================================================================
 
 export interface LineItem {
@@ -200,7 +200,7 @@ export interface InvoiceListProps {
 
 - Add JSDoc comments for callback props to explain when they're called
 
-- **Match entity names from the global data model if one exists**
+- **Match entity names from the global data shape if one exists**
 
 ## Step 5: Inform and Next Steps
 
@@ -228,6 +228,6 @@ Review the files and let me know if you'd like any adjustments. When you're read
 - The data structure should directly map to the spec's user flows
 - Always generate types.ts alongside data.json
 - Callback props should cover all actions mentioned in the spec
-- **Use entity names from the global data model for consistency across sections**
+- **Use entity names from the global data shape for consistency across sections**
 - Do NOT present a draft for approval — generate the files immediately and let the user review after
 - If the user requests changes after reviewing, update the files immediately

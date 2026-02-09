@@ -2,7 +2,7 @@
 
 Design OS is the missing step between your product idea and your codebase.
 
-It's a product planning and design tool that helps you define your product vision, structure your data model, design your UI, and export production-ready components for implementation. Rather than jumping straight into code, you work through a guided process that captures what you're building and why—then hands off everything your coding agent needs to build it right.
+It's a product planning and design tool that helps you define your product vision, sketch out your data shape, design your UI, and export production-ready components for implementation. Rather than jumping straight into code, you work through a guided process that captures what you're building and why—then hands off everything your coding agent needs to build it right.
 
 ## The Problem
 
@@ -29,7 +29,7 @@ You interact with Design OS through slash commands. Each command walks you throu
 
 - `/product-vision` — Define what you're building and why
 - `/product-roadmap` — Break your product into buildable sections
-- `/data-model` — Define the core entities in your system
+- `/data-shape` — Sketch out the general shape of your product's data
 - `/design-tokens` — Choose your color palette and typography
 - `/design-shell` — Design navigation and layout
 - `/shape-section` — Specify a section's scope and requirements

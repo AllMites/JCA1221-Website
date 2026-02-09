@@ -12,7 +12,7 @@ Before designing any screens, establish the foundation:
 
 1. **Product Vision** — Define what you're building and why
 2. **Product Roadmap** — Break your product into sections
-3. **Data Model** — Define the core entities in your system
+3. **Data Shape** — Sketch out the general shape of your product's data
 4. **Design Tokens** — Choose colors and typography
 5. **Application Shell** — Design navigation and layout
 
@@ -45,7 +45,7 @@ See [Export](export.md) for details on what's included and how to use it.
 |---------|---------|
 | `/product-vision` | Define product name, description, problems, features |
 | `/product-roadmap` | Break product into sections |
-| `/data-model` | Define core entities and relationships |
+| `/data-shape` | Sketch out core entities and relationships |
 | `/design-tokens` | Choose colors and typography |
 | `/design-shell` | Design navigation and layout |
 | `/shape-section` | Define a section's scope and requirements |

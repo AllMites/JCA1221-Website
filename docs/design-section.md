@@ -33,7 +33,7 @@ Generate realistic sample data based on the spec. This data populates your scree
 
 The AI analyzes your section spec and proposes a data structure:
 
-- **Entities** — Based on your global data model (if defined) or inferred from the spec
+- **Entities** — Based on your global data shape (if defined) or inferred from the spec
 - **Relationships** — How the data connects
 - **Sample records** — 5-10 realistic entries with varied content
 
@@ -128,7 +128,7 @@ Screenshots are useful for:
 
 ## Repeat for Each Section
 
-Work through your roadmap sections in order. Each section builds on the foundation you established and benefits from the consistency of your global data model and design tokens.
+Work through your roadmap sections in order. Each section builds on the foundation you established and benefits from the consistency of your global data shape and design tokens.
 
 ## What's Next
 

@@ -1,6 +1,6 @@
-# Data Model
+# Data Shape
 
-You are helping the user define the core data model for their product. This establishes the "nouns" of the system — the entities and their relationships.
+You are helping the user sketch out the general shape of their product's data — the core entities ("nouns") and how they relate to each other. This creates a shared vocabulary that ensures consistency across sections when generating sample data and screen designs. This is not the final data model — it's a starting point that the implementation agent will extend and refine.
 
 ## Step 1: Check Prerequisites
 
@@ -11,7 +11,7 @@ First, verify that the product overview and roadmap exist:
 
 If either file is missing, let the user know:
 
-"Before defining your data model, you'll need to establish your product vision. Please run `/product-vision` first, then `/product-roadmap` to define your sections."
+"Before defining your data shape, you'll need to establish your product vision. Please run `/product-vision` first, then `/product-roadmap` to define your sections."
 
 Stop here if prerequisites are missing.
 
@@ -21,7 +21,7 @@ Review the product overview and roadmap, then present your initial analysis:
 
 "Based on your product vision and roadmap, I can see you're building **[Product Name]** with sections for [list sections].
 
-Let me help you define the core data model — the main "things" your app will work with.
+Let me help you identify the core entities — the main "things" your app will work with. This creates a shared vocabulary for your screen designs.
 
 Looking at your product, here are some entities I'm seeing:
 
@@ -52,7 +52,7 @@ Keep the conversation focused on:
 
 Once you have enough information, present a draft:
 
-"Here's your data model:
+"Here's your data shape:
 
 **Entities:**
 
@@ -71,10 +71,10 @@ Iterate until the user is satisfied.
 
 ## Step 5: Create the File
 
-Once approved, create the file at `/product/data-model/data-model.md` with this format:
+Once approved, create the file at `/product/data-shape/data-shape.md` with this format:
 
 ```markdown
-# Data Model
+# Data Shape
 
 ## Entities
 
@@ -94,13 +94,13 @@ Once approved, create the file at `/product/data-model/data-model.md` with this 
 [Add more relationships as needed]
 ```
 
-**Important:** Keep descriptions minimal — focus on what each entity represents, not every field it contains. Leave room for the implementation agent to extend the model.
+**Important:** Keep descriptions minimal — focus on what each entity represents, not every field it contains. This is a general shape, not a final schema — the implementation agent will extend and refine it.
 
 ## Step 6: Confirm Completion
 
 Let the user know:
 
-"I've created your data model at `/product/data-model/data-model.md`.
+"I've created your data shape at `/product/data-shape/data-shape.md`.
 
 **Entities defined:**
 - [List entities]
@@ -108,15 +108,15 @@ Let the user know:
 **Relationships:**
 - [List key relationships]
 
-This provides a shared vocabulary that will be used when generating sample data for your sections. When you run `/sample-data`, it will reference this model to ensure consistency.
+This provides a shared vocabulary for your screen designs. When you run `/sample-data`, it will reference these entities to ensure consistent naming across sections. Note that these are conceptual relationships describing how data appears in the UI — how you model and store this data in your final implementation is up to you.
 
 Next step: Run `/design-tokens` to choose your color palette and typography."
 
 ## Important Notes
 
-- Keep the data model **minimal** — entity names, descriptions, and relationships
+- Keep it **minimal** — entity names, descriptions, and relationships
 - Do NOT define detailed schemas, field types, or validation rules
 - Use plain language that a non-technical person could understand
-- Relationships should describe how entities connect conceptually
-- The implementation agent will extend this with additional fields as needed
+- Relationships are conceptual — they describe how data relates from the user's perspective, not database structure
+- The implementation agent will decide how to model, store, and extend these entities
 - Entity names should be singular (User, Invoice, Project — not Users, Invoices)

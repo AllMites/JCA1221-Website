@@ -18,9 +18,8 @@ For larger products or when you want to review progress incrementally.
 
 Work through the instructions in order:
 
-1. **Foundation** (`instructions/incremental/01-foundation.md`) — Design tokens, data model types, routing
-2. **Shell** (`instructions/incremental/02-shell.md`) — Application shell and navigation
-3. **Sections** (`instructions/incremental/03-*.md`, `04-*.md`, etc.) — Each feature section, one at a time
+1. **Shell** (`instructions/incremental/01-shell.md`) — Design tokens and application shell
+2. **Sections** (`instructions/incremental/02-*.md`, `03-*.md`, etc.) — Each feature section, one at a time
 
 For each milestone:
 
@@ -99,7 +98,7 @@ Before finalizing any implementation plan, encourage your agent to ask questions
 - Are there existing patterns in this codebase to follow?
 
 **Data:**
-- How should the data model extend what's defined?
+- How should the data shape extend what's defined?
 - Are there validation rules beyond what the UI shows?
 - How should relationships be handled (eager loading, lazy loading)?
 
@@ -144,7 +143,7 @@ The Design OS export provides finished UI designs. Your implementation agent sti
 
 ## Tips
 
-- **Use the pre-written prompts** — They include important clarifying questions about auth and data modeling
+- **Use the pre-written prompts** — They include important clarifying questions about auth and data shape
 - **Always include product-overview.md** — It gives essential context about the full product
 - **Write tests first** — Use the `tests.md` instructions for TDD
 - **Review incrementally** — Section-by-section implementation lets you catch issues early

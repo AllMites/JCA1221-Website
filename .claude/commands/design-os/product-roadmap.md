@@ -73,7 +73,7 @@ Once approved, create `/product/product-roadmap.md` with this exact format:
 2. **[Section 2]** — [Description]
 3. **[Section 3]** — [Description]
 
-**Next step:** Run `/data-model` to define the core entities and relationships in your product. This establishes a shared vocabulary that keeps your sections consistent."
+**Next step:** Run `/data-shape` to sketch out the general shape of your product's data. This establishes a shared vocabulary that keeps your sections consistent."
 
 ---
 
