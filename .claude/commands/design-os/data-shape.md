@@ -1,77 +1,67 @@
 # Data Shape
 
-You are helping the user sketch out the general shape of their product's data — the core entities ("nouns") and how they relate to each other. This creates a shared vocabulary that ensures consistency across sections when generating sample data and screen designs. This is not the final data model — it's a starting point that the implementation agent will extend and refine.
+You are helping the user create or update the general shape of their product's data — the core entities ("nouns") and how they relate to each other. This creates a shared vocabulary that ensures consistency across sections when generating sample data and screen designs. This is not the final data model — it's a starting point that the implementation agent will extend and refine.
 
-## Step 1: Check Prerequisites
+## Step 1: Check Current State
 
-First, verify that the product overview and roadmap exist:
+First, check if `/product/data-shape/data-shape.md` exists.
 
-1. Read `/product/product-overview.md` to understand what the product does
-2. Read `/product/product-roadmap.md` to understand the planned sections
+---
 
-If either file is missing, let the user know:
+## If Data Shape Already Exists (Updating)
 
-"Before defining your data shape, you'll need to establish your product vision. Please run `/product-vision` first, then `/product-roadmap` to define your sections."
+Read:
+- `/product/data-shape/data-shape.md`
+- `/product/product-overview.md` (if it exists, for context)
+- `/product/product-roadmap.md` (if it exists, for context)
 
-Stop here if prerequisites are missing.
+Present the current state and ask what to change:
 
-## Step 2: Gather Initial Input
-
-Review the product overview and roadmap, then present your initial analysis:
-
-"Based on your product vision and roadmap, I can see you're building **[Product Name]** with sections for [list sections].
-
-Let me help you identify the core entities — the main "things" your app will work with. This creates a shared vocabulary for your screen designs.
-
-Looking at your product, here are some entities I'm seeing:
-
-- **[Entity 1]** — [Brief description based on product overview]
-- **[Entity 2]** — [Brief description based on sections]
-- **[Entity 3]** — [Brief description]
-
-Does this capture the main things your app works with? What would you add, remove, or change?"
-
-Wait for their response before proceeding.
-
-## Step 3: Refine Entities
-
-Use the AskUserQuestion tool to clarify:
-
-- "Are there any other core entities in your system that users will create, view, or manage?"
-- "For [Entity], what are the most important pieces of information it contains? (Don't need every field, just the key ones)"
-- "How do these entities relate to each other?"
-
-Keep the conversation focused on:
-- **Entity names** — What are the main nouns?
-- **Plain-language descriptions** — What does each entity represent?
-- **Relationships** — How do entities connect to each other?
-
-**Important:** Do NOT define every field or database schema details. Keep it minimal and conceptual.
-
-## Step 4: Present Draft and Refine
-
-Once you have enough information, present a draft:
-
-"Here's your data shape:
-
-**Entities:**
+"Your data shape currently defines these entities:
 
 - **[Entity1]** — [Description]
 - **[Entity2]** — [Description]
 
 **Relationships:**
+- [Relationship 1]
+- [Relationship 2]
 
-- [Entity1] has many [Entity2]
-- [Entity2] belongs to [Entity1]
-- [Entity3] links [Entity1] and [Entity4]
+What would you like to change about the entities or relationships?"
 
-Does this look right? Any adjustments?"
+Wait for the user's response describing what they want changed. Once you receive their notes, **immediately proceed** to update `product/data-shape/data-shape.md` based on their requested changes — do not present a draft for approval.
 
-Iterate until the user is satisfied.
+After updating, inform the user:
 
-## Step 5: Create the File
+"I've updated the data shape based on your feedback. Review the changes and let me know if you'd like further adjustments."
 
-Once approved, create the file at `/product/data-shape/data-shape.md` with this format:
+Stop here — the remaining steps below are for generating a new data shape from scratch.
+
+---
+
+## If No Data Shape Exists (Creating New)
+
+### Check Prerequisites
+
+Read:
+1. `/product/product-overview.md` to understand what the product does
+2. `/product/product-roadmap.md` to understand the planned sections
+
+If either file is missing, let the user know:
+
+"Before defining your data shape, you'll need to establish your product vision. Please run `/product-vision` first."
+
+Stop here if prerequisites are missing.
+
+### Analyze and Generate
+
+Review the product overview and roadmap, then **immediately proceed** to create the data shape file — do not present a draft for approval.
+
+Identify:
+- **Entity names** — The main nouns (things users create, view, or manage)
+- **Plain-language descriptions** — What each entity represents
+- **Relationships** — How entities connect to each other
+
+Create `/product/data-shape/data-shape.md` with this format:
 
 ```markdown
 # Data Shape
@@ -94,11 +84,7 @@ Once approved, create the file at `/product/data-shape/data-shape.md` with this 
 [Add more relationships as needed]
 ```
 
-**Important:** Keep descriptions minimal — focus on what each entity represents, not every field it contains. This is a general shape, not a final schema — the implementation agent will extend and refine it.
-
-## Step 6: Confirm Completion
-
-Let the user know:
+### Confirm
 
 "I've created your data shape at `/product/data-shape/data-shape.md`.
 
@@ -108,9 +94,11 @@ Let the user know:
 **Relationships:**
 - [List key relationships]
 
-This provides a shared vocabulary for your screen designs. When you run `/sample-data`, it will reference these entities to ensure consistent naming across sections. Note that these are conceptual relationships describing how data appears in the UI — how you model and store this data in your final implementation is up to you.
+This provides a shared vocabulary for your screen designs. When you run `/sample-data`, it will reference these entities to ensure consistent naming across sections.
 
-Next step: Run `/design-tokens` to choose your color palette and typography."
+Review and let me know if you'd like to adjust anything. When you're ready, run `/design-tokens` to choose your color palette and typography."
+
+---
 
 ## Important Notes
 
@@ -120,3 +108,5 @@ Next step: Run `/design-tokens` to choose your color palette and typography."
 - Relationships are conceptual — they describe how data relates from the user's perspective, not database structure
 - The implementation agent will decide how to model, store, and extend these entities
 - Entity names should be singular (User, Invoice, Project — not Users, Invoices)
+- Do NOT present a draft for approval — generate the file immediately and let the user review after
+- If the user requests changes after reviewing, update the file immediately
