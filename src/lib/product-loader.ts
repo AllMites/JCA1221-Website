@@ -3,7 +3,7 @@
  */
 
 import type { ProductOverview, ProductRoadmap, Problem, Section, ProductData } from '@/types/product'
-import { loadDataModel, hasDataModel } from './data-model-loader'
+import { loadDataShape, hasDataShape } from './data-shape-loader'
 import { loadDesignSystem, hasDesignSystem } from './design-system-loader'
 import { loadShellInfo, hasShell } from './shell-loader'
 
@@ -167,7 +167,7 @@ export function loadProductData(): ProductData {
   return {
     overview: overviewContent ? parseProductOverview(overviewContent) : null,
     roadmap: roadmapContent ? parseProductRoadmap(roadmapContent) : null,
-    dataModel: loadDataModel(),
+    dataShape: loadDataShape(),
     designSystem: loadDesignSystem(),
     shell: loadShellInfo(),
   }
@@ -202,4 +202,4 @@ export function getExportZipUrl(): string | null {
 }
 
 // Re-export utility functions for checking individual pieces
-export { hasDataModel, hasDesignSystem, hasShell }
+export { hasDataShape, hasDesignSystem, hasShell }
