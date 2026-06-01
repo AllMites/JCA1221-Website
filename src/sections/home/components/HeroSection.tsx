@@ -81,7 +81,7 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         {/* Water droplet icon with liquid glass */}
         <div className="mb-8 flex justify-center animate-fade-in-up" style={{ animationDelay: '0ms' }}>
-          <GlassPill as="div" className="p-4 rounded-full bg-blue-500/20 ring-1 ring-blue-400/30" options={{ refraction: 0.012, bevelDepth: 0.06, bevelWidth: 0.14, specular: true }}>
+          <GlassPill as="div" className="p-4 rounded-full bg-blue-500/20 ring-1 ring-blue-400/30">
             <Droplets size={36} className="text-blue-400" strokeWidth={1.5} />
           </GlassPill>
         </div>

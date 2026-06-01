@@ -291,7 +291,7 @@ function MetricCard({ metric, color }: { metric: LiveMetric; color: string }) {
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
           {IconComponent && (
-            <GlassPill as="div" className="w-9 h-9 rounded-lg bg-slate-500/10 border border-white/10 flex items-center justify-center" options={{ refraction: 0.008, bevelDepth: 0.04, bevelWidth: 0.1, specular: true }}>
+            <GlassPill as="div" className="w-9 h-9 rounded-lg bg-slate-500/10 border border-white/10 flex items-center justify-center">
               <IconComponent className="w-4 h-4 text-slate-300" />
             </GlassPill>
           )}

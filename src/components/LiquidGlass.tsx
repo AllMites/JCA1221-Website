@@ -51,6 +51,35 @@ const DEFAULT_OPTIONS: LiquidGlassOptions = {
 
 // ─── Renderer helpers ────────────────────────────────────────────────────────
 
+let _scrollSyncOn = false
+
+/** Hook up a scroll-driven lens position sync. The liquidGL library debounces
+ *  scroll renders by 150ms and skips every other frame during scroll, which
+ *  causes visible jitter. We force immediate metric updates on each scroll tick. */
+function ensureScrollSync() {
+  if (_scrollSyncOn || typeof window === 'undefined') return
+  _scrollSyncOn = true
+  let ticking = false
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        const r = getRenderer()
+        if (r && r.lenses.length) {
+          // Disable the library's "skip every other frame" during scroll
+          ;(r as unknown as Record<string, unknown>)._isScrolling = false
+          for (const lens of r.lenses) lens.updateMetrics()
+          r.render()
+        }
+        ticking = false
+      })
+    },
+    { passive: true },
+  )
+}
+
 function getRenderer() {
   return window.__liquidGLRenderer__ ?? null
 }
@@ -68,6 +97,7 @@ function ensureRenderer(snapshot = 'body', resolution = 2.0) {
       }
       r._rafId = requestAnimationFrame(loop)
     }
+    ensureScrollSync()
     return r
   }
 
@@ -98,6 +128,7 @@ function ensureRenderer(snapshot = 'body', resolution = 2.0) {
       }
       renderer._rafId = requestAnimationFrame(loop)
     }
+    ensureScrollSync()
   }
   return renderer ?? null
 }

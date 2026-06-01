@@ -1,5 +1,4 @@
-import { useRef, createElement, type ReactNode, type HTMLAttributes, type ElementType } from 'react'
-import { useLiquidGlass, type LiquidGlassOptions } from '@/components/LiquidGlass'
+import { type ReactNode, type HTMLAttributes, type ElementType } from 'react'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -9,44 +8,33 @@ interface GlassPillProps extends HTMLAttributes<HTMLElement> {
   className?: string
   /** HTML tag for outer element. Default: 'span' */
   as?: ElementType
-  /** Override default glass options for pills */
-  options?: LiquidGlassOptions
-}
-
-// ─── Default glass options for small pills / badges ──────────────────────────
-
-const PILL_DEFAULTS: LiquidGlassOptions = {
-  refraction: 0.008,
-  bevelDepth: 0.04,
-  bevelWidth: 0.1,
-  specular: true,
-  shadow: false,
-  tilt: false,
-  frost: 0,
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
 /**
- * Thin glass wrapper for small elements like status badges, tags,
- * and icon circles. Text children are wrapped in a pointer-events:auto
- * span so they render on top of the glass and aren't distorted.
+ * CSS-only glass wrapper for small elements like status badges, tags,
+ * and icon circles. Uses backdrop-filter blur for frost effects.
+ * No WebGL — avoids specular artifacts and scroll jitter on tiny elements.
  */
 export function GlassPill({
   children,
   className = '',
   as: Tag = 'span',
-  options,
   ...rest
 }: GlassPillProps) {
-  const ref = useRef<HTMLElement>(null)
-  useLiquidGlass(ref, { ...PILL_DEFAULTS, ...options })
-
-  return createElement(
-    Tag,
-    { ref, className, ...rest },
-    <span style={{ pointerEvents: 'auto', position: 'relative', zIndex: 1 }}>
-      {children}
-    </span>,
+  return (
+    <Tag
+      className={className}
+      style={{
+        backdropFilter: 'blur(8px) saturate(120%)',
+        WebkitBackdropFilter: 'blur(8px) saturate(120%)',
+      }}
+      {...rest}
+    >
+      <span style={{ pointerEvents: 'auto', position: 'relative', zIndex: 1 }}>
+        {children}
+      </span>
+    </Tag>
   )
 }

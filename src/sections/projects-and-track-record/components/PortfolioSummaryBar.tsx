@@ -63,7 +63,7 @@ function AnimatedSummaryCounter({ icon: Icon, number: target, suffix, label }: S
   return (
     <div ref={ref} className="text-center group">
       {/* Icon in liquid glass circle */}
-      <GlassPill as="div" className="w-12 h-12 mx-auto mb-3 rounded-full bg-white/60 dark:bg-slate-800/60 border border-white/20 dark:border-white/10 shadow-[0_4px_16px_rgba(59,130,246,0.08)] flex items-center justify-center" options={{ refraction: 0.01, bevelDepth: 0.05, bevelWidth: 0.12, specular: true, shadow: true }}>
+      <GlassPill as="div" className="w-12 h-12 mx-auto mb-3 rounded-full bg-white/60 dark:bg-slate-800/60 border border-white/20 dark:border-white/10 shadow-[0_4px_16px_rgba(59,130,246,0.08)] flex items-center justify-center">
         <Icon size={20} className="text-blue-500 dark:text-blue-400" />
       </GlassPill>
       <div className="mb-1 font-bold font-heading text-3xl sm:text-4xl text-slate-900 dark:text-white tracking-tight tabular-nums" role="status" aria-live="polite">
