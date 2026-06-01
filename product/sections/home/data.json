@@ -1,0 +1,124 @@
+{
+  "_meta": {
+    "models": {
+      "hero": "Full-screen hero content with site name, tagline, and description.",
+      "projectCard": "A project showcased in the horizontal scrolling carousel, each with an associated award.",
+      "missionValue": "A core company value displayed in the mission section.",
+      "impactStat": "A key environmental or business metric with a number, label, and description.",
+      "expansion": "Future growth initiative with location and technology details."
+    },
+    "relationships": [
+      "Each projectCard embeds its award inline (one award per project in this view).",
+      "impactStat and missionValue are standalone display entities with no cross-relationships."
+    ]
+  },
+  "hero": {
+    "siteName": "JCA 1221 Holdings",
+    "tagline": "Earth Renewal for Generations",
+    "description": "Philippine environmental infrastructure — restoring coastal ecosystems through nature-mimicking technology and public-private partnerships.",
+    "backgroundImage": "/images/hero-water.jpg",
+    "ctaLabel": "Our Projects",
+    "ctaHref": "#projects"
+  },
+  "projectCards": [
+    {
+      "id": "puerto-princesa",
+      "name": "Puerto Princesa Water Reclamation & Learning Center",
+      "location": "Puerto Princesa City, Palawan",
+      "status": "operational",
+      "image": "/images/projects/puerto-princesa.jpg",
+      "description": "The Philippines' first large-scale combined septage and sewage treatment facility, preventing 4,000 cubic meters of untreated wastewater from entering the bay daily.",
+      "award": {
+        "title": "Water Quality Improvement Project of the Year",
+        "organization": "Asian Water Awards",
+        "year": 2025
+      },
+      "stats": [
+        { "label": "Wastewater treated daily", "value": "4,000 m³" },
+        { "label": "Bay restored for events", "value": "Ironman & Dragon Boat" }
+      ]
+    },
+    {
+      "id": "gingoog",
+      "name": "Gingoog City Sanitation & Treatment Facility",
+      "location": "Gingoog City, Misamis Oriental",
+      "status": "operational",
+      "image": "/images/projects/gingoog.jpg",
+      "description": "Bringing the Puerto Princesa model to Mindanao — a modular treatment facility tailored to a growing coastal city's needs, contributing to the city earning its Seal of Good Local Governance.",
+      "award": {
+        "title": "Seal of Good Local Governance",
+        "organization": "Department of the Interior and Local Government",
+        "year": 2024
+      },
+      "stats": [
+        { "label": "City recognition", "value": "Seal of Good Local Governance" },
+        { "label": "Technology", "value": "Modular combined treatment" }
+      ]
+    },
+    {
+      "id": "del-carmen",
+      "name": "Del Carmen Integrated Environmental Facility",
+      "location": "Del Carmen, Siargao Island, Surigao del Norte",
+      "status": "development",
+      "image": "/images/projects/del-carmen.jpg",
+      "description": "A next-generation facility combining wastewater treatment with solid waste management via pyrolysis technology — designed to handle tourism-driven waste while protecting Siargao's world-famous ecosystems.",
+      "award": {
+        "title": "Model for Island Sustainability",
+        "organization": "Cebu Provincial Government",
+        "year": 2026
+      },
+      "stats": [
+        { "label": "Technology", "value": "Pyrolysis + STP" },
+        { "label": "Focus", "value": "Tourism waste management" }
+      ]
+    }
+  ],
+  "missionValues": [
+    {
+      "title": "Serbisyo, Hindi Negosyo",
+      "description": "Service, not business. We temper profitability to keep environmental services affordable for every community — because pollution doesn't discriminate between urban centers and remote barangays.",
+      "icon": "HeartHandshake"
+    },
+    {
+      "title": "Zero Corruption",
+      "description": "Absolute intolerance for corruption in every engagement. Our projects run on full transparency with real-time monitoring data available to partners, government units, and the public.",
+      "icon": "ShieldCheck"
+    },
+    {
+      "title": "Integrity in Every Project",
+      "description": "Every facility we build is delivered on time, on scope, and with measurable environmental outcomes. Our track record speaks through restored ecosystems and communities that thrive.",
+      "icon": "Scale"
+    },
+    {
+      "title": "Environmental Stewardship",
+      "description": "Our machines enhance natural treatment processes instead of replacing them — lower power use, fewer chemicals, and less impact. We work with nature, not against it.",
+      "icon": "Leaf"
+    }
+  ],
+  "impactStats": [
+    { "number": 4000, "suffix": "m³", "label": "Wastewater treated daily", "description": "Kept out of Puerto Princesa Bay every single day since 2022" },
+    { "number": 3, "suffix": "", "label": "Active project sites", "description": "Across Palawan, Mindanao, and Siargao Island" },
+    { "number": 1, "suffix": "st", "label": "Asian Water Award", "description": "Water Quality Improvement Project of the Year 2025" },
+    { "number": 2, "suffix": "", "label": "International events restored", "description": "Ironman and Dragon Boat races returned to Puerto Princesa Bay" }
+  ],
+  "expansion": {
+    "title": "Expanding Our Reach",
+    "subtitle": "From water to land — building the next generation of Philippine environmental infrastructure",
+    "initiatives": [
+      {
+        "location": "Siargao Island",
+        "title": "Pyrolysis — Waste to Fuel",
+        "description": "Introducing solid waste management through pyrolysis technology that converts non-recyclable waste into usable fuel. Combined with our wastewater treatment, this creates the first fully integrated environmental facility for a Philippine island tourism destination.",
+        "status": "In Development",
+        "image": "/images/expansion/siargao-pyrolysis.jpg"
+      },
+      {
+        "location": "Cebu Province",
+        "title": "Provincial-Scale Waste Management",
+        "description": "The Cebu Provincial Government is studying the Siargao model as a template for solving Cebu's solid waste crisis — validating JCA 1221's approach as the blueprint for island-based environmental infrastructure across the Philippines.",
+        "status": "Planning & Assessment",
+        "image": "/images/expansion/cebu-planning.jpg"
+      }
+    ]
+  }
+}

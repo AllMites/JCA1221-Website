@@ -4,7 +4,11 @@ import { Button } from '@/components/ui/button'
 
 type Theme = 'light' | 'dark' | 'system'
 
-export function ThemeToggle() {
+interface ThemeToggleProps {
+  className?: string
+}
+
+export function ThemeToggle({ className }: ThemeToggleProps = {}) {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
       return (localStorage.getItem('theme') as Theme) || 'system'
@@ -54,7 +58,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="w-8 h-8 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100"
+      className={`w-8 h-8 hover:text-slate-900 dark:hover:text-slate-100 ${className ?? 'text-slate-500 dark:text-slate-400'}`}
       title={`Theme: ${theme}`}
     >
       {isDark ? (

@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "models": {
+      "portfolioSummary": "Aggregate statistics across all JCA 1221 projects, displayed as animated counters at the top of the listing page.",
+      "projectCard": "A project shown in the filterable grid. Each card has enough info for quick scanning — photo, location, status, one key metric — and links to the detail view.",
+      "projectDetail": "Full project detail for the one-pager view: hero image, description, key stats, technology tags, environmental impact metrics, awards, and partners.",
+      "projectStat": "A single numeric or labeled metric for the project (e.g., daily capacity, water treated per year).",
+      "projectAward": "An award or recognition earned by the project.",
+      "projectPartner": "A government unit, investor, or organization that collaborated on the project."
+    },
+    "relationships": [
+      "portfolioSummary aggregates data from all projectDetail records.",
+      "Each projectCard links to one projectDetail.",
+      "Each projectDetail has many projectStats, many projectAwards, and many projectPartners.",
+      "projectAward and projectPartner are embedded within projectDetail — no standalone lists."
+    ]
+  },
+  "portfolioSummary": {
+    "totalWaterTreatedDaily": 4000,
+    "totalWaterTreatedSuffix": "m³/day",
+    "projectsOperational": 1,
+    "projectsInDevelopment": 1,
+    "projectsInPlanning": 1,
+    "awardsWon": 1,
+    "communitiesServed": 3
+  },
+  "projects": [
+    {
+      "id": "puerto-princesa",
+      "name": "Puerto Princesa Water Reclamation & Learning Center",
+      "location": "Puerto Princesa City, Palawan",
+      "status": "operational",
+      "heroImage": "/images/projects/puerto-princesa-hero.jpg",
+      "heroDescription": "The Philippines' first large-scale combined septage and sewage treatment facility — a model for how environmental infrastructure can restore coastal ecosystems while remaining financially sustainable.",
+      "shortDescription": "City-scale biological treatment facility preventing 4,000 cubic meters of untreated wastewater from entering Puerto Princesa Bay daily.",
+      "keyMetric": {
+        "label": "Daily Capacity",
+        "value": "4,000 m³"
+      },
+      "stats": [
+        { "label": "Daily Capacity", "value": "4,000 m³" },
+        { "label": "Technology", "value": "Biological Nutrient Removal" },
+        { "label": "Project Cost", "value": "PHP 450M+" },
+        { "label": "Communities Served", "value": "300,000+" }
+      ],
+      "technology": {
+        "description": "The facility uses a Sequential Batch Reactor (SBR) system with biological nutrient removal — the same nitrogen cycle found in healthy aquatic ecosystems. Wastewater passes through primary screening, biological treatment, secondary clarification, and UV disinfection before being released as clean recycled water. Solar-assisted operations reduce energy costs, and IoT sensors provide real-time remote monitoring of water quality parameters.",
+        "tags": ["Biological Nutrient Removal", "SBR Technology", "UV Disinfection", "Solar-Assisted", "IoT Remote Monitoring", "Septage + Sewage Combined"]
+      },
+      "impactMetrics": [
+        { "label": "Wastewater treated daily", "value": "4,000 m³", "improvement": "Prevents equivalent volume from entering the bay" },
+        { "label": "Recycled water released", "value": "4,000 m³/day", "improvement": "Dilutes remaining outflows, restoring marine habitats" },
+        { "label": "Bay water quality", "value": "Swimmable", "improvement": "Now hosts Ironman triathlons and dragon boat races" },
+        { "label": "Local employment", "value": "50+ jobs", "improvement": "Operators, technicians, and educators from the community" }
+      ],
+      "awards": [
+        {
+          "title": "Water Reclamation Project of the Year",
+          "organization": "Asian Water Awards",
+          "year": 2025,
+          "description": "Recognized for restoring coastal ecosystems through innovative, scalable treatment technology — the first Philippine facility to win this category."
+        }
+      ],
+      "partners": [
+        { "name": "Puerto Princesa City Government", "type": "LGU" },
+        { "name": "Department of Environment and Natural Resources", "type": "National Agency" },
+        { "name": "Palawan Council for Sustainable Development", "type": "Regulatory" }
+      ],
+      "yearStarted": 2022,
+      "yearCompleted": 2024,
+      "galleryImages": [
+        "/images/projects/puerto-princesa-1.jpg",
+        "/images/projects/puerto-princesa-2.jpg",
+        "/images/projects/puerto-princesa-3.jpg"
+      ]
+    },
+    {
+      "id": "gingoog",
+      "name": "Gingoog City Septage Treatment Facility",
+      "location": "Gingoog City, Misamis Oriental",
+      "status": "development",
+      "heroImage": "/images/projects/gingoog-hero.jpg",
+      "heroDescription": "Bringing modern wastewater treatment to Mindanao's coastal communities — a modular, scalable facility designed for Gingoog's growing population and unique geography.",
+      "shortDescription": "Modular septage treatment plant designed for Mindanao's coastal terrain, preventing untreated septage from reaching Macajalar Bay.",
+      "keyMetric": {
+        "label": "Design Capacity",
+        "value": "2,500 m³/day"
+      },
+      "stats": [
+        { "label": "Design Capacity", "value": "2,500 m³/day" },
+        { "label": "Technology", "value": "Modular SBR + Reed Bed Filtration" },
+        { "label": "Est. Project Cost", "value": "PHP 280M" },
+        { "label": "Est. Communities Served", "value": "150,000+" }
+      ],
+      "technology": {
+        "description": "Gingoog's facility uses a modular approach — prefabricated treatment units that can be deployed in phases as the city grows. The system combines SBR biological treatment with constructed reed bed filtration, a nature-based polishing step that removes residual nutrients before discharge. This hybrid design reduces energy consumption by 30% compared to fully mechanical systems, while the modular architecture allows rapid deployment to remote coastal terrain.",
+        "tags": ["Modular SBR", "Reed Bed Filtration", "Hybrid Nature-Based", "Phased Deployment", "Coastal Engineering"]
+      },
+      "impactMetrics": [
+        { "label": "Design treatment capacity", "value": "2,500 m³/day", "improvement": "Sufficient for Gingoog's current and near-term population" },
+        { "label": "Energy reduction", "value": "30% lower", "improvement": "Compared to fully mechanical treatment plants" },
+        { "label": "Modular expansion capability", "value": "3 phases", "improvement": "Scales with city growth without service interruption" },
+        { "label": "Local employment (est.)", "value": "30+ jobs", "improvement": "Construction and operations workforce from Gingoog" }
+      ],
+      "awards": [],
+      "partners": [
+        { "name": "Gingoog City Government", "type": "LGU" },
+        { "name": "Department of Public Works and Highways", "type": "National Agency" }
+      ],
+      "yearStarted": 2025,
+      "yearCompleted": null,
+      "galleryImages": [
+        "/images/projects/gingoog-1.jpg",
+        "/images/projects/gingoog-2.jpg"
+      ]
+    },
+    {
+      "id": "del-carmen",
+      "name": "Del Carmen Solid Waste Management & Pyrolysis Facility",
+      "location": "Del Carmen, Siargao Island, Surigao del Norte",
+      "status": "planning",
+      "heroImage": "/images/projects/del-carmen-hero.jpg",
+      "heroDescription": "JCA 1221's first solid waste management project — introducing pyrolysis technology to Siargao, converting municipal waste into biochar and clean energy while preserving the island's world-famous ecosystem.",
+      "shortDescription": "Pyrolysis-based solid waste management plant converting municipal waste into biochar and syngas — the first of its kind on Siargao Island.",
+      "keyMetric": {
+        "label": "Design Throughput",
+        "value": "15 tons/day"
+      },
+      "stats": [
+        { "label": "Design Throughput", "value": "15 tons/day" },
+        { "label": "Technology", "value": "Pyrolysis + Biochar Production" },
+        { "label": "Est. Project Cost", "value": "PHP 320M" },
+        { "label": "Est. Communities Served", "value": "40,000+" }
+      ],
+      "technology": {
+        "description": "The Del Carmen facility marks JCA 1221's expansion from water into solid waste. The pyrolysis plant uses thermal decomposition in an oxygen-free environment to convert municipal solid waste into three products: biochar (a soil amendment that sequesters carbon), syngas (used to power the facility itself), and recovered materials. Unlike incineration, pyrolysis produces no toxic emissions. The biochar can be used by local farmers to improve soil fertility, creating a circular economy loop — waste from the community becomes a resource for the community.",
+        "tags": ["Pyrolysis", "Biochar Production", "Syngas Energy Recovery", "Zero Toxic Emissions", "Circular Economy", "Solid Waste Management"]
+      },
+      "impactMetrics": [
+        { "label": "Waste diversion", "value": "15 tons/day", "improvement": "Diverted from landfill and open dumping on Siargao" },
+        { "label": "Biochar production", "value": "~3 tons/day", "improvement": "Available to local farmers as carbon-sequestering soil amendment" },
+        { "label": "Energy self-sufficiency", "value": "100%", "improvement": "Facility powered by its own syngas output" },
+        { "label": "Carbon sequestration potential", "value": "~1,000 tons CO₂/year", "improvement": "Through biochar soil application" }
+      ],
+      "awards": [],
+      "partners": [
+        { "name": "Municipality of Del Carmen", "type": "LGU" },
+        { "name": "Department of Environment and Natural Resources", "type": "National Agency" },
+        { "name": "Siargao Environmental Council", "type": "Community Organization" }
+      ],
+      "yearStarted": null,
+      "yearCompleted": null,
+      "galleryImages": [
+        "/images/projects/del-carmen-1.jpg",
+        "/images/projects/del-carmen-2.jpg",
+        "/images/projects/del-carmen-3.jpg"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "_meta": {
+    "models": {
+      "processStep": "A single step in the wastewater-to-clean-water flow, with icon, title, short description, and step number.",
+      "comparisonPoint": "A single point of comparison between JCA's approach and traditional Philippine wastewater treatment.",
+      "technologyPillar": "One of the core technology areas: biological treatment, modular design, solar/IoT, or scalability.",
+      "liveMetric": "A dashboard metric card with current value, label, period, and visual chart data.",
+      "chartDataPoint": "A single data point for chart visualization: label (date/month) and numeric value."
+    },
+    "relationships": [
+      "processStep entries are ordered sequentially (step 1 → step N).",
+      "comparisonPoint entries are standalone comparison rows.",
+      "technologyPillar entries are standalone — grid display.",
+      "liveMetric entries drive the horizontal-scrolling dashboard cards.",
+      "chartDataPoint is embedded within each liveMetric."
+    ]
+  },
+  "sectionTitle": "How It Works",
+  "sectionSubtitle": "Nature-mimicking technology that cleans water affordably, reliably, and at any scale.",
+  "processSteps": [
+    {
+      "step": 1,
+      "title": "Collection & Screening",
+      "icon": "Filter",
+      "description": "Raw wastewater and septage arrive at the facility. Screens remove large solids — plastics, debris, grit — before treatment begins."
+    },
+    {
+      "step": 2,
+      "title": "Biological Treatment",
+      "icon": "Microscope",
+      "description": "In the Sequential Batch Reactor, naturally occurring microorganisms consume organic pollutants. This is the same nitrogen cycle found in healthy rivers and aquariums — just optimized for scale."
+    },
+    {
+      "step": 3,
+      "title": "Clarification",
+      "icon": "Beaker",
+      "description": "Treated water passes through settling tanks where remaining particles sink and are separated. Clear water rises to the top, ready for final polishing."
+    },
+    {
+      "step": 4,
+      "title": "UV Disinfection",
+      "icon": "Sun",
+      "description": "Water flows through ultraviolet light chambers that neutralize remaining pathogens. Solar panels help power this final sterilization step — no chemicals, no chlorine taste."
+    },
+    {
+      "step": 5,
+      "title": "Clean Water Release",
+      "icon": "Droplets",
+      "description": "The recycled water is released back into the bay or river. It's clean enough for marine life to thrive — and at Puerto Princesa, it now hosts Ironman triathlons and dragon boat races."
+    }
+  ],
+  "comparison": {
+    "title": "A Different Approach",
+    "subtitle": "Why JCA 1221's model works where traditional systems fail",
+    "points": [
+      {
+        "label": "Treatment method",
+        "jca": "Biological — microorganisms do the work, mimicking natural water cycles",
+        "traditional": "Chemical-heavy, energy-intensive mechanical treatment",
+        "jcaIsBetter": true
+      },
+      {
+        "label": "Cost structure",
+        "jca": "Affordable for small municipalities. Public-private partnership model shares risk.",
+        "traditional": "High capital and operating costs. Often too expensive for mid-size cities, let alone island communities.",
+        "jcaIsBetter": true
+      },
+      {
+        "label": "Energy use",
+        "jca": "Solar-assisted operations reduce grid dependence. Modular design minimizes pumping needs.",
+        "traditional": "Fully grid-dependent. Power costs can be 30–40% of operating budget.",
+        "jcaIsBetter": true
+      },
+      {
+        "label": "Design approach",
+        "jca": "Modular, phased deployment. Start small, scale with demand. Fits any terrain.",
+        "traditional": "Monolithic, one-size-fits-all plants. Require flat land, large footprint, and long construction timelines.",
+        "jcaIsBetter": true
+      },
+      {
+        "label": "Transparency",
+        "jca": "IoT remote monitoring. Real-time water quality data available to partners and the public.",
+        "traditional": "Periodic manual sampling. Data often months old. Limited public access.",
+        "jcaIsBetter": true
+      },
+      {
+        "label": "Community integration",
+        "jca": "Every facility includes a Learning Center. Local operators are trained as employees.",
+        "traditional": "Facility is a black box. Community has no visibility or economic stake.",
+        "jcaIsBetter": true
+      }
+    ]
+  },
+  "technologyPillars": [
+    {
+      "id": "biological",
+      "title": "Biological Nutrient Removal",
+      "icon": "Microscope",
+      "description": "Our systems use naturally occurring bacteria to break down pollutants — the same nitrogen cycle that keeps rivers and aquariums healthy. No harsh chemicals. No toxic byproducts. Just biology, guided by engineering.",
+      "tags": ["SBR Technology", "Aerobic & Anoxic Cycles", "Natural Microorganisms", "Zero Chemical Odor"]
+    },
+    {
+      "id": "modular",
+      "title": "Modular, Phased Design",
+      "icon": "Blocks",
+      "description": "Prefabricated treatment units allow rapid deployment in phases. Start with the capacity a community needs today, add modules as it grows — no expensive upfront overbuilding. Works on coastal terrain, hillsides, and small island footprints.",
+      "tags": ["Prefabricated Units", "Phased Expansion", "Rapid Deployment", "Terrain-Adaptive"]
+    },
+    {
+      "id": "solar-iot",
+      "title": "Solar-Assisted & IoT Connected",
+      "icon": "Zap",
+      "description": "Solar panels reduce grid energy consumption. IoT sensors stream real-time water quality data to a cloud dashboard — partners and regulators can monitor performance from anywhere. Remote diagnostics catch issues before they become problems.",
+      "tags": ["Solar PV Integration", "IoT Sensors", "Real-Time Monitoring", "Remote Diagnostics"]
+    },
+    {
+      "id": "scalable",
+      "title": "Scalable from City to Island",
+      "icon": "Globe",
+      "description": "The same technology stack that treats 4,000 cubic meters daily in Puerto Princesa works at 2,500 cubic meters in Gingoog and 15 tons of solid waste in Del Carmen. The model adapts without compromising on quality, transparency, or affordability.",
+      "tags": ["300k+ Cities", "Mid-Size Municipalities", "Island Communities", "Future-Ready"]
+    }
+  ],
+  "liveMetrics": {
+    "title": "Live Impact Dashboard",
+    "subtitle": "Real-time treatment data from active JCA 1221 facilities",
+    "sinceDate": "January 2024",
+    "metrics": [
+      {
+        "id": "cumulative-treated",
+        "label": "Total Water Treated Since Commissioning",
+        "currentValue": "2,920,000",
+        "unit": "m³",
+        "context": "Equivalent to 1,168 Olympic swimming pools",
+        "chartType": "line",
+        "dataPoints": [
+          { "label": "Jan 2024", "value": 120000 },
+          { "label": "Apr 2024", "value": 360000 },
+          { "label": "Jul 2024", "value": 660000 },
+          { "label": "Oct 2024", "value": 960000 },
+          { "label": "Jan 2025", "value": 1460000 },
+          { "label": "Apr 2025", "value": 1870000 },
+          { "label": "Jul 2025", "value": 2280000 },
+          { "label": "Oct 2025", "value": 2620000 },
+          { "label": "Jan 2026", "value": 2920000 }
+        ]
+      },
+      {
+        "id": "daily-volume",
+        "label": "Daily Treatment Volume (30-Day Average)",
+        "currentValue": "4,127",
+        "unit": "m³/day",
+        "context": "4.3% above design capacity — within healthy operating range",
+        "chartType": "bar",
+        "dataPoints": [
+          { "label": "Week 1", "value": 3980 },
+          { "label": "Week 2", "value": 4150 },
+          { "label": "Week 3", "value": 4090 },
+          { "label": "Week 4", "value": 4230 }
+        ]
+      },
+      {
+        "id": "water-quality",
+        "label": "Effluent Water Quality Index",
+        "currentValue": "98.7",
+        "unit": "%",
+        "context": "Consistently above the 95% regulatory threshold",
+        "chartType": "area",
+        "dataPoints": [
+          { "label": "Q1 2024", "value": 96.2 },
+          { "label": "Q2 2024", "value": 97.1 },
+          { "label": "Q3 2024", "value": 97.8 },
+          { "label": "Q4 2024", "value": 98.3 },
+          { "label": "Q1 2025", "value": 98.5 },
+          { "label": "Q2 2025", "value": 98.7 }
+        ]
+      },
+      {
+        "id": "energy-solar",
+        "label": "Solar Energy Contribution",
+        "currentValue": "34",
+        "unit": "%",
+        "context": "Of total facility energy from solar PV — reducing costs and carbon footprint",
+        "chartType": "bar",
+        "dataPoints": [
+          { "label": "2024 Q1", "value": 22 },
+          { "label": "2024 Q2", "value": 25 },
+          { "label": "2024 Q3", "value": 28 },
+          { "label": "2024 Q4", "value": 30 },
+          { "label": "2025 Q1", "value": 32 },
+          { "label": "2025 Q2", "value": 34 }
+        ]
+      }
+    ]
+  }
+}
