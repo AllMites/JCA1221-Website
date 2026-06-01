@@ -4,13 +4,45 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e293b'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='18' fill='%233b82f6'%3EJ%3C/text%3E%3C/svg%3E" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="JCA 1221" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%231e293b'/%3E%3Ctext x='96' y='132' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='110' fill='%233b82f6'%3EJ%3C/text%3E%3C/svg%3E" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <title>JCA 1221 Holdings</title>
+    <meta name="description" content="JCA 1221 Holdings — Philippine environmental infrastructure. Restoring coastal ecosystems through nature-mimicking water treatment, solid waste management, and public-private partnerships.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="JCA 1221 Holdings">
+    <meta property="og:description" content="JCA 1221 Holdings — Philippine environmental infrastructure. Restoring coastal ecosystems through nature-mimicking water treatment, solid waste management, and public-private partnerships.">
+    <meta property="og:image" content="https://jca1221.com/images/og-preview.jpg">
+    <meta property="og:url" content="https://jca1221.com">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="JCA 1221 Holdings">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JCA 1221 Holdings">
+    <meta name="twitter:description" content="JCA 1221 Holdings — Philippine environmental infrastructure. Restoring coastal ecosystems through nature-mimicking water treatment, solid waste management, and public-private partnerships.">
+    <meta name="twitter:image" content="https://jca1221.com/images/og-preview.jpg">
+    <link rel="canonical" href="https://jca1221.com">
   </head>
   <body>
     <div id="root"></div>
+    <!-- liquidGL: WebGL liquid glass effect. Source: https://github.com/naughtyduk/liquidGL (MIT) -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@2.0.4/dist/html2canvas-pro.min.js" defer></script>
+    <script defer>window.html2canvas = window.html2canvasPro</script>
+    <script src="/scripts/liquidGL.js" defer></script>
+    <script>
+      // Register service worker for PWA offline support
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        })
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

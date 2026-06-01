@@ -1,0 +1,31 @@
+{
+  "name": "JCA 1221 Holdings",
+  "short_name": "JCA 1221",
+  "description": "Philippine environmental infrastructure — restoring coastal ecosystems through nature-mimicking water treatment, solid waste management, and public-private partnerships.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "categories": ["business", "utilities"],
+  "lang": "en-PH",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e293b'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='18' fill='%233b82f6'%3EJ%3C/text%3E%3C/svg%3E",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%231e293b'/%3E%3Ctext x='96' y='132' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='110' fill='%233b82f6'%3EJ%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%231e293b'/%3E%3Ctext x='256' y='352' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='290' fill='%233b82f6'%3EJ%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
