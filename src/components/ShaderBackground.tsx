@@ -2,20 +2,37 @@ import { useRef, useEffect, useState } from 'react'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-export type ShaderVariant = 'slate' | 'blue' | 'emerald' | 'amber' | 'light' | 'dark'
+export type ShaderVariant = 'slate' | 'blue' | 'emerald' | 'amber' | 'light' | 'dark' | 'dots'
 
 export interface ShaderBackgroundProps {
   variant: ShaderVariant
-  /** Opacity of the shader overlay. Default 1. */
+  /** Hex or rgba background color the shader sits on. Used to tint grain. */
+  bgColor?: string
   opacity?: number
-  /** Future: URL for a background image. When set, renders <img> instead of canvas. */
   backgroundImage?: string
   className?: string
-  /** Enable animation loop. Pauses when section is off-screen. Default false. */
   animated?: boolean
 }
 
-// ─── Seeded PRNG ─────────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+type RGB = [number, number, number]
+
+interface MouseState {
+  x: number
+  y: number
+  vx: number
+  vy: number
+}
+
+function hexToRgb(hex: string): RGB {
+  const h = hex.replace('#', '')
+  return [
+    parseInt(h.slice(0, 2), 16),
+    parseInt(h.slice(2, 4), 16),
+    parseInt(h.slice(4, 6), 16),
+  ]
+}
 
 function mulberry32(seed: number) {
   return () => {
@@ -27,353 +44,411 @@ function mulberry32(seed: number) {
   }
 }
 
-// ─── Drawing helpers ─────────────────────────────────────────────────────────
-
-function fillBg(ctx: CanvasRenderingContext2D, w: number, h: number, color: string) {
-  ctx.fillStyle = color
-  ctx.fillRect(0, 0, w, h)
-}
-
-/** Draw faint grid lines */
-function drawGrid(ctx: CanvasRenderingContext2D, w: number, h: number, cellSize: number, color: string) {
+function drawGrid(ctx: CanvasRenderingContext2D, w: number, h: number, cell: number, color: string) {
   ctx.strokeStyle = color
   ctx.lineWidth = 1
   ctx.beginPath()
-  for (let x = cellSize; x < w; x += cellSize) {
-    ctx.moveTo(x + 0.5, 0)
-    ctx.lineTo(x + 0.5, h)
-  }
-  for (let y = cellSize; y < h; y += cellSize) {
-    ctx.moveTo(0, y + 0.5)
-    ctx.lineTo(w, y + 0.5)
-  }
+  for (let x = cell; x < w; x += cell) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, h) }
+  for (let y = cell; y < h; y += cell) { ctx.moveTo(0, y + 0.5); ctx.lineTo(w, y + 0.5) }
   ctx.stroke()
 }
 
-/** Draw per-pixel noise at reduced resolution for grain texture */
-function drawGrain(ctx: CanvasRenderingContext2D, w: number, h: number, intensity: number, rng: () => number) {
-  const step = 3 // draw at 1/3 resolution
-  const iw = Math.ceil(w / step)
-  const ih = Math.ceil(h / step)
-  const imageData = ctx.createImageData(iw, ih)
-  const data = imageData.data
-  for (let i = 0; i < data.length; i += 4) {
-    const v = Math.floor(rng() * intensity)
-    data[i] = v     // R
-    data[i + 1] = v // G
-    data[i + 2] = v // B
-    data[i + 3] = 255
-  }
-  // Draw to offscreen, then scale up
-  const offscreen = new OffscreenCanvas(iw, ih)
-  const offCtx = offscreen.getContext('2d')!
-  offCtx.putImageData(imageData, 0, 0)
-  ctx.drawImage(offscreen, 0, 0, w, h)
+function drawOrb(ctx: CanvasRenderingContext2D, cx: number, cy: number, r: number, color: string) {
+  const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r)
+  g.addColorStop(0, color)
+  g.addColorStop(1, 'transparent')
+  ctx.fillStyle = g
+  ctx.fillRect(cx - r, cy - r, r * 2, r * 2)
 }
 
-/** Draw soft orbs (radial gradient circles) */
-function drawOrb(ctx: CanvasRenderingContext2D, cx: number, cy: number, radius: number, color: string) {
-  const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius)
-  gradient.addColorStop(0, color)
-  gradient.addColorStop(1, 'transparent')
-  ctx.fillStyle = gradient
-  ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2)
+// ─── Grain — tinted by bgColor, no blending tricks ───────────────────────────
+
+function applyGrain(ctx: CanvasRenderingContext2D, w: number, h: number, dev: number, rng: () => number, rgb: RGB) {
+  const off = new OffscreenCanvas(w, h)
+  const oc = off.getContext('2d')!
+  const img = oc.createImageData(w, h)
+  const d = img.data
+  for (let i = 0; i < d.length; i += 4) {
+    const n = Math.floor((rng() - 0.5) * dev * 2)
+    d[i]     = Math.min(255, Math.max(0, rgb[0] + n))
+    d[i + 1] = Math.min(255, Math.max(0, rgb[1] + n))
+    d[i + 2] = Math.min(255, Math.max(0, rgb[2] + n))
+    d[i + 3] = 255
+  }
+  oc.putImageData(img, 0, 0)
+  ctx.globalAlpha = 0.06
+  ctx.drawImage(off, 0, 0)
+  ctx.globalAlpha = 1
 }
 
-/** Draw horizontal wavy strata lines */
-function drawStrata(ctx: CanvasRenderingContext2D, w: number, h: number, rng: () => number) {
-  const layerCount = 12
-  ctx.lineWidth = 1
-  for (let i = 0; i < layerCount; i++) {
-    const y = (h / layerCount) * i + rng() * 20 - 10
-    ctx.strokeStyle = `rgba(180,130,80,${0.03 + rng() * 0.04})`
-    ctx.beginPath()
-    ctx.moveTo(0, y)
-    for (let x = 0; x < w; x += 20) {
-      const offset = Math.sin(x * 0.008 + i * 1.7 + rng() * 4) * 12 + rng() * 6 - 3
-      ctx.lineTo(x, y + offset)
-    }
-    ctx.stroke()
-  }
+// ─── Noise helper (spatial, deterministic) ───────────────────────────────────
+
+/** Returns 0–1 noise value that's consistent for a given grid coordinate + seed. */
+function spatialNoise(gx: number, gy: number, seed: number): number {
+  const s = ((gx * 374761393 + gy * 668265263 + seed) & 0x7fffffff) >>> 0
+  return mulberry32(s)()
 }
 
-/** Draw cellular/voronoi-like pattern using gradient circles */
-function drawCellular(ctx: CanvasRenderingContext2D, w: number, h: number, rng: () => number) {
-  const cellCount = 30
-  const cells: Array<{ x: number; y: number; r: number }> = []
-  for (let i = 0; i < cellCount; i++) {
-    cells.push({
-      x: rng() * w,
-      y: rng() * h,
-      r: 40 + rng() * 200,
-    })
-  }
-  for (const cell of cells) {
-    const gradient = ctx.createRadialGradient(cell.x, cell.y, 0, cell.x, cell.y, cell.r)
-    gradient.addColorStop(0, `rgba(16,185,129,${0.04 + rng() * 0.03})`)
-    gradient.addColorStop(0.7, `rgba(16,185,129,${0.01 + rng() * 0.02})`)
-    gradient.addColorStop(1, 'transparent')
-    ctx.fillStyle = gradient
-    ctx.fillRect(cell.x - cell.r, cell.y - cell.r, cell.r * 2, cell.r * 2)
-  }
-}
-
-// ─── Animation time offset for wave variants ─────────────────────────────────
+// ─── Global time ─────────────────────────────────────────────────────────────
 
 let globalTime = 0
-let timeInitialized = false
-function initGlobalTime() {
-  if (timeInitialized) return
-  timeInitialized = true
-  const tick = () => {
-    globalTime += 1 / 60
-    requestAnimationFrame(tick)
-  }
+let timeOn = false
+
+function ensureTime() {
+  if (timeOn) return
+  timeOn = true
+  const tick = () => { globalTime += 1 / 60; requestAnimationFrame(tick) }
   requestAnimationFrame(tick)
 }
 
-// ─── Per-variant draw functions ──────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
+// VARIANTS
+// ═══════════════════════════════════════════════════════════════════════════════
 
-function drawSlate(ctx: CanvasRenderingContext2D, w: number, h: number, _time: number) {
+function drawSlate(ctx: CanvasRenderingContext2D, w: number, h: number, _t: number, rgb: RGB, _mouse: MouseState | null) {
   const rng = mulberry32(42)
-  fillBg(ctx, w, h, 'transparent')
-  drawGrid(ctx, w, h, 80, 'rgba(100,116,139,0.06)')
-  drawGrain(ctx, w, h, 20, rng)
-}
+  drawGrid(ctx, w, h, 80, 'rgba(148,163,184,0.10)')
+  drawGrid(ctx, w, h, 240, 'rgba(148,163,184,0.05)')
 
-function drawDark(ctx: CanvasRenderingContext2D, w: number, h: number, _time: number) {
-  const rng = mulberry32(99)
-  fillBg(ctx, w, h, 'transparent')
-  drawGrid(ctx, w, h, 100, 'rgba(255,255,255,0.03)')
-  drawGrain(ctx, w, h, 25, rng)
-}
-
-function drawBlue(ctx: CanvasRenderingContext2D, w: number, h: number, time: number) {
-  const rng = mulberry32(7)
-  fillBg(ctx, w, h, 'transparent')
-
-  // Flowing water orbs — positions shift with time
-  const shift1 = Math.sin(time * 0.3) * 30
-  const shift2 = Math.cos(time * 0.4) * 25
-  const shift3 = Math.sin(time * 0.5 + 1) * 20
-
-  drawOrb(ctx, w * 0.3 + shift1, h * 0.4, w * 0.5, 'rgba(59,130,246,0.08)')
-  drawOrb(ctx, w * 0.7 + shift2, h * 0.6, w * 0.4, 'rgba(6,182,212,0.06)')
-  drawOrb(ctx, w * 0.5 + shift3, h * 0.3, w * 0.35, 'rgba(59,130,246,0.05)')
-
-  // Subtle wave lines
-  ctx.lineWidth = 1
-  for (let i = 0; i < 8; i++) {
-    const baseY = (h / 9) * (i + 1)
-    const phase = time * 0.2 + i * 0.8
-    ctx.strokeStyle = `rgba(59,130,246,${0.03 + i * 0.005})`
-    ctx.beginPath()
-    ctx.moveTo(0, baseY)
-    for (let x = 0; x <= w; x += 4) {
-      const y = baseY + Math.sin(x * 0.003 + phase) * 15 + Math.sin(x * 0.007 + phase * 1.3) * 8
-      ctx.lineTo(x, y)
+  // Highlight random grid cells
+  const cellRng = mulberry32(421)
+  const CELL = 80
+  for (let cx = 0; cx < w; cx += CELL) {
+    for (let cy = 0; cy < h; cy += CELL) {
+      const roll = cellRng()
+      if (roll > 0.88) {
+        const alpha = (roll - 0.88) / 0.12 * 0.04
+        ctx.fillStyle = `rgba(148,163,184,${alpha.toFixed(3)})`
+        ctx.fillRect(cx, cy, CELL, CELL)
+      }
     }
-    ctx.stroke()
   }
 
-  drawGrain(ctx, w, h, 12, rng)
+  applyGrain(ctx, w, h, 8, rng, rgb)
 }
 
-function drawEmerald(ctx: CanvasRenderingContext2D, w: number, h: number, _time: number) {
-  const rng = mulberry32(23)
-  fillBg(ctx, w, h, 'transparent')
-  drawCellular(ctx, w, h, rng)
+function drawDark(ctx: CanvasRenderingContext2D, w: number, h: number, _t: number, rgb: RGB, _mouse: MouseState | null) {
+  const rng = mulberry32(99)
+  drawGrid(ctx, w, h, 120, 'rgba(180,170,160,0.07)')
 
-  // Subtle vein lines
-  ctx.lineWidth = 0.5
-  for (let i = 0; i < 5; i++) {
-    ctx.strokeStyle = `rgba(16,185,129,${0.02 + rng() * 0.03})`
+  // Highlight random cells
+  const cellRng = mulberry32(991)
+  for (let cx = 0; cx < w; cx += 120) {
+    for (let cy = 0; cy < h; cy += 120) {
+      const roll = cellRng()
+      if (roll > 0.90) {
+        ctx.fillStyle = `rgba(180,170,160,${((roll - 0.90) / 0.10 * 0.03).toFixed(3)})`
+        ctx.fillRect(cx, cy, 120, 120)
+      }
+    }
+  }
+
+  applyGrain(ctx, w, h, 12, rng, rgb)
+}
+
+function drawBlue(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+  const rng = mulberry32(7)
+
+  drawOrb(ctx, w * 0.28 + Math.sin(t * 0.28) * 50, h * 0.38 + Math.cos(t * 0.23) * 30, w * 0.6, 'rgba(59,130,246,0.20)')
+  drawOrb(ctx, w * 0.72 + Math.cos(t * 0.33) * 45, h * 0.55 + Math.sin(t * 0.28) * 30, w * 0.5, 'rgba(6,182,212,0.16)')
+  drawOrb(ctx, w * 0.52 + Math.sin(t * 0.38) * 35, h * 0.28 + Math.cos(t * 0.42) * 20, w * 0.45, 'rgba(59,130,246,0.12)')
+
+  for (let i = 0; i < 12; i++) {
+    const y0 = (h / 13) * (i + 1)
+    const ph = t * 0.22 + i * 0.65
+    ctx.lineWidth = 1 + (i % 3 === 0 ? 0.5 : 0)
+    ctx.strokeStyle = `rgba(59,130,246,${0.07 + i * 0.005})`
     ctx.beginPath()
-    const startX = rng() * w
-    ctx.moveTo(startX, 0)
-    ctx.bezierCurveTo(
-      startX + rng() * 200 - 100, h * 0.3,
-      startX + rng() * 200 - 100, h * 0.7,
-      rng() * w, h
-    )
+    ctx.moveTo(0, y0)
+    for (let x = 0; x <= w; x += 3) ctx.lineTo(x, y0 + Math.sin(x * 0.0018 + ph) * 22 + Math.sin(x * 0.0045 + ph * 1.6) * 12)
+    ctx.stroke()
+  }
+  for (let i = 0; i < 7; i++) {
+    const y0 = (h / 8) * (i + 0.5)
+    const ph = t * 0.32 + i * 1.1
+    ctx.lineWidth = 0.5
+    ctx.strokeStyle = `rgba(34,211,238,${0.05 + i * 0.005})`
+    ctx.beginPath()
+    ctx.moveTo(0, y0)
+    for (let x = 0; x <= w; x += 2) ctx.lineTo(x, y0 + Math.sin(x * 0.0025 + ph) * 14 + Math.cos(x * 0.0055 + ph * 0.75) * 7)
     ctx.stroke()
   }
 
-  drawGrain(ctx, w, h, 10, rng)
+  applyGrain(ctx, w, h, 10, rng, rgb)
 }
 
-function drawAmber(ctx: CanvasRenderingContext2D, w: number, h: number, _time: number) {
+function drawEmerald(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+  const rng = mulberry32(23)
+  const N = 22
+  for (let i = 0; i < N; i++) {
+    const s = mulberry32(100 + i)()
+    const cx = ((s * w + Math.sin(t * 0.28 + i * 1.8) * w * 0.10) + w) % w
+    const cy = ((s * h + Math.cos(t * 0.22 + i * 2.2) * h * 0.10) + h) % h
+    const r = 55 + mulberry32(300 + i)() * 170
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r)
+    g.addColorStop(0, `rgba(16,185,129,${0.12 + mulberry32(400 + i)() * 0.07})`)
+    g.addColorStop(0.55, `rgba(16,185,129,${0.03 + mulberry32(500 + i)() * 0.04})`)
+    g.addColorStop(1, 'transparent')
+    ctx.fillStyle = g
+    ctx.fillRect(cx - r, cy - r, r * 2, r * 2)
+  }
+  ctx.lineWidth = 0.6
+  for (let i = 0; i < 7; i++) {
+    const s = mulberry32(200 + i)()
+    const sx = ((s * w + Math.sin(t * 0.18 + i) * w * 0.12) + w) % w
+    const ex = ((s * w + Math.cos(t * 0.16 + i) * w * 0.12) + w) % w
+    ctx.strokeStyle = `rgba(16,185,129,${0.07 + mulberry32(600 + i)() * 0.05})`
+    ctx.beginPath()
+    ctx.moveTo(sx, -15)
+    ctx.bezierCurveTo(sx + 60 + s * 140, h * 0.3 + Math.sin(t * 0.14 + i) * 50,
+      sx - 30 + s * 120, h * 0.65 + Math.cos(t * 0.19 + i) * 45, ex, h + 15)
+    ctx.stroke()
+  }
+  applyGrain(ctx, w, h, 8, rng, rgb)
+}
+
+function drawAmber(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
   const rng = mulberry32(77)
-  fillBg(ctx, w, h, 'transparent')
-  drawStrata(ctx, w, h, rng)
-
-  // Warm orbs for depth
-  drawOrb(ctx, w * 0.2, h * 0.3, w * 0.4, 'rgba(245,158,11,0.04)')
-  drawOrb(ctx, w * 0.8, h * 0.7, w * 0.5, 'rgba(245,158,11,0.03)')
-
-  drawGrain(ctx, w, h, 15, rng)
+  for (let i = 0; i < 18; i++) {
+    const y0 = (h / 19) * (i + 1)
+    const drift = Math.sin(t * 0.13 + i * 0.55) * 12
+    ctx.lineWidth = 1 + (i % 4 === 0 ? 0.5 : 0)
+    ctx.strokeStyle = `rgba(217,160,70,${0.09 + mulberry32(700 + i)() * 0.06})`
+    ctx.beginPath()
+    ctx.moveTo(0, y0 + drift)
+    for (let x = 0; x <= w; x += 10) ctx.lineTo(x, y0 + drift + Math.sin(x * 0.0035 + i * 1.2 + t * 0.18) * 16 + mulberry32(800 + i)() * 5 - 2)
+    ctx.stroke()
+  }
+  drawOrb(ctx, w * 0.22 + Math.sin(t * 0.18) * 35, h * 0.32 + Math.cos(t * 0.22) * 25, w * 0.5, 'rgba(245,158,11,0.10)')
+  drawOrb(ctx, w * 0.78 + Math.cos(t * 0.26) * 30, h * 0.62 + Math.sin(t * 0.19) * 20, w * 0.48, 'rgba(251,191,36,0.08)')
+  applyGrain(ctx, w, h, 10, rng, rgb)
 }
 
-function drawLight(ctx: CanvasRenderingContext2D, w: number, h: number, _time: number) {
+function drawLight(ctx: CanvasRenderingContext2D, w: number, h: number, _t: number, rgb: RGB, _mouse: MouseState | null) {
   const rng = mulberry32(11)
-  fillBg(ctx, w, h, 'transparent')
-
-  // Very subtle paper fiber texture — horizontal streaks
-  ctx.lineWidth = 0.5
-  for (let y = 0; y < h; y += 4) {
-    const streak = rng()
-    if (streak > 0.92) {
-      ctx.strokeStyle = `rgba(0,0,0,${(streak - 0.92) * 0.15})`
+  for (let y = 0; y < h; y += 3) {
+    const roll = rng()
+    if (roll > 0.93) {
+      ctx.strokeStyle = `rgba(100,100,110,${(roll - 0.93) / 0.07 * 0.06})`
+      ctx.lineWidth = 0.5
       ctx.beginPath()
       ctx.moveTo(0, y)
       ctx.lineTo(w, y + rng() * 2 - 1)
       ctx.stroke()
     }
   }
-
-  drawGrain(ctx, w, h, 8, rng)
+  applyGrain(ctx, w, h, 6, rng, rgb)
 }
 
-// ─── Variant dispatch ────────────────────────────────────────────────────────
+// ─── Dots variant — noise-sized dot field, mouse distortion ──────────────────
 
-const DRAW_FN: Record<ShaderVariant, (ctx: CanvasRenderingContext2D, w: number, h: number, t: number) => void> = {
+function drawDots(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, mouse: MouseState | null) {
+  const rng = mulberry32(13)
+  const spacing = 55
+  const baseRadius = 1.0
+  const influenceRadius = 160
+  const seed = 17
+
+  for (let x = spacing / 2; x < w + spacing; x += spacing) {
+    for (let y = spacing / 2; y < h + spacing; y += spacing) {
+      const gx = Math.round(x / spacing)
+      const gy = Math.round(y / spacing)
+
+      // Noise-modulated radius
+      const n = spatialNoise(gx, gy, seed)
+      let r = baseRadius + n * 2.5
+
+      // Slow drift
+      let dx = x + Math.sin(t * 0.35 + gy * 0.6) * 1.5 + Math.cos(t * 0.28 + gx * 0.5) * 1.5
+      let dy = y + Math.cos(t * 0.40 + gx * 0.55) * 1.5 + Math.sin(t * 0.32 + gy * 0.45) * 1.5
+
+      // Mouse distortion
+      if (mouse) {
+        const dist = Math.hypot(dx - mouse.x, dy - mouse.y)
+        const influence = Math.max(0, 1 - dist / influenceRadius)
+        if (influence > 0) {
+          const ease = influence * influence // quadratic falloff
+          const angle = Math.atan2(dy - mouse.y, dx - mouse.x)
+          const speed = Math.hypot(mouse.vx, mouse.vy) * 0.08
+          const push = ease * 24 * (1 + speed)
+          dx += Math.cos(angle) * push
+          dy += Math.sin(angle) * push
+          r += ease * 5
+          r = Math.min(r, 10) // cap max radius
+        }
+      }
+
+      // Skip if off-screen
+      if (dx < -10 || dx > w + 10 || dy < -10 || dy > h + 10) continue
+
+      // Draw dot
+      ctx.beginPath()
+      ctx.arc(dx, dy, r, 0, Math.PI * 2)
+      ctx.fillStyle = 'rgba(148,163,184,0.15)'
+      ctx.fill()
+    }
+  }
+
+  applyGrain(ctx, w, h, 6, rng, rgb)
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// DISPATCH
+// ═══════════════════════════════════════════════════════════════════════════════
+
+type DrawFn = (ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, mouse: MouseState | null) => void
+
+const DRAW: Record<ShaderVariant, DrawFn> = {
   slate: drawSlate,
   dark: drawDark,
   blue: drawBlue,
   emerald: drawEmerald,
   amber: drawAmber,
   light: drawLight,
+  dots: drawDots,
 }
 
-/** Variants that use animation time */
-const ANIMATED_VARIANTS: Set<ShaderVariant> = new Set(['blue'])
+const ANIMATED: Set<ShaderVariant> = new Set(['blue', 'emerald', 'amber', 'dots'])
 
-// ─── Component ───────────────────────────────────────────────────────────────
+// ─── Default background colors per variant (when bgColor prop not provided) ───
+
+const DEFAULT_BG: Record<ShaderVariant, RGB> = {
+  slate:   [15, 23, 42],    // slate-900
+  dark:    [2, 6, 23],      // slate-950
+  blue:    [23, 37, 84],    // blue-950
+  emerald: [6, 78, 59],     // emerald-950
+  amber:   [69, 26, 3],     // amber-950
+  light:   [248, 250, 252], // slate-50
+  dots:    [15, 23, 42],    // slate-900
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════════
 
 export function ShaderBackground({
   variant,
+  bgColor,
   opacity = 1,
   backgroundImage,
   className,
   animated: animatedProp,
 }: ShaderBackgroundProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const animFrameRef = useRef(0)
-  const [isVisible, setIsVisible] = useState(true)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const rafRef = useRef(0)
+  const [visible, setVisible] = useState(true)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  })
 
-  // Determine if this variant animates
-  const isAnimated = animatedProp ?? ANIMATED_VARIANTS.has(variant)
+  // ─── Mouse tracking ──────────────────────────────────────────────────────
+  const mouseRef = useRef<MouseState>({ x: -1000, y: -1000, vx: 0, vy: 0 })
+  const prevMouseRef = useRef<{ x: number; y: number }>({ x: -1000, y: -1000 })
 
-  // IntersectionObserver — pause animation when off-screen
+  // Respect prefers-reduced-motion
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  const isAnimated = (animatedProp ?? ANIMATED.has(variant)) && !prefersReducedMotion
+  const tracksMouse = variant === 'dots'
+
   useEffect(() => {
     if (!isAnimated) return
     const el = containerRef.current
     if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0 },
-    )
+    const obs = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0 })
     obs.observe(el)
     return () => obs.disconnect()
   }, [isAnimated])
 
-  // ResizeObserver + canvas drawing
+  // Mouse move handler
+  useEffect(() => {
+    if (!tracksMouse) return
+    const el = containerRef.current
+    if (!el) return
+
+    const handleMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect()
+      const mx = e.clientX - rect.left
+      const my = e.clientY - rect.top
+      const prev = prevMouseRef.current
+      mouseRef.current = {
+        x: mx,
+        y: my,
+        vx: mx - prev.x,
+        vy: my - prev.y,
+      }
+      prevMouseRef.current = { x: mx, y: my }
+    }
+
+    const handleLeave = () => {
+      mouseRef.current = { x: -1000, y: -1000, vx: 0, vy: 0 }
+      prevMouseRef.current = { x: -1000, y: -1000 }
+    }
+
+    el.addEventListener('mousemove', handleMove, { passive: true })
+    el.addEventListener('mouseleave', handleLeave)
+    return () => {
+      el.removeEventListener('mousemove', handleMove)
+      el.removeEventListener('mouseleave', handleLeave)
+    }
+  }, [tracksMouse])
+
+  // Resolve background RGB — from prop, or default for variant
+  const rgb = bgColor ? hexToRgb(bgColor) : DEFAULT_BG[variant]
+
   useEffect(() => {
     const canvas = canvasRef.current
     const container = containerRef.current
     if (!canvas || !container) return
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    let animating = true
+    let live = true
 
-    const draw = (_time: number) => {
-      if (!animating) return
-      const rect = container.getBoundingClientRect()
-      if (rect.width === 0 || rect.height === 0) {
-        animFrameRef.current = requestAnimationFrame(draw)
-        return
-      }
-
-      const w = rect.width
-      const h = rect.height
-      const cw = Math.floor(w * dpr)
-      const ch = Math.floor(h * dpr)
-
-      if (canvas.width !== cw || canvas.height !== ch) {
-        canvas.width = cw
-        canvas.height = ch
-      }
-
+    const frame = (_ms: number) => {
+      if (!live) return
+      const r = container.getBoundingClientRect()
+      if (r.width === 0 || r.height === 0) { rafRef.current = requestAnimationFrame(frame); return }
+      const w = r.width, h = r.height
+      const cw = Math.floor(w * dpr), ch = Math.floor(h * dpr)
+      if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch }
       const ctx = canvas.getContext('2d')
       if (!ctx) return
-
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx.clearRect(0, 0, w, h)
-
-      // Use global time for consistency across all animated instances
-      const t = isAnimated && isVisible ? globalTime : 0
-      DRAW_FN[variant](ctx, w, h, t)
-
-      if (isAnimated && isVisible) {
-        animFrameRef.current = requestAnimationFrame(draw)
-      }
+      const t = isAnimated && visible ? globalTime : 0
+      const mouse = tracksMouse ? mouseRef.current : null
+      DRAW[variant](ctx, w, h, t, rgb, mouse)
+      if (isAnimated && visible) rafRef.current = requestAnimationFrame(frame)
     }
 
-    // Kick off global time loop if needed
-    initGlobalTime()
-
-    // Handle resize
-    const ro = new ResizeObserver(() => {
-      // Redraw on next frame
-      cancelAnimationFrame(animFrameRef.current)
-      animFrameRef.current = requestAnimationFrame(draw)
-    })
+    ensureTime()
+    const ro = new ResizeObserver(() => { cancelAnimationFrame(rafRef.current); rafRef.current = requestAnimationFrame(frame) })
     ro.observe(container)
+    rafRef.current = requestAnimationFrame(frame)
 
-    // Initial draw
-    animFrameRef.current = requestAnimationFrame(draw)
+    return () => { live = false; ro.disconnect(); cancelAnimationFrame(rafRef.current) }
+  }, [variant, isAnimated, visible, tracksMouse, ...rgb])
 
-    return () => {
-      animating = false
-      ro.disconnect()
-      cancelAnimationFrame(animFrameRef.current)
-    }
-  }, [variant, isAnimated, isVisible])
-
-  // SSR guard
   if (typeof window === 'undefined') return null
 
-  // Background image mode
   if (backgroundImage) {
     return (
-      <div
-        ref={containerRef}
-        className={`absolute inset-0 overflow-hidden pointer-events-none select-none ${className ?? ''}`}
-        style={{ opacity }}
-        aria-hidden="true"
-      >
-        <img
-          src={backgroundImage}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+      <div ref={containerRef} className={`absolute inset-0 overflow-hidden pointer-events-none select-none ${className ?? ''}`} style={{ opacity }} aria-hidden="true">
+        <img src={backgroundImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
       </div>
     )
   }
 
-  // Canvas shader mode
   return (
-    <div
-      ref={containerRef}
-      className={`absolute inset-0 overflow-hidden pointer-events-none select-none ${className ?? ''}`}
-      style={{ opacity }}
-      aria-hidden="true"
-    >
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-      />
+    <div ref={containerRef} className={`absolute inset-0 overflow-hidden pointer-events-none select-none ${className ?? ''}`} style={{ opacity }} aria-hidden="true">
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
     </div>
   )
 }
