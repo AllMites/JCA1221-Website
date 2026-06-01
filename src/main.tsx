@@ -11,21 +11,26 @@ import { initLiquidGL } from '@/components/LiquidGlass'
 // We also recapture 2s after boot to get ShaderBackground canvases
 // (which are now marked data-liquid-ignore) excluded.
 const boot = () => {
-  initLiquidGL()
-  // Recapture after React has rendered the first page.
-  // ShaderBackground canvases have data-liquid-ignore so the snapshot
-  // won't include animated shader content.
-  setTimeout(() => {
-    const r = window.__liquidGLRenderer__
-    if (r && !r._capturing) {
-      r.captureSnapshot().then(() => r.render())
-    }
-  }, 2000)
+  // Render React first so body has dimensions before snapshot capture
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <RouterProvider router={router} />
     </StrictMode>,
   )
+
+  // Init liquidGL after React content is in the DOM.
+  // requestAnimationFrame ensures paint cycle completes first.
+  requestAnimationFrame(() => {
+    initLiquidGL()
+    // Recapture after ShaderBackground canvases are painted.
+    // They have data-liquid-ignore so animated content stays out.
+    setTimeout(() => {
+      const r = window.__liquidGLRenderer__
+      if (r && !r._capturing) {
+        r.captureSnapshot().then(() => r.render())
+      }
+    }, 2000)
+  })
 }
 
 // liquidGL script is deferred — wait a tick
