@@ -1,6 +1,7 @@
 import { MapPin, Phone, Mail, Clock, User, Building2, ArrowDown, Paperclip } from 'lucide-react'
 import { useRef } from 'react'
 import { useLiquidGlass } from '@/components/LiquidGlass'
+import { GlassPill } from '@/components/GlassPill'
 import type {
   OfficeInfo,
   TeamContact,
@@ -116,12 +117,12 @@ function TeamContactCard({ contact }: TeamContactCardProps) {
 
       <div className="flex flex-wrap gap-1.5">
         {contact.inquiryCategories.map((cat) => (
-          <span
+          <GlassPill
             key={cat}
             className="px-2 py-0.5 text-[10px] font-mono rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-400/15 text-blue-600 dark:text-blue-300/70"
           >
             {cat}
-          </span>
+          </GlassPill>
         ))}
       </div>
     </div>

@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import * as Icons from 'lucide-react'
 import type { TechnologyPillar } from '@/../product/sections/technology-and-approach/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { GlassPill } from '@/components/GlassPill'
 
 interface TechnologyGridSectionProps {
   pillars: TechnologyPillar[]
@@ -77,9 +78,9 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
                 <div className="h-full p-6 sm:p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/25 shadow-[0_4px_24px_rgba(59,130,246,0.06),0_0_0_1px_rgba(255,255,255,0.03)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.12),0_0_0_1px_rgba(59,130,246,0.1)] transition-all duration-500 hover:-translate-y-1">
                   {/* Icon + title row */}
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/15 backdrop-blur-sm border border-blue-400/20 flex items-center justify-center shadow-[0_4px_16px_rgba(59,130,246,0.1)]">
+                    <GlassPill as="div" className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/20 flex items-center justify-center shadow-[0_4px_16px_rgba(59,130,246,0.1)]" options={{ refraction: 0.01, bevelDepth: 0.05, bevelWidth: 0.12, specular: true }}>
                       {IconComponent && <IconComponent className="w-6 h-6 text-blue-300" />}
-                    </div>
+                    </GlassPill>
                     <h3 className="text-lg sm:text-xl font-heading font-bold text-white group-hover:text-blue-200 transition-colors duration-300">
                       {pillar.title}
                     </h3>
@@ -90,15 +91,15 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
                     {pillar.description}
                   </p>
 
-                  {/* Technology tags */}
+                  {/* Technology tags with liquid glass */}
                   <div className="flex flex-wrap gap-2">
                     {pillar.tags.map((tag) => (
-                      <span
+                      <GlassPill
                         key={tag}
-                        className="px-3 py-1 text-xs font-mono rounded-full bg-blue-500/10 border border-blue-400/15 text-blue-300/80 backdrop-blur-sm"
+                        className="px-3 py-1 text-xs font-mono rounded-full bg-blue-500/10 border border-blue-400/15 text-blue-300/80"
                       >
                         {tag}
-                      </span>
+                      </GlassPill>
                     ))}
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import type { ProjectDetailProps, ProjectStatus } from '@/../product/sections/projects-and-track-record/types'
 import { MapPin, ArrowLeft, Trophy, Users, Building2, Calendar, Leaf, Zap, Award } from 'lucide-react'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { GlassPill } from '@/components/GlassPill'
 
 const STATUS_COLORS: Record<ProjectStatus, string> = {
   operational: 'bg-emerald-500',
@@ -55,12 +56,12 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
             </button>
           )}
 
-          {/* Status badge */}
+          {/* Status badge with liquid glass */}
           <div className="mb-4">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white">
+            <GlassPill className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-white/10 border border-white/20 text-white">
               <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[project.status] ?? 'bg-slate-400'}`} />
               {STATUS_LABELS[project.status] ?? project.status}
-            </span>
+            </GlassPill>
           </div>
 
           {/* Project name */}

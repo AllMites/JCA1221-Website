@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { TrendingUp, Droplets, Gauge, Sun } from 'lucide-react'
 import type { LiveMetrics, LiveMetric, ChartDataPoint } from '@/../product/sections/technology-and-approach/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { GlassPill } from '@/components/GlassPill'
 
 interface LiveDashboardSectionProps {
   liveMetrics: LiveMetrics
@@ -290,9 +291,9 @@ function MetricCard({ metric, color }: { metric: LiveMetric; color: string }) {
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
           {IconComponent && (
-            <div className="w-9 h-9 rounded-lg bg-slate-500/10 border border-white/10 flex items-center justify-center">
+            <GlassPill as="div" className="w-9 h-9 rounded-lg bg-slate-500/10 border border-white/10 flex items-center justify-center" options={{ refraction: 0.008, bevelDepth: 0.04, bevelWidth: 0.1, specular: true }}>
               <IconComponent className="w-4 h-4 text-slate-300" />
-            </div>
+            </GlassPill>
           )}
           <p className="text-xs font-mono uppercase tracking-wider text-slate-400 leading-tight flex-1">
             {metric.label}

@@ -2,6 +2,7 @@ import { ArrowDown, Droplets } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import type { HeroContent } from '@/../product/sections/home/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { GlassPill } from '@/components/GlassPill'
 
 const CYCLE_WORDS = ['Water', 'Land', 'Waste']
 const CYCLE_INTERVAL = 3500
@@ -78,11 +79,11 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Water droplet icon */}
+        {/* Water droplet icon with liquid glass */}
         <div className="mb-8 flex justify-center animate-fade-in-up" style={{ animationDelay: '0ms' }}>
-          <div className="p-4 rounded-full bg-blue-500/20 backdrop-blur-sm ring-1 ring-blue-400/30">
+          <GlassPill as="div" className="p-4 rounded-full bg-blue-500/20 ring-1 ring-blue-400/30" options={{ refraction: 0.012, bevelDepth: 0.06, bevelWidth: 0.14, specular: true }}>
             <Droplets size={36} className="text-blue-400" strokeWidth={1.5} />
-          </div>
+          </GlassPill>
         </div>
 
         {/* Site name */}

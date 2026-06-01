@@ -1,5 +1,6 @@
 import type { ProjectCard as ProjectCardType, ProjectStatus } from '@/../product/sections/projects-and-track-record/types'
 import { MapPin, ArrowRight } from 'lucide-react'
+import { GlassPill } from '@/components/GlassPill'
 
 const STATUS_COLORS: Record<ProjectStatus, string> = {
   operational: 'bg-emerald-500',
@@ -38,10 +39,12 @@ export function ProjectCardItem({ project, onClick }: ProjectCardItemProps) {
         <div className="absolute inset-0 opacity-30 dark:opacity-40 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-blue-600 to-blue-900 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-500" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent dark:from-slate-900/90 dark:via-slate-900/40" />
 
-        {/* Status badge */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm text-slate-700 dark:text-slate-300 shadow-sm">
-          <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[project.status] ?? 'bg-slate-400'}`} />
-          {STATUS_LABELS[project.status] ?? project.status}
+        {/* Status badge with liquid glass */}
+        <div className="absolute top-3 left-3">
+          <GlassPill className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 shadow-sm">
+            <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[project.status] ?? 'bg-slate-400'}`} />
+            {STATUS_LABELS[project.status] ?? project.status}
+          </GlassPill>
         </div>
 
         {/* Hover overlay */}
