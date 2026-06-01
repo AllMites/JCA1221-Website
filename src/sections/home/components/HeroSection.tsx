@@ -20,8 +20,8 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: HeroSectionProps) {
-  const edgeTimer = useRef<ReturnType<typeof setTimeout>>()
-  const cycleTimer = useRef<ReturnType<typeof setTimeout>>()
+  const edgeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const cycleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const [wordIndex, setWordIndex] = useState(0)
   const [cycling, setCycling] = useState(false)
 
@@ -70,37 +70,8 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
       {/* Water background layers */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-blue-950 to-slate-900" />
 
-      {/* Animated water gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[120%] aspect-square rounded-full opacity-30"
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.4) 0%, rgba(30,64,175,0.2) 40%, transparent 70%)',
-            animation: 'pulse-water 8s ease-in-out infinite',
-          }}
-        />
-        <div
-          className="absolute top-1/3 -left-1/4 w-[80%] aspect-square rounded-full opacity-20"
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(245,158,11,0.2) 0%, transparent 60%)',
-            animation: 'pulse-water 10s ease-in-out infinite 2s',
-          }}
-        />
-        <div
-          className="absolute bottom-0 right-0 w-[60%] aspect-square rounded-full opacity-25"
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.3) 0%, rgba(6,182,212,0.15) 40%, transparent 70%)',
-            animation: 'pulse-water 12s ease-in-out infinite 5s',
-          }}
-        />
-
-        {/* Subtle noise texture */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noise)%27/%3E%3C/svg%3E")',
-          backgroundRepeat: 'repeat',
-          backgroundSize: '128px 128px',
-        }} />
-      </div>
+      {/* Animated shader — drifting orbs + flowing wave lines + grain */}
+      <ShaderBackground variant="blue" opacity={0.7} animated />
 
       {/* Shell edge detection zone (invisible) */}
       <div className="fixed top-0 left-0 right-0 h-16 z-50 pointer-events-none" aria-hidden="true" />
@@ -209,10 +180,6 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
       </div>
 
       <style>{`
-        @keyframes pulse-water {
-          0%, 100% { transform: translate(-50%, 0) scale(1); }
-          50% { transform: translate(-50%, -2%) scale(1.05); }
-        }
         @keyframes fade-in-up {
           from { opacity: 0; transform: translateY(24px); }
           to { opacity: 1; transform: translateY(0); }

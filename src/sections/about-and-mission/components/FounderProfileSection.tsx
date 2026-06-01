@@ -30,7 +30,7 @@ export function FounderProfileSection({ profile }: FounderProfileSectionProps) {
           <div className="lg:w-[380px] shrink-0">
             <div className="rounded-2xl backdrop-blur-xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:shadow-[0_8px_40px_rgba(59,130,246,0.04)] p-8 text-center">
               {/* Photo placeholder — glass circle */}
-              <div className="w-28 h-28 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-900 dark:to-slate-800 border-4 border-white/30 dark:border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.12)] flex items-center justify-center">
+              <div className="w-28 h-28 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-900 dark:to-slate-800 border-4 border-white/30 dark:border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.12)] flex items-center justify-center" aria-label={`Photo of ${profile.name}`}>
                 <User size={40} className="text-blue-400 dark:text-blue-300" />
               </div>
 

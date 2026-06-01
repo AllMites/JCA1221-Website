@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ProjectsProps, FilterStatus, ProjectStatus } from '@/../product/sections/projects-and-track-record/types'
+import type { ProjectsProps, FilterStatus } from '@/../product/sections/projects-and-track-record/types'
 import { PortfolioSummaryBar } from './PortfolioSummaryBar'
 import { ProjectCardItem } from './ProjectCard'
 import { ShaderBackground } from '@/components/ShaderBackground'

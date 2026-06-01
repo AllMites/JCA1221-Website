@@ -55,7 +55,7 @@ function AnimatedCounter({ number: target, suffix, label, description }: ImpactS
 
   return (
     <div ref={ref} className="text-center group">
-      <div className="mb-2 font-bold font-heading text-4xl sm:text-5xl md:text-6xl text-white tracking-tight tabular-nums">
+      <div className="mb-2 font-bold font-heading text-4xl sm:text-5xl md:text-6xl text-white tracking-tight tabular-nums" role="status" aria-live="polite">
         {count.toLocaleString()}
         <span className="text-2xl sm:text-3xl text-blue-400 ml-1">{suffix}</span>
       </div>
@@ -67,7 +67,7 @@ function AnimatedCounter({ number: target, suffix, label, description }: ImpactS
 
 export function ImpactStats({ stats }: ImpactStatsProps) {
   return (
-    <section className="relative py-20 sm:py-28 overflow-hidden bg-slate-900">
+    <section className="relative py-20 sm:py-28 overflow-hidden bg-slate-900" aria-label="Impact statistics">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950" />
       <ShaderBackground variant="slate" opacity={0.5} />

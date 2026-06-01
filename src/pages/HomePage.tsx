@@ -4,6 +4,7 @@ import { AppShell } from '@/shell/components/AppShell'
 import { HomeView } from '@/sections/home/components/HomeView'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { NAV_ITEMS } from '@/lib/navigation'
+import type { ProjectCard, Expansion } from '@/../product/sections/home/types'
 import data from '@/../product/sections/home/data.json'
 
 export function HomePage() {
@@ -28,10 +29,10 @@ export function HomePage() {
       <ErrorBoundary>
         <HomeView
         hero={data.hero}
-        projectCards={data.projectCards}
+        projectCards={data.projectCards as ProjectCard[]}
         missionValues={data.missionValues}
         impactStats={data.impactStats}
-        expansion={data.expansion}
+        expansion={data.expansion as Expansion}
         onCtaClick={() => {
           const el = document.getElementById('projects')
           if (el) el.scrollIntoView({ behavior: 'smooth' })

@@ -26,6 +26,14 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
     <div className="font-body">
       {/* Hero section — full-bleed image with dark overlay */}
       <section className="relative h-[60vh] min-h-[400px] max-h-[600px] overflow-hidden bg-slate-900">
+        {/* Hero image — high priority since above the fold */}
+        <img
+          src={project.heroImage}
+          alt={project.name}
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         {/* Gradient image placeholder */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-950 to-slate-900" />
         <ShaderBackground variant="dark" opacity={0.4} />

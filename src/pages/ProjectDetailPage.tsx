@@ -5,6 +5,7 @@ import { ProjectDetail } from '@/sections/projects-and-track-record/components/P
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { NAV_ITEMS } from '@/lib/navigation'
+import type { ProjectDetail as ProjectDetailType } from '@/../product/sections/projects-and-track-record/types'
 import data from '@/../product/sections/projects-and-track-record/data.json'
 
 export function ProjectDetailPage() {
@@ -63,7 +64,7 @@ export function ProjectDetailPage() {
             { label: project.name },
           ]}
         />
-        <ProjectDetail project={project} onBack={() => navigate('/projects')} />
+        <ProjectDetail project={project as ProjectDetailType} onBack={() => navigate('/projects')} />
       </ErrorBoundary>
     </AppShell>
   )

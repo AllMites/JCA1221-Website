@@ -345,10 +345,19 @@ function AutoScrollCarousel({
 }) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const animRef = useRef<number>(0)
+  const isPaused = useRef(false)
   const speedPxPerS = 40 // scroll speed
 
   // Clone metrics 3× for seamless wraparound
   const tripled = [...metrics, ...metrics, ...metrics]
+
+  // Respect reduced-motion preference
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (mq.matches) {
+      isPaused.current = true
+    }
+  }, [])
 
   useEffect(() => {
     const el = scrollRef.current
@@ -364,11 +373,13 @@ function AutoScrollCarousel({
       const dt = (now - lastTime) / 1000
       lastTime = now
 
-      el.scrollLeft += speedPxPerS * dt
+      if (!isPaused.current) {
+        el.scrollLeft += speedPxPerS * dt
 
-      // When we scroll past the second full set, reset to the first clone position
-      if (el.scrollLeft >= singleWidth * 2) {
-        el.scrollLeft -= singleWidth
+        // When we scroll past the second full set, reset to the first clone position
+        if (el.scrollLeft >= singleWidth * 2) {
+          el.scrollLeft -= singleWidth
+        }
       }
 
       animRef.current = requestAnimationFrame(animate)
@@ -381,7 +392,11 @@ function AutoScrollCarousel({
   return (
     <div
       ref={scrollRef}
-      className="flex gap-5 overflow-x-hidden pb-4"
+      className="flex gap-5 overflow-x-hidden pb-4 motion-safe-auto-scroll"
+      onMouseEnter={() => { isPaused.current = true }}
+      onMouseLeave={() => { isPaused.current = false }}
+      onFocus={() => { isPaused.current = true }}
+      onBlur={() => { isPaused.current = false }}
     >
       {tripled.map((metric, i) => {
         const color = colors[metric.id] || '#3b82f6'
@@ -402,7 +417,7 @@ export function LiveDashboardSection({ liveMetrics }: LiveDashboardSectionProps)
   }
 
   return (
-    <section className="relative py-20 sm:py-28 overflow-hidden">
+    <section className="relative py-20 sm:py-28 overflow-hidden" aria-label="Live impact metrics dashboard">
       {/* Solid deep background */}
       <div className="absolute inset-0 bg-slate-950" />
 
@@ -430,7 +445,7 @@ export function LiveDashboardSection({ liveMetrics }: LiveDashboardSectionProps)
         </div>
 
         {/* Auto-scrolling carousel */}
-        <div className="relative">
+        <div className="relative" aria-live="polite">
           {/* Gradient fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-r from-transparent to-slate-950 z-10 pointer-events-none" />

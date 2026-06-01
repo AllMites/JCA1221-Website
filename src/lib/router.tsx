@@ -1,102 +1,138 @@
+import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import {
-  HomePage,
-  AboutPage,
-  ProjectsPage,
-  ProjectDetailPage,
-  TechnologyPage,
-  ContactPage,
-  NotFoundPage,
-} from '@/pages'
+import { PageTransitionOutlet } from '@/components/PageTransition'
+import { PageSkeleton, HeroPageSkeleton, DetailPageSkeleton } from '@/components/PageSkeleton'
 
-// Design OS pages — kept under /design prefix for continued design work
-import { ProductPage } from '@/components/ProductPage'
-import { DataShapePage } from '@/components/DataShapePage'
-import { DesignPage } from '@/components/DesignPage'
-import { SectionsPage } from '@/components/SectionsPage'
-import { SectionPage } from '@/components/SectionPage'
-import {
-  ScreenDesignPage,
-  ScreenDesignFullscreen,
-} from '@/components/ScreenDesignPage'
-import {
-  ShellDesignPage,
-  ShellDesignFullscreen,
-} from '@/components/ShellDesignPage'
-import { ExportPage } from '@/components/ExportPage'
+// ─── Lazy-loaded pages (code-split per route) ──────────────────────────────
+
+const HomePage = lazy(() =>
+  import('@/pages/HomePage').then((m) => ({ default: m.HomePage })),
+)
+const AboutPage = lazy(() =>
+  import('@/pages/AboutPage').then((m) => ({ default: m.AboutPage })),
+)
+const ProjectsPage = lazy(() =>
+  import('@/pages/ProjectsPage').then((m) => ({ default: m.ProjectsPage })),
+)
+const ProjectDetailPage = lazy(() =>
+  import('@/pages/ProjectDetailPage').then((m) => ({ default: m.ProjectDetailPage })),
+)
+const TechnologyPage = lazy(() =>
+  import('@/pages/TechnologyPage').then((m) => ({ default: m.TechnologyPage })),
+)
+const ContactPage = lazy(() =>
+  import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage })),
+)
+const PrivacyPage = lazy(() =>
+  import('@/pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })),
+)
+const TermsPage = lazy(() =>
+  import('@/pages/TermsPage').then((m) => ({ default: m.TermsPage })),
+)
+const NotFoundPage = lazy(() =>
+  import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
+)
+
+// Design OS pages
+const ProductPage = lazy(() =>
+  import('@/components/ProductPage').then((m) => ({ default: m.ProductPage })),
+)
+const DataShapePage = lazy(() =>
+  import('@/components/DataShapePage').then((m) => ({ default: m.DataShapePage })),
+)
+const DesignPage = lazy(() =>
+  import('@/components/DesignPage').then((m) => ({ default: m.DesignPage })),
+)
+const SectionsPage = lazy(() =>
+  import('@/components/SectionsPage').then((m) => ({ default: m.SectionsPage })),
+)
+const SectionPage = lazy(() =>
+  import('@/components/SectionPage').then((m) => ({ default: m.SectionPage })),
+)
+const ScreenDesignPage = lazy(() =>
+  import('@/components/ScreenDesignPage').then((m) => ({
+    default: m.ScreenDesignPage,
+  })),
+)
+const ScreenDesignFullscreen = lazy(() =>
+  import('@/components/ScreenDesignPage').then((m) => ({
+    default: m.ScreenDesignFullscreen,
+  })),
+)
+const ShellDesignPage = lazy(() =>
+  import('@/components/ShellDesignPage').then((m) => ({ default: m.ShellDesignPage })),
+)
+const ShellDesignFullscreen = lazy(() =>
+  import('@/components/ShellDesignPage').then((m) => ({
+    default: m.ShellDesignFullscreen,
+  })),
+)
+const ExportPage = lazy(() =>
+  import('@/components/ExportPage').then((m) => ({ default: m.ExportPage })),
+)
+
+// ─── Skeleton map (per path pattern) ───────────────────────────────────────
+
+function getSkeleton(pathname: string) {
+  if (pathname === '/') return <HeroPageSkeleton />
+  if (pathname.startsWith('/projects/') && pathname.split('/').length === 3)
+    return <DetailPageSkeleton />
+  return <PageSkeleton />
+}
+
+// ─── Suspense wrapper that picks right skeleton ─────────────────────────────
+
+function Suspended({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={getSkeleton(window.location.pathname)}>
+      {children}
+    </Suspense>
+  )
+}
+
+// ─── Router ────────────────────────────────────────────────────────────────
 
 export const router = createBrowserRouter([
-  // ═══ JCA 1221 Website Routes ═══
   {
-    path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/about',
-    element: <AboutPage />,
-  },
-  {
-    path: '/projects',
-    element: <ProjectsPage />,
-  },
-  {
-    path: '/projects/:projectId',
-    element: <ProjectDetailPage />,
-  },
-  {
-    path: '/technology',
-    element: <TechnologyPage />,
-  },
-  {
-    path: '/contact',
-    element: <ContactPage />,
-  },
+    element: (
+      <Suspended>
+        <PageTransitionOutlet />
+      </Suspended>
+    ),
+    children: [
+      // ═══ JCA 1221 Website Routes ═══
+      { path: '/', element: <HomePage /> },
+      { path: '/about', element: <AboutPage /> },
+      { path: '/projects', element: <ProjectsPage /> },
+      { path: '/projects/:projectId', element: <ProjectDetailPage /> },
+      { path: '/technology', element: <TechnologyPage /> },
+      { path: '/contact', element: <ContactPage /> },
+      { path: '/privacy', element: <PrivacyPage /> },
+      { path: '/terms', element: <TermsPage /> },
 
-  // ═══ Design OS Routes (for continued design work) ═══
-  {
-    path: '/design',
-    element: <ProductPage />,
-  },
-  {
-    path: '/design/data-shape',
-    element: <DataShapePage />,
-  },
-  {
-    path: '/design/design',
-    element: <DesignPage />,
-  },
-  {
-    path: '/design/sections',
-    element: <SectionsPage />,
-  },
-  {
-    path: '/design/sections/:sectionId',
-    element: <SectionPage />,
-  },
-  {
-    path: '/design/sections/:sectionId/screen-designs/:screenDesignName',
-    element: <ScreenDesignPage />,
-  },
-  {
-    path: '/design/sections/:sectionId/screen-designs/:screenDesignName/fullscreen',
-    element: <ScreenDesignFullscreen />,
-  },
-  {
-    path: '/design/shell/design',
-    element: <ShellDesignPage />,
-  },
-  {
-    path: '/design/shell/design/fullscreen',
-    element: <ShellDesignFullscreen />,
-  },
-  {
-    path: '/design/export',
-    element: <ExportPage />,
-  },
+      // ═══ Design OS Routes (for continued design work) ═══
+      { path: '/design', element: <ProductPage /> },
+      { path: '/design/data-shape', element: <DataShapePage /> },
+      { path: '/design/design', element: <DesignPage /> },
+      { path: '/design/sections', element: <SectionsPage /> },
+      { path: '/design/sections/:sectionId', element: <SectionPage /> },
+      {
+        path: '/design/sections/:sectionId/screen-designs/:screenDesignName',
+        element: <ScreenDesignPage />,
+      },
+      {
+        path: '/design/sections/:sectionId/screen-designs/:screenDesignName/fullscreen',
+        element: <ScreenDesignFullscreen />,
+      },
+      { path: '/design/shell/design', element: <ShellDesignPage /> },
+      {
+        path: '/design/shell/design/fullscreen',
+        element: <ShellDesignFullscreen />,
+      },
+      { path: '/design/export', element: <ExportPage /> },
 
-  // ═══ 404 ═══
-  {
-    path: '*',
-    element: <NotFoundPage />,
+      // ═══ 404 ═══
+      { path: '*', element: <NotFoundPage /> },
+    ],
   },
 ])

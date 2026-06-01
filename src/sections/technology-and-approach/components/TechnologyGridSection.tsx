@@ -43,7 +43,7 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
       <div className="absolute top-1/2 right-1/4 w-64 h-64 rounded-full bg-blue-600/5 blur-[80px]" />
 
       {/* Noise dither */}
-      <ShaderBackground variant="slate" opacity={0.4} />
+      <ShaderBackground variant="dots" opacity={0.5} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}

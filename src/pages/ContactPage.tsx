@@ -4,6 +4,7 @@ import { AppShell } from '@/shell/components/AppShell'
 import { ContactView } from '@/sections/contact-and-partnerships/components/ContactView'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { NAV_ITEMS } from '@/lib/navigation'
+import type { FormConfig } from '@/../product/sections/contact-and-partnerships/types'
 import data from '@/../product/sections/contact-and-partnerships/data.json'
 
 export function ContactPage() {
@@ -29,7 +30,7 @@ export function ContactPage() {
         <ContactView
         sectionTitle={data.sectionTitle}
         sectionSubtitle={data.sectionSubtitle}
-        formConfig={data.formConfig}
+        formConfig={data.formConfig as FormConfig}
         inquiryTypes={data.inquiryTypes}
         timelineOptions={data.timelineOptions}
         teamContacts={data.teamContacts}
@@ -37,13 +38,19 @@ export function ContactPage() {
         partnerLogos={data.partnerLogos}
         downloadableResource={data.downloadableResource}
         schedulingInfo={data.schedulingInfo}
-        onSubmitBasic={(formData) => console.log('Basic submission:', formData)}
-        onSubmitDetailed={(formData) =>
-          console.log('Detailed submission:', formData)
-        }
-        onDownloadPDF={() => console.log('Download capability statement')}
+        onSubmitBasic={(formData) => {
+          // Form data handled by backend/webhook when configured
+          void formData
+        }}
+        onSubmitDetailed={(formData) => {
+          // Form data handled by backend/webhook when configured
+          void formData
+        }}
+        onDownloadPDF={() => {
+          // Download triggered by anchor href
+        }}
         onScheduleCall={() =>
-          window.open('https://calendly.com/jca1221', '_blank')
+          window.open(data.schedulingInfo.calendarUrl, '_blank')
         }
         />
       </ErrorBoundary>

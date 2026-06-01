@@ -1,3 +1,4 @@
+import type { ProjectDetail as ProjectDetailType } from '@/../product/sections/projects-and-track-record/types'
 import data from '@/../product/sections/projects-and-track-record/data.json'
 import { ProjectDetail } from './components/ProjectDetail'
 
@@ -7,8 +8,8 @@ export default function ProjectDetailPreview() {
 
   return (
     <ProjectDetail
-      project={project}
-      onBack={() => console.log('Back to project list')}
+      project={project as ProjectDetailType}
+      onBack={() => void 0}
     />
   )
 }

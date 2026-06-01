@@ -1,3 +1,4 @@
+import type { LiveMetrics } from '@/../product/sections/technology-and-approach/types'
 import data from '@/../product/sections/technology-and-approach/data.json'
 import { TechnologyView } from './components/TechnologyView'
 
@@ -9,7 +10,7 @@ export default function TechnologyPreview() {
       processSteps={data.processSteps}
       comparison={data.comparison}
       technologyPillars={data.technologyPillars}
-      liveMetrics={data.liveMetrics}
+      liveMetrics={data.liveMetrics as LiveMetrics}
     />
   )
 }

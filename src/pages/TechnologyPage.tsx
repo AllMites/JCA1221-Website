@@ -4,6 +4,7 @@ import { AppShell } from '@/shell/components/AppShell'
 import { TechnologyView } from '@/sections/technology-and-approach/components/TechnologyView'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { NAV_ITEMS } from '@/lib/navigation'
+import type { LiveMetrics } from '@/../product/sections/technology-and-approach/types'
 import data from '@/../product/sections/technology-and-approach/data.json'
 
 export function TechnologyPage() {
@@ -32,7 +33,7 @@ export function TechnologyPage() {
         processSteps={data.processSteps}
         comparison={data.comparison}
         technologyPillars={data.technologyPillars}
-        liveMetrics={data.liveMetrics}
+        liveMetrics={data.liveMetrics as LiveMetrics}
         />
       </ErrorBoundary>
     </AppShell>

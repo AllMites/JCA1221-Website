@@ -1,6 +1,7 @@
 import { MainNav, type NavigationItem } from './MainNav'
 import { UserMenu } from './UserMenu'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { CookieConsent } from '@/components/CookieConsent'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -13,8 +14,6 @@ interface AppShellProps {
   /** CTA button config */
   ctaLabel?: string
   ctaHref?: string
-  /** Make header transparent/overlaid (for full-screen hero pages) */
-  transparent?: boolean
   /** Callbacks */
   onNavigate?: (href: string) => void
   onCtaClick?: () => void
@@ -27,10 +26,10 @@ export function AppShell({
   sidebarAnchors,
   ctaLabel,
   ctaHref,
-  transparent = false,
   onNavigate,
   onCtaClick,
 }: AppShellProps) {
+
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
       {/* Skip-to-content — accessibility */}
@@ -38,15 +37,14 @@ export function AppShell({
         Skip to content
       </a>
 
-      {/* Top navigation bar — glass panel (or transparent overlay on hero pages) */}
+      {/* Top navigation bar — glass panel */}
       <header
-        className={`top-0 z-50 border-b transition-all duration-500 ${
-          transparent
-            ? 'absolute bg-transparent backdrop-blur-none border-transparent'
-            : 'sticky bg-card/60 backdrop-blur-xl border-border/10 shadow-[0_4px_24px_rgba(59,130,246,0.06)] dark:shadow-[0_4px_24px_rgba(59,130,246,0.04)]'
-        }`}
+        className="sticky top-0 z-50 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border-b border-white/20 dark:border-white/10 shadow-[3px_3px_8px_rgba(0,0,0,0.06),-2px_-2px_6px_rgba(255,255,255,0.9)] dark:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-2px_-2px_6px_rgba(255,255,255,0.03)]"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+          style={{ pointerEvents: 'auto' }}
+        >
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <a
@@ -55,7 +53,7 @@ export function AppShell({
                 e.preventDefault()
                 onNavigate?.('/')
               }}
-              className={`text-lg font-bold font-heading tracking-tight shrink-0 transition-colors duration-500 ${transparent ? 'text-white' : 'text-foreground'}`}
+              className="text-lg font-bold font-heading tracking-tight shrink-0 text-foreground"
             >
               {siteName}
             </a>
@@ -63,7 +61,7 @@ export function AppShell({
             {/* Navigation + CTA + Theme */}
             <div className="flex items-center gap-3">
               <MainNav items={navigationItems} onNavigate={onNavigate} />
-              <ThemeToggle className={transparent ? 'text-white hover:text-blue-200' : 'text-slate-500 dark:text-slate-400'} />
+              <ThemeToggle className="text-slate-500 dark:text-slate-400" />
               <div className="hidden md:block">
                 <UserMenu
                   ctaLabel={ctaLabel}
@@ -117,21 +115,47 @@ export function AppShell({
         )}
       </div>
 
-      {/* Footer — subtle glass bar (hidden on transparent/hero pages) */}
-      {!transparent && (
-        <footer className="border-t border-border/10 mt-16 bg-card/40 backdrop-blur-md">
+      {/* Footer — subtle glass bar */}
+      <footer className="border-t border-border/10 mt-16 bg-card/40 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-            <span className="font-heading font-medium text-foreground/80">
-              {siteName}
-            </span>
-            <span>
-              Makati, Metro Manila, Philippines
-            </span>
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+              <span className="font-heading font-medium text-foreground/80">
+                {siteName}
+              </span>
+              <span className="hidden sm:inline text-slate-300 dark:text-slate-600">|</span>
+              <span className="text-xs">
+                Makati, Metro Manila, Philippines
+              </span>
+            </div>
+            <div className="flex items-center gap-4 text-xs">
+              <a
+                href="/privacy"
+                onClick={(e) => {
+                  e.preventDefault()
+                  onNavigate?.('/privacy')
+                }}
+                className="hover:text-foreground transition-colors"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="/terms"
+                onClick={(e) => {
+                  e.preventDefault()
+                  onNavigate?.('/terms')
+                }}
+                className="hover:text-foreground transition-colors"
+              >
+                Terms of Service
+              </a>
+            </div>
           </div>
         </div>
       </footer>
-      )}
+
+      {/* Cookie consent — fixed position, site-wide */}
+      <CookieConsent />
     </div>
   )
 }

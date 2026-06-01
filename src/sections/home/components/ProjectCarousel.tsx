@@ -28,6 +28,14 @@ function ProjectCardItem({ project, onClick }: { project: ProjectCardType; onCli
     >
       {/* Image area */}
       <div className="relative h-52 bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-950 dark:to-slate-800 overflow-hidden">
+        {/* Lazy-loaded project photo — gradient serves as background fill while loading */}
+        <img
+          src={project.image}
+          alt={project.name}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         {/* Gradient fallback image */}
         <div className="absolute inset-0 opacity-30 dark:opacity-50 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-blue-600 to-blue-900 group-hover/card:opacity-50 dark:group-hover/card:opacity-70 transition-opacity duration-500" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent dark:from-slate-900/90 dark:via-slate-900/40" />

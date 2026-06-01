@@ -1,4 +1,4 @@
-import { Construction, ArrowUpRight, MapPin } from 'lucide-react'
+import { Construction, MapPin } from 'lucide-react'
 import type { Expansion, ExpansionInitiative } from '@/../product/sections/home/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
 
@@ -17,6 +17,13 @@ function InitiativeCard({ initiative }: { initiative: ExpansionInitiative }) {
     <div className="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden hover:shadow-xl transition-all duration-500">
       {/* Image area */}
       <div className="h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden">
+        <img
+          src={initiative.image}
+          alt={initiative.title}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 to-amber-500/10 dark:from-blue-500/10 dark:to-amber-500/5" />
       </div>
 

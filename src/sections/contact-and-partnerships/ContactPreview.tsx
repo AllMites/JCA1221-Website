@@ -1,3 +1,4 @@
+import type { FormConfig } from '@/../product/sections/contact-and-partnerships/types'
 import data from '@/../product/sections/contact-and-partnerships/data.json'
 import { ContactView } from './components/ContactView'
 
@@ -6,7 +7,7 @@ export default function ContactPreview() {
     <ContactView
       sectionTitle={data.sectionTitle}
       sectionSubtitle={data.sectionSubtitle}
-      formConfig={data.formConfig}
+      formConfig={data.formConfig as FormConfig}
       inquiryTypes={data.inquiryTypes}
       timelineOptions={data.timelineOptions}
       teamContacts={data.teamContacts}
@@ -14,10 +15,10 @@ export default function ContactPreview() {
       partnerLogos={data.partnerLogos}
       downloadableResource={data.downloadableResource}
       schedulingInfo={data.schedulingInfo}
-      onSubmitBasic={(formData) => console.log('Basic submission:', formData)}
-      onSubmitDetailed={(formData) => console.log('Detailed submission:', formData)}
-      onDownloadPDF={() => console.log('Download capability statement')}
-      onScheduleCall={() => console.log('Schedule a call')}
+      onSubmitBasic={(formData) => void formData}
+      onSubmitDetailed={(formData) => void formData}
+      onDownloadPDF={() => void 0}
+      onScheduleCall={() => void 0}
     />
   )
 }
