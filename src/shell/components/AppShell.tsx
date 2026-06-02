@@ -2,6 +2,7 @@ import { MainNav, type NavigationItem } from './MainNav'
 import { UserMenu } from './UserMenu'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { CookieConsent } from '@/components/CookieConsent'
+import { GlassScrollbar } from '@/components/GlassScrollbar'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -31,6 +32,7 @@ export function AppShell({
 }: AppShellProps) {
 
   return (
+    <GlassScrollbar variant="page">
     <div className="min-h-screen bg-background text-foreground font-body">
       {/* Skip-to-content — accessibility */}
       <a href="#main-content" className="skip-to-content">
@@ -156,6 +158,7 @@ export function AppShell({
 
       {/* Cookie consent — fixed position, site-wide */}
       <CookieConsent />
+      </GlassScrollbar>
     </div>
   )
 }
