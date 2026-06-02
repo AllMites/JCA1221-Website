@@ -1,23 +1,30 @@
-import { MapPin, ArrowRight, ArrowUpRight } from 'lucide-react'
-import { useRef } from 'react'
+import { MapPin, ArrowRight, ArrowUpRight, CheckCircle2, Wrench, ClipboardCheck } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import type { ProjectCard as ProjectCardType } from '@/../product/sections/home/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { GlassScrollbar } from '@/components/GlassScrollbar'
 
 interface ProjectCarouselProps {
   projects: ProjectCardType[]
   onProjectClick?: (projectId: string) => void
 }
 
-const STATUS_COLORS: Record<string, string> = {
-  operational: 'bg-emerald-500',
-  development: 'bg-amber-500',
-  planning: 'bg-blue-400',
-}
-
-const STATUS_LABELS: Record<string, string> = {
-  operational: 'Operational',
-  development: 'In Development',
-  planning: 'Planning',
+const STATUS_CAPSULE: Record<string, { label: string; icon: LucideIcon; className: string }> = {
+  operational: {
+    label: 'Operational',
+    icon: CheckCircle2,
+    className: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200/50 dark:border-emerald-800/30',
+  },
+  development: {
+    label: 'In Development',
+    icon: Wrench,
+    className: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200/50 dark:border-amber-800/30',
+  },
+  planning: {
+    label: 'Planning',
+    icon: ClipboardCheck,
+    className: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border-blue-200/50 dark:border-blue-800/30',
+  },
 }
 
 function ProjectCardItem({ project, onClick }: { project: ProjectCardType; onClick?: () => void }) {
@@ -40,10 +47,18 @@ function ProjectCardItem({ project, onClick }: { project: ProjectCardType; onCli
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-950/30 to-slate-950/30 group-hover/card:opacity-60 dark:group-hover/card:opacity-70 transition-opacity duration-500" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent dark:from-slate-900/90 dark:via-slate-900/40" />
 
-        {/* Status badge */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm text-slate-700 dark:text-slate-300 shadow-sm">
-          <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[project.status] ?? 'bg-slate-400'}`} />
-          {STATUS_LABELS[project.status] ?? project.status}
+        {/* Status capsule — full colored pill matching news style */}
+        <div className="absolute top-3 left-3">
+          {(() => {
+            const c = STATUS_CAPSULE[project.status]
+            const Icon = c.icon
+            return (
+              <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium font-heading rounded-full border backdrop-blur-sm ${c.className}`}>
+                <Icon size={12} />
+                {c.label}
+              </span>
+            )
+          })()}
         </div>
 
         {/* Hover overlay — award + stats */}
@@ -87,14 +102,8 @@ function ProjectCardItem({ project, onClick }: { project: ProjectCardType; onCli
 }
 
 export function ProjectCarousel({ projects, onProjectClick }: ProjectCarouselProps) {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  const handleMouseEnter = () => {
-    // Pause auto-scroll intention — handled by CSS
-  }
-
   return (
-    <section className="relative py-20 overflow-hidden bg-slate-900 dark:bg-black">
+    <section id="projects" className="relative py-20 overflow-hidden bg-slate-900 dark:bg-black">
       {/* Section background texture */}
       <ShaderBackground variant="ripples" opacity={0.6} />
 
@@ -113,11 +122,9 @@ export function ProjectCarousel({ projects, onProjectClick }: ProjectCarouselPro
       </div>
 
       {/* Horizontal scroll container */}
-      <div className="relative z-10">
+      <GlassScrollbar variant="section" className="relative z-10">
         <div
-          ref={scrollRef}
-          onMouseEnter={handleMouseEnter}
-          className="flex gap-5 px-4 sm:px-6 lg:px-8 pb-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+          className="flex gap-5 px-4 sm:px-6 lg:px-8 pb-4 snap-x snap-mandatory"
           style={{ scrollPaddingInline: 'calc((100vw - 1280px) / 2 + 2rem)', paddingLeft: 'max(1rem, calc((100vw - 1280px) / 2 + 2rem))', paddingRight: 'max(1rem, calc((100vw - 1280px) / 2 + 2rem))' }}
         >
           {projects.map((project) => (
@@ -139,12 +146,7 @@ export function ProjectCarousel({ projects, onProjectClick }: ProjectCarouselPro
             </div>
           </div>
         </div>
-      </div>
-
-      <style>{`
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
+      </GlassScrollbar>
     </section>
   )
 }
