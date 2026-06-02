@@ -21,10 +21,11 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
   const [thumbTop, setThumbTop] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
-  const [isIdle, setIsIdle] = useState(false)
-  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const rafRef = useRef<number | null>(null)
-  const dragStartRef = useRef<{ thumbStart: number; mouseStart: number } | null>(null)
+  const metricsRef = useRef({ maxScroll: 0, trackTravel: 0 })
+
+  /** Absolute drag origin — NOT updated mid-drag */
+  const dragOriginRef = useRef<{ scrollY: number; mouseY: number } | null>(null)
 
   const isPage = variant === 'page'
 
@@ -35,16 +36,16 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
       const maxScroll = scrollHeight - clientHeight
       const height = maxScroll > 0 ? (clientHeight / scrollHeight) * clientHeight : 0
       const top = maxScroll > 0 ? (scrollTop / maxScroll) * (clientHeight - height) : 0
-      return { height: Math.max(height, 40), top, maxScroll, scrollTop }
+      return { height: Math.max(height, 40), top, maxScroll, scrollTop, clientHeight }
     }
 
     const el = scrollContainerRef.current
-    if (!el) return { height: 0, top: 0, maxScroll: 0, scrollTop: 0 }
+    if (!el) return { height: 0, top: 0, maxScroll: 0, scrollTop: 0, clientHeight: 0 }
     const { scrollHeight, clientHeight, scrollTop } = el
     const maxScroll = scrollHeight - clientHeight
     const height = maxScroll > 0 ? (clientHeight / scrollHeight) * clientHeight : 0
     const top = maxScroll > 0 ? (scrollTop / maxScroll) * (clientHeight - height) : 0
-    return { height: Math.max(height, 40), top, maxScroll, scrollTop }
+    return { height: Math.max(height, 40), top, maxScroll, scrollTop, clientHeight }
   }, [isPage])
 
   // ─── Sync thumb position ────────────────────────────────────
@@ -52,6 +53,10 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
     const m = getMetrics()
     setThumbHeight(m.height)
     setThumbTop(m.top)
+    metricsRef.current = {
+      maxScroll: m.maxScroll,
+      trackTravel: m.clientHeight - m.height,
+    }
     if (m.maxScroll <= 0) {
       setIsVisible(false)
     }
@@ -69,23 +74,13 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
   // ─── Hover visibility ───────────────────────────────────────
   const handleMouseEnter = useCallback(() => {
     setIsVisible(true)
-    setIsIdle(false)
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
   }, [])
 
   const handleMouseLeave = useCallback(() => {
     if (!isDragging) {
       setIsVisible(false)
     }
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
   }, [isDragging])
-
-  // ─── Idle timer (dim thumb after 2s no scroll) ──────────────
-  const bumpIdle = useCallback(() => {
-    setIsIdle(false)
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
-    idleTimerRef.current = setTimeout(() => setIsIdle(true), 2000)
-  }, [])
 
   // ─── Drag handlers ──────────────────────────────────────────
   const handleThumbMouseDown = useCallback(
@@ -93,12 +88,14 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
       e.preventDefault()
       e.stopPropagation()
       setIsDragging(true)
-      dragStartRef.current = {
-        thumbStart: thumbTop,
-        mouseStart: e.clientY,
-      }
+
+      // Capture the scroll position at drag start (absolute origin)
+      const scrollY = isPage
+        ? document.documentElement.scrollTop
+        : scrollContainerRef.current?.scrollTop ?? 0
+      dragOriginRef.current = { scrollY, mouseY: e.clientY }
     },
-    [thumbTop],
+    [isPage],
   )
 
   const handleTrackClick = useCallback(
@@ -124,30 +121,34 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
     [isPage, syncThumb],
   )
 
-  // ─── Global mouse move/up for drag ──────────────────────────
+  // ─── Global mouse move/up for drag (absolute from origin) ───
   useEffect(() => {
-    if (!isDragging) return
+    if (!isDragging || !dragOriginRef.current) return
+
+    const origin = dragOriginRef.current
 
     const onMouseMove = (e: MouseEvent) => {
-      if (!dragStartRef.current || !trackRef.current) return
-      const trackRect = trackRef.current.getBoundingClientRect()
-      const deltaY = e.clientY - dragStartRef.current.mouseStart
-      const scrollDelta = deltaY * (isPage
-        ? (document.documentElement.scrollHeight - document.documentElement.clientHeight)
-        : ((scrollContainerRef.current?.scrollHeight ?? 0) - (scrollContainerRef.current?.clientHeight ?? 0))
-      ) / trackRect.height
+      if (!trackRef.current) return
+      const { maxScroll, trackTravel } = metricsRef.current
+      if (maxScroll <= 0 || trackTravel <= 0) return
+
+      const deltaY = e.clientY - origin.mouseY
+      const ratio = deltaY / trackTravel
+      const targetScroll = Math.round(origin.scrollY + ratio * maxScroll)
+
+      // Clamp to valid range
+      const clamped = Math.max(0, Math.min(targetScroll, maxScroll))
 
       if (isPage) {
-        document.documentElement.scrollTop += scrollDelta
+        document.documentElement.scrollTop = clamped
       } else if (scrollContainerRef.current) {
-        scrollContainerRef.current.scrollTop += scrollDelta
+        scrollContainerRef.current.scrollTop = clamped
       }
-      dragStartRef.current.mouseStart = e.clientY
     }
 
     const onMouseUp = () => {
       setIsDragging(false)
-      dragStartRef.current = null
+      dragOriginRef.current = null
     }
 
     document.addEventListener('mousemove', onMouseMove)
@@ -156,7 +157,7 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('mouseup', onMouseUp)
     }
-  }, [isDragging, isPage, thumbHeight])
+  }, [isDragging, isPage])
 
   // ─── Attach scroll listener + resize observer ───────────────
   useEffect(() => {
@@ -178,25 +179,23 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
     }
   }, [isPage, onScroll])
 
-  // ─── Cleanup idle / raf on unmount ──────────────────────────
+  // ─── Cleanup raf on unmount ──────────────────────────────
   useEffect(() => {
     return () => {
-      if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
   }, [])
-
-  // ─── Show on any scroll while hovered ───────────────────────
-  useEffect(() => {
-    if (!isVisible) return
-    bumpIdle()
-  }, [thumbTop, bumpIdle, isVisible])
 
   // ─── Render ─────────────────────────────────────────────────
 
   const trackClasses = isPage
     ? 'fixed right-[3px] top-[6px] bottom-[6px] z-[9999]'
     : 'absolute right-[2px] top-0 bottom-0'
+
+  // Solid thumb color (no liquidGL) — track keeps glass effect
+  const thumbBase = 'bg-slate-500/60 dark:bg-slate-400/50'
+  const thumbHover = 'hover:bg-slate-500/80 dark:hover:bg-slate-400/70'
+  const thumbActive = 'bg-slate-500/80 dark:bg-slate-400/70'
 
   if (isPage) {
     return (
@@ -206,24 +205,20 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
         className="relative"
       >
         {children}
-        {/* Glass track */}
+        {/* Glass track — keeps liquidGL effect */}
         <div
           ref={trackRef}
           onClick={handleTrackClick}
           className={`${trackClasses} w-[8px] rounded-full bg-white/10 dark:bg-white/[0.04] backdrop-blur-md border border-white/[0.06] dark:border-white/[0.03] ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`}
         >
-          {/* Glass thumb */}
+          {/* Solid thumb — no liquidGL */}
           <div
             ref={thumbRef}
             onMouseDown={handleThumbMouseDown}
             style={{ height: thumbHeight, top: thumbTop }}
-            className={`absolute left-0 right-0 rounded-full cursor-grab active:cursor-grabbing ${
-              isDragging
-                ? 'bg-gradient-to-b from-white/80 to-white/50 dark:from-white/50 dark:to-white/20'
-                : isIdle
-                  ? 'bg-gradient-to-b from-white/30 to-white/10 dark:from-white/15 dark:to-white/5'
-                  : 'bg-gradient-to-b from-white/50 to-white/20 dark:from-white/30 dark:to-white/10'
-            } shadow-[inset_1px_1px_2px_rgba(255,255,255,0.7),inset_-1px_-1px_2px_rgba(255,255,255,0.1)] dark:shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2),inset_-1px_-1px_2px_rgba(255,255,255,0.05)] transition-[background] duration-200`}
+            className={`absolute left-0 right-0 rounded-full cursor-grab active:cursor-grabbing ${thumbBase} ${thumbHover} ${
+              isDragging ? thumbActive : ''
+            } transition-[background] duration-200`}
             aria-hidden="true"
           />
         </div>
@@ -251,17 +246,14 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
         onClick={handleTrackClick}
         className={`${trackClasses} w-[6px] rounded-full bg-white/15 dark:bg-white/[0.05] backdrop-blur-sm border border-white/[0.08] dark:border-white/[0.03] ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`}
       >
+        {/* Solid thumb — no liquidGL */}
         <div
           ref={thumbRef}
           onMouseDown={handleThumbMouseDown}
           style={{ height: thumbHeight, top: thumbTop }}
-          className={`absolute left-0 right-0 rounded-full cursor-grab active:cursor-grabbing ${
-            isDragging
-              ? 'bg-gradient-to-b from-white/70 to-white/40 dark:from-white/50 dark:to-white/20'
-              : isIdle
-                ? 'bg-gradient-to-b from-white/30 to-white/10 dark:from-white/15 dark:to-white/5'
-                : 'bg-gradient-to-b from-white/50 to-white/20 dark:from-white/30 dark:to-white/10'
-          } shadow-[inset_1px_1px_2px_rgba(255,255,255,0.7),inset_-1px_-1px_2px_rgba(255,255,255,0.1)] dark:shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2),inset_-1px_-1px_2px_rgba(255,255,255,0.05)] transition-[background] duration-200`}
+          className={`absolute left-0 right-0 rounded-full cursor-grab active:cursor-grabbing ${thumbBase} ${thumbHover} ${
+            isDragging ? thumbActive : ''
+          } transition-[background] duration-200`}
           aria-hidden="true"
         />
       </div>

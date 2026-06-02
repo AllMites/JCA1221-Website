@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { HeroContent } from '@/../product/sections/home/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
 import { GlassPill } from '@/components/GlassPill'
-import { useLiquidGlass } from '@/components/LiquidGlass'
+
 
 const CYCLE_WORDS = ['Water', 'Land', 'Waste']
 const CYCLE_INTERVAL = 3500
@@ -26,9 +26,6 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
   const cycleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const [wordIndex, setWordIndex] = useState(0)
   const [cycling, setCycling] = useState(false)
-
-  const ctaBtnRef = useRef<HTMLButtonElement>(null)
-  useLiquidGlass(ctaBtnRef, { refraction: 0.02, bevelDepth: 0.08, bevelWidth: 0.15, specular: true, tilt: true, tiltFactor: 8 })
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (e.clientY <= 64) {
@@ -165,17 +162,14 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
         {/* CTA */}
         <div className="animate-fade-in-up" style={{ animationDelay: '600ms' }}>
           <button
-            ref={ctaBtnRef}
             onClick={onCtaClick}
             className="group inline-flex items-center gap-3 px-8 py-4 text-white font-semibold font-heading rounded-full border border-white/20 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)] active:scale-[0.98] transition-all duration-300"
           >
-            <span style={{ pointerEvents: 'auto' }}>
-              {hero.ctaLabel}
-              <ArrowDown
-                size={18}
-                className="inline ml-2 group-hover:translate-y-0.5 transition-transform duration-300"
-              />
-            </span>
+            {hero.ctaLabel}
+            <ArrowDown
+              size={18}
+              className="inline ml-2 group-hover:translate-y-0.5 transition-transform duration-300"
+            />
           </button>
         </div>
       </div>

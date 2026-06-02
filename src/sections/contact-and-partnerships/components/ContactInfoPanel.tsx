@@ -1,6 +1,4 @@
 import { MapPin, Phone, Mail, Clock, User, Building2, ArrowDown, Paperclip } from 'lucide-react'
-import { useRef } from 'react'
-import { useLiquidGlass } from '@/components/LiquidGlass'
 import { GlassPill } from '@/components/GlassPill'
 import type {
   OfficeInfo,
@@ -201,8 +199,6 @@ interface ScheduleCTAProps {
 }
 
 function ScheduleCTA({ scheduling, onSchedule }: ScheduleCTAProps) {
-  const btnRef = useRef<HTMLButtonElement>(null)
-  useLiquidGlass(btnRef, { refraction: 0.015, bevelDepth: 0.06, bevelWidth: 0.14, shadow: true, specular: true })
   return (
     <div className="p-5 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-500/10 dark:to-cyan-500/5 backdrop-blur-lg border border-blue-200 dark:border-blue-400/20 shadow-[0_4px_16px_rgba(0,0,0,0.04)] dark:shadow-none">
       <h5 className="text-sm font-heading font-semibold text-slate-900 dark:text-white mb-1.5">
@@ -212,11 +208,10 @@ function ScheduleCTA({ scheduling, onSchedule }: ScheduleCTAProps) {
         {scheduling.description}
       </p>
       <button
-        ref={btnRef}
         onClick={() => onSchedule?.()}
         className="w-full px-5 py-3 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300"
       >
-        <span style={{ pointerEvents: 'auto' }}>{scheduling.ctaText}</span>
+        {scheduling.ctaText}
       </button>
     </div>
   )
