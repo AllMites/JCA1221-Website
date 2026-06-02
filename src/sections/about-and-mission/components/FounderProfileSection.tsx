@@ -10,9 +10,6 @@ interface FounderProfileSectionProps {
 export function FounderProfileSection({ profile }: FounderProfileSectionProps) {
   return (
     <section className="relative py-20 sm:py-28 overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950">
-      {/* Top accent line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 dark:via-blue-600/20 to-transparent" />
-
       <ShaderBackground variant="light" opacity={0.5} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

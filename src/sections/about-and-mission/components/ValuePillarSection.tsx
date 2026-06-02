@@ -118,9 +118,6 @@ export function ValuePillarSection({ pillar, index }: ValuePillarSectionProps) {
           </div>
         </div>
       </div>
-
-      {/* Bottom decorative line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/30 dark:via-slate-700/20 to-transparent" />
     </section>
   )
 }

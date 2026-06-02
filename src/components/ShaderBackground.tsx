@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-export type ShaderVariant = 'slate' | 'blue' | 'emerald' | 'amber' | 'light' | 'dark' | 'dots'
+export type ShaderVariant = 'slate' | 'blue' | 'emerald' | 'amber' | 'light' | 'dark' | 'dots' | 'leaves' | 'ripples' | 'currents' | 'bubbles'
 
 export interface ShaderBackgroundProps {
   variant: ShaderVariant
@@ -292,6 +292,160 @@ function drawDots(ctx: CanvasRenderingContext2D, w: number, h: number, t: number
   applyGrain(ctx, w, h, 6, rng, rgb)
 }
 
+// ─── Leaves variant — voronoi + perlin, organic tissue / leaves ─────────────────
+
+function drawLeaves(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+  const seed = 42
+  const spacing = Math.max(60, Math.min(w, h) / 10)
+  const cols = Math.floor(w / spacing) - 1
+  const rows = Math.floor(h / spacing) - 1
+  if (cols < 1 || rows < 1) return
+
+  // Build drifted grid points
+  const pts: Array<{x: number; y: number}> = []
+  for (let gy = 0; gy <= rows + 1; gy++) {
+    for (let gx = 0; gx <= cols + 1; gx++) {
+      const bx = gx * spacing
+      const by = gy * spacing
+      const dx = Math.sin(t * 0.22 + gy * 0.5 + gx * 0.3) * spacing * 0.12
+      const dy = Math.cos(t * 0.18 + gx * 0.6 + gy * 0.4) * spacing * 0.12
+      pts.push({ x: bx + dx, y: by + dy })
+    }
+  }
+
+  const rowLen = cols + 2
+
+  for (let gy = 0; gy < rows; gy++) {
+    for (let gx = 0; gx < cols; gx++) {
+      const idx = gy * rowLen + gx
+      const p00 = pts[idx]; const p10 = pts[idx + 1]
+      const p01 = pts[idx + rowLen]; const p11 = pts[idx + rowLen + 1]
+
+      // Triangle 1: p00 -> p10 -> p01
+      const cx1 = (p00.x + p10.x + p01.x) / 3
+      const cy1 = (p00.y + p10.y + p01.y) / 3
+      const n1 = spatialNoise(Math.floor(cx1 * 0.005 + t * 0.006), Math.floor(cy1 * 0.005 + t * 0.004), seed)
+      const a1 = 0.02 + n1 * 0.14
+
+      ctx.beginPath()
+      ctx.moveTo(p00.x, p00.y); ctx.lineTo(p10.x, p10.y); ctx.lineTo(p01.x, p01.y); ctx.closePath()
+      ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${a1.toFixed(3)})`
+      ctx.fill()
+      ctx.strokeStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.03)`
+      ctx.lineWidth = 0.5
+      ctx.stroke()
+
+      // Triangle 2: p10 -> p11 -> p01
+      const cx2 = (p10.x + p11.x + p01.x) / 3
+      const cy2 = (p10.y + p11.y + p01.y) / 3
+      const n2 = spatialNoise(Math.floor(cx2 * 0.005 + t * 0.006), Math.floor(cy2 * 0.005 + t * 0.004), seed + 1)
+      const a2 = 0.02 + n2 * 0.14
+
+      ctx.beginPath()
+      ctx.moveTo(p10.x, p10.y); ctx.lineTo(p11.x, p11.y); ctx.lineTo(p01.x, p01.y); ctx.closePath()
+      ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${a2.toFixed(3)})`
+      ctx.fill()
+      ctx.strokeStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.025)`
+      ctx.lineWidth = 0.5
+      ctx.stroke()
+    }
+  }
+}
+
+// ─── Ripples variant — expanding concentric arcs ────────────────────────────────
+
+function drawRipples(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+  const count = 4
+  const cycle = 4 // seconds per full ripple cycle
+  const maxRadius = Math.max(w, h) * 0.4
+
+  for (let i = 0; i < count; i++) {
+    const cx = spatialNoise(i * 3, 0, 100) * w
+    const cy = spatialNoise(i * 3 + 1, 0, 200) * h
+    const phase = spatialNoise(i * 3 + 2, 0, 300) * cycle
+
+    const elapsed = ((t + cycle - phase) % cycle) / cycle // 0->1 over cycle
+    if (elapsed > 0.85) continue // fade out last 15%
+
+    const radius = elapsed * maxRadius
+    const opacity = (1 - elapsed) * 0.6
+
+    ctx.beginPath()
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2)
+    ctx.strokeStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${opacity.toFixed(3)})`
+    ctx.lineWidth = 1
+    ctx.stroke()
+
+    // Second thinner ring
+    ctx.beginPath()
+    ctx.arc(cx, cy, radius * 0.85, 0, Math.PI * 2)
+    ctx.strokeStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${(opacity * 0.5).toFixed(3)})`
+    ctx.lineWidth = 0.5
+    ctx.stroke()
+  }
+}
+
+// ─── Currents variant — flowing horizontal wave ribbons ─────────────────────────
+
+function drawCurrents(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+  const lines = 8
+  for (let i = 0; i < lines; i++) {
+    const y0 = (h / (lines + 1)) * (i + 1)
+    const phaseOffset = spatialNoise(i * 5, 0, 400) * Math.PI * 2
+    const amplitude = 8 + spatialNoise(i * 5 + 1, 0, 500) * 14
+    const freq = 0.0015 + spatialNoise(i * 5 + 2, 0, 600) * 0.001
+    const speed = 0.15 + spatialNoise(i * 5 + 3, 0, 700) * 0.1
+    const alpha = 0.04 + spatialNoise(i * 5 + 4, 0, 800) * 0.06
+
+    ctx.beginPath()
+    ctx.moveTo(0, y0)
+    for (let x = 0; x <= w; x += 4) {
+      const y = y0 + Math.sin(x * freq + t * speed + phaseOffset) * amplitude
+      ctx.lineTo(x, y)
+    }
+    ctx.strokeStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha.toFixed(3)})`
+    ctx.lineWidth = 1.2
+    ctx.stroke()
+  }
+}
+
+// ─── Bubbles variant — rising circles with wobble ───────────────────────────────
+
+function drawBubbles(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+  const count = 25
+  const speed = 0.3
+
+  for (let i = 0; i < count; i++) {
+    const seedX = 100 + i * 7
+    const seedY = 200 + i * 7
+    const seedS = 300 + i * 7
+    const seedW = 400 + i * 7
+
+    const baseX = spatialNoise(seedX, 0, 42) * w
+    const baseY = (spatialNoise(seedY, 0, 42) * h + t * speed * h * 0.08) % (h + 20) - 10
+    const wobble = Math.sin(t * 0.6 + i * 1.3) * 8 + Math.sin(t * 0.4 + i * 0.7) * 5
+    const x = baseX + wobble
+    const y = baseY
+    const r = 1.5 + spatialNoise(seedS, 0, 42) * 3.5
+    const alpha = 0.12 + spatialNoise(seedW, 0, 42) * 0.24
+
+    if (x < -10 || x > w + 10 || y < -10 || y > h + 10) continue
+
+    ctx.beginPath()
+    ctx.arc(x, y, r, 0, Math.PI * 2)
+    ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha.toFixed(3)})`
+    ctx.fill()
+
+    // Highlight arc on larger bubbles
+    if (r > 3) {
+      ctx.beginPath()
+      ctx.arc(x - r * 0.2, y - r * 0.2, r * 0.35, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(255,255,255,${(alpha * 0.4).toFixed(3)})`
+      ctx.fill()
+    }
+  }
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // DISPATCH
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -299,16 +453,13 @@ function drawDots(ctx: CanvasRenderingContext2D, w: number, h: number, t: number
 type DrawFn = (ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, mouse: MouseState | null) => void
 
 const DRAW: Record<ShaderVariant, DrawFn> = {
-  slate: drawSlate,
-  dark: drawDark,
-  blue: drawBlue,
-  emerald: drawEmerald,
-  amber: drawAmber,
-  light: drawLight,
-  dots: drawDots,
+  slate: drawSlate, dark: drawDark, blue: drawBlue, emerald: drawEmerald,
+  amber: drawAmber, light: drawLight, dots: drawDots,
+  leaves: drawLeaves, ripples: drawRipples, currents: drawCurrents,
+  bubbles: drawBubbles,
 }
 
-const ANIMATED: Set<ShaderVariant> = new Set(['blue', 'emerald', 'amber', 'dots'])
+const ANIMATED: Set<ShaderVariant> = new Set(['blue', 'emerald', 'amber', 'dots', 'leaves', 'ripples', 'currents', 'bubbles'])
 
 // ─── Default background colors per variant (when bgColor prop not provided) ───
 
@@ -320,6 +471,10 @@ const DEFAULT_BG: Record<ShaderVariant, RGB> = {
   amber:   [69, 26, 3],     // amber-950
   light:   [248, 250, 252], // slate-50
   dots:    [15, 23, 42],    // slate-900
+  leaves:  [6, 78, 59],     // emerald-950
+  ripples: [30, 58, 95],    // blue-900
+  currents:[15, 23, 42],    // slate-900
+  bubbles: [23, 37, 84],    // blue-950
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════

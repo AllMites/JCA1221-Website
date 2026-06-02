@@ -32,6 +32,9 @@ const TermsPage = lazy(() =>
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 )
+const AdminPage = lazy(() =>
+  import('@/pages/AdminPage').then((m) => ({ default: m.AdminPage })),
+)
 
 // Design OS pages
 const ProductPage = lazy(() =>
@@ -130,6 +133,9 @@ export const router = createBrowserRouter([
         element: <ShellDesignFullscreen />,
       },
       { path: '/design/export', element: <ExportPage /> },
+
+      // ═══ Admin ═══
+      { path: '/admin', element: <AdminPage /> },
 
       // ═══ 404 ═══
       { path: '*', element: <NotFoundPage /> },

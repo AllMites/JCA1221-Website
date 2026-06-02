@@ -11,7 +11,7 @@ import type {
 } from '@/../product/sections/contact-and-partnerships/types'
 // ─── Shared card surface classes ─────────────────────────────────────────────
 const cardSurface =
-  'p-5 rounded-2xl bg-white dark:bg-white/5 backdrop-blur-lg border border-slate-200 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03),0_0_0_1px_rgba(0,0,0,0.01)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.02)]'
+  'p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03),0_0_0_1px_rgba(0,0,0,0.01)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.02)]'
 
 const cardHover = 'hover:border-blue-300 dark:hover:border-blue-400/20 transition-all duration-300'
 
@@ -204,7 +204,7 @@ function ScheduleCTA({ scheduling, onSchedule }: ScheduleCTAProps) {
   const btnRef = useRef<HTMLButtonElement>(null)
   useLiquidGlass(btnRef, { refraction: 0.015, bevelDepth: 0.06, bevelWidth: 0.14, shadow: true, specular: true })
   return (
-    <div className="p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-500/10 dark:to-cyan-500/5 backdrop-blur-lg border border-blue-200 dark:border-blue-400/20 shadow-[0_4px_16px_rgba(59,130,246,0.06)] dark:shadow-none">
+    <div className="p-5 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-500/10 dark:to-cyan-500/5 backdrop-blur-lg border border-blue-200 dark:border-blue-400/20 shadow-[0_4px_16px_rgba(0,0,0,0.04)] dark:shadow-none">
       <h5 className="text-sm font-heading font-semibold text-slate-900 dark:text-white mb-1.5">
         {scheduling.title}
       </h5>
@@ -214,7 +214,7 @@ function ScheduleCTA({ scheduling, onSchedule }: ScheduleCTAProps) {
       <button
         ref={btnRef}
         onClick={() => onSchedule?.()}
-        className="w-full px-5 py-3 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(59,130,246,0.25),0_1px_3px_rgba(59,130,246,0.15)] hover:shadow-[0_8px_24px_rgba(59,130,246,0.35)] transition-all duration-300"
+        className="w-full px-5 py-3 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300"
       >
         <span style={{ pointerEvents: 'auto' }}>{scheduling.ctaText}</span>
       </button>

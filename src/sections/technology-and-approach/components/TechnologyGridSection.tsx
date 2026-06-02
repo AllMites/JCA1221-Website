@@ -38,13 +38,9 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
       {/* Solid deep background */}
       <div className="absolute inset-0 bg-slate-950" />
 
-      {/* Layered blue atmospheric orbs */}
-      <div className="absolute top-10 right-10 w-[30rem] h-[30rem] rounded-full bg-blue-500/8 blur-[150px]" />
-      <div className="absolute bottom-0 left-1/3 w-80 h-80 rounded-full bg-blue-400/6 blur-[100px]" />
-      <div className="absolute top-1/2 right-1/4 w-64 h-64 rounded-full bg-blue-600/5 blur-[80px]" />
 
       {/* Noise dither */}
-      <ShaderBackground variant="dots" opacity={0.5} />
+      <ShaderBackground variant="bubbles" opacity={0.5} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
@@ -75,10 +71,10 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
                 }}
               >
                 {/* Glass card with hover lift */}
-                <div className="h-full p-6 sm:p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/25 shadow-[0_4px_24px_rgba(59,130,246,0.06),0_0_0_1px_rgba(255,255,255,0.03)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.12),0_0_0_1px_rgba(59,130,246,0.1)] transition-all duration-500 hover:-translate-y-1">
+                <div className="h-full p-6 sm:p-8 rounded-xl bg-white/10 border border-white/10 hover:border-blue-400/25 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.03)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.10),0_0_0_1px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-1">
                   {/* Icon + title row */}
                   <div className="flex items-center gap-4 mb-4">
-                    <GlassPill as="div" className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/20 flex items-center justify-center shadow-[0_4px_16px_rgba(59,130,246,0.1)]">
+                    <GlassPill as="div" className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/20 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
                       {IconComponent && <IconComponent className="w-6 h-6 text-blue-300" />}
                     </GlassPill>
                     <h3 className="text-lg sm:text-xl font-heading font-bold text-white group-hover:text-blue-200 transition-colors duration-300">

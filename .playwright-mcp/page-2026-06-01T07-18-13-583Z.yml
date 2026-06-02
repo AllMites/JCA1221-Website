@@ -1,0 +1,153 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - link "JCA 1221 Holdings" [ref=e7] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e8]:
+        - navigation "Main navigation" [ref=e9]:
+          - link "Home" [ref=e10] [cursor=pointer]:
+            - /url: /
+          - link "About" [ref=e11] [cursor=pointer]:
+            - /url: /about
+          - link "Projects" [ref=e12] [cursor=pointer]:
+            - /url: /projects
+          - link "Technology" [ref=e13] [cursor=pointer]:
+            - /url: /technology
+          - link "Contact" [ref=e14] [cursor=pointer]:
+            - /url: /contact
+        - link "Partner With Us" [ref=e17] [cursor=pointer]:
+          - /url: /contact
+          - text: Partner With Us
+          - img [ref=e18]
+  - main [ref=e21]:
+    - generic [ref=e22]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - paragraph [ref=e32]: A Letter from the Founder
+          - img [ref=e33]
+        - generic [ref=e38]:
+          - generic [ref=e39]: “
+          - paragraph [ref=e41]: "I spent the first part of my career in corporate law — structuring project finance, negotiating deals, working the long hours that come with complex transactions. I was precise, analytical, and good at what I did. But after a near-fatal car accident, I found myself asking a question I couldn't ignore: 'What was I really meant to do?' The answer came from an unexpected place — my aquarium hobby. The nitrogen cycle that keeps a tank alive is the same process that can clean entire watersheds. Nature already knows how to purify water. It just needs the right infrastructure and the right people to make it happen. That's why JCA 1221 exists. We build environmental infrastructure that mimics natural processes — no heavy chemicals, no energy-intensive brute force, just biology guided by engineering. We go where others won't: small island communities, remote barangays, places where the business case isn't obvious but the environmental need is desperate. Our motto is 'Serbisyo, Hindi Negosyo' — Service, Not Business. That doesn't mean we don't care about sustainability. It means we measure success not just in revenue, but in cubic meters of water cleaned, in bays restored, in communities that can finally see through their coastline. If you're a government official looking for a partner who won't cut corners, or an investor who wants returns with real environmental impact — we should talk."
+          - paragraph [ref=e43]: Jehremiah C. Asis, Founder & CEO
+      - generic [ref=e48]:
+        - generic [ref=e50]:
+          - img [ref=e52]
+          - heading "Zero Corruption, Zero Shortcuts" [level=2] [ref=e55]
+          - paragraph [ref=e56]: Integrity isn't a marketing angle — it's the foundation of every project we build. In an industry where corners are often cut, our refusal to compromise has become our strongest competitive advantage.
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - heading "Full transparency in procurement" [level=3] [ref=e59]
+            - paragraph [ref=e60]: Every contract, every supplier, every cost is documented and auditable. Government partners and investors get complete visibility into where their money goes.
+          - generic [ref=e61]:
+            - heading "Community-first accountability" [level=3] [ref=e62]
+            - paragraph [ref=e63]: We don't just report to government agencies. We answer to the communities whose water we clean, whose bays we restore, and whose trust we earn project by project.
+          - generic [ref=e64]:
+            - heading "No facilitation payments" [level=3] [ref=e65]
+            - paragraph [ref=e66]: Zero-tolerance policy across all projects, vendors, and subcontractors. This isn't negotiable — it's the reason partners choose us for sensitive, high-stakes environmental work.
+      - generic [ref=e71]:
+        - generic [ref=e73]:
+          - img [ref=e75]
+          - heading "Waste Is a Resource, Not an Endpoint" [level=2] [ref=e80]
+          - paragraph [ref=e81]: "Nature doesn't produce waste — everything cycles. Our treatment systems follow the same principle: wastewater becomes clean water, solid waste becomes energy, and what was once pollution becomes productive."
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - heading "Biological treatment mimics nature" [level=3] [ref=e84]
+            - paragraph [ref=e85]: Our systems use the same nitrogen cycle found in healthy aquatic ecosystems. Microorganisms do the heavy lifting — no harsh chemicals, no energy-intensive brute force.
+          - generic [ref=e86]:
+            - heading "Recycled water returns to the ecosystem" [level=3] [ref=e87]
+            - paragraph [ref=e88]: The Puerto Princesa facility releases 4,000 cubic meters of treated water daily back into the bay, diluting other outflows and restoring marine habitats that now host Ironman and dragon boat events.
+          - generic [ref=e89]:
+            - heading "Pyrolysis transforms solid waste into energy" [level=3] [ref=e90]
+            - paragraph [ref=e91]: Our Siargao expansion converts municipal solid waste into biochar and syngas through thermal decomposition — turning a pollution crisis into a clean energy source.
+      - generic [ref=e96]:
+        - generic [ref=e98]:
+          - img [ref=e100]
+          - heading "Serbisyo, Hindi Negosyo" [level=2] [ref=e102]
+          - paragraph [ref=e103]: Service, Not Business. We are profitable and financially sustainable — but profit is the engine, not the destination. Our pricing model ensures communities can afford clean water, because environmental protection can't depend on wealth.
+        - generic [ref=e104]:
+          - generic [ref=e105]:
+            - heading "Affordable for communities" [level=3] [ref=e106]
+            - paragraph [ref=e107]: Treatment fees structured so that even small municipalities and island communities can access world-class environmental infrastructure without crippling their budgets.
+          - generic [ref=e108]:
+            - heading "Public-private partnership expertise" [level=3] [ref=e109]
+            - paragraph [ref=e110]: We navigate the legal, financial, and regulatory complexity of PPPs so that local governments get infrastructure that works — without the corruption risks that often plague large projects.
+          - generic [ref=e111]:
+            - heading "Knowledge transfer, not dependency" [level=3] [ref=e112]
+            - paragraph [ref=e113]: Every facility includes a Learning Center component. We train local operators, share technical knowledge, and build capacity so communities own their environmental future.
+      - generic [ref=e118]:
+        - generic [ref=e120]:
+          - img [ref=e122]
+          - heading "Proven Results, Not Promises" [level=2] [ref=e128]
+          - paragraph [ref=e129]: We don't ask for trust — we earn it with every project delivered. From the award-winning Puerto Princesa facility to our growing pipeline across the Philippines, our track record speaks louder than any pitch deck.
+        - generic [ref=e130]:
+          - generic [ref=e131]:
+            - heading "2025 Asian Water Award" [level=3] [ref=e132]
+            - paragraph [ref=e133]: Water Reclamation Project of the Year — recognized internationally for restoring coastal ecosystems through innovative, scalable treatment technology.
+          - generic [ref=e134]:
+            - heading "Puerto Princesa Bay rehabilitation" [level=3] [ref=e135]
+            - paragraph [ref=e136]: The bay, once too polluted for recreation, now hosts international Ironman triathlons and dragon boat races. Water quality is monitored, verified, and publicly transparent.
+          - generic [ref=e137]:
+            - heading "Scaling to new communities" [level=3] [ref=e138]
+            - paragraph [ref=e139]: Active projects in Gingoog City (Mindanao), Del Carmen (Siargao), and a pipeline of 5+ municipalities in assessment — each with the same zero-corruption, nature-first approach.
+      - generic [ref=e143]:
+        - generic [ref=e144]:
+          - paragraph [ref=e145]: Leadership
+          - heading "The Founder" [level=2] [ref=e146]
+        - generic [ref=e147]:
+          - generic [ref=e149]:
+            - img [ref=e151]
+            - heading "Jehremiah C. Asis" [level=3] [ref=e154]
+            - paragraph [ref=e155]: Founder & CEO, JCA 1221 Holdings Inc.
+            - generic [ref=e156]:
+              - img [ref=e157]
+              - paragraph [ref=e160]: “If people can't afford to clean polluted water, the environment will continue to suffer. That's why we go where others won't.”
+          - generic [ref=e161]:
+            - generic [ref=e162]:
+              - generic [ref=e163]:
+                - img [ref=e164]
+                - paragraph [ref=e167]: “Pollution is the same whether it happens in an urban center or a remote barangay. The water doesn't care about jurisdiction.”
+                - paragraph [ref=e168]: On why JCA 1221 works in underserved communities
+              - generic [ref=e169]:
+                - img [ref=e170]
+                - paragraph [ref=e173]: “I'm not an environmentalist by training. I'm a corporate lawyer who discovered that the nitrogen cycle in his aquarium could clean a bay.”
+                - paragraph [ref=e174]: On his unconventional path to environmental infrastructure
+              - generic [ref=e175]:
+                - img [ref=e176]
+                - paragraph [ref=e179]: “Zero corruption is not a slogan. It's the reason we can look every community leader in the eye and promise that their project will be done right.”
+                - paragraph [ref=e180]: On integrity as competitive advantage
+            - generic [ref=e183]:
+              - generic [ref=e186]:
+                - generic [ref=e187]:
+                  - generic [ref=e188]: "2015"
+                  - heading "Corporate Law Career" [level=4] [ref=e189]
+                - paragraph [ref=e190]: Practiced project finance law in Manila, structuring complex transactions and developing the financial discipline that would later underpin JCA 1221's public-private partnership model.
+              - generic [ref=e193]:
+                - generic [ref=e194]:
+                  - generic [ref=e195]: "2017"
+                  - heading "The Turning Point" [level=4] [ref=e196]
+                - paragraph [ref=e197]: A near-fatal car accident prompted a period of deep reflection, shifting focus from corporate practice toward environmental infrastructure and public service.
+              - generic [ref=e200]:
+                - generic [ref=e201]:
+                  - generic [ref=e202]: "2019"
+                  - heading "JCA 1221 Founded" [level=4] [ref=e203]
+                - paragraph [ref=e204]: Established JCA 1221 Holdings with the mission of bringing affordable, nature-mimicking wastewater treatment to Philippine communities — starting with the places others overlooked.
+              - generic [ref=e207]:
+                - generic [ref=e208]:
+                  - generic [ref=e209]: "2022"
+                  - heading "Puerto Princesa Breakthrough" [level=4] [ref=e210]
+                - paragraph [ref=e211]: Led the development of the Philippines' first city-scale combined septage and sewage treatment facility, now preventing 4,000 cubic meters of untreated wastewater from reaching the bay daily.
+              - generic [ref=e214]:
+                - generic [ref=e215]:
+                  - generic [ref=e216]: "2025"
+                  - heading "Asian Water Award & Expansion" [level=4] [ref=e217]
+                - paragraph [ref=e218]: Puerto Princesa facility won the 2025 Asian Water Award for Water Reclamation Project of the Year. Launched expansion to Gingoog City and Del Carmen, Siargao with pyrolysis-based solid waste management.
+      - generic [ref=e221]:
+        - heading "Ready to build with integrity?" [level=2] [ref=e222]
+        - paragraph [ref=e223]: Whether you represent a municipality seeking environmental infrastructure, or an investor looking for measurable impact, we are ready to partner.
+        - button "Partner With Us" [ref=e224]:
+          - text: Partner With Us
+          - img [ref=e225]
+  - contentinfo [ref=e227]:
+    - generic [ref=e229]:
+      - generic [ref=e230]: JCA 1221 Holdings
+      - generic [ref=e231]: Makati, Metro Manila, Philippines

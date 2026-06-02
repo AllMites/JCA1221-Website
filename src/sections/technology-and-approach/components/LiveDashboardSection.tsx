@@ -287,7 +287,7 @@ function MetricCard({ metric, color }: { metric: LiveMetric; color: string }) {
 
   return (
     <div className="flex-shrink-0 w-[300px] sm:w-[340px]">
-      <div className="h-full p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.03)] hover:border-white/15 transition-all duration-300">
+      <div className="h-full p-6 rounded-xl bg-white/10 border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.03)] hover:border-white/15 transition-all duration-300">
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
           {IconComponent && (
@@ -422,11 +422,9 @@ export function LiveDashboardSection({ liveMetrics }: LiveDashboardSectionProps)
       {/* Solid deep background */}
       <div className="absolute inset-0 bg-slate-950" />
 
-      {/* Subtle atmospheric orb */}
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-slate-500/4 blur-[120px]" />
 
       {/* Subtle grid texture */}
-      <ShaderBackground variant="slate" opacity={0.4} />
+      <ShaderBackground variant="leaves" opacity={0.4} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}

@@ -37,7 +37,7 @@ function ProjectCardItem({ project, onClick }: { project: ProjectCardType; onCli
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Gradient fallback image */}
-        <div className="absolute inset-0 opacity-30 dark:opacity-50 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-blue-600 to-blue-900 group-hover/card:opacity-50 dark:group-hover/card:opacity-70 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-950/30 to-slate-950/30 group-hover/card:opacity-60 dark:group-hover/card:opacity-70 transition-opacity duration-500" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent dark:from-slate-900/90 dark:via-slate-900/40" />
 
         {/* Status badge */}
@@ -96,7 +96,7 @@ export function ProjectCarousel({ projects, onProjectClick }: ProjectCarouselPro
   return (
     <section className="relative py-20 overflow-hidden bg-slate-900 dark:bg-black">
       {/* Section background texture */}
-      <ShaderBackground variant="dark" opacity={0.6} />
+      <ShaderBackground variant="ripples" opacity={0.6} />
 
       {/* Section header */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">

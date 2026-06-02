@@ -43,9 +43,6 @@ export function MissionSection({ values }: MissionSectionProps) {
       <div className="absolute inset-0 bg-gradient-to-b from-amber-50/60 via-amber-50/20 to-white dark:from-amber-950/20 dark:via-slate-950 dark:to-slate-950" />
       <ShaderBackground variant="amber" opacity={0.5} />
 
-      {/* Warm decorative line */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 dark:via-amber-600 to-transparent opacity-40" />
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-14">

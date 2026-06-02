@@ -1,0 +1,1 @@
+{"root":["./functions/acknowledge-submission.ts","./functions/delete-my-data.ts","./functions/delete-submission.ts","./functions/list-submissions.ts","./functions/submit-contact.ts","./lib/admin-auth.ts","./lib/cors.ts","./lib/email-templates.ts","./lib/send-email.ts","./lib/supabase.ts"],"version":"5.9.3"}

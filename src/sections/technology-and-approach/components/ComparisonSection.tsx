@@ -35,7 +35,7 @@ export function ComparisonSection({ comparison }: ComparisonSectionProps) {
       <div className="absolute bottom-20 left-1/4 w-72 h-72 rounded-full bg-slate-500/4 blur-[100px]" />
 
       {/* Noise dither */}
-      <ShaderBackground variant="slate" opacity={0.4} />
+      <ShaderBackground variant="ripples" opacity={0.4} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}

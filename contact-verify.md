@@ -1,0 +1,196 @@
+- generic [ref=e5]:
+  - banner [ref=e6]:
+    - generic [ref=e8]:
+      - link "JCA 1221 Holdings" [ref=e9] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e10]:
+        - navigation "Main navigation" [ref=e11]:
+          - link "Home" [ref=e12] [cursor=pointer]:
+            - /url: /home
+          - link "About & Mission" [ref=e13] [cursor=pointer]:
+            - /url: /about-&-mission
+          - link "Projects & Track Record" [ref=e14] [cursor=pointer]:
+            - /url: /projects-&-track-record
+          - link "Technology & Approach" [ref=e15] [cursor=pointer]:
+            - /url: /technology-&-approach
+          - link "Contact & Partnerships" [ref=e16] [cursor=pointer]:
+            - /url: /contact-&-partnerships
+        - link "Partner With Us" [ref=e19] [cursor=pointer]:
+          - /url: /contact
+          - text: Partner With Us
+          - img [ref=e20]
+  - main [ref=e23]:
+    - generic [ref=e28]:
+      - generic [ref=e29]:
+        - paragraph [ref=e30]: Start the Conversation
+        - heading "Let's Build Together" [level=1] [ref=e31]
+        - paragraph [ref=e32]: Partner with JCA 1221 to bring world-class environmental infrastructure to your community. Serious inquiries only.
+      - generic [ref=e33]:
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - paragraph [ref=e38]: Start a Partnership
+            - heading "Send an Inquiry" [level=3] [ref=e39]
+            - paragraph [ref=e40]: We respond to every inquiry within 2 business days. All fields marked with * are required.
+          - generic [ref=e41]:
+            - generic [ref=e42]:
+              - generic [ref=e43]: Full Name*
+              - textbox "Juan dela Cruz" [ref=e44]
+            - generic [ref=e45]:
+              - generic [ref=e46]: Email Address*
+              - textbox "juan@lgu.gov.ph" [ref=e47]
+            - generic [ref=e48]:
+              - generic [ref=e49]: Organization / LGU*
+              - textbox "Municipality of Taytay" [ref=e50]
+            - generic [ref=e51]:
+              - generic [ref=e52]: What would you like to discuss?*
+              - textbox "Tell us about your community's environmental infrastructure needs..." [ref=e53]
+          - button "Add more details (helps us prepare)" [ref=e55]:
+            - img [ref=e57]
+            - text: Add more details (helps us prepare)
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - generic [ref=e62]: Phone Number(optional)
+              - textbox "+63 912 345 6789" [ref=e63]
+            - generic [ref=e64]:
+              - generic [ref=e65]: Your Role(optional)
+              - textbox "Municipal Planning Officer, Investor, etc." [ref=e66]
+            - generic [ref=e67]:
+              - generic [ref=e68]: Project Type(optional)
+              - generic [ref=e69]:
+                - combobox [ref=e70] [cursor=pointer]:
+                  - option "Select a project type" [selected]
+                  - option "Wastewater Treatment Facility"
+                  - option "Solid Waste Management"
+                  - option "Septage Management Program"
+                  - option "Environmental Learning Center"
+                  - option "Investment Partnership"
+                  - option "Other"
+                - img
+            - generic [ref=e71]:
+              - generic [ref=e72]: Estimated Timeline(optional)
+              - generic [ref=e73]:
+                - combobox [ref=e74] [cursor=pointer]:
+                  - option "When are you looking to start?" [selected]
+                  - option "As soon as possible"
+                  - option "Within 3 months"
+                  - option "Within 6 months"
+                  - option "Within the year"
+                  - option "Exploratory — no set timeline"
+                - img
+          - button "Send Inquiry" [ref=e76]:
+            - img [ref=e77]
+            - text: Send Inquiry
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - heading "Schedule a Consultation" [level=5] [ref=e83]
+            - paragraph [ref=e84]: Book a 30-minute video call with our partnerships team. We'll review your community's needs and outline how JCA 1221's model can work for you.
+            - button "Book a Call" [ref=e85]
+          - generic [ref=e86]:
+            - generic [ref=e87]:
+              - img [ref=e89]
+              - heading "Office" [level=4] [ref=e92]
+            - generic [ref=e93]:
+              - generic [ref=e94]:
+                - img [ref=e95]
+                - generic [ref=e98]:
+                  - paragraph [ref=e99]: Unit 2808, 28th Floor, The Peak Tower, 107 Leviste Street, Salcedo Village
+                  - paragraph [ref=e100]: Makati City, Metro Manila 1227
+              - link "+63 2 8123 4567" [ref=e101] [cursor=pointer]:
+                - /url: tel:+63 2 8123 4567
+                - img [ref=e102]
+                - text: +63 2 8123 4567
+              - link "partnerships@jca1221.com" [ref=e104] [cursor=pointer]:
+                - /url: mailto:partnerships@jca1221.com
+                - img [ref=e105]
+                - text: partnerships@jca1221.com
+              - generic [ref=e108]:
+                - img [ref=e109]
+                - text: Monday–Friday, 9:00 AM – 6:00 PM PHT
+            - generic [ref=e114] [cursor=pointer]:
+              - img [ref=e115]
+              - text: View on Google Maps
+          - generic [ref=e118]:
+            - generic [ref=e119]:
+              - generic [ref=e120]:
+                - img [ref=e122]
+                - generic [ref=e125]:
+                  - heading "Atty. Jehremiah Asis" [level=5] [ref=e126]
+                  - paragraph [ref=e127]: Founder & Chairman
+              - generic [ref=e128]:
+                - link "jhasis@jca1221.com" [ref=e129] [cursor=pointer]:
+                  - /url: mailto:jhasis@jca1221.com
+                  - img [ref=e130]
+                  - text: jhasis@jca1221.com
+                - link "+63 2 8123 4567" [ref=e133] [cursor=pointer]:
+                  - /url: tel:+63 2 8123 4567
+                  - img [ref=e134]
+                  - text: +63 2 8123 4567
+              - generic [ref=e136]:
+                - generic [ref=e137]: Investment Partnerships
+                - generic [ref=e138]: Strategic Direction
+            - generic [ref=e139]:
+              - generic [ref=e140]:
+                - img [ref=e142]
+                - generic [ref=e145]:
+                  - heading "Maria Clara Santos" [level=5] [ref=e146]
+                  - paragraph [ref=e147]: Head of Government Partnerships
+              - generic [ref=e148]:
+                - link "mc.santos@jca1221.com" [ref=e149] [cursor=pointer]:
+                  - /url: mailto:mc.santos@jca1221.com
+                  - img [ref=e150]
+                  - text: mc.santos@jca1221.com
+                - link "+63 2 8123 4568" [ref=e153] [cursor=pointer]:
+                  - /url: tel:+63 2 8123 4568
+                  - img [ref=e154]
+                  - text: +63 2 8123 4568
+              - generic [ref=e156]:
+                - generic [ref=e157]: LGU Partnerships
+                - generic [ref=e158]: National Government Agency Inquiries
+            - generic [ref=e159]:
+              - generic [ref=e160]:
+                - img [ref=e162]
+                - generic [ref=e165]:
+                  - heading "Antonio Reyes" [level=5] [ref=e166]
+                  - paragraph [ref=e167]: Investor Relations Director
+              - generic [ref=e168]:
+                - link "a.reyes@jca1221.com" [ref=e169] [cursor=pointer]:
+                  - /url: mailto:a.reyes@jca1221.com
+                  - img [ref=e170]
+                  - text: a.reyes@jca1221.com
+                - link "+63 2 8123 4569" [ref=e173] [cursor=pointer]:
+                  - /url: tel:+63 2 8123 4569
+                  - img [ref=e174]
+                  - text: +63 2 8123 4569
+              - generic [ref=e176]:
+                - generic [ref=e177]: Investment Partnerships
+                - generic [ref=e178]: Due Diligence
+          - generic [ref=e179]:
+            - generic [ref=e180]:
+              - img [ref=e182]
+              - heading "Trusted By" [level=4] [ref=e186]
+            - generic [ref=e187]:
+              - generic "City Government of Puerto Princesa" [ref=e188]:
+                - generic [ref=e189]: City Government of Puerto Princesa
+              - generic "Department of Environment and Natural Resources" [ref=e190]:
+                - generic [ref=e191]: Department of Environment and Natural Resources
+              - generic "Asian Water Council" [ref=e192]:
+                - generic [ref=e193]: Asian Water Council
+              - generic "City of Gingoog" [ref=e194]:
+                - generic [ref=e195]: City of Gingoog
+              - generic "Municipality of Del Carmen" [ref=e196]:
+                - generic [ref=e197]: Municipality of Del Carmen
+              - generic "Tourism Infrastructure and Enterprise Zone Authority" [ref=e198]:
+                - generic [ref=e199]: Tourism Infrastructure and Enterprise Zone Authority
+          - button "JCA 1221 Capability Statement Download our full corporate profile including project case studies, technical specifications, partnership models, and financial projections. JCA1221-Capability-Statement-2026.pdf (4.2 MB)" [ref=e200]:
+            - generic [ref=e201]:
+              - img [ref=e203]
+              - generic [ref=e205]:
+                - heading "JCA 1221 Capability Statement" [level=5] [ref=e206]
+                - paragraph [ref=e207]: Download our full corporate profile including project case studies, technical specifications, partnership models, and financial projections.
+                - generic [ref=e208]:
+                  - img [ref=e209]
+                  - text: JCA1221-Capability-Statement-2026.pdf (4.2 MB)
+  - contentinfo [ref=e211]:
+    - generic [ref=e213]:
+      - generic [ref=e214]: JCA 1221 Holdings
+      - generic [ref=e215]: Makati, Metro Manila, Philippines

@@ -72,9 +72,6 @@ export function ImpactStats({ stats }: ImpactStatsProps) {
       <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950" />
       <ShaderBackground variant="slate" opacity={0.5} />
 
-      {/* Decorative line top */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-14">
@@ -96,9 +93,6 @@ export function ImpactStats({ stats }: ImpactStatsProps) {
           ))}
         </div>
       </div>
-
-      {/* Bottom decorative line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
     </section>
   )
 }

@@ -25,11 +25,7 @@ export function ContactView({
       <div className="fixed inset-0 -z-10 bg-slate-50 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900/95 dark:to-slate-950" />
 
       {/* Grid texture */}
-      <ShaderBackground variant="dark" opacity={0.5} />
-
-      {/* Atmospheric orbs — dark mode only */}
-      <div className="hidden dark:block absolute top-0 right-0 w-[40rem] h-[40rem] rounded-full bg-blue-500/4 blur-[180px]" />
-      <div className="hidden dark:block absolute bottom-0 left-0 w-[30rem] h-[30rem] rounded-full bg-cyan-500/3 blur-[150px]" />
+      <ShaderBackground variant="dark" opacity={0.7} />
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">

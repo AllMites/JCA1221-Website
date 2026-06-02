@@ -60,10 +60,7 @@ export function ExpansionSection({ expansion }: ExpansionSectionProps) {
     <section className="relative py-20 sm:py-28 overflow-hidden bg-white dark:bg-slate-950">
       {/* Subtle background */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950" />
-      <ShaderBackground variant="light" opacity={0.5} />
-
-      {/* Top decorative line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-300 dark:via-amber-800 to-transparent opacity-50" />
+      <ShaderBackground variant="leaves" opacity={0.5} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}

@@ -1,0 +1,196 @@
+- generic [ref=e3]:
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e5]:
+    - generic [ref=e7]:
+      - link "JCA 1221 Holdings" [ref=e8] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e9]:
+        - navigation "Main navigation" [ref=e10]:
+          - link "Home" [ref=e11] [cursor=pointer]:
+            - /url: /
+          - link "About" [ref=e12] [cursor=pointer]:
+            - /url: /about
+          - link "Projects" [ref=e13] [cursor=pointer]:
+            - /url: /projects
+          - link "Technology" [ref=e14] [cursor=pointer]:
+            - /url: /technology
+          - link "Contact" [ref=e15] [cursor=pointer]:
+            - /url: /contact
+        - 'button "Theme: system" [ref=e16]':
+          - img
+        - link "Partner With Us" [ref=e19] [cursor=pointer]:
+          - /url: /contact
+          - text: Partner With Us
+          - img [ref=e20]
+  - main [ref=e23]:
+    - generic [ref=e24]:
+      - generic [ref=e32]:
+        - img [ref=e35]
+        - paragraph [ref=e38]: JCA 1221 Holdings
+        - heading "L a n d W a s t e Renewal for Generations" [level=1] [ref=e279]:
+          - generic [ref=e40]:
+            - generic [ref=e41]:
+              - generic [ref=e280]: L
+              - generic [ref=e281]: a
+              - generic [ref=e282]: "n"
+              - generic [ref=e283]: d
+            - generic [ref=e284]:
+              - generic [ref=e285]: W
+              - generic [ref=e286]: a
+              - generic [ref=e287]: s
+              - generic [ref=e288]: t
+              - generic [ref=e289]: e
+          - text: Renewal for Generations
+        - paragraph [ref=e47]: Philippine environmental infrastructure — restoring coastal ecosystems through nature-mimicking technology and public-private partnerships.
+        - button "Our Projects" [ref=e49]:
+          - text: Our Projects
+          - img [ref=e50]
+      - generic [ref=e55]:
+        - generic [ref=e58]:
+          - paragraph [ref=e59]: Track Record
+          - heading "Projects That Restore Ecosystems" [level=2] [ref=e60]
+          - paragraph [ref=e61]: Each facility is a public-private partnership built on integrity, delivering measurable environmental outcomes for Philippine communities.
+        - generic [ref=e63]:
+          - button "Operational Award Water Quality Improvement Project of the Year Asian Water Awards, 2025 4,000 m³ Wastewater treated daily Ironman & Dragon Boat Bay restored for events View project details Puerto Princesa City, Palawan Puerto Princesa Water Reclamation & Learning Center" [ref=e65] [cursor=pointer]:
+            - generic [ref=e66]:
+              - generic [ref=e69]: Operational
+              - generic [ref=e71]:
+                - generic [ref=e72]:
+                  - paragraph [ref=e73]: Award
+                  - paragraph [ref=e74]: Water Quality Improvement Project of the Year
+                  - paragraph [ref=e75]: Asian Water Awards, 2025
+                - generic [ref=e76]:
+                  - generic [ref=e77]:
+                    - paragraph [ref=e78]: 4,000 m³
+                    - paragraph [ref=e79]: Wastewater treated daily
+                  - generic [ref=e80]:
+                    - paragraph [ref=e81]: Ironman & Dragon Boat
+                    - paragraph [ref=e82]: Bay restored for events
+                - generic [ref=e83]:
+                  - text: View project details
+                  - img [ref=e84]
+            - generic [ref=e87]:
+              - generic [ref=e88]:
+                - img [ref=e89]
+                - generic [ref=e92]: Puerto Princesa City, Palawan
+              - heading "Puerto Princesa Water Reclamation & Learning Center" [level=3] [ref=e93]
+          - button "Operational Award Seal of Good Local Governance Department of the Interior and Local Government, 2024 Seal of Good Local Governance City recognition Modular combined treatment Technology View project details Gingoog City, Misamis Oriental Gingoog City Sanitation & Treatment Facility" [ref=e95] [cursor=pointer]:
+            - generic [ref=e96]:
+              - generic [ref=e99]: Operational
+              - generic [ref=e101]:
+                - generic [ref=e102]:
+                  - paragraph [ref=e103]: Award
+                  - paragraph [ref=e104]: Seal of Good Local Governance
+                  - paragraph [ref=e105]: Department of the Interior and Local Government, 2024
+                - generic [ref=e106]:
+                  - generic [ref=e107]:
+                    - paragraph [ref=e108]: Seal of Good Local Governance
+                    - paragraph [ref=e109]: City recognition
+                  - generic [ref=e110]:
+                    - paragraph [ref=e111]: Modular combined treatment
+                    - paragraph [ref=e112]: Technology
+                - generic [ref=e113]:
+                  - text: View project details
+                  - img [ref=e114]
+            - generic [ref=e117]:
+              - generic [ref=e118]:
+                - img [ref=e119]
+                - generic [ref=e122]: Gingoog City, Misamis Oriental
+              - heading "Gingoog City Sanitation & Treatment Facility" [level=3] [ref=e123]
+          - button "In Development Award Model for Island Sustainability Cebu Provincial Government, 2026 Pyrolysis + STP Technology Tourism waste management Focus View project details Del Carmen, Siargao Island, Surigao del Norte Del Carmen Integrated Environmental Facility" [ref=e125] [cursor=pointer]:
+            - generic [ref=e126]:
+              - generic [ref=e129]: In Development
+              - generic [ref=e131]:
+                - generic [ref=e132]:
+                  - paragraph [ref=e133]: Award
+                  - paragraph [ref=e134]: Model for Island Sustainability
+                  - paragraph [ref=e135]: Cebu Provincial Government, 2026
+                - generic [ref=e136]:
+                  - generic [ref=e137]:
+                    - paragraph [ref=e138]: Pyrolysis + STP
+                    - paragraph [ref=e139]: Technology
+                  - generic [ref=e140]:
+                    - paragraph [ref=e141]: Tourism waste management
+                    - paragraph [ref=e142]: Focus
+                - generic [ref=e143]:
+                  - text: View project details
+                  - img [ref=e144]
+            - generic [ref=e147]:
+              - generic [ref=e148]:
+                - img [ref=e149]
+                - generic [ref=e152]: Del Carmen, Siargao Island, Surigao del Norte
+              - heading "Del Carmen Integrated Environmental Facility" [level=3] [ref=e153]
+          - generic [ref=e155]:
+            - img [ref=e156]
+            - paragraph [ref=e158]: More projects coming online
+      - generic [ref=e162]:
+        - generic [ref=e163]:
+          - paragraph [ref=e164]: What We Stand For
+          - heading "Mission & Values" [level=2] [ref=e165]
+          - paragraph [ref=e166]: Our principles guide every project, every partnership, and every decision.
+        - generic [ref=e167]:
+          - generic [ref=e168]:
+            - img [ref=e170]
+            - heading "Serbisyo, Hindi Negosyo" [level=3] [ref=e172]
+            - paragraph [ref=e173]: Service, not business. We temper profitability to keep environmental services affordable for every community — because pollution doesn't discriminate between urban centers and remote barangays.
+          - generic [ref=e174]:
+            - img [ref=e176]
+            - heading "Zero Corruption" [level=3] [ref=e179]
+            - paragraph [ref=e180]: Absolute intolerance for corruption in every engagement. Our projects run on full transparency with real-time monitoring data available to partners, government units, and the public.
+          - generic [ref=e181]:
+            - img [ref=e183]
+            - heading "Integrity in Every Project" [level=3] [ref=e187]
+            - paragraph [ref=e188]: Every facility we build is delivered on time, on scope, and with measurable environmental outcomes. Our track record speaks through restored ecosystems and communities that thrive.
+          - generic [ref=e189]:
+            - img [ref=e191]
+            - heading "Environmental Stewardship" [level=3] [ref=e194]
+            - paragraph [ref=e195]: Our machines enhance natural treatment processes instead of replacing them — lower power use, fewer chemicals, and less impact. We work with nature, not against it.
+      - generic [ref=e200]:
+        - generic [ref=e201]:
+          - paragraph [ref=e202]: By The Numbers
+          - heading "Measurable Impact" [level=2] [ref=e203]
+          - paragraph [ref=e204]: Real environmental outcomes, verified by scientists and recognized internationally.
+        - generic [ref=e205]:
+          - generic [ref=e206]:
+            - generic [ref=e207]: 0m³
+            - generic [ref=e208]: Wastewater treated daily
+            - generic [ref=e209]: Kept out of Puerto Princesa Bay every single day since 2022
+          - generic [ref=e210]:
+            - generic [ref=e211]: "0"
+            - generic [ref=e212]: Active project sites
+            - generic [ref=e213]: Across Palawan, Mindanao, and Siargao Island
+          - generic [ref=e214]:
+            - generic [ref=e215]: 0st
+            - generic [ref=e216]: Asian Water Award
+            - generic [ref=e217]: Water Quality Improvement Project of the Year 2025
+          - generic [ref=e218]:
+            - generic [ref=e219]: "0"
+            - generic [ref=e220]: International events restored
+            - generic [ref=e221]: Ironman and Dragon Boat races returned to Puerto Princesa Bay
+      - generic [ref=e226]:
+        - generic [ref=e227]:
+          - generic [ref=e228]:
+            - img [ref=e229]
+            - text: Active Growth
+          - heading "Expanding Our Reach" [level=2] [ref=e234]
+          - paragraph [ref=e235]: From water to land — building the next generation of Philippine environmental infrastructure
+        - generic [ref=e236]:
+          - generic [ref=e240]:
+            - generic [ref=e241]:
+              - img [ref=e242]
+              - generic [ref=e245]: Siargao Island
+            - heading "Pyrolysis — Waste to Fuel" [level=3] [ref=e247]
+            - generic [ref=e248]: In Development
+            - paragraph [ref=e249]: Introducing solid waste management through pyrolysis technology that converts non-recyclable waste into usable fuel. Combined with our wastewater treatment, this creates the first fully integrated environmental facility for a Philippine island tourism destination.
+          - generic [ref=e253]:
+            - generic [ref=e254]:
+              - img [ref=e255]
+              - generic [ref=e258]: Cebu Province
+            - heading "Provincial-Scale Waste Management" [level=3] [ref=e260]
+            - generic [ref=e261]: Planning & Assessment
+            - paragraph [ref=e262]: The Cebu Provincial Government is studying the Siargao model as a template for solving Cebu's solid waste crisis — validating JCA 1221's approach as the blueprint for island-based environmental infrastructure across the Philippines.
+  - contentinfo [ref=e263]:
+    - generic [ref=e265]:
+      - generic [ref=e266]: JCA 1221 Holdings
+      - generic [ref=e267]: Makati, Metro Manila, Philippines

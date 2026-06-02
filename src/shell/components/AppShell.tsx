@@ -84,7 +84,7 @@ export function AppShell({
             {/* Floating glass sidebar with page anchors */}
             <aside className="lg:w-56 shrink-0 py-8">
               <nav
-                className="sticky top-24 space-y-1 bg-card/70 backdrop-blur-xl rounded-2xl border border-border/10 shadow-[0_8px_32px_rgba(59,130,246,0.06)] dark:shadow-[0_8px_32px_rgba(59,130,246,0.03)] p-5"
+                className="sticky top-24 space-y-1 bg-card rounded-xl border border-border/10 shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.08)] p-5"
                 aria-label="On this page"
               >
                 <h4 className="text-xs font-semibold font-heading uppercase tracking-wider text-muted-foreground mb-3">
@@ -116,7 +116,7 @@ export function AppShell({
       </div>
 
       {/* Footer — subtle glass bar */}
-      <footer className="border-t border-border/10 mt-16 bg-card/40 backdrop-blur-md">
+      <footer className="border-t border-border/10 mt-16 bg-card/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">

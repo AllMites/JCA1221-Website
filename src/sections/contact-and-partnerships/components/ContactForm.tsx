@@ -131,7 +131,7 @@ export function ContactForm({
   if (submitted) {
     return (
       <div className="h-full flex items-center">
-        <div className="p-8 sm:p-10 rounded-2xl bg-white dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.03)] text-center w-full">
+        <div className="p-8 sm:p-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.03)] text-center w-full">
           <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-emerald-100 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-400/30 flex items-center justify-center">
             <Check className="w-8 h-8 text-emerald-600 dark:text-emerald-300" />
           </div>
@@ -164,7 +164,7 @@ export function ContactForm({
   ) => {
     const fieldName = field.name as keyof ContactFormData
     const error = errors[fieldName]
-    const baseClasses = `w-full px-4 py-3 text-sm rounded-xl bg-slate-50 dark:bg-white/5 backdrop-blur-md border transition-all duration-300 outline-none font-body text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500`
+    const baseClasses = `w-full px-4 py-3 text-sm rounded-xl bg-slate-50 dark:bg-slate-800/60 border transition-all duration-300 outline-none font-body text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500`
 
     const stateClasses = error
       ? 'border-red-400/50 focus:border-red-400 shadow-[0_0_0_1px_rgba(248,113,113,0.15)]'
@@ -220,7 +220,7 @@ export function ContactForm({
 
   return (
     <form onSubmit={handleSubmit} className="h-full">
-      <div className="p-6 sm:p-8 lg:p-10 rounded-2xl bg-white dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.03)]">
+      <div className="p-6 sm:p-8 lg:p-10 rounded-xl bg-white dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.03)]">
         {/* Form header */}
         <div className="mb-8">
           <p className="text-xs font-mono uppercase tracking-widest text-blue-600 dark:text-blue-300/70 mb-3">
@@ -328,7 +328,7 @@ export function ContactForm({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(59,130,246,0.25),0_1px_3px_rgba(59,130,246,0.15)] hover:shadow-[0_8px_24px_rgba(59,130,246,0.35),0_1px_3px_rgba(59,130,246,0.2)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+            className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.18),0_1px_3px_rgba(0,0,0,0.12)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
           >
             {submitting ? (
               <>

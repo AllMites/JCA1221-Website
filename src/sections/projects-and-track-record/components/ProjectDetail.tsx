@@ -38,7 +38,7 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
         {/* Gradient image placeholder */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-950 to-slate-900" />
         <ShaderBackground variant="dark" opacity={0.4} />
-        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-blue-500 to-blue-800" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-950/30 to-slate-950/30" />
 
         {/* Dark gradient overlay for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-slate-950/20" />

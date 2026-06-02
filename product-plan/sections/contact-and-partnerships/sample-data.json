@@ -1,0 +1,121 @@
+{
+  "_meta": {
+    "models": {
+      "teamContact": "A named point of contact for a specific inquiry type (government, investor, media). Includes name, title, email, and the inquiry categories they handle.",
+      "partnerLogo": "A trust-signal logo from a partner, certifying body, or award-granting organization. Displayed in a grayscale grid.",
+      "officeInfo": "Physical office location with address, city, phone, email, and an embedded map placeholder.",
+      "inquiryType": "A category of project inquiry — used as dropdown options in the detailed form.",
+      "downloadableResource": "A gated or ungated downloadable file (e.g., capability statement PDF) offered as immediate value to prospects.",
+      "schedulingInfo": "Configuration for a 'Schedule a Call' CTA linking to an external calendar or booking tool.",
+      "formField": "Basic and detailed field definitions for the two-tier contact form."
+    },
+    "relationships": [
+      "teamContact entries are standalone — each handles one or more inquiryCategories.",
+      "partnerLogo entries are standalone — grid display.",
+      "officeInfo is a singleton — one office displayed.",
+      "inquiryType entries drive the projectType dropdown in the detailed form.",
+      "downloadableResource is a singleton — one primary resource offered.",
+      "schedulingInfo is a singleton — one call-to-action link."
+    ]
+  },
+  "sectionTitle": "Let's Build Together",
+  "sectionSubtitle": "Partner with JCA 1221 to bring world-class environmental infrastructure to your community. Serious inquiries only.",
+  "formConfig": {
+    "basicFields": [
+      { "name": "fullName", "label": "Full Name", "type": "text", "required": true, "placeholder": "Juan dela Cruz" },
+      { "name": "email", "label": "Email Address", "type": "email", "required": true, "placeholder": "juan@lgu.gov.ph" },
+      { "name": "organization", "label": "Organization / LGU", "type": "text", "required": true, "placeholder": "Municipality of Taytay" },
+      { "name": "message", "label": "What would you like to discuss?", "type": "textarea", "required": true, "placeholder": "Tell us about your community's environmental infrastructure needs..." }
+    ],
+    "detailedFields": [
+      { "name": "phone", "label": "Phone Number", "type": "tel", "required": false, "placeholder": "+63 912 345 6789" },
+      { "name": "role", "label": "Your Role", "type": "text", "required": false, "placeholder": "Municipal Planning Officer, Investor, etc." },
+      { "name": "projectType", "label": "Project Type", "type": "select", "required": false, "placeholder": "Select a project type" },
+      { "name": "estimatedTimeline", "label": "Estimated Timeline", "type": "select", "required": false, "placeholder": "When are you looking to start?" }
+    ],
+    "submitButtonText": "Send Inquiry",
+    "detailedToggleText": "Add more details (helps us prepare)",
+    "successMessage": {
+      "title": "Thank you for reaching out.",
+      "body": "Our partnerships team reviews every inquiry within 2 business days. For urgent matters, call us directly at +63 2 8123 4567.",
+      "nextSteps": [
+        "Check your email for a confirmation and our capability statement",
+        "A team member will contact you within 48 hours",
+        "In the meantime, explore our project portfolio"
+      ]
+    }
+  },
+  "inquiryTypes": [
+    { "value": "wastewater-treatment", "label": "Wastewater Treatment Facility" },
+    { "value": "solid-waste", "label": "Solid Waste Management" },
+    { "value": "septage-management", "label": "Septage Management Program" },
+    { "value": "learning-center", "label": "Environmental Learning Center" },
+    { "value": "partnership", "label": "Investment Partnership" },
+    { "value": "other", "label": "Other" }
+  ],
+  "timelineOptions": [
+    { "value": "immediate", "label": "As soon as possible" },
+    { "value": "3-months", "label": "Within 3 months" },
+    { "value": "6-months", "label": "Within 6 months" },
+    { "value": "1-year", "label": "Within the year" },
+    { "value": "exploratory", "label": "Exploratory — no set timeline" }
+  ],
+  "teamContacts": [
+    {
+      "id": "jehremiah",
+      "name": "Atty. Jehremiah Asis",
+      "title": "Founder & Chairman",
+      "email": "jhasis@jca1221.com",
+      "phone": "+63 2 8123 4567",
+      "inquiryCategories": ["Investment Partnerships", "Strategic Direction"],
+      "imageUrl": "/images/team/jehremiah-asis.jpg"
+    },
+    {
+      "id": "partnerships",
+      "name": "Maria Clara Santos",
+      "title": "Head of Government Partnerships",
+      "email": "mc.santos@jca1221.com",
+      "phone": "+63 2 8123 4568",
+      "inquiryCategories": ["LGU Partnerships", "National Government Agency Inquiries"],
+      "imageUrl": "/images/team/maria-santos.jpg"
+    },
+    {
+      "id": "investors",
+      "name": "Antonio Reyes",
+      "title": "Investor Relations Director",
+      "email": "a.reyes@jca1221.com",
+      "phone": "+63 2 8123 4569",
+      "inquiryCategories": ["Investment Partnerships", "Due Diligence"],
+      "imageUrl": "/images/team/antonio-reyes.jpg"
+    }
+  ],
+  "officeInfo": {
+    "address": "Unit 2808, 28th Floor, The Peak Tower, 107 Leviste Street, Salcedo Village",
+    "city": "Makati City, Metro Manila 1227",
+    "phone": "+63 2 8123 4567",
+    "email": "partnerships@jca1221.com",
+    "mapEmbedUrl": "https://maps.google.com/?q=The+Peak+Tower+Makati",
+    "hoursNote": "Monday–Friday, 9:00 AM – 6:00 PM PHT"
+  },
+  "partnerLogos": [
+    { "name": "City Government of Puerto Princesa", "imageUrl": "/images/partners/puerto-princesa-lgu.png" },
+    { "name": "Department of Environment and Natural Resources", "imageUrl": "/images/partners/denr.png" },
+    { "name": "Asian Water Council", "imageUrl": "/images/partners/asian-water-council.png" },
+    { "name": "City of Gingoog", "imageUrl": "/images/partners/gingoog-lgu.png" },
+    { "name": "Municipality of Del Carmen", "imageUrl": "/images/partners/del-carmen-lgu.png" },
+    { "name": "Tourism Infrastructure and Enterprise Zone Authority", "imageUrl": "/images/partners/tieza.png" }
+  ],
+  "downloadableResource": {
+    "title": "JCA 1221 Capability Statement",
+    "description": "Download our full corporate profile including project case studies, technical specifications, partnership models, and financial projections.",
+    "fileName": "JCA1221-Capability-Statement-2026.pdf",
+    "fileSize": "4.2 MB",
+    "fileUrl": "/downloads/capability-statement.pdf"
+  },
+  "schedulingInfo": {
+    "title": "Schedule a Consultation",
+    "description": "Book a 30-minute video call with our partnerships team. We'll review your community's needs and outline how JCA 1221's model can work for you.",
+    "ctaText": "Book a Call",
+    "calendarUrl": "https://calendly.com/jca1221/partnership-consultation"
+  }
+}

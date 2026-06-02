@@ -4,6 +4,7 @@ import { AppShell } from '@/shell/components/AppShell'
 import { ContactView } from '@/sections/contact-and-partnerships/components/ContactView'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { NAV_ITEMS } from '@/lib/navigation'
+import { submitContact } from '@/lib/api'
 import type { FormConfig } from '@/../product/sections/contact-and-partnerships/types'
 import data from '@/../product/sections/contact-and-partnerships/data.json'
 
@@ -39,12 +40,28 @@ export function ContactPage() {
         downloadableResource={data.downloadableResource}
         schedulingInfo={data.schedulingInfo}
         onSubmitBasic={(formData) => {
-          // Form data handled by backend/webhook when configured
-          void formData
+          submitContact({
+            fullName: formData.fullName,
+            email: formData.email,
+            organization: formData.organization,
+            message: formData.message,
+            phone: formData.phone,
+            role: formData.role,
+            projectType: formData.projectType,
+            estimatedTimeline: formData.estimatedTimeline,
+          }).catch((err) => console.error('[contact] submit failed:', err))
         }}
         onSubmitDetailed={(formData) => {
-          // Form data handled by backend/webhook when configured
-          void formData
+          submitContact({
+            fullName: formData.fullName,
+            email: formData.email,
+            organization: formData.organization,
+            message: formData.message,
+            phone: formData.phone,
+            role: formData.role,
+            projectType: formData.projectType,
+            estimatedTimeline: formData.estimatedTimeline,
+          }).catch((err) => console.error('[contact] submit failed:', err))
         }}
         onDownloadPDF={() => {
           // Download triggered by anchor href

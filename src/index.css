@@ -60,6 +60,7 @@
   Light theme — Blue primary, slate neutrals
 */
 :root {
+  color-scheme: light;
   --radius: 0.5rem;
   /* Backgrounds & Foregrounds — slate */
   --background: oklch(0.985 0.001 106.424); /* slate-50 */
@@ -107,6 +108,7 @@
   Dark theme — Blue on slate dark
 */
 .dark {
+  color-scheme: dark;
   /* Backgrounds & Foregrounds — slate dark */
   --background: oklch(0.216 0.006 56.043); /* slate-900 */
   --foreground: oklch(0.985 0.001 106.424); /* slate-50 */

@@ -1,0 +1,319 @@
+- generic [ref=e56]:
+  - link "Skip to content" [ref=e57] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e58]:
+    - generic [ref=e60]:
+      - link "JCA 1221 Holdings" [ref=e61] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e62]:
+        - navigation "Main navigation" [ref=e63]:
+          - link "Home" [ref=e64] [cursor=pointer]:
+            - /url: /
+          - link "About" [ref=e65] [cursor=pointer]:
+            - /url: /about
+          - link "Projects" [ref=e66] [cursor=pointer]:
+            - /url: /projects
+          - link "Technology" [ref=e67] [cursor=pointer]:
+            - /url: /technology
+          - link "Contact" [ref=e68] [cursor=pointer]:
+            - /url: /contact
+        - 'button "Theme: system" [ref=e69]':
+          - img
+        - link "Partner With Us" [ref=e72] [cursor=pointer]:
+          - /url: /contact
+          - text: Partner With Us
+          - img [ref=e73]
+  - main [ref=e76]:
+    - generic [ref=e77]:
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - paragraph [ref=e85]: From Waste to Resource
+          - heading "How It Works" [level=2] [ref=e86]
+          - paragraph [ref=e87]: Five steps from raw wastewater to clean, safe water — powered by nature, guided by engineering.
+        - generic [ref=e92]:
+          - generic [ref=e93]:
+            - generic [ref=e94]:
+              - img [ref=e96]
+              - generic [ref=e98]: "1"
+            - generic [ref=e99]:
+              - heading "Collection & Screening" [level=3] [ref=e100]
+              - paragraph [ref=e101]: Raw wastewater and septage arrive at the facility. Screens remove large solids — plastics, debris, grit — before treatment begins.
+          - generic [ref=e102]:
+            - generic [ref=e103]:
+              - img [ref=e105]
+              - generic [ref=e109]: "2"
+            - generic [ref=e110]:
+              - heading "Biological Treatment" [level=3] [ref=e111]
+              - paragraph [ref=e112]: In the Sequential Batch Reactor, naturally occurring microorganisms consume organic pollutants. This is the same nitrogen cycle found in healthy rivers and aquariums — just optimized for scale.
+          - generic [ref=e113]:
+            - generic [ref=e114]:
+              - img [ref=e116]
+              - generic [ref=e118]: "3"
+            - generic [ref=e119]:
+              - heading "Clarification" [level=3] [ref=e120]
+              - paragraph [ref=e121]: Treated water passes through settling tanks where remaining particles sink and are separated. Clear water rises to the top, ready for final polishing.
+          - generic [ref=e122]:
+            - generic [ref=e123]:
+              - img [ref=e125]
+              - generic [ref=e131]: "4"
+            - generic [ref=e132]:
+              - heading "UV Disinfection" [level=3] [ref=e133]
+              - paragraph [ref=e134]: Water flows through ultraviolet light chambers that neutralize remaining pathogens. Solar panels help power this final sterilization step — no chemicals, no chlorine taste.
+          - generic [ref=e135]:
+            - generic [ref=e136]:
+              - img [ref=e138]
+              - generic [ref=e141]: "5"
+            - generic [ref=e142]:
+              - heading "Clean Water Release" [level=3] [ref=e143]
+              - paragraph [ref=e144]: The recycled water is released back into the bay or river. It's clean enough for marine life to thrive — and at Puerto Princesa, it now hosts Ironman triathlons and dragon boat races.
+      - generic [ref=e149]:
+        - generic [ref=e150]:
+          - paragraph [ref=e151]: Why It Matters
+          - heading "A Different Approach" [level=2] [ref=e152]
+          - paragraph [ref=e153]: Why JCA 1221's model works where traditional systems fail
+        - generic [ref=e154]:
+          - generic [ref=e157]:
+            - img [ref=e158]
+            - text: JCA 1221
+          - generic [ref=e161]:
+            - img [ref=e162]
+            - text: Traditional
+        - generic [ref=e165]:
+          - generic [ref=e167]:
+            - generic [ref=e169]: Treatment method
+            - generic [ref=e170]:
+              - img [ref=e173]
+              - paragraph [ref=e175]: Biological — microorganisms do the work, mimicking natural water cycles
+            - generic [ref=e176]:
+              - img [ref=e179]
+              - paragraph [ref=e182]: Chemical-heavy, energy-intensive mechanical treatment
+          - generic [ref=e184]:
+            - generic [ref=e186]: Cost structure
+            - generic [ref=e187]:
+              - img [ref=e190]
+              - paragraph [ref=e192]: Affordable for small municipalities. Public-private partnership model shares risk.
+            - generic [ref=e193]:
+              - img [ref=e196]
+              - paragraph [ref=e199]: High capital and operating costs. Often too expensive for mid-size cities, let alone island communities.
+          - generic [ref=e201]:
+            - generic [ref=e203]: Energy use
+            - generic [ref=e204]:
+              - img [ref=e207]
+              - paragraph [ref=e209]: Solar-assisted operations reduce grid dependence. Modular design minimizes pumping needs.
+            - generic [ref=e210]:
+              - img [ref=e213]
+              - paragraph [ref=e216]: Fully grid-dependent. Power costs can be 30–40% of operating budget.
+          - generic [ref=e218]:
+            - generic [ref=e220]: Design approach
+            - generic [ref=e221]:
+              - img [ref=e224]
+              - paragraph [ref=e226]: Modular, phased deployment. Start small, scale with demand. Fits any terrain.
+            - generic [ref=e227]:
+              - img [ref=e230]
+              - paragraph [ref=e233]: Monolithic, one-size-fits-all plants. Require flat land, large footprint, and long construction timelines.
+          - generic [ref=e235]:
+            - generic [ref=e237]: Transparency
+            - generic [ref=e238]:
+              - img [ref=e241]
+              - paragraph [ref=e243]: IoT remote monitoring. Real-time water quality data available to partners and the public.
+            - generic [ref=e244]:
+              - img [ref=e247]
+              - paragraph [ref=e250]: Periodic manual sampling. Data often months old. Limited public access.
+          - generic [ref=e252]:
+            - generic [ref=e254]: Community integration
+            - generic [ref=e255]:
+              - img [ref=e258]
+              - paragraph [ref=e260]: Every facility includes a Learning Center. Local operators are trained as employees.
+            - generic [ref=e261]:
+              - img [ref=e264]
+              - paragraph [ref=e267]: Facility is a black box. Community has no visibility or economic stake.
+      - generic [ref=e273]:
+        - generic [ref=e274]:
+          - paragraph [ref=e275]: Core Technology
+          - heading "Four Pillars of Our Systems" [level=2] [ref=e276]
+          - paragraph [ref=e277]: Modular, biological, and transparent — the same stack powers everything from 300k-person cities to small island communities.
+        - generic [ref=e278]:
+          - generic [ref=e280]:
+            - generic [ref=e281]:
+              - img [ref=e283]
+              - heading "Biological Nutrient Removal" [level=3] [ref=e287]
+            - paragraph [ref=e288]: Our systems use naturally occurring bacteria to break down pollutants — the same nitrogen cycle that keeps rivers and aquariums healthy. No harsh chemicals. No toxic byproducts. Just biology, guided by engineering.
+            - generic [ref=e289]:
+              - generic: SBR Technology
+              - generic: Aerobic & Anoxic Cycles
+              - generic: Natural Microorganisms
+              - generic: Zero Chemical Odor
+          - generic [ref=e291]:
+            - generic [ref=e292]:
+              - img [ref=e294]
+              - heading "Modular, Phased Design" [level=3] [ref=e297]
+            - paragraph [ref=e298]: Prefabricated treatment units allow rapid deployment in phases. Start with the capacity a community needs today, add modules as it grows — no expensive upfront overbuilding. Works on coastal terrain, hillsides, and small island footprints.
+            - generic [ref=e299]:
+              - generic: Prefabricated Units
+              - generic: Phased Expansion
+              - generic: Rapid Deployment
+              - generic: Terrain-Adaptive
+          - generic [ref=e301]:
+            - generic [ref=e302]:
+              - img [ref=e304]
+              - heading "Solar-Assisted & IoT Connected" [level=3] [ref=e306]
+            - paragraph [ref=e307]: Solar panels reduce grid energy consumption. IoT sensors stream real-time water quality data to a cloud dashboard — partners and regulators can monitor performance from anywhere. Remote diagnostics catch issues before they become problems.
+            - generic [ref=e308]:
+              - generic: Solar PV Integration
+              - generic: IoT Sensors
+              - generic: Real-Time Monitoring
+              - generic: Remote Diagnostics
+          - generic [ref=e310]:
+            - generic [ref=e311]:
+              - img [ref=e313]
+              - heading "Scalable from City to Island" [level=3] [ref=e316]
+            - paragraph [ref=e317]: The same technology stack that treats 4,000 cubic meters daily in Puerto Princesa works at 2,500 cubic meters in Gingoog and 15 tons of solid waste in Del Carmen. The model adapts without compromising on quality, transparency, or affordability.
+            - generic [ref=e318]:
+              - generic: 300k+ Cities
+              - generic: Mid-Size Municipalities
+              - generic: Island Communities
+              - generic: Future-Ready
+      - region "Live impact metrics dashboard" [ref=e319]:
+        - generic [ref=e322]:
+          - generic [ref=e323]:
+            - paragraph [ref=e324]: Measurable Impact
+            - heading "Live Impact Dashboard" [level=2] [ref=e325]
+            - generic [ref=e328]: Real-time treatment data from active JCA 1221 facilities — since January 2024
+          - generic [ref=e330]:
+            - generic [ref=e332]:
+              - generic [ref=e333]:
+                - img [ref=e335]
+                - paragraph [ref=e338]: Total Water Treated Since Commissioning
+                - generic [ref=e343]: Live
+              - generic [ref=e346]: 2,920,003m³
+              - paragraph [ref=e347]: Equivalent to 1,168 Olympic swimming pools
+              - img [ref=e349]
+            - generic [ref=e363]:
+              - generic [ref=e364]:
+                - img [ref=e366]
+                - paragraph [ref=e369]: Daily Treatment Volume (30-Day Average)
+                - generic [ref=e374]: Live
+              - generic [ref=e377]: 4,127m³/day
+              - paragraph [ref=e378]: 4.3% above design capacity — within healthy operating range
+              - generic [ref=e380]:
+                - generic [ref=e383]: Week 1
+                - generic [ref=e386]: Week 2
+                - generic [ref=e389]: Week 3
+                - generic [ref=e392]: Week 4
+            - generic [ref=e394]:
+              - generic [ref=e395]:
+                - img [ref=e397]
+                - paragraph [ref=e400]: Effluent Water Quality Index
+                - generic [ref=e405]: Live
+              - generic [ref=e408]: 98.7%
+              - paragraph [ref=e409]: Consistently above the 95% regulatory threshold
+              - img [ref=e411]
+            - generic [ref=e415]:
+              - generic [ref=e416]:
+                - img [ref=e418]
+                - paragraph [ref=e424]: Solar Energy Contribution
+                - generic [ref=e429]: Live
+              - generic [ref=e432]: 34.0%
+              - paragraph [ref=e433]: Of total facility energy from solar PV — reducing costs and carbon footprint
+              - generic [ref=e435]:
+                - generic [ref=e438]: 2024 Q1
+                - generic [ref=e441]: 2024 Q2
+                - generic [ref=e444]: 2024 Q3
+                - generic [ref=e447]: 2024 Q4
+                - generic [ref=e450]: 2025 Q1
+                - generic [ref=e453]: 2025 Q2
+            - generic [ref=e455]:
+              - generic [ref=e456]:
+                - img [ref=e458]
+                - paragraph [ref=e461]: Total Water Treated Since Commissioning
+                - generic [ref=e466]: Live
+              - generic [ref=e469]: 2,920,003m³
+              - paragraph [ref=e470]: Equivalent to 1,168 Olympic swimming pools
+              - img [ref=e472]
+            - generic [ref=e486]:
+              - generic [ref=e487]:
+                - img [ref=e489]
+                - paragraph [ref=e492]: Daily Treatment Volume (30-Day Average)
+                - generic [ref=e497]: Live
+              - generic [ref=e500]: 4,127m³/day
+              - paragraph [ref=e501]: 4.3% above design capacity — within healthy operating range
+              - generic [ref=e503]:
+                - generic [ref=e506]: Week 1
+                - generic [ref=e509]: Week 2
+                - generic [ref=e512]: Week 3
+                - generic [ref=e515]: Week 4
+            - generic [ref=e517]:
+              - generic [ref=e518]:
+                - img [ref=e520]
+                - paragraph [ref=e523]: Effluent Water Quality Index
+                - generic [ref=e528]: Live
+              - generic [ref=e531]: 98.7%
+              - paragraph [ref=e532]: Consistently above the 95% regulatory threshold
+              - img [ref=e534]
+            - generic [ref=e538]:
+              - generic [ref=e539]:
+                - img [ref=e541]
+                - paragraph [ref=e547]: Solar Energy Contribution
+                - generic [ref=e552]: Live
+              - generic [ref=e555]: 34.0%
+              - paragraph [ref=e556]: Of total facility energy from solar PV — reducing costs and carbon footprint
+              - generic [ref=e558]:
+                - generic [ref=e561]: 2024 Q1
+                - generic [ref=e564]: 2024 Q2
+                - generic [ref=e567]: 2024 Q3
+                - generic [ref=e570]: 2024 Q4
+                - generic [ref=e573]: 2025 Q1
+                - generic [ref=e576]: 2025 Q2
+            - generic [ref=e578]:
+              - generic [ref=e579]:
+                - img [ref=e581]
+                - paragraph [ref=e584]: Total Water Treated Since Commissioning
+                - generic [ref=e589]: Live
+              - generic [ref=e592]: 2,920,003m³
+              - paragraph [ref=e593]: Equivalent to 1,168 Olympic swimming pools
+              - img [ref=e595]
+            - generic [ref=e609]:
+              - generic [ref=e610]:
+                - img [ref=e612]
+                - paragraph [ref=e615]: Daily Treatment Volume (30-Day Average)
+                - generic [ref=e620]: Live
+              - generic [ref=e623]: 4,127m³/day
+              - paragraph [ref=e624]: 4.3% above design capacity — within healthy operating range
+              - generic [ref=e626]:
+                - generic [ref=e629]: Week 1
+                - generic [ref=e632]: Week 2
+                - generic [ref=e635]: Week 3
+                - generic [ref=e638]: Week 4
+            - generic [ref=e640]:
+              - generic [ref=e641]:
+                - img [ref=e643]
+                - paragraph [ref=e646]: Effluent Water Quality Index
+                - generic [ref=e651]: Live
+              - generic [ref=e654]: 98.7%
+              - paragraph [ref=e655]: Consistently above the 95% regulatory threshold
+              - img [ref=e657]
+            - generic [ref=e661]:
+              - generic [ref=e662]:
+                - img [ref=e664]
+                - paragraph [ref=e670]: Solar Energy Contribution
+                - generic [ref=e675]: Live
+              - generic [ref=e678]: 34.0%
+              - paragraph [ref=e679]: Of total facility energy from solar PV — reducing costs and carbon footprint
+              - generic [ref=e681]:
+                - generic [ref=e684]: 2024 Q1
+                - generic [ref=e687]: 2024 Q2
+                - generic [ref=e690]: 2024 Q3
+                - generic [ref=e693]: 2024 Q4
+                - generic [ref=e696]: 2025 Q1
+                - generic [ref=e699]: 2025 Q2
+  - contentinfo [ref=e705]:
+    - generic [ref=e707]:
+      - generic [ref=e708]:
+        - generic [ref=e709]: JCA 1221 Holdings
+        - generic [ref=e710]: "|"
+        - generic [ref=e711]: Makati, Metro Manila, Philippines
+      - generic [ref=e712]:
+        - link "Privacy Policy" [ref=e713] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms of Service" [ref=e714] [cursor=pointer]:
+          - /url: /terms
