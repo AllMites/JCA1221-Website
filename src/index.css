@@ -184,6 +184,26 @@
   }
 }
 
+/* ─── Custom Glass Scrollbar ────────────────────────────────── */
+
+/* Hide native scrollbar globally — keep scroll functionality */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
+/* Section-level hide (for containers using variant="section") */
+.hide-native-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-native-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
