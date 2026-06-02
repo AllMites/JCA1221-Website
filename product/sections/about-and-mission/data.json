@@ -14,7 +14,7 @@
       "All entities are standalone — no cross-entity relationships beyond the section container."
     ]
   },
-  "founderLetter": "I spent the first part of my career in corporate law — structuring project finance, negotiating deals, working the long hours that come with complex transactions. I was precise, analytical, and good at what I did. But after a near-fatal car accident, I found myself asking a question I couldn't ignore: 'What was I really meant to do?' The answer came from an unexpected place — my aquarium hobby. The nitrogen cycle that keeps a tank alive is the same process that can clean entire watersheds. Nature already knows how to purify water. It just needs the right infrastructure and the right people to make it happen. That's why JCA 1221 exists. We build environmental infrastructure that mimics natural processes — no heavy chemicals, no energy-intensive brute force, just biology guided by engineering. We go where others won't: small island communities, remote barangays, places where the business case isn't obvious but the environmental need is desperate. Our motto is 'Serbisyo, Hindi Negosyo' — Service, Not Business. That doesn't mean we don't care about sustainability. It means we measure success not just in revenue, but in cubic meters of water cleaned, in bays restored, in communities that can finally see through their coastline. If you're a government official looking for a partner who won't cut corners, or an investor who wants returns with real environmental impact — we should talk. — Jehremiah C. Asis, Founder & CEO",
+  "founderLetter": "I spent the first part of my career in corporate law — structuring project finance, negotiating deals, working the long hours that come with complex transactions. I was precise, analytical, and good at what I did. But after a near-fatal car accident, I found myself asking a question I couldn't ignore: 'What was I really meant to do?' The answer came from an unexpected place — my aquarium hobby. The nitrogen cycle that keeps a tank alive is the same process that can clean entire watersheds. Nature already knows how to purify water. It just needs the right infrastructure and the right people to make it happen. That's why JCA 1221 exists. We build environmental infrastructure that mimics natural processes — no heavy chemicals, no energy-intensive brute force, just biology guided by engineering. We go where others won't: small island communities, remote barangays, places where the business case isn't obvious but the environmental need is desperate. Our motto is 'Serbisyo, Hindi Negosyo' — Service, Not Business. That doesn't mean we don't care about sustainability. It means we measure success not just in revenue, but in cubic meters of water cleaned, in bays restored, in communities that can finally see through their coastline. If you are looking for a partner committed to doing the job right — with full transparency and accountability — whether you represent a municipality, an agency, or an investor who wants returns with real environmental impact — we should talk. — Jehremiah C. Asis, Founder & CEO",
   "founderProfile": {
     "name": "Jehremiah C. Asis",
     "role": "Founder & CEO, JCA 1221 Holdings Inc.",
@@ -30,7 +30,7 @@
         "context": "On his unconventional path to environmental infrastructure"
       },
       {
-        "text": "Zero corruption is not a slogan. It's the reason we can look every community leader in the eye and promise that their project will be done right.",
+        "text": "Integrity is our foundation. It's the reason we can look every community leader in the eye and promise that their project will be done right.",
         "context": "On integrity as competitive advantage"
       }
     ],
@@ -65,23 +65,23 @@
   "valuePillars": [
     {
       "id": "integrity",
-      "title": "Zero Corruption, Zero Shortcuts",
+      "title": "Integrity in Every Project",
       "icon": "ShieldCheck",
       "sectionColor": "amber",
       "glassTint": "amber",
-      "description": "Integrity isn't a marketing angle — it's the foundation of every project we build. In an industry where corners are often cut, our refusal to compromise has become our strongest competitive advantage.",
+      "description": "Integrity isn't a marketing angle — it's the foundation of every project we build. When a project must be done right — on time, on budget, to spec — our commitment to doing it properly is our strongest advantage.",
       "subPoints": [
         {
           "title": "Full transparency in procurement",
-          "description": "Every contract, every supplier, every cost is documented and auditable. Government partners and investors get complete visibility into where their money goes."
+          "description": "Every contract, every supplier, every cost is documented and auditable. Government partners and investors get complete visibility into where their money goes at every stage."
         },
         {
           "title": "Community-first accountability",
           "description": "We don't just report to government agencies. We answer to the communities whose water we clean, whose bays we restore, and whose trust we earn project by project."
         },
         {
-          "title": "No facilitation payments",
-          "description": "Zero-tolerance policy across all projects, vendors, and subcontractors. This isn't negotiable — it's the reason partners choose us for sensitive, high-stakes environmental work."
+          "title": "Ethical procurement, auditable end-to-end",
+          "description": "Strict ethical procurement policies apply across all projects, vendors, and subcontractors. Every transaction is documented and auditable — giving partners full confidence in every peso spent."
         }
       ]
     },
@@ -121,7 +121,7 @@
         },
         {
           "title": "Public-private partnership expertise",
-          "description": "We navigate the legal, financial, and regulatory complexity of PPPs so that local governments get infrastructure that works — without the corruption risks that often plague large projects."
+          "description": "We navigate the legal, financial, and regulatory complexity of PPPs so that local governments get infrastructure that works — with transparent governance and clear accountability at every stage."
         },
         {
           "title": "Knowledge transfer, not dependency",
@@ -147,7 +147,7 @@
         },
         {
           "title": "Scaling to new communities",
-          "description": "Active projects in Gingoog City (Mindanao), Del Carmen (Siargao), and a pipeline of 5+ municipalities in assessment — each with the same zero-corruption, nature-first approach."
+          "description": "Active projects in Gingoog City (Mindanao), Del Carmen (Siargao), and a pipeline of 5+ municipalities in assessment — each with the same integrity-first, nature-first approach."
         }
       ]
     }

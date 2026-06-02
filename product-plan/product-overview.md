@@ -9,7 +9,7 @@ JCA 1221 Holdings is a Philippine environmental infrastructure company that desi
 - Nature-mimicking treatment technology with lower power, chemical, and maintenance costs
 - IoT-enabled remote monitoring and real-time data transparency
 - Modular, scalable design adaptable to cities, towns, and islands of any size
-- Zero-corruption, integrity-first operating principles
+- Integrity-first operating principles
 - Proven track record with measurable environmental restoration results
 
 ## Planned Sections

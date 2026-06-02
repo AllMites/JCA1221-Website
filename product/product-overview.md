@@ -16,9 +16,9 @@ Traditional sewerage systems require massive capital outlay, years of constructi
 Our technology mimics natural biological processes, using less power, fewer chemicals, and less maintenance than conventional plants. IoT sensors and remote monitoring allow small local government teams to maintain high efficiency without large on-site technical staff. The model scales from large cities to small island barangays.
 
 ### Problem 3: Investors and governments struggle to find credible, trustworthy infrastructure partners
-Infrastructure projects in the Philippines carry reputational risk — corruption, delays, and failed projects erode confidence. Government officials and investors need partners with proven integrity and track records.
+Large infrastructure projects in the Philippines carry reputational risk — projects that fall short of commitments erode confidence. Government officials and investors need partners with proven reliability and track records.
 
-JCA 1221 operates under the principle of "Serbisyo, Hindi Negosyo" (Service, Not Business). We temper profitability to keep services affordable, maintain zero tolerance for corruption, and have a demonstrated track record — including an Asian Water Award-winning facility that has measurably restored Puerto Princesa Bay.
+JCA 1221 operates under the principle of "Serbisyo, Hindi Negosyo" (Service, Not Business). We temper profitability to keep services affordable, maintain zero tolerance for shortcuts, and have a demonstrated track record — including an Asian Water Award-winning facility that has measurably restored Puerto Princesa Bay.
 
 ### Problem 4: Solid waste management remains an unsolved crisis across Philippine islands
 Tourism-heavy islands like Siargao generate waste that overwhelms local capacity. Without local treatment infrastructure, waste is burned, dumped, or shipped off-island at great expense — harming both the environment and the tourism economy.
@@ -30,5 +30,5 @@ JCA 1221 is expanding into integrated solid waste management with pyrolysis tech
 - Nature-mimicking treatment technology with lower power, chemical, and maintenance costs
 - IoT-enabled remote monitoring and real-time data transparency
 - Modular, scalable design adaptable to cities, towns, and islands of any size
-- Zero-corruption, integrity-first operating principles
+- Integrity-first operating principles
 - Proven track record with measurable environmental restoration results
