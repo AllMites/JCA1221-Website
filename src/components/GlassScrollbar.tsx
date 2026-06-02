@@ -23,6 +23,7 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
   const [isVisible, setIsVisible] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const rafRef = useRef<number | null>(null)
+  const isDraggingRef = useRef(false)
 
   /** Holds computed maxScroll + trackTravel so drag handler can read synchronously */
   const metricsRef = useRef({ maxScroll: 0, trackTravel: 0 })
@@ -72,7 +73,11 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
   const onScroll = useCallback(() => {
     if (rafRef.current) return
     rafRef.current = requestAnimationFrame(() => {
-      syncThumb()
+      // During drag, React state still causes re-render jitter.
+      // Thumb DOM + page scroll are updated directly in mousemove.
+      if (!isDraggingRef.current) {
+        syncThumb()
+      }
       rafRef.current = null
     })
   }, [syncThumb])
@@ -92,6 +97,7 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
       e.preventDefault()
       e.stopPropagation()
       setIsDragging(true)
+      isDraggingRef.current = true
 
       const scrollY = isPage
         ? document.documentElement.scrollTop
@@ -156,6 +162,7 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
 
     const onMouseUp = () => {
       setIsDragging(false)
+      isDraggingRef.current = false
       dragOriginRef.current = null
       // Sync React state to match final DOM position
       syncThumb()
