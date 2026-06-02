@@ -184,24 +184,46 @@
   }
 }
 
-/* ─── Custom Glass Scrollbar ────────────────────────────────── */
+/* ─── Glassmorphism Native Scrollbar ────────────────────────── */
 
-/* Hide native scrollbar globally — keep scroll functionality */
+/* Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 6px 0;
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.5 0.01 250 / 0.4);
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.5 0.01 250 / 0.6);
+  background-clip: padding-box;
+  border: 1.5px solid transparent;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: oklch(0.7 0.01 250 / 0.3);
+  background-clip: padding-box;
+  border: 1.5px solid transparent;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.7 0.01 250 / 0.5);
+  background-clip: padding-box;
+  border: 1.5px solid transparent;
+}
+
+/* Firefox */
 html {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge legacy */
+  scrollbar-color: oklch(0.5 0.01 250 / 0.4) transparent;
+  scrollbar-width: thin;
 }
-html::-webkit-scrollbar {
-  display: none; /* Chrome/Safari/Opera */
-}
-
-/* Section-level hide (for containers using variant="section") */
-.hide-native-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.hide-native-scrollbar::-webkit-scrollbar {
-  display: none;
+html.dark {
+  scrollbar-color: oklch(0.7 0.01 250 / 0.3) transparent;
 }
 
 /* Respect user motion preferences */

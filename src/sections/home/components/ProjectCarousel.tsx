@@ -2,7 +2,6 @@ import { MapPin, ArrowRight, ArrowUpRight, CheckCircle2, Wrench, ClipboardCheck 
 import type { LucideIcon } from 'lucide-react'
 import type { ProjectCard as ProjectCardType } from '@/../product/sections/home/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
-import { GlassScrollbar } from '@/components/GlassScrollbar'
 
 interface ProjectCarouselProps {
   projects: ProjectCardType[]
@@ -122,7 +121,7 @@ export function ProjectCarousel({ projects, onProjectClick }: ProjectCarouselPro
       </div>
 
       {/* Horizontal scroll container */}
-      <GlassScrollbar variant="section" className="relative z-10">
+      <div className="relative z-10 overflow-x-auto overscroll-x-contain pb-2">
         <div
           className="flex gap-5 px-4 sm:px-6 lg:px-8 pb-4 snap-x snap-mandatory"
           style={{ scrollPaddingInline: 'calc((100vw - 1280px) / 2 + 2rem)', paddingLeft: 'max(1rem, calc((100vw - 1280px) / 2 + 2rem))', paddingRight: 'max(1rem, calc((100vw - 1280px) / 2 + 2rem))' }}
@@ -146,7 +145,7 @@ export function ProjectCarousel({ projects, onProjectClick }: ProjectCarouselPro
             </div>
           </div>
         </div>
-      </GlassScrollbar>
+      </div>
     </section>
   )
 }

@@ -24,3 +24,9 @@ dist/
 # Logs
 *.log
 npm-debug.log*
+
+# Playwright MCP snapshots
+.playwright-mcp/
+
+# Verification screenshots
+verify-*.png
