@@ -24,3 +24,4 @@ A government unit, investor, or technology partner that has collaborated with JC
 - A TeamMember works on many Project
 - A Project has many Award
 - A Partner collaborates on a Project
+- A NewsArticle references one or more Project

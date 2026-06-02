@@ -132,7 +132,6 @@ export function GlassScrollbar({ children, variant = 'page', className = '' }: G
       if (!dragStartRef.current || !trackRef.current) return
       const trackRect = trackRef.current.getBoundingClientRect()
       const deltaY = e.clientY - dragStartRef.current.mouseStart
-      const pixelsPerScroll = trackRect.height / thumbHeight
       const scrollDelta = deltaY * (isPage
         ? (document.documentElement.scrollHeight - document.documentElement.clientHeight)
         : ((scrollContainerRef.current?.scrollHeight ?? 0) - (scrollContainerRef.current?.clientHeight ?? 0))

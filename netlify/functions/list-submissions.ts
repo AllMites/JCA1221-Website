@@ -4,8 +4,14 @@ import { isAdminAuthorized } from '../lib/admin-auth'
 import { json } from '../lib/cors'
 
 export const handler: Handler = async (event: HandlerEvent) => {
+  // Body size limit (50KB)
+  const MAX_BODY = 50_000
+  if (event.body && Buffer.byteLength(event.body, "utf-8") > MAX_BODY) {
+    return json({ error: "Payload too large" }, 413)
+  }
+
   if (event.httpMethod !== 'GET') return json({ error: 'Method not allowed' }, 405)
-  if (!isAdminAuthorized(event.headers.authorization ?? null)) {
+  if (!isAdminAuthorized(event.headers.authorization ?? null, event.headers["client-ip"] ?? event.headers["x-forwarded-for"]?.split(",")[0]?.trim())) {
     return json({ error: 'Unauthorized' }, 401)
   }
 

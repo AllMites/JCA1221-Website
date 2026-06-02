@@ -29,6 +29,12 @@ const PrivacyPage = lazy(() =>
 const TermsPage = lazy(() =>
   import('@/pages/TermsPage').then((m) => ({ default: m.TermsPage })),
 )
+const TeamPage = lazy(() =>
+  import('@/pages/TeamPage').then((m) => ({ default: m.TeamPage })),
+)
+const NewsPage = lazy(() =>
+  import('@/pages/NewsPage').then((m) => ({ default: m.NewsPage })),
+)
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 )
@@ -110,6 +116,8 @@ export const router = createBrowserRouter([
       { path: '/projects/:projectId', element: <ProjectDetailPage /> },
       { path: '/technology', element: <TechnologyPage /> },
       { path: '/contact', element: <ContactPage /> },
+      { path: '/team', element: <TeamPage /> },
+      { path: '/news', element: <NewsPage /> },
       { path: '/privacy', element: <PrivacyPage /> },
       { path: '/terms', element: <TermsPage /> },
 

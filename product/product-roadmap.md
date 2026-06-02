@@ -14,5 +14,11 @@ Showcase of completed and ongoing projects: the award-winning Puerto Princesa Wa
 ### 4. Technology & Approach
 How JCA 1221's technology works — nature-mimicking biological treatment, modular design, solar-assisted operations, IoT remote monitoring, and the scalability that makes the model viable from large cities to small island communities.
 
-### 5. Contact & Partnerships
+### 5. News & Press Room
+Press coverage, media mentions, award announcements, and feature stories about JCA 1221 and its projects. Filterable by category (Awards, Projects, Expansion, Policy, Media). Serves as third-party validation for investors and government officials.
+
+### 6. Team
+The leadership and technical team behind JCA 1221 — from the founder to the plant operators. Each profile includes bio, expertise tags, quotes, and contact links. Builds trust by showing the people government and investors will work with.
+
+### 7. Contact & Partnerships
 Call-to-action for government officials and potential investors to inquire about project partnerships. Contact form, office location, and direct email for serious inquiries.

@@ -31,6 +31,15 @@ function validate(payload: unknown): payload is ContactPayload {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email as string)) return false
   // Message minimum length
   if ((p.message as string).trim().length < 20) return false
+  // Field length limits
+  if ((p.fullName as string).trim().length > 200) return false
+  if ((p.email as string).trim().length > 254) return false
+  if ((p.organization as string).trim().length > 300) return false
+  if ((p.message as string).trim().length > 10_000) return false
+  if (p.phone && (p.phone as string).trim().length > 50) return false
+  if (p.role && (p.role as string).trim().length > 100) return false
+  if (p.projectType && (p.projectType as string).trim().length > 200) return false
+  if (p.estimatedTimeline && (p.estimatedTimeline as string).trim().length > 100) return false
   return true
 }
 
@@ -72,6 +81,12 @@ async function checkRateLimit(ipHash: string): Promise<'ok' | 'too-fast' | 'too-
 // ── Handler ────────────────────────────────────────────────────────────
 
 export const handler: Handler = async (event: HandlerEvent) => {
+    // Body size limit (50KB)
+    const MAX_BODY = 50_000
+    if (event.body && Buffer.byteLength(event.body, "utf-8") > MAX_BODY) {
+      return json({ error: "Payload too large" }, 413)
+    }
+
   // Only accept POST
   if (event.httpMethod !== 'POST') {
     return json({ error: 'Method not allowed' }, 405)

@@ -1,0 +1,147 @@
+{
+  "_meta": {
+    "models": {
+      "newsArticle": "A press mention, award announcement, feature story, or media coverage about JCA 1221 and its projects."
+    },
+    "relationships": [
+      "Articles are standalone, ordered reverse-chronologically.",
+      "Categories group articles for filter display: awards, projects, policy, expansion, media."
+    ]
+  },
+  "sectionTitle": "News & Press Room",
+  "sectionSubtitle": "Coverage, announcements, and recognition — transparency in action.",
+  "articles": [
+    {
+      "id": "cebu-waste-summit-2026",
+      "title": "Gov. Pam Eyes Siargao Model to Strengthen Cebu Solid Waste Management",
+      "source": "Cebu Provincial Government",
+      "date": "2026-03-05",
+      "excerpt": "Cebu Governor Pamela Baricuatro is exploring a waste-to-fuel solution modeled after Siargao's solid waste treatment plant in Del Carmen. She invited JCA 1221 Holdings CEO Jehremiah Asis to present at the Cebu Waste Management Summit, seeking mayors' approval to pilot the modular pyrolysis system across tourist-heavy and coastal districts.",
+      "url": "https://cebuprovince.org/9466/gov-pam-eyes-siargao-model-to-strengthen-cebu-solid-waste-management/",
+      "category": "expansion",
+      "tags": ["Cebu", "Siargao Model", "Pyrolysis", "Solid Waste", "Gov. Baricuatro"],
+      "type": "media-coverage"
+    },
+    {
+      "id": "waste-to-fuel-eyed-2026",
+      "title": "Waste-to-Fuel Plant Eyed",
+      "source": "SunStar Cebu",
+      "date": "2026-03-27",
+      "excerpt": "The Siargao pyrolysis plant processes up to five tons of solid waste daily, transforming it into fuel that powers the facility itself. Unlike conventional waste-to-energy plants that require lengthy construction, JCA 1221's modular approach allows rapid deployment — attracting interest from Cebu as a template for district-level waste management.",
+      "url": "https://www.sunstar.com.ph/cebu/waste-to-fuel-plant-eyed",
+      "category": "expansion",
+      "tags": ["Siargao", "Pyrolysis", "Waste-to-Fuel", "Modular"],
+      "type": "media-coverage"
+    },
+    {
+      "id": "baricuatro-eyes-siargao-2026",
+      "title": "Baricuatro Eyes Siargao's Success to Solve Cebu's Waste Crisis",
+      "source": "Politiko Visayas",
+      "date": "2026-03-03",
+      "excerpt": "The Siargao facility converts waste from five neighboring towns into diesel fuel through a modular pyrolysis system. Cebu Governor Baricuatro sees it as a model for solving the province's waste crisis, preferring district-level upcycling over landfill expansion.",
+      "url": "https://visayas.politiko.com.ph/2026/03/03/baricuatro-eyes-siargaos-success-to-solve-cebus-waste-crisis/daily-feed/",
+      "category": "expansion",
+      "tags": ["Cebu", "Siargao", "Pyrolysis", "Policy"],
+      "type": "media-coverage"
+    },
+    {
+      "id": "asian-water-awards-2025",
+      "title": "Philippines Wins Big at the 2025 Asian Water Awards",
+      "source": "PhilStar Tech",
+      "date": "2025-10-27",
+      "excerpt": "JCA 1221's Puerto Princesa Water Reclamation and Learning Center won Water Quality Improvement Project of the Year at the 2025 Asian Water Awards in Kuala Lumpur. The facility — the Philippines' first combined septage and sewage treatment plant — was recognized for restoring coastal ecosystems and enabling international events to return to Puerto Princesa Bay.",
+      "url": "https://philstartech.com/events/2025/10/27/15510/philippines-wins-big-at-the-2025-asian-water-awards/",
+      "category": "awards",
+      "tags": ["Asian Water Awards", "Puerto Princesa", "Water Quality"],
+      "type": "award"
+    },
+    {
+      "id": "puerto-princesa-green-breakthrough-2025",
+      "title": "Puerto Princesa's Green Breakthrough: Philippine Water Facility Wins Top Honor for Restoring Coastal Ecosystems",
+      "source": "Manila Bulletin",
+      "date": "2025-11-03",
+      "excerpt": "In-depth feature on the Puerto Princesa Water Reclamation and Learning Center, detailing how a public-private partnership among JCA 1221 Holdings, Vivant Hydro Holdings, and the Puerto Princesa City government prevented 4,000 cubic meters of daily untreated wastewater from reaching the bay.",
+      "url": "https://mb.com.ph/2025/11/03/puerto-princesas-green-breakthrough-philippine-water-facility-wins-top-honor-for-restoring-coastal-ecosystems",
+      "category": "projects",
+      "tags": ["Puerto Princesa", "Asian Water Awards", "PPP", "Coastal Restoration"],
+      "type": "feature"
+    },
+    {
+      "id": "lawyer-harnessed-technology-2025",
+      "title": "This Lawyer Harnessed Technology to Make Our Waters Cleaner, One Island at a Time",
+      "source": "PhilStar Tech",
+      "date": "2025-10-20",
+      "excerpt": "Profile of Jehremiah Asis — from Philippine Science High School and UP law to corporate project finance, a near-fatal car accident, and an aquarium hobby that sparked a new approach to wastewater treatment. Covers JCA 1221's IoT sensors, solar-assisted UV disinfection, AI-assisted diagnostics, and expansion across the Philippines.",
+      "url": "https://philstartech.com/enterprise/2025/10/20/15367/this-lawyer-harnessed-technology-to-make-our-waters-cleaner-one-island-at-a-time/",
+      "category": "media",
+      "tags": ["Jehremiah Asis", "Founder Profile", "IoT", "Technology"],
+      "type": "feature"
+    },
+    {
+      "id": "jca-ceo-corruption-2025",
+      "title": "JCA CEO: ₱100 Billion Lost to Corruption Could Fund Wastewater Treatment for Every Philippine City",
+      "source": "LinkedIn / Cathy Yap-Yang",
+      "date": "2025-10-15",
+      "excerpt": "JCA 1221 CEO Jehremiah Asis speaks out on the cost of corruption in Philippine infrastructure, noting that funds lost to graft could have fully treated wastewater for every city in the country. Reinforces JCA 1221's positioning as an integrity-first infrastructure partner.",
+      "url": "https://www.linkedin.com/posts/cathyyapyang_jehremiah-asis-ceo-of-jca-1221-holdings-activity-7395015702312583168-3Va3",
+      "category": "policy",
+      "tags": ["Integrity", "Anti-Corruption", "Infrastructure", "Policy"],
+      "type": "media-coverage"
+    },
+    {
+      "id": "puerto-princesa-plant-opens-2024",
+      "title": "Puerto Princesa Opens Water Treatment Plant",
+      "source": "Manila Standard",
+      "date": "2024-12-15",
+      "excerpt": "The Puerto Princesa Water Reclamation and Learning Center officially commenced operations, marking the Philippines' first combined septage and sewage treatment facility. The plant charges the lowest septage fee among highly urbanized Philippine cities.",
+      "url": "https://manilastandard.net/?p=314214204",
+      "category": "projects",
+      "tags": ["Puerto Princesa", "Operations", "Commissioning"],
+      "type": "media-coverage"
+    },
+    {
+      "id": "sewerage-plant-reduce-pollution-2024",
+      "title": "Sewerage and Septage Treatment Plant to Reduce Pollution in Puerto Bay",
+      "source": "Palawan News",
+      "date": "2024-12-10",
+      "excerpt": "Local coverage of the Puerto Princesa facility's environmental impact, detailing how the plant would prevent up to 4,000 cubic meters of daily wastewater from reaching Puerto Princesa Bay and restore marine habitats.",
+      "url": "https://palawan-news.com/sewerage-and-septage-treatment-plant-to-reduce-pollution-in-puerto-bay/",
+      "category": "projects",
+      "tags": ["Puerto Princesa", "Bay Restoration", "Marine Life"],
+      "type": "media-coverage"
+    },
+    {
+      "id": "siargao-septage-project-2023",
+      "title": "Sanitation Project to Address Siargao's Sewage Problem",
+      "source": "Philippine Daily Inquirer",
+      "date": "2023-09-20",
+      "excerpt": "The Del Carmen, Siargao septage and sanitation project — led by JCA 1221 with local government backing — aims to address the island's growing sewage problem driven by tourism expansion. The facility combines wastewater treatment with solid waste management, creating a comprehensive environmental solution for one of the Philippines' most iconic island destinations.",
+      "url": "https://newsinfo.inquirer.net/1792867/sanitation-project-to-address-siargaos-sewage-problem",
+      "category": "expansion",
+      "tags": ["Siargao", "Septage", "Sanitation", "Tourism"],
+      "type": "media-coverage"
+    },
+    {
+      "id": "asian-water-award-video-2025",
+      "title": "Asian Water Awards 2025 Winner: Jehremiah C. Asis of Puerto Princesa",
+      "source": "Asian Water Awards (Vimeo)",
+      "date": "2025-10-25",
+      "excerpt": "Video feature on Jehremiah Asis accepting the Water Quality Improvement Project of the Year award at the 2025 Asian Water Awards ceremony in Kuala Lumpur. Includes facility footage and on-site interview.",
+      "url": "https://vimeo.com/1146796447",
+      "category": "awards",
+      "tags": ["Asian Water Awards", "Video", "Jehremiah Asis"],
+      "type": "award"
+    },
+    {
+      "id": "asis-innovation-one-news-2025",
+      "title": "Asis: Innovation Key to Capital, Operation-Efficient Water Projects",
+      "source": "One News PH",
+      "date": "2025-10-22",
+      "excerpt": "Television interview with Jehremiah Asis on One News PH, discussing how JCA 1221's technology combines nature-mimicking biological treatment with IoT monitoring and solar power to deliver affordable wastewater infrastructure to Philippine communities.",
+      "url": "https://www.youtube.com/watch?v=5fBdnE5UQdI",
+      "category": "media",
+      "tags": ["TV Interview", "Innovation", "IoT", "Affordability"],
+      "type": "media-coverage"
+    }
+  ]
+}

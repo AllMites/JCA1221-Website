@@ -53,25 +53,77 @@ const DEFAULT_OPTIONS: LiquidGlassOptions = {
 
 let _scrollSyncOn = false
 
-/** Hook up a scroll-driven lens position sync. The liquidGL library debounces
- *  scroll renders by 150ms and skips every other frame during scroll, which
- *  causes visible jitter. We force immediate metric updates on each scroll tick. */
+/**
+ * Bridges the compositor-to-WebGL gap that causes liquidGL overlays to visibly
+ * lag behind CSS content during scroll.
+ *
+ * Root cause: browser compositor shifts CSS content instantly on the GPU thread,
+ * but the WebGL canvas (position:fixed) must re-render via JS → GL commands →
+ * buffer swap — introducing 1-2 frames of latency where the glass overlay
+ * appears at the pre-scroll position.
+ *
+ * Fix: synchronously translate the canvas by -scrollDelta on each scroll tick
+ * (CSS transform is composited instantly), then on rAF update metrics, render
+ * at correct positions, and clear the transform. This eliminates the perceived
+ * lag without changing the WebGL pipeline.
+ */
 function ensureScrollSync() {
   if (_scrollSyncOn || typeof window === 'undefined') return
   _scrollSyncOn = true
+
+  let lastScrollY = window.scrollY
   let ticking = false
+  let pendingTransform = ''
+
   window.addEventListener(
     'scroll',
     () => {
+      // Always track scroll delta — even if renderer isn't ready yet —
+      // to avoid a huge accumulated delta on the first successful event.
+      const delta = window.scrollY - lastScrollY
+      lastScrollY = window.scrollY
+
+      const r = getRenderer()
+      if (!r || !r.lenses.length) return
+
+      if (delta !== 0) {
+        // Ensure the compensation transform is instant (no transition).
+        // A previous rAF may have set a transition for the post-render
+        // handoff clean-up; we must clear it so the scroll sync transform
+        // jumps, not animates.
+        r.canvas.style.transition = ''
+
+        // Update metrics synchronously — getBoundingClientRect() correctly
+        // reflects the current scroll position in the same event loop tick.
+        for (const lens of r.lenses) lens.updateMetrics()
+
+        // Accumulate total pending transform so rapid scroll ticks stack
+        const current = parseFloat(pendingTransform || '0') || 0
+        pendingTransform = String(current - delta)
+        r.canvas.style.transform = `translateY(${pendingTransform}px)`
+      }
+
       if (ticking) return
       ticking = true
+
       requestAnimationFrame(() => {
-        const r = getRenderer()
+        // Re-render at the correct positions (metrics already updated above)
         if (r && r.lenses.length) {
-          // Disable the library's "skip every other frame" during scroll
-          ;(r as unknown as Record<string, unknown>)._isScrolling = false
-          for (const lens of r.lenses) lens.updateMetrics()
           r.render()
+        }
+        // Clear the compensation transform — the fresh render is at the
+        // correct position. Use a short transition for smooth handoff.
+        if (r) {
+          r.canvas.style.transition = 'transform 50ms linear'
+          r.canvas.style.transform = ''
+          pendingTransform = ''
+          // Remove transition after it completes so subsequent sync transforms
+          // stay instant.
+          const cleanup = () => {
+            r.canvas.style.transition = ''
+            r.canvas.removeEventListener('transitionend', cleanup)
+          }
+          r.canvas.addEventListener('transitionend', cleanup, { once: true })
         }
         ticking = false
       })

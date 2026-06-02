@@ -1,18 +1,24 @@
 import type { ProjectDetailProps, ProjectStatus } from '@/../product/sections/projects-and-track-record/types'
-import { MapPin, ArrowLeft, Trophy, Users, Building2, Calendar, Leaf, Zap, Award } from 'lucide-react'
+import { MapPin, ArrowLeft, Trophy, Users, Building2, Calendar, Leaf, Zap, Award, CheckCircle2, Wrench, ClipboardCheck } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { ShaderBackground } from '@/components/ShaderBackground'
-import { GlassPill } from '@/components/GlassPill'
 
-const STATUS_COLORS: Record<ProjectStatus, string> = {
-  operational: 'bg-emerald-500',
-  development: 'bg-amber-500',
-  planning: 'bg-blue-400',
-}
-
-const STATUS_LABELS: Record<ProjectStatus, string> = {
-  operational: 'Operational',
-  development: 'In Development',
-  planning: 'Planning',
+const STATUS_CAPSULE: Record<ProjectStatus, { label: string; icon: LucideIcon; className: string }> = {
+  operational: {
+    label: 'Operational',
+    icon: CheckCircle2,
+    className: 'bg-emerald-500/90 dark:bg-emerald-500/20 text-white dark:text-emerald-300 border-emerald-400/40 dark:border-emerald-500/30',
+  },
+  development: {
+    label: 'In Development',
+    icon: Wrench,
+    className: 'bg-amber-500/90 dark:bg-amber-500/20 text-white dark:text-amber-300 border-amber-400/40 dark:border-amber-500/30',
+  },
+  planning: {
+    label: 'Planning',
+    icon: ClipboardCheck,
+    className: 'bg-blue-500/90 dark:bg-blue-500/20 text-white dark:text-blue-300 border-blue-400/40 dark:border-blue-500/30',
+  },
 }
 
 export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
@@ -56,12 +62,18 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
             </button>
           )}
 
-          {/* Status badge with liquid glass */}
+          {/* Status capsule — full colored pill like news type badges */}
           <div className="mb-4">
-            <GlassPill className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-white/10 border border-white/20 text-white">
-              <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[project.status] ?? 'bg-slate-400'}`} />
-              {STATUS_LABELS[project.status] ?? project.status}
-            </GlassPill>
+            {(() => {
+              const c = STATUS_CAPSULE[project.status]
+              const Icon = c.icon
+              return (
+                <span className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-medium font-heading rounded-full border backdrop-blur-sm ${c.className}`}>
+                  <Icon size={12} />
+                  {c.label}
+                </span>
+              )
+            })()}
           </div>
 
           {/* Project name */}

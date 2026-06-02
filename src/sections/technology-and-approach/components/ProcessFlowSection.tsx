@@ -63,7 +63,14 @@ export function ProcessFlowSection({ steps }: ProcessFlowSectionProps) {
         {/* Process flow — horizontal on desktop, vertical on mobile */}
         <div className="relative">
           {/* Connector line — desktop horizontal, mobile vertical */}
-          <div className="hidden lg:block absolute top-12 left-[calc(10%+2rem)] right-[calc(10%+2rem)] h-0.5">
+          <div
+            className="hidden lg:block absolute top-12 left-[calc(10%+2rem)] right-[calc(10%+2rem)] h-0.5"
+            style={{
+              opacity: visible ? 1 : 0,
+              transition: 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              transitionDelay: visible ? '0.15s' : '0s',
+            }}
+          >
             <div className="w-full h-full bg-gradient-to-r from-cyan-500/40 via-cyan-400/60 to-cyan-500/40 rounded-full" />
             {/* Animated glow dot */}
             <div

@@ -1,0 +1,171 @@
+- generic [ref=e56]:
+  - link "Skip to content" [ref=e57] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e58]:
+    - generic [ref=e60]:
+      - link "JCA 1221 Holdings" [ref=e61] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e62]:
+        - navigation "Main navigation" [ref=e63]:
+          - link "Home" [ref=e64] [cursor=pointer]:
+            - /url: /
+          - link "About" [ref=e65] [cursor=pointer]:
+            - /url: /about
+          - link "Projects" [ref=e66] [cursor=pointer]:
+            - /url: /projects
+          - link "Technology" [ref=e67] [cursor=pointer]:
+            - /url: /technology
+          - link "News" [ref=e68] [cursor=pointer]:
+            - /url: /news
+          - link "Team" [ref=e69] [cursor=pointer]:
+            - /url: /team
+          - link "Contact" [ref=e70] [cursor=pointer]:
+            - /url: /contact
+        - 'button "Theme: light" [ref=e71]':
+          - img
+        - link "Partner With Us" [ref=e74] [cursor=pointer]:
+          - /url: /contact
+          - text: Partner With Us
+          - img [ref=e75]
+  - main [ref=e78]:
+    - generic [ref=e79]:
+      - generic [ref=e82]:
+        - img [ref=e84]
+        - heading "Our Team" [level=1] [ref=e89]
+        - paragraph [ref=e90]: The people behind JCA 1221's mission — lawyers, engineers, and environmental specialists united by a commitment to Serbisyo, Hindi Negosyo.
+      - generic [ref=e93]:
+        - generic [ref=e94]:
+          - generic:
+            - generic:
+              - img "Jehremiah C. Asis"
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - heading "Jehremiah C. Asis" [level=3] [ref=e97]
+              - text: Atty.
+              - paragraph [ref=e98]: Founder & CEO
+            - paragraph [ref=e99]: Former corporate lawyer who pivoted to environmental infrastructure after a near-fatal car accident reframed his purpose. Conceptualized and led the Puerto Princesa Water Reclamation and Learning Center — the Philippines' first combined septage and sewage treatment facility. Combines project finance expertise with a deep technical understanding of biological treatment processes, drawn from years of aquarium science.
+            - generic [ref=e100]:
+              - img [ref=e101]
+              - paragraph [ref=e104]: "\"Pollution is the same whether it happens in an urban center or a remote barangay. That's why we go where others won't.\""
+            - generic [ref=e105]:
+              - generic [ref=e106]: Public-Private Partnerships
+              - generic [ref=e107]: Project Finance Law
+              - generic [ref=e108]: Biological Treatment Systems
+              - generic [ref=e109]: Environmental Policy
+            - generic [ref=e110]:
+              - link "jhasis@jca1221.com" [ref=e111] [cursor=pointer]:
+                - /url: mailto:jhasis@jca1221.com
+                - img [ref=e112]
+                - text: jhasis@jca1221.com
+              - link "LinkedIn" [ref=e115] [cursor=pointer]:
+                - /url: https://linkedin.com/in/jehremiah-asis
+                - img [ref=e116]
+                - text: LinkedIn
+        - generic [ref=e120]:
+          - generic:
+            - generic:
+              - img "Maria Clara Santos"
+          - generic [ref=e121]:
+            - generic [ref=e122]:
+              - heading "Maria Clara Santos" [level=3] [ref=e123]
+              - paragraph [ref=e124]: Head of Government Partnerships
+            - paragraph [ref=e125]: 15 years of experience in Philippine local government administration and public-private partnership negotiations. Previously served as Assistant City Administrator for a highly urbanized Visayan city, where she led the procurement and contracting of the city's first sanitary landfill and recycling program. Bridges the gap between JCA 1221's technical capabilities and the procurement realities facing LGUs.
+            - generic [ref=e126]:
+              - generic [ref=e127]: LGU Procurement
+              - generic [ref=e128]: PPP Contract Negotiation
+              - generic [ref=e129]: RA 11966 Compliance
+              - generic [ref=e130]: Stakeholder Engagement
+            - link "mc.santos@jca1221.com" [ref=e132] [cursor=pointer]:
+              - /url: mailto:mc.santos@jca1221.com
+              - img [ref=e133]
+              - text: mc.santos@jca1221.com
+        - generic [ref=e136]:
+          - generic:
+            - generic:
+              - img "Antonio C. Reyes"
+          - generic [ref=e137]:
+            - generic [ref=e138]:
+              - heading "Antonio C. Reyes" [level=3] [ref=e139]
+              - paragraph [ref=e140]: Director of Investor Relations
+            - paragraph [ref=e141]: Chartered Financial Analyst with a decade of infrastructure investment experience across Southeast Asia. Former investment officer at a multilateral development bank, where he structured blended finance facilities for water and sanitation projects in Cambodia and Indonesia. Leads JCA 1221's capital raising, financial modeling, and investor due diligence processes.
+            - generic [ref=e142]:
+              - generic [ref=e143]: Infrastructure Finance
+              - generic [ref=e144]: Blended Finance
+              - generic [ref=e145]: ESG Investment
+              - generic [ref=e146]: Financial Modeling
+            - link "a.reyes@jca1221.com" [ref=e148] [cursor=pointer]:
+              - /url: mailto:a.reyes@jca1221.com
+              - img [ref=e149]
+              - text: a.reyes@jca1221.com
+        - generic [ref=e152]:
+          - generic:
+            - generic:
+              - img "Elena R. Cruz"
+          - generic [ref=e153]:
+            - generic [ref=e154]:
+              - heading "Elena R. Cruz" [level=3] [ref=e155]
+              - text: P.E., M.Sc. Environmental Engineering
+              - paragraph [ref=e156]: Chief Technology Officer
+            - paragraph [ref=e157]: Licensed environmental engineer with specialization in biological nutrient removal and constructed wetland design. Previously led process engineering for a Singapore-based water technology firm, deploying modular treatment systems across 12 sites in Southeast Asia. Designed the four-stage treatment configuration that underpins JCA 1221's ieSSTP technology — combining SBR biological treatment, reed bed filtration, and solar-assisted UV disinfection into a single integrated system.
+            - generic [ref=e158]:
+              - generic [ref=e159]: Biological Nutrient Removal
+              - generic [ref=e160]: Modular Treatment Design
+              - generic [ref=e161]: IoT Process Monitoring
+              - generic [ref=e162]: Constructed Wetlands
+            - link "e.cruz@jca1221.com" [ref=e164] [cursor=pointer]:
+              - /url: mailto:e.cruz@jca1221.com
+              - img [ref=e165]
+              - text: e.cruz@jca1221.com
+        - generic [ref=e168]:
+          - generic:
+            - generic:
+              - img "Rafael T. Mendoza"
+          - generic [ref=e169]:
+            - generic [ref=e170]:
+              - heading "Rafael T. Mendoza" [level=3] [ref=e171]
+              - paragraph [ref=e172]: Head of Operations, Puerto Princesa
+            - paragraph [ref=e173]: Palawan native who joined JCA 1221 during the Puerto Princesa facility's commissioning phase. Manages day-to-day operations of the 4,000 m³/day treatment plant, overseeing a team of 50+ local operators and technicians. Certified wastewater treatment plant operator with hands-on expertise in SBR process control, laboratory analysis, and IoT-based remote monitoring. Led the facility through Typhoon Odette, ensuring uninterrupted recycled water supply to affected communities.
+            - generic [ref=e174]:
+              - generic [ref=e175]: SBR Process Control
+              - generic [ref=e176]: Plant Operations
+              - generic [ref=e177]: Water Quality Lab Analysis
+              - generic [ref=e178]: Disaster Resilience
+            - link "r.mendoza@jca1221.com" [ref=e180] [cursor=pointer]:
+              - /url: mailto:r.mendoza@jca1221.com
+              - img [ref=e181]
+              - text: r.mendoza@jca1221.com
+        - generic [ref=e184]:
+          - generic:
+            - generic:
+              - img "Sofia L. Tan"
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - heading "Sofia L. Tan" [level=3] [ref=e187]
+              - text: M.Sc. Environmental Science
+              - paragraph [ref=e188]: Solid Waste Program Lead
+            - paragraph [ref=e189]: Environmental scientist specializing in pyrolysis technology and circular economy systems for island communities. Previously consulted for the Philippine Reef and Rainforest Conservation Foundation on solid waste interventions in coastal tourism destinations. Leading JCA 1221's expansion into solid waste management — from the Del Carmen, Siargao pyrolysis facility to the Cebu provincial waste management study.
+            - generic [ref=e190]:
+              - generic [ref=e191]: Pyrolysis Technology
+              - generic [ref=e192]: Circular Economy
+              - generic [ref=e193]: Island Waste Management
+              - generic [ref=e194]: Community-Based Systems
+            - link "s.tan@jca1221.com" [ref=e196] [cursor=pointer]:
+              - /url: mailto:s.tan@jca1221.com
+              - img [ref=e197]
+              - text: s.tan@jca1221.com
+      - generic [ref=e202]:
+        - heading "Join the Mission" [level=2] [ref=e203]
+        - paragraph [ref=e204]: We are always looking for engineers, scientists, and operators who want to build environmental infrastructure that actually works — for communities, for ecosystems, for the next generation.
+        - link "Contact Us" [ref=e205] [cursor=pointer]:
+          - /url: /contact
+  - contentinfo [ref=e206]:
+    - generic [ref=e208]:
+      - generic [ref=e209]:
+        - generic [ref=e210]: JCA 1221 Holdings
+        - generic [ref=e211]: "|"
+        - generic [ref=e212]: Makati, Metro Manila, Philippines
+      - generic [ref=e213]:
+        - link "Privacy Policy" [ref=e214] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms of Service" [ref=e215] [cursor=pointer]:
+          - /url: /terms

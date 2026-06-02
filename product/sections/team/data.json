@@ -1,0 +1,92 @@
+{
+  "_meta": {
+    "models": {
+      "teamMember": "A leadership or key technical team member. Includes name, role, photo, bio, expertise tags, and optional quote."
+    },
+    "relationships": [
+      "Team members are standalone entities ordered by display priority.",
+      "Founder/CEO appears first, followed by executives, then technical leads."
+    ]
+  },
+  "sectionTitle": "Our Team",
+  "sectionSubtitle": "The people behind JCA 1221's mission — lawyers, engineers, and environmental specialists united by a commitment to Serbisyo, Hindi Negosyo.",
+  "members": [
+    {
+      "id": "jehremiah-asis",
+      "name": "Jehremiah C. Asis",
+      "role": "Founder & CEO",
+      "credentials": "Atty.",
+      "photo": "/images/team/jehri-asis.jpg",
+      "bio": "Former corporate lawyer who pivoted to environmental infrastructure after a near-fatal car accident reframed his purpose. Conceptualized and led the Puerto Princesa Water Reclamation and Learning Center — the Philippines' first combined septage and sewage treatment facility. Combines project finance expertise with a deep technical understanding of biological treatment processes, drawn from years of aquarium science.",
+      "quote": "Pollution is the same whether it happens in an urban center or a remote barangay. That's why we go where others won't.",
+      "expertise": ["Public-Private Partnerships", "Project Finance Law", "Biological Treatment Systems", "Environmental Policy"],
+      "links": [
+        { "type": "email", "label": "jhasis@jca1221.com", "url": "mailto:jhasis@jca1221.com" },
+        { "type": "linkedin", "label": "LinkedIn", "url": "https://linkedin.com/in/jehremiah-asis" }
+      ],
+      "order": 1
+    },
+    {
+      "id": "maria-clara-santos",
+      "name": "Maria Clara Santos",
+      "role": "Head of Government Partnerships",
+      "photo": "/images/team/maria-santos.jpg",
+      "bio": "15 years of experience in Philippine local government administration and public-private partnership negotiations. Previously served as Assistant City Administrator for a highly urbanized Visayan city, where she led the procurement and contracting of the city's first sanitary landfill and recycling program. Bridges the gap between JCA 1221's technical capabilities and the procurement realities facing LGUs.",
+      "expertise": ["LGU Procurement", "PPP Contract Negotiation", "RA 11966 Compliance", "Stakeholder Engagement"],
+      "links": [
+        { "type": "email", "label": "mc.santos@jca1221.com", "url": "mailto:mc.santos@jca1221.com" }
+      ],
+      "order": 2
+    },
+    {
+      "id": "antonio-reyes",
+      "name": "Antonio C. Reyes",
+      "role": "Director of Investor Relations",
+      "photo": "/images/team/antonio-reyes.jpg",
+      "bio": "Chartered Financial Analyst with a decade of infrastructure investment experience across Southeast Asia. Former investment officer at a multilateral development bank, where he structured blended finance facilities for water and sanitation projects in Cambodia and Indonesia. Leads JCA 1221's capital raising, financial modeling, and investor due diligence processes.",
+      "expertise": ["Infrastructure Finance", "Blended Finance", "ESG Investment", "Financial Modeling"],
+      "links": [
+        { "type": "email", "label": "a.reyes@jca1221.com", "url": "mailto:a.reyes@jca1221.com" }
+      ],
+      "order": 3
+    },
+    {
+      "id": "elena-cruz",
+      "name": "Elena R. Cruz",
+      "role": "Chief Technology Officer",
+      "credentials": "P.E., M.Sc. Environmental Engineering",
+      "photo": "/images/team/elena-cruz.jpg",
+      "bio": "Licensed environmental engineer with specialization in biological nutrient removal and constructed wetland design. Previously led process engineering for a Singapore-based water technology firm, deploying modular treatment systems across 12 sites in Southeast Asia. Designed the four-stage treatment configuration that underpins JCA 1221's ieSSTP technology — combining SBR biological treatment, reed bed filtration, and solar-assisted UV disinfection into a single integrated system.",
+      "expertise": ["Biological Nutrient Removal", "Modular Treatment Design", "IoT Process Monitoring", "Constructed Wetlands"],
+      "links": [
+        { "type": "email", "label": "e.cruz@jca1221.com", "url": "mailto:e.cruz@jca1221.com" }
+      ],
+      "order": 4
+    },
+    {
+      "id": "rafael-mendoza",
+      "name": "Rafael T. Mendoza",
+      "role": "Head of Operations, Puerto Princesa",
+      "photo": "/images/team/rafael-mendoza.jpg",
+      "bio": "Palawan native who joined JCA 1221 during the Puerto Princesa facility's commissioning phase. Manages day-to-day operations of the 4,000 m³/day treatment plant, overseeing a team of 50+ local operators and technicians. Certified wastewater treatment plant operator with hands-on expertise in SBR process control, laboratory analysis, and IoT-based remote monitoring. Led the facility through Typhoon Odette, ensuring uninterrupted recycled water supply to affected communities.",
+      "expertise": ["SBR Process Control", "Plant Operations", "Water Quality Lab Analysis", "Disaster Resilience"],
+      "links": [
+        { "type": "email", "label": "r.mendoza@jca1221.com", "url": "mailto:r.mendoza@jca1221.com" }
+      ],
+      "order": 5
+    },
+    {
+      "id": "sofia-tan",
+      "name": "Sofia L. Tan",
+      "role": "Solid Waste Program Lead",
+      "credentials": "M.Sc. Environmental Science",
+      "photo": "/images/team/sofia-tan.jpg",
+      "bio": "Environmental scientist specializing in pyrolysis technology and circular economy systems for island communities. Previously consulted for the Philippine Reef and Rainforest Conservation Foundation on solid waste interventions in coastal tourism destinations. Leading JCA 1221's expansion into solid waste management — from the Del Carmen, Siargao pyrolysis facility to the Cebu provincial waste management study.",
+      "expertise": ["Pyrolysis Technology", "Circular Economy", "Island Waste Management", "Community-Based Systems"],
+      "links": [
+        { "type": "email", "label": "s.tan@jca1221.com", "url": "mailto:s.tan@jca1221.com" }
+      ],
+      "order": 6
+    }
+  ]
+}

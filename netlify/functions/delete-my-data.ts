@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto"
 import type { Handler, HandlerEvent } from '@netlify/functions'
 import { supabase } from '../lib/supabase'
 import { sendMail } from '../lib/send-email'
@@ -8,14 +9,54 @@ import { json } from '../lib/cors'
  * Takes email address, soft-deletes matching submissions,
  * sends confirmation to the requester.
  */
+const RATE_WINDOW_SEC = 60
+const RATE_MAX_HR = 5
+
+function hashIP(ip: string): string {
+  return createHash('sha256').update(ip).digest('hex').slice(0, 16)
+}
+
+async function checkRateLimit(ipHash: string): Promise<'ok' | 'too-fast' | 'too-many'> {
+  const n = Date.now()
+  const wa = new Date(n - RATE_WINDOW_SEC * 1000)
+  const ha = new Date(n - 3600 * 1000)
+  const { data: recent } = await supabase
+    .from('submissions').select('id', { count: 'exact', head: true })
+    .eq('source_ip_hash', ipHash).gte('created_at', wa.toISOString())
+  if (recent && recent.length > 0) return 'too-fast'
+  const { count: hourly } = await supabase
+    .from('submissions').select('id', { count: 'exact', head: true })
+    .eq('source_ip_hash', ipHash).gte('created_at', ha.toISOString())
+  if (hourly && hourly >= RATE_MAX_HR) return 'too-many'
+  return 'ok'
+}
+
 export const handler: Handler = async (event: HandlerEvent) => {
   if (event.httpMethod !== 'POST') return json({ error: 'Method not allowed' }, 405)
+
+  // Body size limit (50KB)
+  const MAX_BODY = 50_000
+  if (event.body && Buffer.byteLength(event.body, "utf-8") > MAX_BODY) {
+    return json({ error: "Payload too large" }, 413)
+  }
 
   let body: { email?: string }
   try {
     body = JSON.parse(event.body ?? '{}')
   } catch {
     return json({ error: 'Invalid JSON' }, 400)
+  }
+
+  // IP hash for rate limit
+  const ipHash = hashIP(event.headers["client-ip"]
+    ?? event.headers["x-forwarded-for"]?.split(",")[0]?.trim()
+    ?? "0.0.0.0")
+  const rateStatus = await checkRateLimit(ipHash)
+  if (rateStatus === "too-fast") {
+    return json({ error: "Please wait before submitting again" }, 429)
+  }
+  if (rateStatus === "too-many") {
+    return json({ error: "Too many requests. Please try again later." }, 429)
   }
 
   if (!body.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email)) {

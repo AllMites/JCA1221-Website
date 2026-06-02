@@ -1,0 +1,122 @@
+- generic [ref=e56]:
+  - link "Skip to content" [ref=e57] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e58]:
+    - generic [ref=e60]:
+      - link "JCA 1221 Holdings" [ref=e61] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e62]:
+        - navigation "Main navigation" [ref=e63]:
+          - link "Home" [ref=e64] [cursor=pointer]:
+            - /url: /
+          - link "About" [ref=e65] [cursor=pointer]:
+            - /url: /about
+          - link "Projects" [ref=e66] [cursor=pointer]:
+            - /url: /projects
+          - link "Technology" [ref=e67] [cursor=pointer]:
+            - /url: /technology
+          - link "News" [ref=e68] [cursor=pointer]:
+            - /url: /news
+          - link "Team" [ref=e69] [cursor=pointer]:
+            - /url: /team
+          - link "Contact" [ref=e70] [cursor=pointer]:
+            - /url: /contact
+        - 'button "Theme: light" [ref=e71]':
+          - img
+        - link "Partner With Us" [ref=e74] [cursor=pointer]:
+          - /url: /contact
+          - text: Partner With Us
+          - img [ref=e75]
+  - main [ref=e78]:
+    - generic [ref=e79]:
+      - region "Portfolio summary statistics" [ref=e80]:
+        - generic [ref=e83]:
+          - generic [ref=e84]:
+            - img [ref=e87]
+            - status [ref=e90]: 4,000m³/day
+            - generic [ref=e91]: Daily Water Treated
+          - generic [ref=e92]:
+            - img [ref=e95]
+            - status [ref=e99]: "3"
+            - generic [ref=e100]: Active Projects
+          - generic [ref=e101]:
+            - img [ref=e104]
+            - status [ref=e110]: "1"
+            - generic [ref=e111]: Awards Won
+          - generic [ref=e112]:
+            - img [ref=e115]
+            - status [ref=e120]: "3"
+            - generic [ref=e121]: Communities Served
+      - generic [ref=e123]:
+        - generic [ref=e124]:
+          - paragraph [ref=e125]: Our Portfolio
+          - heading "Projects That Deliver" [level=2] [ref=e126]
+          - paragraph [ref=e127]: Each facility is a public-private partnership built on integrity, delivering measurable environmental outcomes for Philippine communities.
+        - generic [ref=e128]:
+          - button "All Projects" [ref=e129]
+          - button "Operational" [ref=e130]
+          - button "In Development" [ref=e131]
+          - button "Planning" [ref=e132]
+        - generic [ref=e133]:
+          - button "Puerto Princesa Water Reclamation & Learning Center Operational View Project Details Puerto Princesa City, Palawan Puerto Princesa Water Reclamation & Learning Center Daily Capacity 4,000 m³" [ref=e134] [cursor=pointer]:
+            - generic [ref=e135]:
+              - img "Puerto Princesa Water Reclamation & Learning Center" [ref=e136]
+              - generic [ref=e140]:
+                - img [ref=e141]
+                - text: Operational
+              - generic [ref=e145]:
+                - text: View Project Details
+                - img [ref=e146]
+            - generic [ref=e148]:
+              - generic [ref=e149]:
+                - img [ref=e150]
+                - generic [ref=e153]: Puerto Princesa City, Palawan
+              - heading "Puerto Princesa Water Reclamation & Learning Center" [level=3] [ref=e154]
+              - generic [ref=e155]:
+                - paragraph [ref=e156]: Daily Capacity
+                - paragraph [ref=e157]: 4,000 m³
+          - button "Gingoog City Septage Treatment Facility In Development View Project Details Gingoog City, Misamis Oriental Gingoog City Septage Treatment Facility Design Capacity 2,500 m³/day" [ref=e158] [cursor=pointer]:
+            - generic [ref=e159]:
+              - img "Gingoog City Septage Treatment Facility" [ref=e160]
+              - generic [ref=e164]:
+                - img [ref=e165]
+                - text: In Development
+              - generic [ref=e168]:
+                - text: View Project Details
+                - img [ref=e169]
+            - generic [ref=e171]:
+              - generic [ref=e172]:
+                - img [ref=e173]
+                - generic [ref=e176]: Gingoog City, Misamis Oriental
+              - heading "Gingoog City Septage Treatment Facility" [level=3] [ref=e177]
+              - generic [ref=e178]:
+                - paragraph [ref=e179]: Design Capacity
+                - paragraph [ref=e180]: 2,500 m³/day
+          - button "Del Carmen Solid Waste Management & Pyrolysis Facility Planning View Project Details Del Carmen, Siargao Island, Surigao del Norte Del Carmen Solid Waste Management & Pyrolysis Facility Design Throughput 15 tons/day" [ref=e181] [cursor=pointer]:
+            - generic [ref=e182]:
+              - img "Del Carmen Solid Waste Management & Pyrolysis Facility" [ref=e183]
+              - generic [ref=e187]:
+                - img [ref=e188]
+                - text: Planning
+              - generic [ref=e193]:
+                - text: View Project Details
+                - img [ref=e194]
+            - generic [ref=e196]:
+              - generic [ref=e197]:
+                - img [ref=e198]
+                - generic [ref=e201]: Del Carmen, Siargao Island, Surigao del Norte
+              - heading "Del Carmen Solid Waste Management & Pyrolysis Facility" [level=3] [ref=e202]
+              - generic [ref=e203]:
+                - paragraph [ref=e204]: Design Throughput
+                - paragraph [ref=e205]: 15 tons/day
+  - contentinfo [ref=e206]:
+    - generic [ref=e208]:
+      - generic [ref=e209]:
+        - generic [ref=e210]: JCA 1221 Holdings
+        - generic [ref=e211]: "|"
+        - generic [ref=e212]: Makati, Metro Manila, Philippines
+      - generic [ref=e213]:
+        - link "Privacy Policy" [ref=e214] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms of Service" [ref=e215] [cursor=pointer]:
+          - /url: /terms

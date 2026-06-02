@@ -158,7 +158,7 @@ export function AppShell({
 
       {/* Cookie consent — fixed position, site-wide */}
       <CookieConsent />
+      </div>
       </GlassScrollbar>
-    </div>
   )
 }
