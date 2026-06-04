@@ -1,0 +1,80 @@
+<h2>Design: Video Area & Data Shape</h2>
+<p class="subtitle">Layout, responsive behavior, and type definitions</p>
+
+<div class="section">
+  <h3>Layout</h3>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Desktop Layout</div>
+  <div class="mockup-body">
+    <div style="display:flex;flex-direction:column;gap:32px;padding:24px;">
+      <!-- Eyebrow + Icons -->
+      <div style="text-align:center;">
+        <div class="label" style="margin-bottom:16px;">FROM WASTE TO RESOURCE</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:0;">
+          <div style="padding:8px 12px;border-radius:10px;width:64px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(6,182,212,0.8);box-shadow:0_0_24px_rgba(6,182,212,0.5);background:rgba(6,182,212,0.1);">🔬<small style="font-size:10px;margin-top:2px;">Collect</small></div>
+          <div style="width:32px;height:1px;background:rgba(148,163,184,0.2);"></div>
+          <div style="padding:8px 12px;border-radius:10px;width:64px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(148,163,184,0.15);opacity:0.5;">⚗️<small style="font-size:10px;margin-top:2px;">Bio</small></div>
+          <div style="width:32px;height:1px;background:rgba(148,163,184,0.2);"></div>
+          <div style="padding:8px 12px;border-radius:10px;width:64px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(148,163,184,0.15);opacity:0.5;">💧<small style="font-size:10px;margin-top:2px;">Clarify</small></div>
+          <div style="width:32px;height:1px;background:rgba(148,163,184,0.2);"></div>
+          <div style="padding:8px 12px;border-radius:10px;width:64px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(148,163,184,0.15);opacity:0.5;">☀️<small style="font-size:10px;margin-top:2px;">UV</small></div>
+          <div style="width:32px;height:1px;background:rgba(148,163,184,0.2);"></div>
+          <div style="padding:8px 12px;border-radius:10px;width:64px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(148,163,184,0.15);opacity:0.5;">🌊<small style="font-size:10px;margin-top:2px;">Clean</small></div>
+        </div>
+      </div>
+      <!-- Video Preview -->
+      <div class="placeholder" style="aspect-ratio:16/9;max-width:800px;margin:0 auto;width:100%;">
+        <div style="text-align:center;">
+          <div style="font-size:48px;">▶️</div>
+          <p>16:9 video player<br><small>Rounded-xl, glass border, subtle glow matching active icon</small></p>
+        </div>
+      </div>
+      <!-- Info Text -->
+      <div style="text-align:center;max-width:500px;margin:0 auto;">
+        <h3 style="margin-bottom:4px;">Collection & Screening</h3>
+        <p style="font-size:14px;color:var(--color-muted);">Step description appears below video. Text transitions with icon change.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Mobile: Icons Wrap or Horizontal Scroll?</h3>
+</div>
+<div class="options">
+  <div class="option" data-choice="wrap" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content"><h3>Wrap</h3><p>5 icons wrap to 2 rows on mobile. Clean, always visible.</p></div>
+  </div>
+  <div class="option" data-choice="scroll" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content"><h3>Horizontal Scroll</h3><p>Single row, overflow-x scroll. Keeps linear progression feel.</p></div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Data Shape</h3>
+</div>
+<div class="mockup">
+  <div class="mockup-header">TypeScript — added to types.ts</div>
+  <div class="mockup-body">
+<pre style="font-family:monospace;font-size:13px;padding:16px;">
+interface TechnologyStep {
+  id: string;
+  label: string;          // "Collection & Screening"
+  description: string;    // Short description below video
+  iconName: string;       // lucide-react icon key
+  videoSrc: string;       // "/videos/collection.mp4" or "" placeholder
+}
+
+// CarouselSectionData
+interface TechnologyCarouselSectionData {
+  eyebrow: string;        // "FROM WASTE TO RESOURCE"
+  steps: TechnologyStep[];
+  videoHoldDuration: number;  // 5000ms per step
+}
+</pre>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<h2>Design: Component Structure & Glow</h2>
+<p class="subtitle">Where it lives and how the glow works</p>
+
+<div class="section">
+  <h3>File Placement</h3>
+  <p>New component: <code>src/sections/technology-and-approach/components/TechnologyCarouselSection.tsx</code><br>
+  Added to <code>TechnologyView.tsx</code> above ProcessFlowSection.<br>
+  Data extends <code>product/sections/technology-and-approach/data.json</code> with videoSrc per step.</p>
+</div>
+
+<div class="section">
+  <h3>Replacing "Orb on the Line"</h3>
+</div>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">Before: Orb on Line</div>
+    <div class="mockup-body">
+      <div style="display:flex;align-items:center;justify-content:center;padding:20px;">
+        <div style="width:12px;height:12px;border-radius:50%;background:cyan;box-shadow:0 0 20px cyan;flex-shrink:0;"></div>
+        <div style="width:60px;height:2px;background:rgba(148,163,184,0.3);"></div>
+        <div style="width:12px;height:12px;border-radius:50%;background:rgba(148,163,184,0.3);flex-shrink:0;"></div>
+        <div style="width:60px;height:2px;background:rgba(148,163,184,0.3);"></div>
+        <div style="width:12px;height:12px;border-radius:50%;background:rgba(148,163,184,0.3);flex-shrink:0;"></div>
+      </div>
+      <p style="text-align:center;font-size:12px;color:var(--color-muted);">Orb glows, connecting line is static</p>
+    </div>
+  </div>
+  <div class="mockup">
+    <div class="mockup-header">After: Box Glow on Icons</div>
+    <div class="mockup-body">
+      <div style="display:flex;align-items:center;justify-content:center;gap:4px;padding:20px;">
+        <div style="width:56px;height:56px;border-radius:10px;background:rgba(6,182,212,0.15);border:2px solid rgba(6,182,212,0.8);display:flex;align-items:center;justify-content:center;box-shadow:0_0_24px_rgba(6,182,212,0.5);">🔬</div>
+        <div style="width:40px;height:1px;background:rgba(148,163,184,0.2);"></div>
+        <div style="width:56px;height:56px;border-radius:10px;background:rgba(148,163,184,0.05);border:1px solid rgba(148,163,184,0.15);display:flex;align-items:center;justify-content:center;opacity:0.5;">⚙️</div>
+        <div style="width:40px;height:1px;background:rgba(148,163,184,0.2);"></div>
+        <div style="width:56px;height:56px;border-radius:10px;background:rgba(148,163,184,0.05);border:1px solid rgba(148,163,184,0.15);display:flex;align-items:center;justify-content:center;opacity:0.5;">💧</div>
+      </div>
+      <p style="text-align:center;font-size:12px;color:var(--color-muted);">Active icon box glows with cyan shadow, inactive dimmed</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Glow Spec</h3>
+  <ul>
+    <li><strong>Active:</strong> <code>shadow-[0_0_24px_rgba(6,182,212,0.5)]</code> cyan, border-cyan-500/80</li>
+    <li><strong>Hovered:</strong> <code>shadow-[0_0_16px_rgba(6,182,212,0.4)]</code> cyan (slightly dimmer)</li>
+    <li><strong>Locked:</strong> <code>shadow-[0_0_28px_rgba(250,204,21,0.6)]</code> amber (visual distinction)</li>
+    <li><strong>Inactive:</strong> <code>border border-white/10</code>, no shadow, opacity 0.5</li>
+    <li><strong>Connecting line:</strong> thin <code>h-px</code> between icons, inactive. No orb.</li>
+    <li>Transition: <code>transition-all duration-300</code></li>
+  </ul>
+</div>
+
+<div class="section">
+  <h3>Icon Source</h3>
+  <p>Lucide-react icons (already in project). Each step gets a semantic icon — e.g. <code>Filter</code> for collection, <code>FlaskConical</code> for bio treatment, <code>Droplets</code> for clarification, <code>Sun</code> for UV, <code>Waves</code> for clean water.</p>
+</div>

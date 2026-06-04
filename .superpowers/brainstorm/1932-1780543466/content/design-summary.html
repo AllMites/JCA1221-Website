@@ -1,0 +1,58 @@
+<h2>Full Design Summary</h2>
+<p class="subtitle">Technology Carousel Section — final design for approval</p>
+
+<div class="mockup">
+  <div class="mockup-header">What We're Building</div>
+  <div class="mockup-body">
+    <p>New <strong>TechnologyCarouselSection</strong> sits above ProcessFlowSection on the /technology page. 5 icons along the "waste to resource" eyebrow line, each with a video/GIF preview. Active icon glows (box shadow), auto-rotates every 5 seconds, hover temporarily switches, click locks.</p>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+  <div class="card">
+    <div class="card-body">
+      <h3>State Machine</h3>
+      <p style="font-size:14px;">Priority: <strong>Click > Hover > Auto</strong><br>Locked stays locked until unclicked. Hover saves previous state. Auto rotates 5s per icon, holds last frame.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3>Approach</h3>
+      <p style="font-size:14px;"><strong>A: Single video element</strong><br>src swaps on icon change. No framer-motion crossfade. Native video API.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3>Glow (No Orb)</h3>
+      <p style="font-size:14px;"><strong>Active:</strong> cyan box-shadow + border<br><strong>Hovered:</strong> slightly dimmer cyan<br><strong>Locked:</strong> amber box-shadow<br><strong>Inactive:</strong> dimmed, no glow<br>Thin connecting lines. No orb.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3>Files</h3>
+      <p style="font-size:14px;">
+        <code>TechnologyCarouselSection.tsx</code> — new component<br>
+        <code>TechnologyView.tsx</code> — add above ProcessFlow<br>
+        <code>types.ts</code> — TechnologyStep interface<br>
+        <code>data.json</code> — videoSrc per step (placeholders)
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Responsive</h3>
+  <p>Desktop: icon row + 16:9 video (max-w 800px) + step description below.<br>
+  Mobile: icons horizontal scroll, video full-width, description stacked below.</p>
+</div>
+
+<div class="section">
+  <h3>Edge Cases</h3>
+  <ul>
+    <li>Video fails to load → show static placeholder with icon</li>
+    <li>Autoplay blocked by browser → show play button overlay, start on user gesture</li>
+    <li>prefers-reduced-motion → skip auto-rotation, manual icon selection only</li>
+    <li>No videoSrc provided yet → show icon + label placeholder card</li>
+    <li>Rapid hover across icons → debounce 150ms before switching video</li>
+  </ul>
+</div>

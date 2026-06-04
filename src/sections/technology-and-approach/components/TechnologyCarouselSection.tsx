@@ -35,6 +35,17 @@ export function TechnologyCarouselSection({
   const autoTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  // Refs to avoid stale closures in event handlers
+  const activeIndexRef = useRef(activeIndex)
+  const lockedIndexRef = useRef(lockedIndex)
+  const hoveredIndexRef = useRef(hoveredIndex)
+  const savedIndexRef = useRef(savedIndex)
+
+  useEffect(() => { activeIndexRef.current = activeIndex }, [activeIndex])
+  useEffect(() => { lockedIndexRef.current = lockedIndex }, [lockedIndex])
+  useEffect(() => { hoveredIndexRef.current = hoveredIndex }, [hoveredIndex])
+  useEffect(() => { savedIndexRef.current = savedIndex }, [savedIndex])
+
   const prefersReducedMotion = typeof window !== 'undefined'
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false
@@ -137,11 +148,11 @@ export function TechnologyCarouselSection({
     if (debounceRef.current !== null) {
       clearTimeout(debounceRef.current)
     }
-    setSavedIndex(activeIndex)
+    setSavedIndex(activeIndexRef.current)
     debounceRef.current = setTimeout(() => {
       setHoveredIndex(index)
     }, 150)
-  }, [activeIndex])
+  }, [])
 
   const handleIconLeave = useCallback(() => {
     if (debounceRef.current !== null) {
@@ -149,15 +160,17 @@ export function TechnologyCarouselSection({
       debounceRef.current = null
     }
     setHoveredIndex(null)
-    if (savedIndex !== null) {
-      setActiveIndex(savedIndex)
+    const saved = savedIndexRef.current
+    if (saved !== null) {
+      setActiveIndex(saved)
       setSavedIndex(null)
     }
-  }, [savedIndex])
+  }, [])
 
   // Icon click handler
   const handleIconClick = useCallback((index: number) => {
-    if (lockedIndex === index) {
+    const locked = lockedIndexRef.current
+    if (locked === index) {
       setLockedIndex(null)
       setActiveIndex(index)
     } else {
@@ -165,7 +178,7 @@ export function TechnologyCarouselSection({
       setHoveredIndex(null)
       setSavedIndex(null)
     }
-  }, [lockedIndex])
+  }, [])
 
   // Focus/blur — pause on blur
   useEffect(() => {

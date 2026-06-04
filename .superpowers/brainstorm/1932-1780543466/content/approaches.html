@@ -1,0 +1,31 @@
+<h2>Implementation Approaches</h2>
+<p class="subtitle">Two viable paths for the icon-to-video carousel</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>A: Native &lt;video&gt; + Custom Hook</h3>
+      <p>React state machine with native video elements, useRef for playback control, useEffect timers for auto-rotation. CSS box-shadow glow.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Zero new dependencies</li><li>Matches existing patterns (useEffect + refs)</li><li>Simple video seek/play/pause API</li><li>Easy to swap placeholder → real files later</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Manual video orchestration (play, pause, currentTime reset)</li><li>Cross-browser video quirks (autoplay policies)</li></ul></div>
+      </div>
+    </div>
+  </div>
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <h3>B: framer-motion AnimatePresence</h3>
+      <p>AnimatePresence wraps video transitions with crossfade. Leverages existing framer-motion dependency. Videos fade between each other.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Smooth crossfade transitions</li><li>Already in the project</li><li>AnimatePresence handles mount/unmount lifecycle</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Two video elements mounted simultaneously during crossfade (memory)</li><li>Harder to coordinate play state across fading elements</li><li>Overkill — the "hold last frame" is already a natural pause</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Recommendation: Approach A</h3>
+  <p>Single <code>&lt;video&gt;</code> element whose <code>src</code> swaps on icon change. The "hold last frame" behavior means no crossfade needed — the transition feels natural. Matches existing code patterns. No new deps.</p>
+  <p>Both approaches use the same state machine underneath — only the video transition strategy differs.</p>
+</div>

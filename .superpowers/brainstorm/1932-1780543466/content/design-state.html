@@ -1,0 +1,40 @@
+<h2>Design: State Machine</h2>
+<p class="subtitle">3-tier priority: Click > Hover > Auto</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">State Variables</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:14px;">
+      <code>activeIndex</code>: number — currently executing icon<br>
+      <code>lockedIndex</code>: number | null — clicked/locked icon<br>
+      <code>hoveredIndex</code>: number | null — hovered icon<br>
+      <code>savedIndex</code>: number | null — pre-hover activeIndex<br>
+      <code>videoState</code>: 'playing' | 'paused' | 'ended'
+    </div>
+  </div>
+  <div class="mockup">
+    <div class="mockup-header">Resolution Order (what video plays)</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:14px;padding:16px;">
+      <strong>1. Locked?</strong> → show <code>lockedIndex</code> video, loop/play full<br>
+      <strong>2. Hovered?</strong> → show <code>hoveredIndex</code> video, save current activeIndex<br>
+      <strong>3. Auto</strong> → show <code>activeIndex</code> video, 5s per icon<br><br>
+      <em>On unhover:</em> restore <code>savedIndex</code> → <code>activeIndex</code><br>
+      <em>On unlock:</em> <code>lockedIndex = null</code>, resume from current icon<br>
+      <em>On click new icon:</em> <code>lockedIndex = icon</code>, video play full<br>
+      <em>On click locked icon:</em> unlock it
+    </div>
+  </div>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Auto-Rotation Timer</div>
+  <div class="mockup-body">
+    <ul>
+      <li>Each active icon plays 5 seconds, then advances</li>
+      <li>Timer pauses during hover or lock</li>
+      <li>On hover leave (not locked): timer resumes from where it left off</li>
+      <li>On unlock: timer starts fresh for current icon</li>
+      <li>Video holds last frame when timer expires (no crossfade needed)</li>
+    </ul>
+  </div>
+</div>

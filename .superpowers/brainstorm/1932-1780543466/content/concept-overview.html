@@ -1,0 +1,75 @@
+<h2>Technology Page — New Carousel Concept</h2>
+<p class="subtitle">Replacing the current static technology grid with an interactive icon-to-video carousel</p>
+
+<div class="section">
+  <h3>What Changes</h3>
+</div>
+
+<div class="pros-cons">
+  <div class="pros">
+    <h4>Keeping</h4>
+    <ul>
+      <li>Technology page at /technology route</li>
+      <li>Blue/slate theme with glass cards</li>
+      <li>ShaderBackground canvas layer</li>
+      <li>Four technology pillars (or similar count)</li>
+    </ul>
+  </div>
+  <div class="cons">
+    <h4>Replacing</h4>
+    <ul>
+      <li>Static 2x2 grid → Interactive icon row + video player</li>
+      <li>"Orb on the line" glow → Box glow with per-icon color</li>
+      <li>Process flow section → stays as-is (different section)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Core Behavior</h3>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Icon Row + Video Preview Area</div>
+  <div class="mockup-body">
+    <div style="display:flex;flex-direction:column;gap:24px;padding:16px;">
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <div class="placeholder" style="width:80px;height:80px;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(59,130,246,0.6);border:2px solid rgba(59,130,246,0.8);">🔬<br><small>Bio</small></div>
+        <div class="placeholder" style="width:80px;height:80px;border-radius:12px;display:flex;align-items:center;justify-content:center;opacity:0.6;">🧩<br><small>Modular</small></div>
+        <div class="placeholder" style="width:80px;height:80px;border-radius:12px;display:flex;align-items:center;justify-content:center;opacity:0.6;">☀️<br><small>Solar/IoT</small></div>
+        <div class="placeholder" style="width:80px;height:80px;border-radius:12px;display:flex;align-items:center;justify-content:center;opacity:0.6;">📈<br><small>Scale</small></div>
+      </div>
+      <div class="placeholder" style="aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-size:48px;">▶️</div>
+          <p style="margin-top:8px;">Video/GIF preview area<br><small>5-second auto-rotate to next icon</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Interaction States</h3>
+</div>
+
+<div class="cards">
+  <div class="card">
+    <div class="card-body">
+      <h3>Auto-Play</h3>
+      <p>Each icon's preview plays ~5 seconds, then active moves to next icon in sequence. Box around active icon glows.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3>Hover</h3>
+      <p>Hovering an icon switches preview to that icon's video. On unhover, returns to whichever icon was active before hover (saved state).</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3>Click (Lock)</h3>
+      <p>Clicking locks the active icon. Video plays fully (loops?) until clicked again to unlock. Returns to auto-rotate.</p>
+    </div>
+  </div>
+</div>
