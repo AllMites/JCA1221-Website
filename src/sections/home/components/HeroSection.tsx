@@ -1,7 +1,7 @@
 import { ArrowDown, Droplets } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import type { HeroContent } from '@/../product/sections/home/types'
-import { ShaderBackground } from '@/components/ShaderBackground'
+import { ShaderBackground, type ShaderVariant } from '@/components/ShaderBackground'
 import { GlassPill } from '@/components/GlassPill'
 
 
@@ -14,6 +14,33 @@ const LETTER_STAGGER = 60 // ms between consecutive letters
 /** Total time from first letter start to last letter animation end */
 const cycleTotalMs = (word: string) => LETTER_DURATION + (word.length - 1) * LETTER_STAGGER
 
+// ─── Background config per word ───────────────────────────────────────────
+
+interface WordBgConfig {
+  variant: ShaderVariant
+  gradient: string
+  image?: string   // optional background image URL
+  video?: string   // optional background video URL (takes precedence over image)
+}
+
+const WORD_BG: Record<string, WordBgConfig> = {
+  Water: {
+    variant: 'blue',
+    gradient: 'from-slate-950 via-blue-950 to-slate-900',
+    // image: '/images/projects/water-reclamation.jpg',
+  },
+  Land: {
+    variant: 'leaves',
+    gradient: 'from-slate-950 via-emerald-950 to-slate-900',
+    // image: '/images/projects/land-restoration.jpg',
+  },
+  Waste: {
+    variant: 'amber',
+    gradient: 'from-slate-950 via-amber-950 to-slate-900',
+    // image: '/images/projects/waste-management.jpg',
+  },
+}
+
 interface HeroSectionProps {
   hero: HeroContent
   onCtaClick?: () => void
@@ -21,11 +48,40 @@ interface HeroSectionProps {
   onShellHide?: () => void
 }
 
+/** Icon color per word theme */
+const WORD_ACCENT: Record<string, { bg: string; ring: string; icon: string; text: string; glow: string }> = {
+  Water: {
+    bg: 'bg-blue-500/20', ring: 'ring-blue-400/30', icon: 'text-blue-400',
+    text: 'text-blue-300', glow: 'rgba(59,130,246,0.3)',
+  },
+  Land: {
+    bg: 'bg-emerald-500/20', ring: 'ring-emerald-400/30', icon: 'text-emerald-400',
+    text: 'text-emerald-300', glow: 'rgba(16,185,129,0.3)',
+  },
+  Waste: {
+    bg: 'bg-amber-500/20', ring: 'ring-amber-400/30', icon: 'text-amber-400',
+    text: 'text-amber-300', glow: 'rgba(245,158,11,0.3)',
+  },
+}
+
 export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: HeroSectionProps) {
   const edgeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const cycleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const bgTeardownRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const [wordIndex, setWordIndex] = useState(0)
   const [cycling, setCycling] = useState(false)
+
+  // ─── Background cross-fade state ───────────────────────────────────────
+  const activeBgWordRef = useRef(CYCLE_WORDS[0])
+  const [overlayWord, setOverlayWord] = useState<string | null>(null)
+  const [overlayVisible, setOverlayVisible] = useState(false)
+
+  const currentWord = CYCLE_WORDS[wordIndex]
+  const nextWord = CYCLE_WORDS[(wordIndex + 1) % CYCLE_WORDS.length]
+  // Accent follows overlay while it exists in DOM — syncs eyebrow/icon
+  // transition with background, and doesn't snap back during fade-out
+  const visualWord = overlayWord ?? currentWord
+  const wordAccent = WORD_ACCENT[visualWord]
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (e.clientY <= 64) {
@@ -40,6 +96,7 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
     return () => {
       clearTimeout(edgeTimer.current)
       clearTimeout(cycleTimer.current)
+      clearTimeout(bgTeardownRef.current)
     }
   }, [])
 
@@ -61,35 +118,86 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
     return () => clearTimeout(cycleTimer.current)
   }, [cycling, wordIndex])
 
-  const currentWord = CYCLE_WORDS[wordIndex]
-  const nextWord = CYCLE_WORDS[(wordIndex + 1) % CYCLE_WORDS.length]
+  // ─── Background cross-fade effect (synced to letter animation) ─────────
+  useEffect(() => {
+    if (!cycling) {
+      // Letters finished → fade overlay out, then remove overlay DOM
+      if (overlayWord) {
+        activeBgWordRef.current = overlayWord      // 1. swap base behind opacity-1 overlay
+        setOverlayVisible(false)                    // 2. start CSS fade-out
+        bgTeardownRef.current = setTimeout(() => {  // 3. after transition: drop overlay DOM
+          setOverlayWord(null)
+          clearTimeout(bgTeardownRef.current)
+        }, cycleTotalMs(currentWord))
+      }
+      return
+    }
+
+    // Cycling started → render overlay, then trigger fade-in
+    setOverlayWord(nextWord)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setOverlayVisible(true))
+    })
+
+    return () => clearTimeout(bgTeardownRef.current)
+  }, [cycling, nextWord]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ─── Background layer renderer ─────────────────────────────────────────
+  const renderBgLayer = (word: string, className = '') => {
+    const cfg = WORD_BG[word]
+    return (
+      <div className={`absolute inset-0 ${className}`}>
+        <div className={`absolute inset-0 bg-gradient-to-b ${cfg.gradient}`} />
+        <ShaderBackground variant={cfg.variant} opacity={0.7} animated />
+        {cfg.video ? (
+          <video
+            src={cfg.video}
+            autoPlay muted loop playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : cfg.image ? (
+          <img src={cfg.image} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        ) : null}
+      </div>
+    )
+  }
 
   return (
     <section
       onMouseMove={handleMouseMove}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Water background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-blue-950 to-slate-900" />
+      {/* Base background layer — current word theme */}
+      {renderBgLayer(activeBgWordRef.current)}
 
-      {/* Animated shader — drifting orbs + flowing wave lines + grain */}
-      <ShaderBackground variant="blue" opacity={0.7} animated />
+      {/* Overlay background layer — cross-fades in synced to letter animation */}
+      {overlayWord && (
+        <div
+          className="absolute inset-0 transition-opacity ease-in-out pointer-events-none"
+          style={{
+            opacity: overlayVisible ? 1 : 0,
+            transitionDuration: `${cycleTotalMs(currentWord)}ms`,
+          }}
+        >
+          {renderBgLayer(overlayWord)}
+        </div>
+      )}
 
       {/* Shell edge detection zone (invisible) */}
       <div className="fixed top-0 left-0 right-0 h-16 z-50 pointer-events-none" aria-hidden="true" />
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Water droplet icon with liquid glass */}
+        {/* Icon with glass — accent color follows current word */}
         <div className="mb-8 flex justify-center animate-fade-in-up" style={{ animationDelay: '0ms' }}>
-          <GlassPill as="div" className="p-4 rounded-full bg-blue-500/20 ring-1 ring-blue-400/30">
-            <Droplets size={36} className="text-blue-400" strokeWidth={1.5} />
+          <GlassPill as="div" className={`p-4 rounded-full ${wordAccent.bg} ring-1 ${wordAccent.ring} transition-colors duration-500`}>
+            <Droplets size={36} className={`${wordAccent.icon} transition-colors duration-500`} strokeWidth={1.5} />
           </GlassPill>
         </div>
 
         {/* Site name */}
         <p
-          className="text-sm font-medium font-heading uppercase tracking-[0.25em] text-blue-300 mb-6 animate-fade-in-up"
+          className={`text-sm font-medium font-heading uppercase tracking-[0.25em] ${wordAccent.text} mb-6 animate-fade-in-up transition-colors duration-500`}
           style={{ animationDelay: '150ms' }}
         >
           {hero.siteName}
@@ -153,17 +261,18 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
 
         {/* Description */}
         <p
-          className="text-lg sm:text-xl text-blue-200/80 max-w-2xl mx-auto leading-relaxed mb-12 animate-fade-in-up"
+          className={`text-lg sm:text-xl ${wordAccent.text}/80 max-w-2xl mx-auto leading-relaxed mb-12 animate-fade-in-up transition-colors duration-500`}
           style={{ animationDelay: '450ms' }}
         >
           {hero.description}
         </p>
 
-        {/* CTA */}
+        {/* CTA — glow color follows accent */}
         <div className="animate-fade-in-up" style={{ animationDelay: '600ms' }}>
           <button
             onClick={onCtaClick}
-            className="group inline-flex items-center gap-3 px-8 py-4 text-white font-semibold font-heading rounded-full border border-white/20 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)] active:scale-[0.98] transition-all duration-300"
+            className="group inline-flex items-center gap-3 px-8 py-4 text-white font-semibold font-heading rounded-full border border-white/20 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_24px_var(--btn-glow)] active:scale-[0.98] transition-all duration-300"
+            style={{ '--btn-glow': wordAccent.glow } as React.CSSProperties}
           >
             {hero.ctaLabel}
             <ArrowDown
