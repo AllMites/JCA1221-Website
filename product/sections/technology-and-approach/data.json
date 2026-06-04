@@ -17,6 +17,47 @@
   },
   "sectionTitle": "How It Works",
   "sectionSubtitle": "Nature-mimicking technology that cleans water affordably, reliably, and at any scale.",
+  "carousel": {
+    "eyebrow": "From Waste to Resource",
+    "videoHoldDuration": 5000,
+    "steps": [
+      {
+        "id": "collection",
+        "label": "Collection & Screening",
+        "description": "Raw wastewater and septage arrive at the facility. Screens remove large solids — plastics, debris, grit — before treatment begins.",
+        "iconName": "Filter",
+        "videoSrc": ""
+      },
+      {
+        "id": "biological",
+        "label": "Biological Treatment",
+        "description": "In the Sequential Batch Reactor, naturally occurring microorganisms consume organic pollutants — the same nitrogen cycle found in healthy rivers and aquariums.",
+        "iconName": "Microscope",
+        "videoSrc": ""
+      },
+      {
+        "id": "clarification",
+        "label": "Clarification",
+        "description": "Treated water passes through settling tanks where remaining particles sink and are separated. Clear water rises, ready for final polishing.",
+        "iconName": "Beaker",
+        "videoSrc": ""
+      },
+      {
+        "id": "uv-disinfection",
+        "label": "UV Disinfection",
+        "description": "Water flows through ultraviolet light chambers that neutralize remaining pathogens. Solar panels help power this chemical-free sterilization.",
+        "iconName": "Sun",
+        "videoSrc": ""
+      },
+      {
+        "id": "clean-water",
+        "label": "Clean Water Release",
+        "description": "The recycled water is released back into the bay or river — clean enough for marine life to thrive and communities to enjoy.",
+        "iconName": "Droplets",
+        "videoSrc": ""
+      }
+    ]
+  },
   "processSteps": [
     {
       "step": 1,
