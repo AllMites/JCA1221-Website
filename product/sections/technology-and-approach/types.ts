@@ -9,6 +9,28 @@ export interface ProcessStep {
   description: string
 }
 
+export interface TechnologyStep {
+  /** Unique step identifier */
+  id: string
+  /** Step label shown below icon */
+  label: string
+  /** Short description shown below video */
+  description: string
+  /** lucide-react icon name */
+  iconName: string
+  /** Path to video file (mp4/webm) or empty string for placeholder */
+  videoSrc: string
+}
+
+export interface TechnologyCarouselData {
+  /** Eyebrow text above icon row */
+  eyebrow: string
+  /** Carousel steps in order */
+  steps: TechnologyStep[]
+  /** Milliseconds per auto-rotate step (default 5000) */
+  videoHoldDuration?: number
+}
+
 export interface ComparisonPoint {
   /** What's being compared */
   label: string
@@ -84,6 +106,8 @@ export interface TechnologyAndApproachProps {
   sectionTitle: string
   /** Section subtitle */
   sectionSubtitle: string
+  /** Carousel section data (above process flow) */
+  carousel: TechnologyCarouselData
   /** Process flow steps (wastewater → clean water) */
   processSteps: ProcessStep[]
   /** JCA vs traditional comparison */
