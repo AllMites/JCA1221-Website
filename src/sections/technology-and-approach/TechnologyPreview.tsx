@@ -7,6 +7,7 @@ export default function TechnologyPreview() {
     <TechnologyView
       sectionTitle={data.sectionTitle}
       sectionSubtitle={data.sectionSubtitle}
+      carousel={data.carousel}
       processSteps={data.processSteps}
       comparison={data.comparison}
       technologyPillars={data.technologyPillars}
