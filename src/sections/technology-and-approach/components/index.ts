@@ -1,5 +1,6 @@
 export { TechnologyView } from './TechnologyView'
 export { ProcessFlowSection } from './ProcessFlowSection'
+export { TechnologyCarouselSection } from './TechnologyCarouselSection'
 export { ComparisonSection } from './ComparisonSection'
 export { TechnologyGridSection } from './TechnologyGridSection'
 export { LiveDashboardSection } from './LiveDashboardSection'
