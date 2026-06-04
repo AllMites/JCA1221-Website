@@ -1,9 +1,12 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import * as Icons from 'lucide-react'
 import type { TechnologyStep } from '@/../product/sections/technology-and-approach/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
 
 interface TechnologyCarouselSectionProps {
+  title: string
+  subtitle: string
   eyebrow: string
   steps: TechnologyStep[]
   videoHoldDuration?: number
@@ -17,12 +20,18 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Droplets: Icons.Droplets,
 }
 
+const HOVER_ENTER_DELAY = 300
+const HOVER_LEAVE_DELAY = 300
+
+const fadeTransition = { duration: 0.3, ease: 'easeOut' as const }
+
 export function TechnologyCarouselSection({
+  title,
+  subtitle,
   eyebrow,
   steps,
   videoHoldDuration = 5000,
 }: TechnologyCarouselSectionProps) {
-  const [visible, setVisible] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [lockedIndex, setLockedIndex] = useState<number | null>(null)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
@@ -30,10 +39,10 @@ export function TechnologyCarouselSection({
   const [videoState, setVideoState] = useState<'playing' | 'paused' | 'ended'>('paused')
   const [videoError, setVideoError] = useState(false)
 
-  const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const autoTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const enterDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const leaveDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Refs to avoid stale closures in event handlers
   const activeIndexRef = useRef(activeIndex)
@@ -50,18 +59,6 @@ export function TechnologyCarouselSection({
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false
 
-  // IntersectionObserver for entrance animation
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.2 }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
   // Resolve which index's video to show
   const resolvedIndex = lockedIndex !== null
     ? lockedIndex
@@ -70,6 +67,22 @@ export function TechnologyCarouselSection({
     : activeIndex
 
   const resolvedStep = steps[resolvedIndex] ?? steps[0]
+
+  // Clear all timers
+  const clearAllTimers = useCallback(() => {
+    if (autoTimerRef.current !== null) {
+      clearInterval(autoTimerRef.current)
+      autoTimerRef.current = null
+    }
+    if (enterDelayRef.current !== null) {
+      clearTimeout(enterDelayRef.current)
+      enterDelayRef.current = null
+    }
+    if (leaveDelayRef.current !== null) {
+      clearTimeout(leaveDelayRef.current)
+      leaveDelayRef.current = null
+    }
+  }, [])
 
   // Clear auto-rotation timer
   const clearAutoTimer = useCallback(() => {
@@ -143,28 +156,41 @@ export function TechnologyCarouselSection({
     }
   }, [])
 
-  // Icon hover handlers with debounce
+  // Icon hover handlers — 300ms enter delay, 300ms leave delay
   const handleIconEnter = useCallback((index: number) => {
-    if (debounceRef.current !== null) {
-      clearTimeout(debounceRef.current)
+    // Cancel any pending leave
+    if (leaveDelayRef.current !== null) {
+      clearTimeout(leaveDelayRef.current)
+      leaveDelayRef.current = null
     }
-    setSavedIndex(activeIndexRef.current)
-    debounceRef.current = setTimeout(() => {
+    // Save current active index before any change
+    if (hoveredIndexRef.current === null && lockedIndexRef.current === null) {
+      setSavedIndex(activeIndexRef.current)
+    }
+    // Cancel previous enter delay, start new one
+    if (enterDelayRef.current !== null) {
+      clearTimeout(enterDelayRef.current)
+    }
+    enterDelayRef.current = setTimeout(() => {
       setHoveredIndex(index)
-    }, 150)
+    }, HOVER_ENTER_DELAY)
   }, [])
 
   const handleIconLeave = useCallback(() => {
-    if (debounceRef.current !== null) {
-      clearTimeout(debounceRef.current)
-      debounceRef.current = null
+    // Cancel any pending enter
+    if (enterDelayRef.current !== null) {
+      clearTimeout(enterDelayRef.current)
+      enterDelayRef.current = null
     }
-    setHoveredIndex(null)
-    const saved = savedIndexRef.current
-    if (saved !== null) {
-      setActiveIndex(saved)
-      setSavedIndex(null)
-    }
+    // Delay before restoring
+    leaveDelayRef.current = setTimeout(() => {
+      setHoveredIndex(null)
+      const saved = savedIndexRef.current
+      if (saved !== null) {
+        setActiveIndex(saved)
+        setSavedIndex(null)
+      }
+    }, HOVER_LEAVE_DELAY)
   }, [])
 
   // Icon click handler
@@ -199,10 +225,9 @@ export function TechnologyCarouselSection({
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      clearAutoTimer()
-      if (debounceRef.current !== null) clearTimeout(debounceRef.current)
+      clearAllTimers()
     }
-  }, [clearAutoTimer])
+  }, [clearAllTimers])
 
   const getGlowClass = (index: number): string => {
     if (lockedIndex === index) {
@@ -222,7 +247,6 @@ export function TechnologyCarouselSection({
 
   return (
     <section
-      ref={sectionRef}
       className="relative py-20 sm:py-28 overflow-hidden"
     >
       {/* Solid deep background */}
@@ -236,10 +260,16 @@ export function TechnologyCarouselSection({
       <ShaderBackground variant="currents" opacity={0.4} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Eyebrow */}
-        <div className="text-center mb-8">
-          <p className="text-cyan-300/80 text-sm font-mono tracking-widest uppercase">
+        {/* Section header — merged from ProcessFlowSection */}
+        <div className="text-center mb-12">
+          <p className="text-cyan-300/80 text-sm font-mono tracking-widest uppercase mb-4">
             {eyebrow}
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">
+            {title}
+          </h2>
+          <p className="text-cyan-100/60 max-w-xl mx-auto text-lg leading-relaxed">
+            {subtitle}
           </p>
         </div>
 
@@ -279,7 +309,7 @@ export function TechnologyCarouselSection({
                     </span>
                   </button>
 
-                  {/* Connecting line */}
+                  {/* Connecting line — no orb */}
                   {!isLast && (
                     <div className="w-6 sm:w-10 h-px bg-white/10 flex-shrink-0" />
                   )}
@@ -289,7 +319,7 @@ export function TechnologyCarouselSection({
           </div>
         </div>
 
-        {/* Video area */}
+        {/* Video area with fade transition */}
         <div className="max-w-3xl mx-auto mb-6">
           <div
             className="relative aspect-video rounded-xl overflow-hidden
@@ -297,33 +327,49 @@ export function TechnologyCarouselSection({
                         border border-white/10
                         shadow-[0_0_24px_rgba(6,182,212,0.15)]"
           >
-            {showVideo && (
-              <video
-                ref={videoRef}
-                src={resolvedStep.videoSrc}
-                className="w-full h-full object-cover"
-                muted
-                playsInline
-                preload="metadata"
-                onEnded={handleVideoEnded}
-                onError={handleVideoError}
-                onClick={handleVideoClick}
-              />
-            )}
+            <AnimatePresence mode="wait">
+              {showVideo && (
+                <motion.video
+                  key={`video-${resolvedIndex}`}
+                  ref={videoRef}
+                  src={resolvedStep.videoSrc}
+                  className="w-full h-full object-cover absolute inset-0"
+                  muted
+                  playsInline
+                  preload="metadata"
+                  onEnded={handleVideoEnded}
+                  onError={handleVideoError}
+                  onClick={handleVideoClick}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={fadeTransition}
+                />
+              )}
+            </AnimatePresence>
 
-            {showPlaceholder && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                {(() => {
-                  const IconComponent = resolvedStep ? ICON_MAP[resolvedStep.iconName] : null
-                  return IconComponent ? (
-                    <IconComponent className="w-16 h-16 text-cyan-400/40" />
-                  ) : null
-                })()}
-                <p className="text-slate-500 text-sm font-mono">
-                  {videoError ? 'Preview unavailable' : 'Preview coming soon'}
-                </p>
-              </div>
-            )}
+            <AnimatePresence mode="wait">
+              {showPlaceholder && (
+                <motion.div
+                  key={`placeholder-${resolvedIndex}`}
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={fadeTransition}
+                >
+                  {(() => {
+                    const IconComponent = resolvedStep ? ICON_MAP[resolvedStep.iconName] : null
+                    return IconComponent ? (
+                      <IconComponent className="w-16 h-16 text-cyan-400/40" />
+                    ) : null
+                  })()}
+                  <p className="text-slate-500 text-sm font-mono">
+                    {videoError ? 'Preview unavailable' : 'Preview coming soon'}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Play overlay for autoplay-blocked */}
             {showVideo && videoState === 'paused' && (
@@ -341,7 +387,7 @@ export function TechnologyCarouselSection({
             {lockedIndex !== null && (
               <div className="absolute top-3 right-3 px-2 py-1 rounded-md
                               bg-amber-400/20 backdrop-blur-sm border border-amber-400/30
-                              text-amber-300 text-xs font-mono flex items-center gap-1">
+                              text-amber-300 text-xs font-mono flex items-center gap-1 z-10">
                 <Icons.Lock className="w-3 h-3" />
                 Locked
               </div>
@@ -351,29 +397,31 @@ export function TechnologyCarouselSection({
             {videoState === 'ended' && lockedIndex === null && showVideo && (
               <div className="absolute bottom-3 right-3 px-2 py-1 rounded-md
                               bg-slate-900/60 backdrop-blur-sm border border-white/5
-                              text-slate-400 text-xs font-mono">
+                              text-slate-400 text-xs font-mono z-10">
                 Hold
               </div>
             )}
           </div>
         </div>
 
-        {/* Step description */}
-        <div
-          className="text-center max-w-lg mx-auto"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(8px)',
-            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-        >
-          <h3 className="text-lg sm:text-xl font-heading font-semibold text-white mb-2">
-            {resolvedStep?.label}
-          </h3>
-          <p className="text-sm text-cyan-100/50 leading-relaxed">
-            {resolvedStep?.description}
-          </p>
-        </div>
+        {/* Step description with fade transition */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`desc-${resolvedIndex}`}
+            className="text-center max-w-lg mx-auto"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={fadeTransition}
+          >
+            <h3 className="text-lg sm:text-xl font-heading font-semibold text-white mb-2">
+              {resolvedStep?.label}
+            </h3>
+            <p className="text-sm text-cyan-100/50 leading-relaxed">
+              {resolvedStep?.description}
+            </p>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   )
