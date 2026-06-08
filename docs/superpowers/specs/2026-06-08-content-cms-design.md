@@ -442,6 +442,31 @@ This spec runs in parallel with `content-handoff.md`. The CMS work (Phases A-D a
 
 ---
 
+## Extensibility — Adding New Content Types & Pages
+
+The architecture is designed for copy-paste extensibility. Adding a new content type (e.g., "Careers", "Events", "Case Studies") follows a fixed pattern:
+
+### Content Type Recipe
+
+1. **Database:** Add table matching existing shape pattern (id, slug, content columns, `published` boolean). Copy RLS policies from any existing content table — same `public SELECT published=true`, `editor INSERT/UPDATE`, `admin ALL`.
+2. **Storage bucket:** Add bucket if content type has images. Same public-read, auth-write policy.
+3. **Editor sidebar:** Add tab to `/edit` sidebar nav. Follow existing tab pattern (table view → + button → form).
+4. **Admin panel:** Add table to `/admin` content section. Same pattern as other content tables — list view + CRUD form.
+5. **Public page:** Add route + component. Query Supabase with same pattern: `.from('new_table').select('*').eq('published', true)`.
+6. **API layer:** One shared Supabase client. No per-type API endpoints — all queries follow the same `.from(table).select().eq()` pattern.
+
+### Key Design Decision
+
+**No per-type scaffolding generation.** The pattern is simple enough that copying an existing content type's structure (table DDL, component, route, RLS) is faster and more maintainable than a code generator. The `page_content` table also handles ad-hoc page text without needing new tables — new pages can use `page_content.page = 'new-page'` for hero text, headings, etc. before graduating to a dedicated table if the content becomes structured.
+
+### When to Use `page_content` vs New Table
+
+| Situation | Use |
+|-----------|-----|
+| Simple page with text/headings/CTAs only | `page_content` key-value rows |
+| Structured repeating entries (list of things with same shape) | New database table |
+| Page that might grow into structured content later | Start with `page_content`, migrate to table when pattern stabilizes |
+
 ## Risks & Mitigations
 
 | Risk | Mitigation |
