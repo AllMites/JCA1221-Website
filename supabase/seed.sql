@@ -573,3 +573,52 @@ VALUES (
   }'::jsonb, true
 )
 ON CONFLICT (page, section, key) DO NOTHING;
+
+-- Home page — hero content
+INSERT INTO page_content (id, page, section, key, value, published)
+VALUES (
+  gen_random_uuid(), 'home', 'hero', 'content',
+  '{
+    "siteName": "JCA 1221 Holdings",
+    "tagline": "Earth Renewal for Generations",
+    "description": "Philippine environmental infrastructure — restoring coastal ecosystems through nature-mimicking technology and public-private partnerships.",
+    "backgroundImage": "/images/hero-water.jpg",
+    "ctaLabel": "Our Projects",
+    "ctaHref": "#projects"
+  }'::jsonb, true
+)
+ON CONFLICT (page, section, key) DO NOTHING;
+
+-- Contact page — team contacts
+INSERT INTO page_content (id, page, section, key, value, published)
+VALUES (
+  gen_random_uuid(), 'contact', 'team', 'contacts',
+  '[
+    {
+      "id": "jehremiah",
+      "name": "Atty. Jehremiah Asis",
+      "title": "Founder & Chairman",
+      "email": "jhasis@jca1221.com",
+      "phone": "+63 2 8123 4567",
+      "inquiryCategories": ["Investment Partnerships", "Strategic Direction"],
+      "imageUrl": "/images/team/jehremiah-asis.png"
+    },
+    {
+      "id": "partnerships",
+      "name": "Maria Clara Santos",
+      "title": "Head of Government Partnerships",
+      "email": "mc.santos@jca1221.com",
+      "phone": "+63 2 8123 4568",
+      "inquiryCategories": ["LGU Partnerships", "National Government Agency Inquiries"]
+    },
+    {
+      "id": "investors",
+      "name": "Antonio Reyes",
+      "title": "Investor Relations Director",
+      "email": "a.reyes@jca1221.com",
+      "phone": "+63 2 8123 4569",
+      "inquiryCategories": ["Investment Partnerships", "Due Diligence"]
+    }
+  ]'::jsonb, true
+)
+ON CONFLICT (page, section, key) DO NOTHING;

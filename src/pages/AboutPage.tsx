@@ -3,13 +3,17 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { AboutView } from '@/sections/about-and-mission/components/AboutView'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { PageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
-import type { ValuePillar } from '@/../product/sections/about-and-mission/types'
-import data from '@/../product/sections/about-and-mission/data.json'
+import { usePageContent, getPageValue } from '@/hooks/use-content'
+import type { ValuePillar, FounderProfile } from '@/../product/sections/about-and-mission/types'
+
+const FALLBACK_CTA = 'Partner With Us'
 
 export function AboutPage() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { content, loading } = usePageContent('about')
 
   useEffect(() => {
     document.title = 'About — JCA 1221 Holdings'
@@ -20,6 +24,10 @@ export function AboutPage() {
     isActive: location.pathname === item.href,
   }))
 
+  const founderLetter = (getPageValue(content, 'founder', 'letter') as string) ?? ''
+  const founderProfile = getPageValue(content, 'founder', 'profile') as FounderProfile | null
+  const valuePillars: ValuePillar[] = (getPageValue(content, 'values', 'pillars') as ValuePillar[]) ?? []
+
   return (
     <AppShell
       navigationItems={navItems}
@@ -27,13 +35,24 @@ export function AboutPage() {
       onCtaClick={() => navigate('/contact')}
     >
       <ErrorBoundary>
-        <AboutView
-        founderLetter={data.founderLetter}
-        founderProfile={data.founderProfile}
-        valuePillars={data.valuePillars as ValuePillar[]}
-        ctaText={data.ctaText}
-        onCtaClick={() => navigate('/contact')}
-        />
+        {loading ? (
+          <PageSkeleton />
+        ) : (
+          <AboutView
+            founderLetter={founderLetter}
+            founderProfile={founderProfile ?? {
+              name: '',
+              role: '',
+              photo: '',
+              signatureQuote: '',
+              quotes: [],
+              milestones: [],
+            }}
+            valuePillars={valuePillars}
+            ctaText={FALLBACK_CTA}
+            onCtaClick={() => navigate('/contact')}
+          />
+        )}
       </ErrorBoundary>
     </AppShell>
   )

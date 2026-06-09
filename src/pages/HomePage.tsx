@@ -3,13 +3,30 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { HomeView } from '@/sections/home/components/HomeView'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { HeroPageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
-import type { ProjectCard, Expansion } from '@/../product/sections/home/types'
-import data from '@/../product/sections/home/data.json'
+import { useProjects, usePageContent, getPageValue } from '@/hooks/use-content'
+import type { ProjectCard, HeroContent, MissionValue, ImpactStat, Expansion, ProjectAward } from '@/../product/sections/home/types'
+
+const FALLBACK_HERO: HeroContent = {
+  siteName: 'JCA 1221 Holdings',
+  tagline: 'Earth Renewal for Generations',
+  description: 'Philippine environmental infrastructure — restoring coastal ecosystems through nature-mimicking technology and public-private partnerships.',
+  backgroundImage: '/images/hero-water.jpg',
+  ctaLabel: 'Our Projects',
+  ctaHref: '#projects',
+}
+
+const FALLBACK_EXPANSION_TITLE = 'Expanding Our Reach'
+const FALLBACK_EXPANSION_SUBTITLE = 'From water to land — building the next generation of Philippine environmental infrastructure'
 
 export function HomePage() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { projects, loading: projectsLoading } = useProjects()
+  const { content, loading: contentLoading } = usePageContent('home')
+
+  const loading = projectsLoading || contentLoading
 
   useEffect(() => {
     document.title = 'JCA 1221 Holdings — Environmental Infrastructure'
@@ -20,6 +37,35 @@ export function HomePage() {
     isActive: item.href === '/' || location.pathname === item.href,
   }))
 
+  // Hero content — Supabase or fallback
+  const hero: HeroContent = (getPageValue(content, 'hero', 'content') as HeroContent) ?? FALLBACK_HERO
+
+  // Project cards from Supabase — map to home section shape
+  const projectCards: ProjectCard[] = projects.map((p) => ({
+    id: p.id,
+    name: p.name,
+    location: p.location,
+    status: p.status,
+    image: p.hero_image ?? '',
+    description: p.short_description,
+    award: undefined as unknown as ProjectAward,
+    stats: (p.stats ?? []) as { label: string; value: string }[],
+  }))
+
+  // Mission values from page_content
+  const missionValues: MissionValue[] = (getPageValue(content, 'mission', 'values') as MissionValue[]) ?? []
+
+  // Impact stats from page_content
+  const impactStats: ImpactStat[] = (getPageValue(content, 'hero', 'impact_stats') as ImpactStat[]) ?? []
+
+  // Expansion from page_content
+  const initiatives = (getPageValue(content, 'expansion', 'initiatives') as Expansion['initiatives']) ?? []
+  const expansion: Expansion = {
+    title: FALLBACK_EXPANSION_TITLE,
+    subtitle: FALLBACK_EXPANSION_SUBTITLE,
+    initiatives,
+  }
+
   return (
     <AppShell
       navigationItems={navItems}
@@ -27,18 +73,22 @@ export function HomePage() {
       onCtaClick={() => navigate('/contact')}
     >
       <ErrorBoundary>
-        <HomeView
-        hero={data.hero}
-        projectCards={data.projectCards as ProjectCard[]}
-        missionValues={data.missionValues}
-        impactStats={data.impactStats}
-        expansion={data.expansion as Expansion}
-        onCtaClick={() => {
-          const el = document.getElementById('projects')
-          if (el) el.scrollIntoView({ behavior: 'smooth' })
-        }}
-        onProjectClick={(id) => navigate(`/projects/${id}`)}
-        />
+        {loading ? (
+          <HeroPageSkeleton />
+        ) : (
+          <HomeView
+            hero={hero}
+            projectCards={projectCards}
+            missionValues={missionValues}
+            impactStats={impactStats}
+            expansion={expansion}
+            onCtaClick={() => {
+              const el = document.getElementById('projects')
+              if (el) el.scrollIntoView({ behavior: 'smooth' })
+            }}
+            onProjectClick={(id) => navigate(`/projects/${id}`)}
+          />
+        )}
       </ErrorBoundary>
     </AppShell>
   )
