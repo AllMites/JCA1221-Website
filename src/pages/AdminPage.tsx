@@ -10,6 +10,7 @@ import { TeamForm } from '@/components/admin/TeamForm'
 import { PartnerForm } from '@/components/admin/PartnerForm'
 import { CsrForm } from '@/components/admin/CsrForm'
 import { PageContentForm } from '@/components/admin/PageContentForm'
+import { UserManagement } from '@/components/admin/UserManagement'
 import type { NewsArticle, Project, TeamMember, Partner, CsrProject, PageContent } from '@/lib/content-types'
 import {
   listSubmissions,
@@ -744,8 +745,11 @@ export function AdminPage() {
           />
         )}
 
+        {/* Users tab */}
+        {activeTab === 'users' && <UserManagement />}
+
         {/* Other tabs — keep placeholder */}
-        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && activeTab !== 'csr' && activeTab !== 'page-content' && (
+        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && activeTab !== 'csr' && activeTab !== 'page-content' && activeTab !== 'users' && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-sm">{activeTab} editor coming in next tasks.</p>
           </div>
