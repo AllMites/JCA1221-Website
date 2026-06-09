@@ -17,9 +17,6 @@ const ProjectsPage = lazy(() =>
 const ProjectDetailPage = lazy(() =>
   import('@/pages/ProjectDetailPage').then((m) => ({ default: m.ProjectDetailPage })),
 )
-const TechnologyPage = lazy(() =>
-  import('@/pages/TechnologyPage').then((m) => ({ default: m.TechnologyPage })),
-)
 const ContactPage = lazy(() =>
   import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage })),
 )
@@ -118,7 +115,6 @@ export const router = createBrowserRouter([
       { path: '/about', element: <AboutPage /> },
       { path: '/projects', element: <ProjectsPage /> },
       { path: '/projects/:projectId', element: <ProjectDetailPage /> },
-      { path: '/technology', element: <TechnologyPage /> },
       { path: '/contact', element: <ContactPage /> },
       { path: '/team', element: <TeamPage /> },
       { path: '/news', element: <NewsPage /> },

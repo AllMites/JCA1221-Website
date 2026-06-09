@@ -5,7 +5,6 @@ export default function ShellPreview() {
     { label: 'Home', href: '/', isActive: true },
     { label: 'About & Mission', href: '/about' },
     { label: 'Projects & Track Record', href: '/projects' },
-    { label: 'Technology & Approach', href: '/technology' },
     { label: 'Contact & Partnerships', href: '/contact' },
   ]
 
