@@ -11,6 +11,7 @@ import { PartnerForm } from '@/components/admin/PartnerForm'
 import { CsrForm } from '@/components/admin/CsrForm'
 import { PageContentForm } from '@/components/admin/PageContentForm'
 import { UserManagement } from '@/components/admin/UserManagement'
+import { AuditLog } from '@/components/admin/AuditLog'
 import type { NewsArticle, Project, TeamMember, Partner, CsrProject, PageContent } from '@/lib/content-types'
 import {
   listSubmissions,
@@ -748,8 +749,11 @@ export function AdminPage() {
         {/* Users tab */}
         {activeTab === 'users' && <UserManagement />}
 
+        {/* Audit tab */}
+        {activeTab === 'audit' && <AuditLog />}
+
         {/* Other tabs — keep placeholder */}
-        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && activeTab !== 'csr' && activeTab !== 'page-content' && activeTab !== 'users' && (
+        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && activeTab !== 'csr' && activeTab !== 'page-content' && activeTab !== 'users' && activeTab !== 'audit' && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-sm">{activeTab} editor coming in next tasks.</p>
           </div>
