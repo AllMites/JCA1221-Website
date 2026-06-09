@@ -6,7 +6,8 @@ import { supabase } from '@/lib/supabase'
 import { ContentTable } from '@/components/admin/ContentTable'
 import { NewsForm } from '@/components/admin/NewsForm'
 import { ProjectForm } from '@/components/admin/ProjectForm'
-import type { NewsArticle, Project } from '@/lib/content-types'
+import { TeamForm } from '@/components/admin/TeamForm'
+import type { NewsArticle, Project, TeamMember } from '@/lib/content-types'
 import {
   listSubmissions,
   acknowledgeSubmission,
@@ -43,6 +44,12 @@ export function AdminPage() {
   const [projectsLoading, setProjectsLoading] = useState(false)
   const [editingProject, setEditingProject] = useState<Project | null>(null)
   const [creatingProject, setCreatingProject] = useState(false)
+
+  // ── Team CRUD state ──
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
+  const [teamLoading, setTeamLoading] = useState(false)
+  const [editingMember, setEditingMember] = useState<TeamMember | null>(null)
+  const [creatingMember, setCreatingMember] = useState(false)
 
   useEffect(() => {
     document.title = 'Admin — JCA 1221 Holdings'
@@ -169,6 +176,34 @@ export function AdminPage() {
     fetchProjects()
   }
 
+  // ── Team CRUD ──────────────────────────────────────────────────────
+  const fetchTeam = useCallback(async () => {
+    setTeamLoading(true)
+    const { data } = await supabase.from('team_members').select('*').order('order', { ascending: true })
+    setTeamMembers((data ?? []) as TeamMember[])
+    setTeamLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (activeTab === 'team') fetchTeam()
+  }, [activeTab, fetchTeam])
+
+  async function handleTeamSave(data: Partial<TeamMember>) {
+    if (data.id) {
+      await supabase.from('team_members').update(data).eq('id', data.id)
+    } else {
+      await supabase.from('team_members').insert(data)
+    }
+    setEditingMember(null)
+    setCreatingMember(false)
+    fetchTeam()
+  }
+
+  async function handleTeamDelete(member: TeamMember) {
+    await supabase.from('team_members').delete().eq('id', member.id)
+    fetchTeam()
+  }
+
   // ── Loading state ──────────────────────────────────────────────────
   if (authLoading) {
     return (
@@ -201,6 +236,12 @@ export function AdminPage() {
     { key: 'name', label: 'Name' },
     { key: 'location', label: 'Location', width: '20%' },
     { key: 'status', label: 'Status', width: '12%' },
+    { key: 'order', label: 'Order', width: '8%' },
+  ]
+
+  const teamColumns = [
+    { key: 'name', label: 'Name' },
+    { key: 'role', label: 'Role', width: '25%' },
     { key: 'order', label: 'Order', width: '8%' },
   ]
 
@@ -491,8 +532,29 @@ export function AdminPage() {
           />
         )}
 
+        {/* Team tab */}
+        {activeTab === 'team' && !editingMember && !creatingMember && (
+          <ContentTable
+            items={teamMembers}
+            columns={teamColumns}
+            loading={teamLoading}
+            onEdit={setEditingMember}
+            onDelete={handleTeamDelete}
+            onCreate={() => setCreatingMember(true)}
+            createLabel="Add Team Member"
+            emptyMessage="No team members yet."
+          />
+        )}
+        {activeTab === 'team' && (editingMember || creatingMember) && (
+          <TeamForm
+            member={editingMember}
+            onSave={handleTeamSave}
+            onCancel={() => { setEditingMember(null); setCreatingMember(false) }}
+          />
+        )}
+
         {/* Other tabs — keep placeholder */}
-        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && (
+        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-sm">{activeTab} editor coming in next tasks.</p>
           </div>
