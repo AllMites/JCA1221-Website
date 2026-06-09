@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import './index.css'
 import { router } from '@/lib/router'
+import { AuthProvider } from '@/hooks/use-auth'
 
 // No liquidGL elements currently active.
 // Import { initLiquidGL } from '@/components/LiquidGlass' when needed
@@ -11,7 +12,9 @@ import { router } from '@/lib/router'
 const boot = () => {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </StrictMode>,
   )
 }
