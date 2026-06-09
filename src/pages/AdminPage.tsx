@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/use-auth'
 import { AdminSidebar } from '@/components/admin/AdminSidebar'
 import { supabase } from '@/lib/supabase'
@@ -26,7 +25,6 @@ type AdminTab = 'submissions' | 'news' | 'projects' | 'team' | 'partners' | 'csr
 
 export function AdminPage() {
   const { isAuthenticated, loading: authLoading } = useAuth()
-  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<AdminTab>('submissions')
 
   // ── Data state ─────────────────────────────────────────────────────

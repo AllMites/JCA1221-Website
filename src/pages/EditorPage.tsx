@@ -1,14 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
-import { useAuth, useRequireAuth } from '@/hooks/use-auth'
+import { useRequireAuth } from '@/hooks/use-auth'
 import { EditorSidebar, type EditorTab } from '@/components/editor/EditorSidebar'
 import { NewsForm } from '@/components/admin/NewsForm'
 import { ProjectForm } from '@/components/admin/ProjectForm'
 import { TeamForm } from '@/components/admin/TeamForm'
 import { PartnerForm } from '@/components/admin/PartnerForm'
 import { CsrForm } from '@/components/admin/CsrForm'
-import type { NewsArticle, Project, TeamMember, Partner, CsrProject } from '@/lib/content-types'
-
 export default function EditorPage() {
   useRequireAuth()
 

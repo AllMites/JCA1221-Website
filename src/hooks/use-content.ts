@@ -16,17 +16,6 @@ async function fetchPublished<T>(table: string, column = 'created_at', ascending
   return (data ?? []) as T[]
 }
 
-async function fetchById<T>(table: string, id: string): Promise<T | null> {
-  const { data, error } = await supabase
-    .from(table)
-    .select('*')
-    .eq('id', id)
-    .eq('published', true)
-    .single()
-  if (error) return null
-  return data as T
-}
-
 async function fetchBySlug<T>(table: string, slug: string): Promise<T | null> {
   const { data, error } = await supabase
     .from(table)

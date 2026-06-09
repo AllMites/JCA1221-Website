@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Heart } from 'lucide-react'
-import type { CsrProject, CsrTimelineEntry } from '@/lib/content-types'
+import type { CsrProject } from '@/lib/content-types'
 import { ShaderBackground } from '@/components/ShaderBackground'
 
 interface CsrCarouselProps {

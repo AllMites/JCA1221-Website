@@ -56,19 +56,21 @@ export function ProjectsPage() {
         {loading ? (
           <PageSkeleton />
         ) : (
-          <ProjectList
-            portfolioSummary={portfolioSummary}
-            projects={projectCards}
-            onProjectClick={(id) => navigate(`/projects/${id}`)}
-            onFilterChange={() => {
-              // Filter state tracked internally by ProjectList
-            }}
-          />
-          <CsrSection
-            projects={csrProjects}
-            title="Corporate Social Responsibility"
-            subtitle="Our Impact Beyond Infrastructure"
-          />
+          <>
+            <ProjectList
+              portfolioSummary={portfolioSummary}
+              projects={projectCards}
+              onProjectClick={(id) => navigate(`/projects/${id}`)}
+              onFilterChange={() => {
+                // Filter state tracked internally by ProjectList
+              }}
+            />
+            <CsrSection
+              projects={csrProjects}
+              title="Corporate Social Responsibility"
+              subtitle="Our Impact Beyond Infrastructure"
+            />
+          </>
         )}
       </ErrorBoundary>
     </AppShell>

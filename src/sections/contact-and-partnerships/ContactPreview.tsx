@@ -2,6 +2,11 @@ import type { FormConfig } from '@/../product/sections/contact-and-partnerships/
 import data from '@/../product/sections/contact-and-partnerships/data.json'
 import { ContactView } from './components/ContactView'
 
+const teamContacts = data.teamContacts.map((c) => ({
+  ...c,
+  imageUrl: c.imageUrl ?? '',
+}))
+
 export default function ContactPreview() {
   return (
     <ContactView
@@ -10,7 +15,7 @@ export default function ContactPreview() {
       formConfig={data.formConfig as FormConfig}
       inquiryTypes={data.inquiryTypes}
       timelineOptions={data.timelineOptions}
-      teamContacts={data.teamContacts}
+      teamContacts={teamContacts}
       officeInfo={data.officeInfo}
       partnerLogos={data.partnerLogos}
       downloadableResource={data.downloadableResource}

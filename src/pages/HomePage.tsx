@@ -9,7 +9,7 @@ import { HeroPageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
 import { useProjects, usePartners, usePageContent, getPageValue, useCsrProjects } from '@/hooks/use-content'
 import { useImpactStats } from '@/hooks/use-impact-stats'
-import type { ProjectCard, HeroContent, MissionValue, ImpactStat, Expansion, ProjectAward } from '@/../product/sections/home/types'
+import type { ProjectCard, HeroContent, MissionValue, Expansion, ProjectAward } from '@/../product/sections/home/types'
 
 const FALLBACK_HERO: HeroContent = {
   siteName: 'JCA 1221 Holdings',
