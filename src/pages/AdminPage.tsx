@@ -7,7 +7,8 @@ import { ContentTable } from '@/components/admin/ContentTable'
 import { NewsForm } from '@/components/admin/NewsForm'
 import { ProjectForm } from '@/components/admin/ProjectForm'
 import { TeamForm } from '@/components/admin/TeamForm'
-import type { NewsArticle, Project, TeamMember } from '@/lib/content-types'
+import { PartnerForm } from '@/components/admin/PartnerForm'
+import type { NewsArticle, Project, TeamMember, Partner } from '@/lib/content-types'
 import {
   listSubmissions,
   acknowledgeSubmission,
@@ -50,6 +51,12 @@ export function AdminPage() {
   const [teamLoading, setTeamLoading] = useState(false)
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null)
   const [creatingMember, setCreatingMember] = useState(false)
+
+  // ── Partner CRUD state ──
+  const [partners, setPartners] = useState<Partner[]>([])
+  const [partnersLoading, setPartnersLoading] = useState(false)
+  const [editingPartner, setEditingPartner] = useState<Partner | null>(null)
+  const [creatingPartner, setCreatingPartner] = useState(false)
 
   useEffect(() => {
     document.title = 'Admin — JCA 1221 Holdings'
@@ -204,6 +211,34 @@ export function AdminPage() {
     fetchTeam()
   }
 
+  // ── Partner CRUD ──────────────────────────────────────────────────────
+  const fetchPartners = useCallback(async () => {
+    setPartnersLoading(true)
+    const { data } = await supabase.from('partners').select('*').order('name', { ascending: true })
+    setPartners((data ?? []) as Partner[])
+    setPartnersLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (activeTab === 'partners') fetchPartners()
+  }, [activeTab, fetchPartners])
+
+  async function handlePartnerSave(data: Partial<Partner>) {
+    if (data.id) {
+      await supabase.from('partners').update(data).eq('id', data.id)
+    } else {
+      await supabase.from('partners').insert(data)
+    }
+    setEditingPartner(null)
+    setCreatingPartner(false)
+    fetchPartners()
+  }
+
+  async function handlePartnerDelete(partner: Partner) {
+    await supabase.from('partners').delete().eq('id', partner.id)
+    fetchPartners()
+  }
+
   // ── Loading state ──────────────────────────────────────────────────
   if (authLoading) {
     return (
@@ -243,6 +278,12 @@ export function AdminPage() {
     { key: 'name', label: 'Name' },
     { key: 'role', label: 'Role', width: '25%' },
     { key: 'order', label: 'Order', width: '8%' },
+  ]
+
+  const partnerColumns = [
+    { key: 'name', label: 'Name' },
+    { key: 'type', label: 'Type', width: '18%', render: (p: Partner) => p.type.replace('_', ' ') },
+    { key: 'website_url', label: 'Website', width: '25%' },
   ]
 
   // ── Authenticated layout ───────────────────────────────────────────
@@ -553,8 +594,29 @@ export function AdminPage() {
           />
         )}
 
+        {/* Partners tab */}
+        {activeTab === 'partners' && !editingPartner && !creatingPartner && (
+          <ContentTable
+            items={partners}
+            columns={partnerColumns}
+            loading={partnersLoading}
+            onEdit={setEditingPartner}
+            onDelete={handlePartnerDelete}
+            onCreate={() => setCreatingPartner(true)}
+            createLabel="Add Partner"
+            emptyMessage="No partners yet."
+          />
+        )}
+        {activeTab === 'partners' && (editingPartner || creatingPartner) && (
+          <PartnerForm
+            partner={editingPartner}
+            onSave={handlePartnerSave}
+            onCancel={() => { setEditingPartner(null); setCreatingPartner(false) }}
+          />
+        )}
+
         {/* Other tabs — keep placeholder */}
-        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && (
+        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-sm">{activeTab} editor coming in next tasks.</p>
           </div>
