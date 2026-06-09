@@ -38,6 +38,9 @@ const NewsPage = lazy(() =>
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 )
+const LoginPage = lazy(() =>
+  import('@/pages/LoginPage').then((m) => ({ default: m.LoginPage })),
+)
 const AdminPage = lazy(() =>
   import('@/pages/AdminPage').then((m) => ({ default: m.AdminPage })),
 )
@@ -143,6 +146,7 @@ export const router = createBrowserRouter([
       { path: '/design/export', element: <ExportPage /> },
 
       // ═══ Admin ═══
+      { path: '/login', element: <LoginPage /> },
       { path: '/admin', element: <AdminPage /> },
 
       // ═══ 404 ═══
