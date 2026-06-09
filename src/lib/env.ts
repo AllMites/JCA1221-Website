@@ -14,4 +14,12 @@ export const env = {
   get isDevelopment(): boolean {
     return import.meta.env.DEV
   },
+
+  get supabaseUrl(): string {
+    return import.meta.env.VITE_SUPABASE_URL ?? ''
+  },
+
+  get supabaseAnonKey(): string {
+    return import.meta.env.VITE_SUPABASE_ANON_KEY ?? ''
+  },
 } as const
