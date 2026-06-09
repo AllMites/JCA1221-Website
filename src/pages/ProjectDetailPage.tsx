@@ -56,6 +56,7 @@ export function ProjectDetailPage() {
     yearStarted: project.year_started,
     yearCompleted: project.year_completed,
     galleryImages: project.gallery_images ?? [],
+    techWidgets: (project.widgets ?? []) as ProjectDetailType['techWidgets'],
   } : null
 
   if (!loading && !mappedProject) {

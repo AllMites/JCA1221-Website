@@ -135,6 +135,8 @@ export interface TechWidget {
   id: string
   project_id: string
   widget_type: WidgetType
+  title: string | null
+  description: string | null
   config: Record<string, unknown>
   order: number
   published: boolean

@@ -622,3 +622,35 @@ VALUES (
   ]'::jsonb, true
 )
 ON CONFLICT (page, section, key) DO NOTHING;
+
+-- ============================================================================
+-- TECH WIDGETS (per-project modular technology content)
+-- ============================================================================
+
+-- Puerto Princesa — Process Flow
+INSERT INTO tech_widgets (project_id, widget_type, title, description, config, "order", published)
+SELECT p.id, 'process_flow', 'Treatment Process', 'How our SBR-based treatment works', '{"steps":[{"label":"Collection","description":"Wastewater collected from 85% coverage area","icon":"💧"},{"label":"Biological Treatment","description":"Sequencing Batch Reactor removes 95% of BOD","icon":"🧫"},{"label":"Clarification","description":"Solids settle out in settling tanks","icon":"⚗️"},{"label":"UV Disinfection","description":"Final sterilization before release","icon":"☀️"},{"label":"Clean Water","description":"Treated water meets DENR Class C standards","icon":"✅"}]}'::jsonb, 1, true
+FROM projects p
+WHERE p.slug = 'puerto-princesa'
+AND NOT EXISTS (SELECT 1 FROM tech_widgets WHERE project_id = p.id AND widget_type = 'process_flow');
+
+-- Puerto Princesa — Comparison Table
+INSERT INTO tech_widgets (project_id, widget_type, title, description, config, "order", published)
+SELECT p.id, 'comparison_table', 'Technology Comparison', 'JCA SBR vs traditional treatment systems', '{"headers":["","JCA SBR System","Conventional Activated Sludge","Septic Tank"],"rows":[{"label":"BOD Removal","values":["95%+","85-90%","30-50%"]},{"label":"Footprint","values":["Compact","Large","Small but ineffective"]},{"label":"Energy Use","values":["Optimized","High","None"]},{"label":"Maintenance","values":["Low","High","Minimal"]},{"label":"Sludge Production","values":["50% less","Standard","Requires desludging"]},{"label":"Odor Control","values":["Managed","Poor","Poor"]}]}'::jsonb, 2, true
+FROM projects p
+WHERE p.slug = 'puerto-princesa'
+AND NOT EXISTS (SELECT 1 FROM tech_widgets WHERE project_id = p.id AND widget_type = 'comparison_table');
+
+-- Puerto Princesa — Video Carousel
+INSERT INTO tech_widgets (project_id, widget_type, title, description, config, "order", published)
+SELECT p.id, 'video_carousel', 'Facility Tour & Process Videos', 'Watch our treatment plant in action', '{"videos":[{"title":"Inside the SBR Facility","thumbnail":null,"url":null,"duration":"4:32"},{"title":"From Waste to Clean Water","thumbnail":null,"url":null,"duration":"3:15"},{"title":"Lab Testing & Quality Control","thumbnail":null,"url":null,"duration":"2:48"},{"title":"Community Impact Stories","thumbnail":null,"url":null,"duration":"5:01"}]}'::jsonb, 3, true
+FROM projects p
+WHERE p.slug = 'puerto-princesa'
+AND NOT EXISTS (SELECT 1 FROM tech_widgets WHERE project_id = p.id AND widget_type = 'video_carousel');
+
+-- Puerto Princesa — Monitoring Dashboard
+INSERT INTO tech_widgets (project_id, widget_type, title, description, config, "order", published)
+SELECT p.id, 'monitoring', 'Live Monitoring Dashboard', 'Real-time treatment plant metrics', '{"metrics":[{"label":"Flow Rate","value":"12,400","unit":"m³/day","trend":"steady"},{"label":"BOD Removal","value":"96.2","unit":"%","trend":"up"},{"label":"TSS Removal","value":"94.8","unit":"%","trend":"up"},{"label":"Community Served","value":"85,000","unit":"people","trend":"steady"},{"label":"Energy Efficiency","value":"0.42","unit":"kWh/m³","trend":"down"},{"label":"Uptime","value":"99.7","unit":"%","trend":"steady"},{"label":"Fecal Coliform","value":"<100","unit":"MPN/100mL","trend":"steady"},{"label":"pH Level","value":"7.2","unit":"","trend":"steady"}]}'::jsonb, 4, true
+FROM projects p
+WHERE p.slug = 'puerto-princesa'
+AND NOT EXISTS (SELECT 1 FROM tech_widgets WHERE project_id = p.id AND widget_type = 'monitoring');

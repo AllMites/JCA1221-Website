@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import type { ProjectDetailProps, ProjectStatus } from '@/../product/sections/projects-and-track-record/types'
 import { MapPin, ArrowLeft, Trophy, Users, Building2, Calendar, Leaf, Zap, Award, CheckCircle2, Wrench, ClipboardCheck } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { TechWidgetsSection } from './TechWidgetsSection'
 
 const STATUS_CAPSULE: Record<ProjectStatus, { label: string; icon: LucideIcon; className: string }> = {
   operational: {
@@ -22,6 +24,7 @@ const STATUS_CAPSULE: Record<ProjectStatus, { label: string; icon: LucideIcon; c
 }
 
 export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
+  const [heroErrored, setHeroErrored] = useState(false)
   const yearRange =
     project.yearStarted
       ? project.yearCompleted
@@ -33,15 +36,16 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
     <div className="font-body">
       {/* Hero section — full-bleed image with dark overlay */}
       <section className="relative h-[60vh] min-h-[400px] max-h-[600px] overflow-hidden bg-slate-900">
-        {/* Hero image — high priority since above the fold */}
+        {/* Hero image — high priority since above the fold; hidden on error to show gradient */}
         <img
           src={project.heroImage}
           alt={project.name}
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-cover"
+          onError={() => setHeroErrored(true)}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${heroErrored ? 'opacity-0' : ''}`}
         />
-        {/* Gradient image placeholder */}
+        {/* Gradient image placeholder — always present as fallback */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-950 to-slate-900" />
         <ShaderBackground variant="dark" opacity={0.4} />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-950/30 to-slate-950/30" />
@@ -162,6 +166,15 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           </div>
         </div>
       </section>
+
+      {/* Technology Widgets — per-project modular content */}
+      {project.techWidgets && project.techWidgets.length > 0 && (
+        <section className="relative py-16 sm:py-20 bg-white dark:bg-slate-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <TechWidgetsSection widgets={project.techWidgets} />
+          </div>
+        </section>
+      )}
 
       {/* Environmental impact section — emerald green bg */}
       <section className="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-slate-950">

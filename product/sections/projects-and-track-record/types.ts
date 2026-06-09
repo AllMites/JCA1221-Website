@@ -67,6 +67,17 @@ export interface ProjectCard {
   keyMetric: ProjectKeyMetric
 }
 
+export interface TechWidget {
+  id: string
+  project_id: string
+  widget_type: 'process_flow' | 'comparison_table' | 'video_carousel' | 'monitoring'
+  title: string | null
+  description: string | null
+  config: Record<string, unknown>
+  order: number
+  published: boolean
+}
+
 export interface ProjectDetail {
   /** Unique project identifier */
   id: string
@@ -98,6 +109,8 @@ export interface ProjectDetail {
   yearCompleted: number | null
   /** Gallery image paths */
   galleryImages: string[]
+  /** Technology widgets (process flow, comparison, video, monitoring) */
+  techWidgets?: TechWidget[]
 }
 
 export interface PortfolioSummary {
