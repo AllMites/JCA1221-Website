@@ -9,7 +9,8 @@ import { ProjectForm } from '@/components/admin/ProjectForm'
 import { TeamForm } from '@/components/admin/TeamForm'
 import { PartnerForm } from '@/components/admin/PartnerForm'
 import { CsrForm } from '@/components/admin/CsrForm'
-import type { NewsArticle, Project, TeamMember, Partner, CsrProject } from '@/lib/content-types'
+import { PageContentForm } from '@/components/admin/PageContentForm'
+import type { NewsArticle, Project, TeamMember, Partner, CsrProject, PageContent } from '@/lib/content-types'
 import {
   listSubmissions,
   acknowledgeSubmission,
@@ -64,6 +65,12 @@ export function AdminPage() {
   const [csrLoading, setCsrLoading] = useState(false)
   const [editingCsr, setEditingCsr] = useState<CsrProject | null>(null)
   const [creatingCsr, setCreatingCsr] = useState(false)
+
+  // ── Page Content CRUD state ──
+  const [pageContents, setPageContents] = useState<PageContent[]>([])
+  const [pageContentLoading, setPageContentLoading] = useState(false)
+  const [editingPageContent, setEditingPageContent] = useState<PageContent | null>(null)
+  const [creatingPageContent, setCreatingPageContent] = useState(false)
 
   useEffect(() => {
     document.title = 'Admin — JCA 1221 Holdings'
@@ -274,6 +281,34 @@ export function AdminPage() {
     fetchCsr()
   }
 
+  // ── Page Content CRUD ────────────────────────────────────────────────
+  const fetchPageContents = useCallback(async () => {
+    setPageContentLoading(true)
+    const { data } = await supabase.from('page_content').select('*').order('page', { ascending: true }).order('order', { ascending: true })
+    setPageContents((data ?? []) as PageContent[])
+    setPageContentLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (activeTab === 'page-content') fetchPageContents()
+  }, [activeTab, fetchPageContents])
+
+  async function handlePageContentSave(data: Partial<PageContent>) {
+    if (data.id) {
+      await supabase.from('page_content').update(data).eq('id', data.id)
+    } else {
+      await supabase.from('page_content').insert(data)
+    }
+    setEditingPageContent(null)
+    setCreatingPageContent(false)
+    fetchPageContents()
+  }
+
+  async function handlePageContentDelete(content: PageContent) {
+    await supabase.from('page_content').delete().eq('id', content.id)
+    fetchPageContents()
+  }
+
   // ── Loading state ──────────────────────────────────────────────────
   if (authLoading) {
     return (
@@ -325,6 +360,16 @@ export function AdminPage() {
     { key: 'name', label: 'Name' },
     { key: 'category', label: 'Category', width: '22%' },
     { key: 'location', label: 'Location', width: '20%' },
+    { key: 'order', label: 'Order', width: '8%' },
+  ]
+
+  const pageContentColumns = [
+    { key: 'page', label: 'Page', width: '15%' },
+    { key: 'key', label: 'Key', width: '20%' },
+    { key: 'value', label: 'Value', render: (pc: PageContent) => {
+      const v = (pc.value as string) ?? ''
+      return v.slice(0, 80) + (v.length > 80 ? '…' : '')
+    }},
     { key: 'order', label: 'Order', width: '8%' },
   ]
 
@@ -678,8 +723,29 @@ export function AdminPage() {
           />
         )}
 
+        {/* Page Content tab */}
+        {activeTab === 'page-content' && !editingPageContent && !creatingPageContent && (
+          <ContentTable
+            items={pageContents}
+            columns={pageContentColumns}
+            loading={pageContentLoading}
+            onEdit={setEditingPageContent}
+            onDelete={handlePageContentDelete}
+            onCreate={() => setCreatingPageContent(true)}
+            createLabel="Add Content"
+            emptyMessage="No page content yet."
+          />
+        )}
+        {activeTab === 'page-content' && (editingPageContent || creatingPageContent) && (
+          <PageContentForm
+            content={editingPageContent}
+            onSave={handlePageContentSave}
+            onCancel={() => { setEditingPageContent(null); setCreatingPageContent(false) }}
+          />
+        )}
+
         {/* Other tabs — keep placeholder */}
-        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && activeTab !== 'csr' && (
+        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && activeTab !== 'csr' && activeTab !== 'page-content' && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-sm">{activeTab} editor coming in next tasks.</p>
           </div>

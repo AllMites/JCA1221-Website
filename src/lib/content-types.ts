@@ -147,6 +147,7 @@ export interface PageContent {
   section: string
   key: string
   value: unknown
+  order: number
   published: boolean
 }
 
