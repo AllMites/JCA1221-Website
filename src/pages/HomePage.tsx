@@ -3,10 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { HomeView } from '@/sections/home/components/HomeView'
 import { PartnerLogoCarousel } from '@/sections/contact-and-partnerships/components/PartnerLogoCarousel'
+import { CsrCarousel } from '@/sections/home/components/CsrCarousel'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { HeroPageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
-import { useProjects, usePartners, usePageContent, getPageValue } from '@/hooks/use-content'
+import { useProjects, usePartners, usePageContent, getPageValue, useCsrProjects } from '@/hooks/use-content'
 import { useImpactStats } from '@/hooks/use-impact-stats'
 import type { ProjectCard, HeroContent, MissionValue, ImpactStat, Expansion, ProjectAward } from '@/../product/sections/home/types'
 
@@ -29,6 +30,7 @@ export function HomePage() {
   const { content, loading: contentLoading } = usePageContent('home')
   const { stats: impactStats, loading: impactLoading } = useImpactStats()
   const { partners } = usePartners()
+  const { projects: csrProjects } = useCsrProjects()
 
   const loading = projectsLoading || contentLoading || impactLoading
 
@@ -90,6 +92,11 @@ export function HomePage() {
                 if (el) el.scrollIntoView({ behavior: 'smooth' })
               }}
               onProjectClick={(id) => navigate(`/projects/${id}`)}
+            />
+            <CsrCarousel
+              projects={csrProjects}
+              title="Community & CSR"
+              subtitle="Beyond Infrastructure"
             />
             <PartnerLogoCarousel
               partners={partners}

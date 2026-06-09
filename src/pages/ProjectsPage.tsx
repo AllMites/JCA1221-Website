@@ -2,16 +2,18 @@ import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { ProjectList } from '@/sections/projects-and-track-record/components/ProjectList'
+import { CsrSection } from '@/sections/projects-and-track-record/components/CsrSection'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { PageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
-import { useProjects } from '@/hooks/use-content'
+import { useProjects, useCsrProjects } from '@/hooks/use-content'
 import type { ProjectCard, PortfolioSummary, ProjectStatus, ProjectKeyMetric } from '@/../product/sections/projects-and-track-record/types'
 
 export function ProjectsPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const { projects, loading } = useProjects()
+  const { projects: csrProjects } = useCsrProjects()
 
   useEffect(() => {
     document.title = 'Projects — JCA 1221 Holdings'
@@ -61,6 +63,11 @@ export function ProjectsPage() {
             onFilterChange={() => {
               // Filter state tracked internally by ProjectList
             }}
+          />
+          <CsrSection
+            projects={csrProjects}
+            title="Corporate Social Responsibility"
+            subtitle="Our Impact Beyond Infrastructure"
           />
         )}
       </ErrorBoundary>
