@@ -2,6 +2,10 @@ import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/use-auth'
 import { AdminSidebar } from '@/components/admin/AdminSidebar'
+import { supabase } from '@/lib/supabase'
+import { ContentTable } from '@/components/admin/ContentTable'
+import { NewsForm } from '@/components/admin/NewsForm'
+import type { NewsArticle } from '@/lib/content-types'
 import {
   listSubmissions,
   acknowledgeSubmission,
@@ -26,6 +30,12 @@ export function AdminPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
+
+  // ── News CRUD state ──
+  const [newsArticles, setNewsArticles] = useState<NewsArticle[]>([])
+  const [newsLoading, setNewsLoading] = useState(false)
+  const [editingArticle, setEditingArticle] = useState<NewsArticle | null>(null)
+  const [creatingNews, setCreatingNews] = useState(false)
 
   useEffect(() => {
     document.title = 'Admin — JCA 1221 Holdings'
@@ -96,6 +106,34 @@ export function AdminPage() {
     })
   }
 
+  // ── News CRUD ──────────────────────────────────────────────────────
+  const fetchNews = useCallback(async () => {
+    setNewsLoading(true)
+    const { data } = await supabase.from('news_articles').select('*').order('date', { ascending: false })
+    setNewsArticles((data ?? []) as NewsArticle[])
+    setNewsLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (activeTab === 'news') fetchNews()
+  }, [activeTab, fetchNews])
+
+  async function handleNewsSave(data: Partial<NewsArticle>) {
+    if (data.id) {
+      await supabase.from('news_articles').update(data).eq('id', data.id)
+    } else {
+      await supabase.from('news_articles').insert(data)
+    }
+    setEditingArticle(null)
+    setCreatingNews(false)
+    fetchNews()
+  }
+
+  async function handleNewsDelete(article: NewsArticle) {
+    await supabase.from('news_articles').delete().eq('id', article.id)
+    fetchNews()
+  }
+
   // ── Loading state ──────────────────────────────────────────────────
   if (authLoading) {
     return (
@@ -116,6 +154,13 @@ export function AdminPage() {
       </div>
     )
   }
+
+  const newsColumns = [
+    { key: 'title', label: 'Title' },
+    { key: 'source', label: 'Source', width: '15%' },
+    { key: 'date', label: 'Date', width: '12%', render: (a: NewsArticle) => new Date(a.date).toLocaleDateString('en-PH') },
+    { key: 'category', label: 'Category', width: '10%' },
+  ]
 
   // ── Authenticated layout ───────────────────────────────────────────
   return (
@@ -362,8 +407,29 @@ export function AdminPage() {
           </div>
         )}
 
-        {/* Placeholder for other tabs */}
-        {activeTab !== 'submissions' && (
+        {/* News tab */}
+        {activeTab === 'news' && !editingArticle && !creatingNews && (
+          <ContentTable
+            items={newsArticles}
+            columns={newsColumns}
+            loading={newsLoading}
+            onEdit={setEditingArticle}
+            onDelete={handleNewsDelete}
+            onCreate={() => setCreatingNews(true)}
+            createLabel="Add Article"
+            emptyMessage="No news articles yet."
+          />
+        )}
+        {activeTab === 'news' && (editingArticle || creatingNews) && (
+          <NewsForm
+            article={editingArticle}
+            onSave={handleNewsSave}
+            onCancel={() => { setEditingArticle(null); setCreatingNews(false) }}
+          />
+        )}
+
+        {/* Other tabs — keep placeholder */}
+        {activeTab !== 'submissions' && activeTab !== 'news' && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-sm">{activeTab} editor coming in next tasks.</p>
           </div>
