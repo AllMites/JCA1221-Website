@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '@/lib/supabase'
+import { supabase, hasSupabaseCredentials } from '@/lib/supabase'
 import type { ImpactStat } from '@/../product/sections/home/types'
 import type { ImpactMetric } from '@/lib/content-types'
 
@@ -81,6 +81,11 @@ export function useImpactStats() {
 
     async function fetchStats() {
       setLoading(true)
+
+      if (!hasSupabaseCredentials) {
+        if (!cancelled) setLoading(false)
+        return
+      }
 
       const { data: projects, error } = await supabase
         .from('projects')

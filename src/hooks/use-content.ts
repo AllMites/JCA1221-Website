@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { supabase } from '@/lib/supabase'
+import { supabase, hasSupabaseCredentials } from '@/lib/supabase'
 import type {
   NewsArticle, Project, ProjectAward, TeamMember,
   CsrProject, Partner, TechWidget, PageContent,
@@ -7,6 +7,7 @@ import type {
 
 // ── Generic fetcher ──
 async function fetchPublished<T>(table: string, column = 'created_at', ascending = false): Promise<T[]> {
+  if (!hasSupabaseCredentials) return []
   const { data, error } = await supabase
     .from(table)
     .select('*')
@@ -17,6 +18,7 @@ async function fetchPublished<T>(table: string, column = 'created_at', ascending
 }
 
 async function fetchBySlug<T>(table: string, slug: string): Promise<T | null> {
+  if (!hasSupabaseCredentials) return null
   const { data, error } = await supabase
     .from(table)
     .select('*')

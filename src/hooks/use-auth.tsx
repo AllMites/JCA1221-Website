@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
-import { supabase } from '@/lib/supabase'
+import { supabase, hasSupabaseCredentials } from '@/lib/supabase'
 import type { UserProfile } from '@/lib/content-types'
 import type { User, Session } from '@supabase/supabase-js'
 
@@ -30,6 +30,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Skip Supabase auth when running without real credentials
+    if (!hasSupabaseCredentials) {
+      setLoading(false)
+      return
+    }
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session ?? null)
@@ -38,7 +44,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       else setLoading(false)
     })
 
-    // Listen for auth changes
+    // Listen for auth changes (skip when using placeholder credentials)
+    if (!hasSupabaseCredentials) return
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         setSession(session ?? null)
