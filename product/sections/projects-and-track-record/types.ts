@@ -146,6 +146,9 @@ export interface ProjectDetailProps {
   /** Full project detail data */
   project: ProjectDetail
 
+  /** Partners data — used for per-project partner badges */
+  partners?: import('@/lib/content-types').Partner[]
+
   /** Callback for back navigation to listing */
   onBack?: () => void
 }

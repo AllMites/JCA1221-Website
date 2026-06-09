@@ -102,7 +102,7 @@ export function ProjectDetailPage() {
                 { label: mappedProject.name },
               ]}
             />
-            <ProjectDetail project={mappedProject} onBack={() => navigate('/projects')} />
+            <ProjectDetail project={mappedProject} partners={partners} onBack={() => navigate('/projects')} />
           </>
         ) : null}
       </ErrorBoundary>

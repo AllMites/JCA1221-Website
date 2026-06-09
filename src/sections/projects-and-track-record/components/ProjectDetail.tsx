@@ -4,6 +4,7 @@ import { MapPin, ArrowLeft, Trophy, Users, Building2, Calendar, Leaf, Zap, Award
 import type { LucideIcon } from 'lucide-react'
 import { ShaderBackground } from '@/components/ShaderBackground'
 import { TechWidgetsSection } from './TechWidgetsSection'
+import { PartnerBadges } from '@/sections/contact-and-partnerships/components/PartnerBadges'
 
 const STATUS_CAPSULE: Record<ProjectStatus, { label: string; icon: LucideIcon; className: string }> = {
   operational: {
@@ -23,7 +24,7 @@ const STATUS_CAPSULE: Record<ProjectStatus, { label: string; icon: LucideIcon; c
   },
 }
 
-export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
+export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps) {
   const [heroErrored, setHeroErrored] = useState(false)
   const yearRange =
     project.yearStarted
@@ -277,22 +278,17 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                 </h2>
               </div>
 
-              <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] divide-y divide-slate-200/50 dark:divide-slate-700/30">
-                {project.partners.map((partner, i) => (
-                  <div key={i} className="flex items-center justify-between px-5 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                        <Users size={16} className="text-slate-500 dark:text-slate-400" />
-                      </div>
-                      <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
-                        {partner.name}
-                      </span>
-                    </div>
-                    <span className="text-xs text-slate-400 dark:text-slate-500 font-medium bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">
-                      {partner.type}
-                    </span>
+              <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6">
+                {partners && partners.length > 0 ? (
+                  <PartnerBadges partners={partners} projectId={project.id} title="" />
+                ) : (
+                  <div className="text-center">
+                    <Users size={24} className="text-slate-300 dark:text-slate-600 mx-auto mb-2" />
+                    <p className="text-sm text-slate-400 dark:text-slate-500">
+                      No partners listed yet.
+                    </p>
                   </div>
-                ))}
+                )}
               </div>
             </div>
           </div>
