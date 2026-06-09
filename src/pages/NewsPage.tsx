@@ -3,13 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { NewsView } from '@/sections/news/components/NewsView'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { PageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
-import type { NewsArticle } from '@/../product/sections/news/types'
-import data from '@/../product/sections/news/data.json'
+import { useNews } from '@/hooks/use-content'
 
 export function NewsPage() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { articles, loading } = useNews()
 
   useEffect(() => {
     document.title = 'News — JCA 1221 Holdings'
@@ -27,11 +28,15 @@ export function NewsPage() {
       onCtaClick={() => navigate('/contact')}
     >
       <ErrorBoundary>
-        <NewsView
-          sectionTitle={data.sectionTitle}
-          sectionSubtitle={data.sectionSubtitle}
-          articles={data.articles as NewsArticle[]}
-        />
+        {loading ? (
+          <PageSkeleton />
+        ) : (
+          <NewsView
+            sectionTitle="News & Press Room"
+            sectionSubtitle="Coverage, announcements, and recognition — transparency in action."
+            articles={articles}
+          />
+        )}
       </ErrorBoundary>
     </AppShell>
   )
