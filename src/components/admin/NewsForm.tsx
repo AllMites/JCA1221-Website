@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { NewsArticle, NewsCategory, NewsType } from '@/lib/content-types'
 
 interface NewsFormProps {
@@ -20,6 +20,8 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
   const [type, setType] = useState<NewsType>('media-coverage')
   const [tags, setTags] = useState('')
   const [saving, setSaving] = useState(false)
+  const [publishMode, setPublishMode] = useState(article?.published ?? true)
+  const submitRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     if (article) {
@@ -34,6 +36,11 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
     }
   }, [article])
 
+  function doSave(publish: boolean) {
+    setPublishMode(publish)
+    submitRef.current?.click()
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true)
@@ -47,7 +54,7 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
       category,
       type,
       tags: tags.split(',').map(t => t.trim()).filter(Boolean),
-      published: article?.published ?? true,
+      published: publishMode,
     })
     setSaving(false)
   }
@@ -105,13 +112,27 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
       </div>
 
       <div className="flex gap-2 pt-2">
-        <button type="submit" disabled={saving} className="px-4 py-2 text-xs font-medium rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 border border-white/20 transition-all disabled:opacity-50">
-          {saving ? 'Saving…' : article ? 'Update' : 'Create'}
+        <button
+          type="button"
+          onClick={() => doSave(true)}
+          disabled={saving}
+          className="px-4 py-2 text-xs font-medium rounded-full text-white bg-lime-500/80 hover:bg-lime-500/90 border border-lime-400/30 transition-all disabled:opacity-50"
+        >
+          {saving ? 'Saving…' : 'Publish'}
+        </button>
+        <button
+          type="button"
+          onClick={() => doSave(false)}
+          disabled={saving}
+          className="px-4 py-2 text-xs font-medium rounded-full text-slate-400 border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all disabled:opacity-50"
+        >
+          {saving ? 'Saving…' : 'Save as Draft'}
         </button>
         <button type="button" onClick={onCancel} className="px-4 py-2 text-xs font-medium rounded-full text-slate-500 border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
           Cancel
         </button>
       </div>
+      <button type="submit" ref={submitRef} className="hidden" />
     </form>
   )
 }

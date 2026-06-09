@@ -628,6 +628,10 @@ export function AdminPage() {
             loading={newsLoading}
             onEdit={setEditingArticle}
             onDelete={handleNewsDelete}
+            onTogglePublish={async (item) => {
+              await supabase.from('news_articles').update({ published: !item.published }).eq('id', item.id)
+              await fetchNews()
+            }}
             onCreate={() => setCreatingNews(true)}
             createLabel="Add Article"
             emptyMessage="No news articles yet."
@@ -649,6 +653,10 @@ export function AdminPage() {
             loading={projectsLoading}
             onEdit={setEditingProject}
             onDelete={handleProjectDelete}
+            onTogglePublish={async (item) => {
+              await supabase.from('projects').update({ published: !item.published }).eq('id', item.id)
+              await fetchProjects()
+            }}
             onCreate={() => setCreatingProject(true)}
             createLabel="Add Project"
             emptyMessage="No projects yet."
@@ -670,6 +678,10 @@ export function AdminPage() {
             loading={teamLoading}
             onEdit={setEditingMember}
             onDelete={handleTeamDelete}
+            onTogglePublish={async (item) => {
+              await supabase.from('team_members').update({ published: !item.published }).eq('id', item.id)
+              await fetchTeam()
+            }}
             onCreate={() => setCreatingMember(true)}
             createLabel="Add Team Member"
             emptyMessage="No team members yet."
@@ -691,6 +703,10 @@ export function AdminPage() {
             loading={partnersLoading}
             onEdit={setEditingPartner}
             onDelete={handlePartnerDelete}
+            onTogglePublish={async (item) => {
+              await supabase.from('partners').update({ published: !item.published }).eq('id', item.id)
+              await fetchPartners()
+            }}
             onCreate={() => setCreatingPartner(true)}
             createLabel="Add Partner"
             emptyMessage="No partners yet."
@@ -712,6 +728,10 @@ export function AdminPage() {
             loading={csrLoading}
             onEdit={setEditingCsr}
             onDelete={handleCsrDelete}
+            onTogglePublish={async (item) => {
+              await supabase.from('csr_projects').update({ published: !item.published }).eq('id', item.id)
+              await fetchCsr()
+            }}
             onCreate={() => setCreatingCsr(true)}
             createLabel="Add CSR Project"
             emptyMessage="No CSR projects yet."
@@ -733,6 +753,10 @@ export function AdminPage() {
             loading={pageContentLoading}
             onEdit={setEditingPageContent}
             onDelete={handlePageContentDelete}
+            onTogglePublish={async (item) => {
+              await supabase.from('page_content').update({ published: !item.published }).eq('id', item.id)
+              await fetchPageContents()
+            }}
             onCreate={() => setCreatingPageContent(true)}
             createLabel="Add Content"
             emptyMessage="No page content yet."

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { Project, ProjectStatus } from '@/lib/content-types'
 
 interface ProjectFormProps {
@@ -26,6 +26,8 @@ export function ProjectForm({ project, onSave, onCancel }: ProjectFormProps) {
   const [galleryImages, setGalleryImages] = useState('')
   const [order, setOrder] = useState('0')
   const [saving, setSaving] = useState(false)
+  const [publishMode, setPublishMode] = useState(project?.published ?? true)
+  const submitRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     if (project) {
@@ -46,6 +48,11 @@ export function ProjectForm({ project, onSave, onCancel }: ProjectFormProps) {
       setOrder((project.order ?? 0).toString())
     }
   }, [project])
+
+  function doSave(publish: boolean) {
+    setPublishMode(publish)
+    submitRef.current?.click()
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -75,7 +82,7 @@ export function ProjectForm({ project, onSave, onCancel }: ProjectFormProps) {
       year_completed: yearCompleted ? parseInt(yearCompleted) : null,
       gallery_images: galleryImages.split(',').map(i => i.trim()).filter(Boolean),
       order: parseInt(order) || 0,
-      published: project?.published ?? true,
+      published: publishMode,
     })
     setSaving(false)
   }
@@ -166,13 +173,27 @@ export function ProjectForm({ project, onSave, onCancel }: ProjectFormProps) {
       </div>
 
       <div className="flex gap-2 pt-2">
-        <button type="submit" disabled={saving} className="px-4 py-2 text-xs font-medium rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 border border-white/20 transition-all disabled:opacity-50">
-          {saving ? 'Saving…' : project ? 'Update' : 'Create'}
+        <button
+          type="button"
+          onClick={() => doSave(true)}
+          disabled={saving}
+          className="px-4 py-2 text-xs font-medium rounded-full text-white bg-lime-500/80 hover:bg-lime-500/90 border border-lime-400/30 transition-all disabled:opacity-50"
+        >
+          {saving ? 'Saving…' : 'Publish'}
+        </button>
+        <button
+          type="button"
+          onClick={() => doSave(false)}
+          disabled={saving}
+          className="px-4 py-2 text-xs font-medium rounded-full text-slate-400 border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all disabled:opacity-50"
+        >
+          {saving ? 'Saving…' : 'Save as Draft'}
         </button>
         <button type="button" onClick={onCancel} className="px-4 py-2 text-xs font-medium rounded-full text-slate-500 border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
           Cancel
         </button>
       </div>
+      <button type="submit" ref={submitRef} className="hidden" />
     </form>
   )
 }

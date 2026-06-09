@@ -13,6 +13,7 @@ interface ContentTableProps<T> {
   loading?: boolean
   onEdit?: (item: T) => void
   onDelete?: (item: T) => void
+  onTogglePublish?: (item: T) => Promise<void>
   onCreate?: () => void
   createLabel?: string
   emptyMessage?: string
@@ -24,6 +25,7 @@ export function ContentTable<T extends { id: string; published?: boolean }>({
   loading,
   onEdit,
   onDelete,
+  onTogglePublish,
   onCreate,
   createLabel = 'Add New',
   emptyMessage = 'No items yet.',
@@ -84,6 +86,18 @@ export function ContentTable<T extends { id: string; published?: boolean }>({
                     <div className="flex gap-1.5 justify-end">
                       {onEdit && (
                         <button onClick={() => onEdit(item)} className="px-2 py-1 text-[10px] rounded-md text-slate-500 hover:bg-slate-100 dark:hover:bg-white/5">Edit</button>
+                      )}
+                      {onTogglePublish && (
+                        <button
+                          onClick={async (e) => {
+                            e.stopPropagation()
+                            await onTogglePublish(item)
+                          }}
+                          className="px-2 py-1 text-[10px] font-medium rounded text-slate-400 hover:text-lime-500 hover:bg-lime-50 dark:hover:bg-lime-500/10 transition-all"
+                          title={item.published ? 'Unpublish' : 'Publish'}
+                        >
+                          {item.published ? 'Unpublish' : 'Publish'}
+                        </button>
                       )}
                       {onDelete && (
                         confirmDelete === item.id ? (
