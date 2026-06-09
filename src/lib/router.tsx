@@ -44,6 +44,7 @@ const LoginPage = lazy(() =>
 const AdminPage = lazy(() =>
   import('@/pages/AdminPage').then((m) => ({ default: m.AdminPage })),
 )
+const EditorPage = lazy(() => import('@/pages/EditorPage'))
 
 // Design OS pages
 const ProductPage = lazy(() =>
@@ -148,6 +149,7 @@ export const router = createBrowserRouter([
       // ═══ Admin ═══
       { path: '/login', element: <LoginPage /> },
       { path: '/admin', element: <AdminPage /> },
+      { path: '/edit', element: <EditorPage /> },
 
       // ═══ 404 ═══
       { path: '*', element: <NotFoundPage /> },
