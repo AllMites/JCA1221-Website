@@ -8,7 +8,8 @@ import { NewsForm } from '@/components/admin/NewsForm'
 import { ProjectForm } from '@/components/admin/ProjectForm'
 import { TeamForm } from '@/components/admin/TeamForm'
 import { PartnerForm } from '@/components/admin/PartnerForm'
-import type { NewsArticle, Project, TeamMember, Partner } from '@/lib/content-types'
+import { CsrForm } from '@/components/admin/CsrForm'
+import type { NewsArticle, Project, TeamMember, Partner, CsrProject } from '@/lib/content-types'
 import {
   listSubmissions,
   acknowledgeSubmission,
@@ -57,6 +58,12 @@ export function AdminPage() {
   const [partnersLoading, setPartnersLoading] = useState(false)
   const [editingPartner, setEditingPartner] = useState<Partner | null>(null)
   const [creatingPartner, setCreatingPartner] = useState(false)
+
+  // ── CSR CRUD state ──
+  const [csrProjects, setCsrProjects] = useState<CsrProject[]>([])
+  const [csrLoading, setCsrLoading] = useState(false)
+  const [editingCsr, setEditingCsr] = useState<CsrProject | null>(null)
+  const [creatingCsr, setCreatingCsr] = useState(false)
 
   useEffect(() => {
     document.title = 'Admin — JCA 1221 Holdings'
@@ -239,6 +246,34 @@ export function AdminPage() {
     fetchPartners()
   }
 
+  // ── CSR CRUD ────────────────────────────────────────────────────────
+  const fetchCsr = useCallback(async () => {
+    setCsrLoading(true)
+    const { data } = await supabase.from('csr_projects').select('*').order('order', { ascending: true })
+    setCsrProjects((data ?? []) as CsrProject[])
+    setCsrLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (activeTab === 'csr') fetchCsr()
+  }, [activeTab, fetchCsr])
+
+  async function handleCsrSave(data: Partial<CsrProject>) {
+    if (data.id) {
+      await supabase.from('csr_projects').update(data).eq('id', data.id)
+    } else {
+      await supabase.from('csr_projects').insert(data)
+    }
+    setEditingCsr(null)
+    setCreatingCsr(false)
+    fetchCsr()
+  }
+
+  async function handleCsrDelete(csr: CsrProject) {
+    await supabase.from('csr_projects').delete().eq('id', csr.id)
+    fetchCsr()
+  }
+
   // ── Loading state ──────────────────────────────────────────────────
   if (authLoading) {
     return (
@@ -284,6 +319,13 @@ export function AdminPage() {
     { key: 'name', label: 'Name' },
     { key: 'type', label: 'Type', width: '18%', render: (p: Partner) => p.type.replace('_', ' ') },
     { key: 'website_url', label: 'Website', width: '25%' },
+  ]
+
+  const csrColumns = [
+    { key: 'name', label: 'Name' },
+    { key: 'category', label: 'Category', width: '22%' },
+    { key: 'location', label: 'Location', width: '20%' },
+    { key: 'order', label: 'Order', width: '8%' },
   ]
 
   // ── Authenticated layout ───────────────────────────────────────────
@@ -615,8 +657,29 @@ export function AdminPage() {
           />
         )}
 
+        {/* CSR tab */}
+        {activeTab === 'csr' && !editingCsr && !creatingCsr && (
+          <ContentTable
+            items={csrProjects}
+            columns={csrColumns}
+            loading={csrLoading}
+            onEdit={setEditingCsr}
+            onDelete={handleCsrDelete}
+            onCreate={() => setCreatingCsr(true)}
+            createLabel="Add CSR Project"
+            emptyMessage="No CSR projects yet."
+          />
+        )}
+        {activeTab === 'csr' && (editingCsr || creatingCsr) && (
+          <CsrForm
+            csr={editingCsr}
+            onSave={handleCsrSave}
+            onCancel={() => { setEditingCsr(null); setCreatingCsr(false) }}
+          />
+        )}
+
         {/* Other tabs — keep placeholder */}
-        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && (
+        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && activeTab !== 'csr' && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-sm">{activeTab} editor coming in next tasks.</p>
           </div>
