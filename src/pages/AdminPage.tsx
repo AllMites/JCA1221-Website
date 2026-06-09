@@ -5,7 +5,8 @@ import { AdminSidebar } from '@/components/admin/AdminSidebar'
 import { supabase } from '@/lib/supabase'
 import { ContentTable } from '@/components/admin/ContentTable'
 import { NewsForm } from '@/components/admin/NewsForm'
-import type { NewsArticle } from '@/lib/content-types'
+import { ProjectForm } from '@/components/admin/ProjectForm'
+import type { NewsArticle, Project } from '@/lib/content-types'
 import {
   listSubmissions,
   acknowledgeSubmission,
@@ -36,6 +37,12 @@ export function AdminPage() {
   const [newsLoading, setNewsLoading] = useState(false)
   const [editingArticle, setEditingArticle] = useState<NewsArticle | null>(null)
   const [creatingNews, setCreatingNews] = useState(false)
+
+  // ── Project CRUD state ──
+  const [projects, setProjects] = useState<Project[]>([])
+  const [projectsLoading, setProjectsLoading] = useState(false)
+  const [editingProject, setEditingProject] = useState<Project | null>(null)
+  const [creatingProject, setCreatingProject] = useState(false)
 
   useEffect(() => {
     document.title = 'Admin — JCA 1221 Holdings'
@@ -134,6 +141,34 @@ export function AdminPage() {
     fetchNews()
   }
 
+  // ── Project CRUD ────────────────────────────────────────────────────
+  const fetchProjects = useCallback(async () => {
+    setProjectsLoading(true)
+    const { data } = await supabase.from('projects').select('*').order('order', { ascending: true })
+    setProjects((data ?? []) as Project[])
+    setProjectsLoading(false)
+  }, [])
+
+  useEffect(() => {
+    if (activeTab === 'projects') fetchProjects()
+  }, [activeTab, fetchProjects])
+
+  async function handleProjectSave(data: Partial<Project>) {
+    if (data.id) {
+      await supabase.from('projects').update(data).eq('id', data.id)
+    } else {
+      await supabase.from('projects').insert(data)
+    }
+    setEditingProject(null)
+    setCreatingProject(false)
+    fetchProjects()
+  }
+
+  async function handleProjectDelete(project: Project) {
+    await supabase.from('projects').delete().eq('id', project.id)
+    fetchProjects()
+  }
+
   // ── Loading state ──────────────────────────────────────────────────
   if (authLoading) {
     return (
@@ -160,6 +195,13 @@ export function AdminPage() {
     { key: 'source', label: 'Source', width: '15%' },
     { key: 'date', label: 'Date', width: '12%', render: (a: NewsArticle) => new Date(a.date).toLocaleDateString('en-PH') },
     { key: 'category', label: 'Category', width: '10%' },
+  ]
+
+  const projectColumns = [
+    { key: 'name', label: 'Name' },
+    { key: 'location', label: 'Location', width: '20%' },
+    { key: 'status', label: 'Status', width: '12%' },
+    { key: 'order', label: 'Order', width: '8%' },
   ]
 
   // ── Authenticated layout ───────────────────────────────────────────
@@ -428,8 +470,29 @@ export function AdminPage() {
           />
         )}
 
+        {/* Projects tab */}
+        {activeTab === 'projects' && !editingProject && !creatingProject && (
+          <ContentTable
+            items={projects}
+            columns={projectColumns}
+            loading={projectsLoading}
+            onEdit={setEditingProject}
+            onDelete={handleProjectDelete}
+            onCreate={() => setCreatingProject(true)}
+            createLabel="Add Project"
+            emptyMessage="No projects yet."
+          />
+        )}
+        {activeTab === 'projects' && (editingProject || creatingProject) && (
+          <ProjectForm
+            project={editingProject}
+            onSave={handleProjectSave}
+            onCancel={() => { setEditingProject(null); setCreatingProject(false) }}
+          />
+        )}
+
         {/* Other tabs — keep placeholder */}
-        {activeTab !== 'submissions' && activeTab !== 'news' && (
+        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-sm">{activeTab} editor coming in next tasks.</p>
           </div>
