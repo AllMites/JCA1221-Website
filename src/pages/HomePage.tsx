@@ -2,10 +2,11 @@ import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { HomeView } from '@/sections/home/components/HomeView'
+import { PartnerLogoCarousel } from '@/sections/contact-and-partnerships/components/PartnerLogoCarousel'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { HeroPageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
-import { useProjects, usePageContent, getPageValue } from '@/hooks/use-content'
+import { useProjects, usePartners, usePageContent, getPageValue } from '@/hooks/use-content'
 import { useImpactStats } from '@/hooks/use-impact-stats'
 import type { ProjectCard, HeroContent, MissionValue, ImpactStat, Expansion, ProjectAward } from '@/../product/sections/home/types'
 
@@ -27,6 +28,7 @@ export function HomePage() {
   const { projects, loading: projectsLoading } = useProjects()
   const { content, loading: contentLoading } = usePageContent('home')
   const { stats: impactStats, loading: impactLoading } = useImpactStats()
+  const { partners } = usePartners()
 
   const loading = projectsLoading || contentLoading || impactLoading
 
@@ -76,18 +78,25 @@ export function HomePage() {
         {loading ? (
           <HeroPageSkeleton />
         ) : (
-          <HomeView
-            hero={hero}
-            projectCards={projectCards}
-            missionValues={missionValues}
-            impactStats={impactStats}
-            expansion={expansion}
-            onCtaClick={() => {
-              const el = document.getElementById('projects')
-              if (el) el.scrollIntoView({ behavior: 'smooth' })
-            }}
-            onProjectClick={(id) => navigate(`/projects/${id}`)}
-          />
+          <>
+            <HomeView
+              hero={hero}
+              projectCards={projectCards}
+              missionValues={missionValues}
+              impactStats={impactStats}
+              expansion={expansion}
+              onCtaClick={() => {
+                const el = document.getElementById('projects')
+                if (el) el.scrollIntoView({ behavior: 'smooth' })
+              }}
+              onProjectClick={(id) => navigate(`/projects/${id}`)}
+            />
+            <PartnerLogoCarousel
+              partners={partners}
+              title="Our Partners"
+              subtitle="Government, private sector, and community organizations working with us across the Philippines"
+            />
+          </>
         )}
       </ErrorBoundary>
     </AppShell>
