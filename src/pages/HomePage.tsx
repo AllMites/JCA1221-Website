@@ -6,6 +6,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { HeroPageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
 import { useProjects, usePageContent, getPageValue } from '@/hooks/use-content'
+import { useImpactStats } from '@/hooks/use-impact-stats'
 import type { ProjectCard, HeroContent, MissionValue, ImpactStat, Expansion, ProjectAward } from '@/../product/sections/home/types'
 
 const FALLBACK_HERO: HeroContent = {
@@ -25,8 +26,9 @@ export function HomePage() {
   const navigate = useNavigate()
   const { projects, loading: projectsLoading } = useProjects()
   const { content, loading: contentLoading } = usePageContent('home')
+  const { stats: impactStats, loading: impactLoading } = useImpactStats()
 
-  const loading = projectsLoading || contentLoading
+  const loading = projectsLoading || contentLoading || impactLoading
 
   useEffect(() => {
     document.title = 'JCA 1221 Holdings — Environmental Infrastructure'
@@ -55,8 +57,6 @@ export function HomePage() {
   // Mission values from page_content
   const missionValues: MissionValue[] = (getPageValue(content, 'mission', 'values') as MissionValue[]) ?? []
 
-  // Impact stats from page_content
-  const impactStats: ImpactStat[] = (getPageValue(content, 'hero', 'impact_stats') as ImpactStat[]) ?? []
 
   // Expansion from page_content
   const initiatives = (getPageValue(content, 'expansion', 'initiatives') as Expansion['initiatives']) ?? []
