@@ -1,0 +1,51 @@
+# Copy this entire block. Paste as first message in new Claude Code session.
+
+CONTEXT RESTORE — JCA1221 Holdings Website
+
+Read docs/handoff/2026-06-14-session-handoff.md for full details.
+
+**Project:** Philippine environmental infrastructure website. Target: businessmen + government officials.
+**Stack:** React 19 + Vite 7 + TS 5.9 + Tailwind v4 + framer-motion v12 + shadcn/ui + Supabase.
+**Design:** glassmorphism + neumorphism hybrid. blue/amber/slate. DM Sans headings. Inter body.
+**Router:** react-router-dom v7, createBrowserRouter, all pages React.lazy().
+**Path alias:** @/ → src/
+
+**Completed (all 7 public pages):**
+- Homepage: Enterprise Cascade layout (Hero→TrustStrip→MissionPillars→FeaturedProjects→TrustWall→CsrCarousel→FinalCta)
+- All pages have ScrollReveal/stagger animations via framer-motion
+- 3D tilt on project cards (FeaturedProjects + ProjectDetail)
+- Parallax hero backgrounds
+- CSR carousel auto-advances with progress bar
+- Nav scroll-aware: transparent→frosted glass
+- Footer 4-column grid with gradient
+- Page transitions exist (AnimatePresence fade+slide)
+- CTA buttons: gradient + shine sweep + glow shadow
+- 8 visual regression screenshots in screenshots/
+- Supabase token scrubbed from git history
+- Build passes clean: `npx tsc --noEmit && npx vite build`
+
+**Key components:**
+- `ScrollReveal` + `RevealItem` — scroll-triggered animations (src/components/ScrollReveal.tsx)
+- `useCountUp` — animated counter hook (src/lib/use-count-up.ts)
+- `PageTransitionOutlet` — route transitions (src/components/PageTransition.tsx)
+- `ShaderBackground` — variant='blue'|'amber'|'slate' (src/components/ShaderBackground.tsx)
+- `GlassPill` — badge/chip component (src/components/GlassPill.tsx)
+
+**Supabase hooks:** useProjects, usePartners, usePageContent('home'), useCsrProjects, useImpactStats, useNews, useTeam. All short-circuit to skeleton when credentials are placeholder.
+
+**Never touch:** src/sections/home/components/alt/, src/pages/HomeAltPage.tsx, product/ directory.
+
+**Gotchas:**
+- framer-motion v12: no computed keys in Variants objects — use pre-computed lookups
+- Tailwind v4: no tailwind.config.js, no `darkMode: 'class'`, dark: prefix is media-query
+- tsconfig: erasableSyntaxOnly (no enums), verbatimModuleSyntax (use import type)
+- .original.tsx files excluded from tsconfig
+- Windows: CRLF warnings benign
+
+**Quick fixes available:**
+- apple-mobile-web-app-capable meta tag deprecated
+- /alt route can be removed (HomeAltPage missing)
+
+**Git:** main branch, synced to origin. Last commit: dda5848.
+
+Continue from here. What's next?
