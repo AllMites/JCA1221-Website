@@ -10,8 +10,6 @@ import type {
 const cardSurface =
   'p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03),0_0_0_1px_rgba(0,0,0,0.01)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.02)]'
 
-const cardHover = 'hover:border-blue-300 dark:hover:border-blue-400/20 transition-all duration-300'
-
 const iconBox =
   'w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-400/20 flex items-center justify-center'
 

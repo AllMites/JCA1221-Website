@@ -53,7 +53,7 @@ export function HomePage() {
         status: p.status,
         image: p.hero_image ?? '',
         description: p.short_description,
-        award: undefined,
+        award: undefined as unknown as ProjectCard['award'],
         stats: (p.stats ?? []) as { label: string; value: string }[],
       })),
     [projects],
