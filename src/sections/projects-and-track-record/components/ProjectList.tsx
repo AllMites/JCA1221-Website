@@ -3,6 +3,7 @@ import type { ProjectsProps, FilterStatus } from '@/../product/sections/projects
 import { PortfolioSummaryBar } from './PortfolioSummaryBar'
 import { ProjectCardItem } from './ProjectCard'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 
 const FILTER_OPTIONS: { label: string; value: FilterStatus }[] = [
   { label: 'All Projects', value: 'all' },
@@ -49,7 +50,7 @@ export function ProjectList({
         <ShaderBackground variant="light" opacity={0.5} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="text-center mb-10">
+          <ScrollReveal direction="up" className="text-center mb-10">
             <p className="text-sm font-medium font-heading uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-3">
               Our Portfolio
             </p>
@@ -60,7 +61,7 @@ export function ProjectList({
               Each facility is a public-private partnership built on integrity, delivering measurable
               environmental outcomes for Philippine communities.
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* Filter pills — full colored capsule for active */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">
@@ -91,15 +92,16 @@ export function ProjectList({
               </p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
+            <ScrollReveal staggerChildren={0.08} viewportMargin="-40px 0px" className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
               {filteredProjects.map((project) => (
-                <ProjectCardItem
-                  key={project.id}
-                  project={project}
-                  onClick={() => onProjectClick?.(project.id)}
-                />
+                <RevealItem key={project.id}>
+                  <ProjectCardItem
+                    project={project}
+                    onClick={() => onProjectClick?.(project.id)}
+                  />
+                </RevealItem>
               ))}
-            </div>
+            </ScrollReveal>
           )}
         </div>
       </section>

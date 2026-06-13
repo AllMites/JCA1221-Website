@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import type { PortfolioSummary } from '@/../product/sections/projects-and-track-record/types'
 import { Droplets, Building2, Trophy, Users } from 'lucide-react'
 import { GlassPill } from '@/components/GlassPill'
+import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 
 interface PortfolioSummaryBarProps {
   summary: PortfolioSummary
@@ -110,11 +111,13 @@ export function PortfolioSummaryBar({ summary }: PortfolioSummaryBarProps) {
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+        <ScrollReveal staggerChildren={0.1} className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
           {stats.map((stat) => (
-            <AnimatedSummaryCounter key={stat.label} {...stat} />
+            <RevealItem key={stat.label}>
+              <AnimatedSummaryCounter {...stat} />
+            </RevealItem>
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   )
