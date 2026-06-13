@@ -1,5 +1,6 @@
-import { useRef } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import { Heart } from 'lucide-react'
+import { motion, useReducedMotion } from 'framer-motion'
 import type { CsrProject } from '@/lib/content-types'
 import { ShaderBackground } from '@/components/ShaderBackground'
 
@@ -11,6 +12,32 @@ interface CsrCarouselProps {
 
 export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [isPaused, setIsPaused] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const reducedMotion = useReducedMotion()
+  const AUTO_ADVANCE_MS = 5000
+
+  const totalCards = projects.length + 1 // +1 for end hint card
+  const cardWidth = 350 + 20 // 350px card + 20px gap
+
+  // Pause on hover
+  const handleMouseEnter = useCallback(() => setIsPaused(true), [])
+  const handleMouseLeave = useCallback(() => setIsPaused(false), [])
+
+  // Auto-advance
+  useEffect(() => {
+    if (reducedMotion || projects.length === 0) return
+    const interval = setInterval(() => {
+      if (!isPaused && scrollRef.current) {
+        setCurrentIndex((prev) => {
+          const next = (prev + 1) % totalCards
+          scrollRef.current?.scrollTo({ left: next * cardWidth, behavior: 'smooth' })
+          return next
+        })
+      }
+    }, AUTO_ADVANCE_MS)
+    return () => clearInterval(interval)
+  }, [isPaused, totalCards, reducedMotion, AUTO_ADVANCE_MS, cardWidth])
 
   if (!projects || projects.length === 0) return null
 
@@ -36,9 +63,28 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
         )}
       </div>
 
+      {/* Progress bar */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-2">
+        <div className="h-0.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full bg-lime-500 dark:bg-lime-400 rounded-full"
+            initial={{ width: '0%' }}
+            animate={{ width: isPaused ? undefined : '100%' }}
+            transition={{
+              duration: AUTO_ADVANCE_MS / 1000,
+              ease: 'linear',
+              repeat: Infinity,
+            }}
+            key={currentIndex}
+          />
+        </div>
+      </div>
+
       {/* Horizontal scroll container */}
       <div
         ref={scrollRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         className="relative z-10 overflow-x-auto overscroll-x-contain pb-2"
       >
         <div
