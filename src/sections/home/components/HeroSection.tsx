@@ -1,5 +1,6 @@
 import { ArrowDown, Droplets } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { useScroll, useTransform, motion } from 'framer-motion'
 import type { HeroContent } from '@/../product/sections/home/types'
 import { ShaderBackground, type ShaderVariant } from '@/components/ShaderBackground'
 import { GlassPill } from '@/components/GlassPill'
@@ -73,6 +74,12 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
   const activeBgWordRef = useRef(CYCLE_WORDS[0])
   const [overlayWord, setOverlayWord] = useState<string | null>(null)
   const [overlayVisible, setOverlayVisible] = useState(false)
+
+  // ─── Parallax scroll effect ─────────────────────────────────────────────
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollY } = useScroll()
+  // Map section scroll position to parallax offset: 0 → 0, 1 → -150px (bg moves slower upward)
+  const parallaxY = useTransform(scrollY, [0, window.innerHeight], [0, -120])
 
   const currentWord = CYCLE_WORDS[wordIndex]
   const nextWord = CYCLE_WORDS[(wordIndex + 1) % CYCLE_WORDS.length]
@@ -152,23 +159,27 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
 
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Base background layer — current word theme */}
-      {renderBgLayer(activeBgWordRef.current)}
+      {/* Background layers with parallax — scroll slower than foreground */}
+      <motion.div className="absolute inset-0" style={{ y: parallaxY }}>
+        {/* Base background layer — current word theme */}
+        {renderBgLayer(activeBgWordRef.current)}
 
-      {/* Overlay background layer — cross-fades in synced to letter animation */}
-      {overlayWord && (
-        <div
-          className="absolute inset-0 transition-opacity ease-in-out pointer-events-none"
-          style={{
-            opacity: overlayVisible ? 1 : 0,
-            transitionDuration: `${cycleTotalMs(currentWord)}ms`,
-          }}
-        >
-          {renderBgLayer(overlayWord)}
-        </div>
-      )}
+        {/* Overlay background layer — cross-fades in synced to letter animation */}
+        {overlayWord && (
+          <div
+            className="absolute inset-0 transition-opacity ease-in-out pointer-events-none"
+            style={{
+              opacity: overlayVisible ? 1 : 0,
+              transitionDuration: `${cycleTotalMs(currentWord)}ms`,
+            }}
+          >
+            {renderBgLayer(overlayWord)}
+          </div>
+        )}
+      </motion.div>
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -276,12 +287,16 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+      {/* Scroll indicator — fades out on scroll */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        initial={{ opacity: 1 }}
+        style={{ opacity: useTransform(scrollY, [0, 200], [1, 0]) }}
+      >
         <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-1.5">
           <div className="w-1 h-2.5 rounded-full bg-white/40 animate-scroll-dot" />
         </div>
-      </div>
+      </motion.div>
 
       <style>{`
         @keyframes fade-in-up {

@@ -368,8 +368,10 @@ export function AdminPage() {
     { key: 'page', label: 'Page', width: '15%' },
     { key: 'key', label: 'Key', width: '20%' },
     { key: 'value', label: 'Value', render: (pc: PageContent) => {
-      const v = (pc.value as string) ?? ''
-      return v.slice(0, 80) + (v.length > 80 ? '…' : '')
+      const v = pc.value
+      if (typeof v === 'string') return v.slice(0, 80) + (v.length > 80 ? '…' : '')
+      const s = JSON.stringify(v, null, 1) || ''
+      return s.slice(0, 80) + (s.length > 80 ? '…' : '')
     }},
     { key: 'order', label: 'Order', width: '8%' },
   ]

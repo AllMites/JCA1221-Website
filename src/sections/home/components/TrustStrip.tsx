@@ -1,6 +1,7 @@
 // src/sections/home/components/TrustStrip.tsx
 import { useEffect, useRef, useState } from 'react'
 import { useCountUp } from '@/lib/use-count-up'
+import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 import type { ImpactStat } from '@/../product/sections/home/types'
 
 interface TrustStripProps {
@@ -60,13 +61,13 @@ export function TrustStrip({ stats, partnerLogos }: TrustStripProps) {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-xl border border-white/20 dark:border-white/10 shadow-lg">
           {/* Stats row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 py-8 px-4 sm:px-8 gap-y-8 md:gap-y-0">
+          <ScrollReveal staggerChildren={0.08} viewportMargin="0px 0px" className="grid grid-cols-2 md:grid-cols-4 py-8 px-4 sm:px-8 gap-y-8 md:gap-y-0">
             {stats.slice(0, 4).map((stat) => (
-              <div key={stat.label} className="md:border-l md:first:border-l-0 border-slate-200 dark:border-slate-700 md:px-4 md:first:pl-0 md:last:pr-0">
+              <RevealItem key={stat.label} className="md:border-l md:first:border-l-0 border-slate-200 dark:border-slate-700 md:px-4 md:first:pl-0 md:last:pr-0">
                 <StatItem stat={stat} />
-              </div>
+              </RevealItem>
             ))}
-          </div>
+          </ScrollReveal>
 
           {/* Partner marks row */}
           {partnerLogos && partnerLogos.length > 0 && (

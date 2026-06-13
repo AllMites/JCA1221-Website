@@ -78,11 +78,11 @@ export function AppShell({
       >
         {/* Animated background overlays — light/dark mode */}
         <motion.div
-          className="absolute inset-0 bg-white dark:hidden"
+          className="absolute inset-0 bg-white dark:hidden pointer-events-none"
           style={{ opacity: useTransform(headerBgOpacity, (v) => v * 0.6) }}
         />
         <motion.div
-          className="absolute inset-0 bg-slate-900 hidden dark:block"
+          className="absolute inset-0 bg-slate-900 hidden dark:block pointer-events-none"
           style={{ opacity: useTransform(headerBgOpacity, (v) => v * 0.6) }}
         />
         <div

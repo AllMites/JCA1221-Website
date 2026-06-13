@@ -1,4 +1,5 @@
 // src/sections/home/components/MissionPillars.tsx
+import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 
 interface Pillar {
   title: string
@@ -58,21 +59,25 @@ export function MissionPillars({ tagline, taglineSub, pillars }: MissionPillarsP
     <section className="py-20 sm:py-28 bg-slate-50/50 dark:bg-slate-950/50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mission statement */}
-        <div className="text-center mb-14">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-slate-900 dark:text-white mb-4 tracking-tight">
-            &ldquo;{tagline}&rdquo;
-          </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            {taglineSub}
-          </p>
-        </div>
+        <ScrollReveal direction="up">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-slate-900 dark:text-white mb-4 tracking-tight">
+              &ldquo;{tagline}&rdquo;
+            </h2>
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+              {taglineSub}
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* Pillar cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <ScrollReveal staggerChildren={0.1} viewportMargin="-40px 0px" className="grid md:grid-cols-3 gap-6">
           {displayPillars.map((pillar) => (
-            <NeumorphicPillarCard key={pillar.title} pillar={pillar} />
+            <RevealItem key={pillar.title}>
+              <NeumorphicPillarCard pillar={pillar} />
+            </RevealItem>
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   )
