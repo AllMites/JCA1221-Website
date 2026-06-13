@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import type { NewsViewProps, NewsCategory } from '@/../product/sections/news/types'
 import { NewsArticleCard } from './NewsArticleCard'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 import { Newspaper } from 'lucide-react'
 
 const CATEGORY_OPTIONS: { label: string; value: NewsCategory }[] = [
@@ -34,17 +35,19 @@ export function NewsView({ sectionTitle, sectionSubtitle, articles }: NewsViewPr
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300/40 dark:via-blue-600/20 to-transparent" />
         <ShaderBackground variant="blue" opacity={0.4} />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 dark:bg-blue-900/40 mb-6">
-            <Newspaper size={24} className="text-blue-600 dark:text-blue-400" />
+        <ScrollReveal direction="up">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 dark:bg-blue-900/40 mb-6">
+              <Newspaper size={24} className="text-blue-600 dark:text-blue-400" />
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 dark:text-white mb-4">
+              {sectionTitle}
+            </h1>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+              {sectionSubtitle}
+            </p>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 dark:text-white mb-4">
-            {sectionTitle}
-          </h1>
-          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-            {sectionSubtitle}
-          </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Filters + Articles */}
@@ -81,11 +84,15 @@ export function NewsView({ sectionTitle, sectionSubtitle, articles }: NewsViewPr
               </p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sortedArticles.map((article) => (
-                <NewsArticleCard key={article.id} article={article} />
-              ))}
-            </div>
+            <ScrollReveal staggerChildren={0.08} viewportMargin="-40px 0px">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {sortedArticles.map((article) => (
+                  <RevealItem key={article.id}>
+                    <NewsArticleCard article={article} />
+                  </RevealItem>
+                ))}
+              </div>
+            </ScrollReveal>
           )}
         </div>
       </section>
