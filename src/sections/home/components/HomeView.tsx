@@ -13,17 +13,14 @@ export function HomeView({
   expansion,
   onCtaClick,
   onProjectClick,
-  onShellReveal,
-  onShellHide,
 }: HomeProps) {
   return (
     <div className="font-body">
-      {/* Hero — full screen immersive, edge detection for shell */}
+      {/* Hero — full screen immersive */}
       <HeroSection
         hero={hero}
         onCtaClick={onCtaClick}
-        onShellReveal={onShellReveal}
-        onShellHide={onShellHide}
+        onSecondaryCtaClick={undefined}
       />
 
       {/* Projects carousel — horizontal scroll, dark background */}

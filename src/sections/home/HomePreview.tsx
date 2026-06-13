@@ -12,8 +12,6 @@ export default function HomePreview() {
       expansion={data.expansion as Expansion}
       onCtaClick={() => void 0}
       onProjectClick={(id) => void id}
-      onShellReveal={() => void 0}
-      onShellHide={() => void 0}
     />
   )
 }

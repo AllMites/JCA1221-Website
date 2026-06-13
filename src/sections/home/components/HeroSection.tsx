@@ -6,7 +6,7 @@ import { GlassPill } from '@/components/GlassPill'
 
 
 const CYCLE_WORDS = ['Water', 'Land', 'Waste']
-const CYCLE_INTERVAL = 3500
+const CYCLE_INTERVAL = 6000
 
 // ─── Letter stagger constants ─────────────────────────────────────────────
 const LETTER_DURATION = 350 // ms per letter animation
@@ -44,8 +44,7 @@ const WORD_BG: Record<string, WordBgConfig> = {
 interface HeroSectionProps {
   hero: HeroContent
   onCtaClick?: () => void
-  onShellReveal?: () => void
-  onShellHide?: () => void
+  onSecondaryCtaClick?: () => void
 }
 
 /** Icon color per word theme */
@@ -64,8 +63,7 @@ const WORD_ACCENT: Record<string, { bg: string; ring: string; icon: string; text
   },
 }
 
-export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: HeroSectionProps) {
-  const edgeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSectionProps) {
   const cycleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const bgTeardownRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const [wordIndex, setWordIndex] = useState(0)
@@ -83,18 +81,8 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
   const visualWord = overlayWord ?? currentWord
   const wordAccent = WORD_ACCENT[visualWord]
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (e.clientY <= 64) {
-      clearTimeout(edgeTimer.current)
-      onShellReveal?.()
-    } else {
-      edgeTimer.current = setTimeout(() => onShellHide?.(), 300)
-    }
-  }
-
   useEffect(() => {
     return () => {
-      clearTimeout(edgeTimer.current)
       clearTimeout(cycleTimer.current)
       clearTimeout(bgTeardownRef.current)
     }
@@ -164,7 +152,6 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
 
   return (
     <section
-      onMouseMove={handleMouseMove}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Base background layer — current word theme */}
@@ -182,9 +169,6 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
           {renderBgLayer(overlayWord)}
         </div>
       )}
-
-      {/* Shell edge detection zone (invisible) */}
-      <div className="fixed top-0 left-0 right-0 h-16 z-50 pointer-events-none" aria-hidden="true" />
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -267,17 +251,26 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
           {hero.description}
         </p>
 
-        {/* CTA — glow color follows accent */}
-        <div className="animate-fade-in-up" style={{ animationDelay: '600ms' }}>
+        {/* Dual CTA */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '600ms' }}>
+          {/* Primary CTA */}
           <button
             onClick={onCtaClick}
-            className="group inline-flex items-center gap-3 px-8 py-4 text-white font-semibold font-heading rounded-full border border-white/20 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_24px_var(--btn-glow)] active:scale-[0.98] transition-all duration-300"
+            className="group inline-flex items-center gap-2 px-8 py-4 text-white font-semibold font-heading rounded-full border border-white/20 bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md shadow-[0_4px_16px_var(--btn-glow)] hover:shadow-[0_8px_24px_var(--btn-glow)] active:scale-[0.98] transition-all duration-300"
             style={{ '--btn-glow': wordAccent.glow } as React.CSSProperties}
           >
-            {hero.ctaLabel}
+            {hero.ctaLabel || 'Partner With Us'}
+          </button>
+
+          {/* Secondary CTA — Our Impact */}
+          <button
+            onClick={onSecondaryCtaClick}
+            className="group inline-flex items-center gap-2 px-8 py-4 text-white/80 hover:text-white font-semibold font-heading rounded-full border border-white/20 backdrop-blur-sm hover:backdrop-blur-md hover:border-white/40 active:scale-[0.98] transition-all duration-300"
+          >
+            Our Impact
             <ArrowDown
               size={18}
-              className="inline ml-2 group-hover:translate-y-0.5 transition-transform duration-300"
+              className="group-hover:translate-y-0.5 transition-transform duration-300"
             />
           </button>
         </div>
