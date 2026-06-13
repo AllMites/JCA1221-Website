@@ -8,9 +8,10 @@ import { PageSkeleton, HeroPageSkeleton, DetailPageSkeleton } from '@/components
 const HomePage = lazy(() =>
   import('@/pages/HomePage').then((m) => ({ default: m.HomePage })),
 )
-const HomeAltPage = lazy(() =>
-  import('@/pages/HomeAltPage').then((m) => ({ default: m.HomeAltPage })),
-)
+// HomeAltPage disabled — file does not exist on disk
+// const HomeAltPage = lazy(() =>
+//   import('@/pages/HomeAltPage').then((m) => ({ default: m.HomeAltPage })),
+// )
 const AboutPage = lazy(() =>
   import('@/pages/AboutPage').then((m) => ({ default: m.AboutPage })),
 )
@@ -115,7 +116,7 @@ export const router = createBrowserRouter([
     children: [
       // ═══ JCA 1221 Website Routes ═══
       { path: '/', element: <HomePage /> },
-      { path: '/alt', element: <HomeAltPage /> },
+      // { path: '/alt', element: <HomeAltPage /> },
       { path: '/about', element: <AboutPage /> },
       { path: '/projects', element: <ProjectsPage /> },
       { path: '/projects/:projectId', element: <ProjectDetailPage /> },
