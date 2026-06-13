@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { MapPin, Phone, Mail, Clock, User, Building2 } from 'lucide-react'
 import { GlassPill } from '@/components/GlassPill'
+import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 import type {
   OfficeInfo,
   TeamContact,
@@ -154,17 +155,20 @@ function PartnerLogos({ logos }: PartnerLogosProps) {
         <h4 className={cardTitle}>Trusted By</h4>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
-        {logos.map((logo) => (
-          <div
-            key={logo.name}
-            className="aspect-[3/2] rounded-xl bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-white/5 flex items-center justify-center p-3 grayscale hover:grayscale-0 hover:border-slate-300 dark:hover:border-white/15 transition-all duration-300 cursor-default group"
-            title={logo.name}
-          >
-            <PartnerLogoImage src={logo.imageUrl} name={logo.name} />
-          </div>
-        ))}
-      </div>
+      <ScrollReveal staggerChildren={0.06}>
+        <div className="grid grid-cols-3 gap-3">
+          {logos.map((logo) => (
+            <RevealItem key={logo.name}>
+              <div
+                className="aspect-[3/2] rounded-xl bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-white/5 flex items-center justify-center p-3 grayscale hover:grayscale-0 hover:border-slate-300 dark:hover:border-white/15 transition-all duration-300 cursor-default group"
+                title={logo.name}
+              >
+                <PartnerLogoImage src={logo.imageUrl} name={logo.name} />
+              </div>
+            </RevealItem>
+          ))}
+        </div>
+      </ScrollReveal>
     </div>
   )
 }

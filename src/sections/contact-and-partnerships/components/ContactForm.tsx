@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { ChevronDown, Check, AlertCircle, Send } from 'lucide-react'
+import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 import type {
   FormConfig,
   InquiryType,
@@ -236,26 +237,30 @@ export function ContactForm({
         </div>
 
         {/* Basic fields */}
-        <div className="space-y-4">
-          {formConfig.basicFields.map((field) => {
-            const fieldName = field.name as keyof ContactFormData
-            return (
-              <div key={field.name}>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 font-body">
-                  {field.label}
-                  {field.required && <span className="text-blue-600 dark:text-blue-300 ml-1">*</span>}
-                </label>
-                {renderField(field, formData[fieldName] || '')}
-                {errors[fieldName] && (
-                  <p className="flex items-center gap-1.5 mt-1.5 text-xs text-red-500 dark:text-red-400">
-                    <AlertCircle className="w-3 h-3 flex-shrink-0" />
-                    {errors[fieldName]}
-                  </p>
-                )}
-              </div>
-            )
-          })}
-        </div>
+        <ScrollReveal staggerChildren={0.06}>
+          <div className="space-y-4">
+            {formConfig.basicFields.map((field) => {
+              const fieldName = field.name as keyof ContactFormData
+              return (
+                <RevealItem key={field.name}>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 font-body">
+                      {field.label}
+                      {field.required && <span className="text-blue-600 dark:text-blue-300 ml-1">*</span>}
+                    </label>
+                    {renderField(field, formData[fieldName] || '')}
+                    {errors[fieldName] && (
+                      <p className="flex items-center gap-1.5 mt-1.5 text-xs text-red-500 dark:text-red-400">
+                        <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                        {errors[fieldName]}
+                      </p>
+                    )}
+                  </div>
+                </RevealItem>
+              )
+            })}
+          </div>
+        </ScrollReveal>
 
         {/* Detailed fields toggle */}
         <div className="mt-6">

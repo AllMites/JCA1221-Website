@@ -2,6 +2,7 @@ import type { ContactAndPartnershipsProps } from '@/../product/sections/contact-
 import { ContactForm } from './ContactForm'
 import { ContactInfoPanel } from './ContactInfoPanel'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { ScrollReveal } from '@/components/ScrollReveal'
 
 export function ContactView({
   sectionTitle,
@@ -26,39 +27,45 @@ export function ContactView({
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <p className="text-blue-600 dark:text-blue-300/70 text-sm font-mono tracking-widest uppercase mb-4">
-            Start the Conversation
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 dark:text-white mb-4">
-            {sectionTitle}
-          </h1>
-          <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">
-            {sectionSubtitle}
-          </p>
-        </div>
+        <ScrollReveal direction="up">
+          <div className="text-center mb-16">
+            <p className="text-blue-600 dark:text-blue-300/70 text-sm font-mono tracking-widest uppercase mb-4">
+              Start the Conversation
+            </p>
+            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-slate-900 dark:text-white mb-4">
+              {sectionTitle}
+            </h1>
+            <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">
+              {sectionSubtitle}
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* Split panel */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-10 items-start">
           {/* Left: Form */}
-          <div>
-            <ContactForm
-              formConfig={formConfig}
-              inquiryTypes={inquiryTypes}
-              timelineOptions={timelineOptions}
-              onSubmitBasic={onSubmitBasic}
-              onSubmitDetailed={onSubmitDetailed}
-            />
-          </div>
+          <ScrollReveal direction="up">
+            <div>
+              <ContactForm
+                formConfig={formConfig}
+                inquiryTypes={inquiryTypes}
+                timelineOptions={timelineOptions}
+                onSubmitBasic={onSubmitBasic}
+                onSubmitDetailed={onSubmitDetailed}
+              />
+            </div>
+          </ScrollReveal>
 
           {/* Right: Contact info + trust signals */}
-          <div className="lg:sticky lg:top-24">
-            <ContactInfoPanel
-              officeInfo={officeInfo}
-              teamContacts={teamContacts}
-              partnerLogos={partnerLogos}
-            />
-          </div>
+          <ScrollReveal direction="left">
+            <div className="lg:sticky lg:top-24">
+              <ContactInfoPanel
+                officeInfo={officeInfo}
+                teamContacts={teamContacts}
+                partnerLogos={partnerLogos}
+              />
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </div>
