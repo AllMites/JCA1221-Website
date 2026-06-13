@@ -1,5 +1,6 @@
 // src/sections/home/components/TrustWall.tsx
-import { ScrollReveal } from '@/components/ScrollReveal'
+import { BadgeCheck } from 'lucide-react'
+import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 import type { Partner } from '@/lib/content-types'
 
 const CERTIFICATIONS = [
@@ -27,11 +28,9 @@ export function TrustWall({ partners }: TrustWallProps) {
               {CERTIFICATIONS.map((cert) => (
                 <div
                   key={cert.label}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700"
                 >
-                  <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center flex-shrink-0">
-                    <span className="text-xs text-blue-600 dark:text-blue-400 font-bold">✓</span>
-                  </span>
+                  <BadgeCheck size={18} className="text-blue-500 dark:text-blue-400 flex-shrink-0" />
                   <span className="text-xs font-medium text-slate-700 dark:text-slate-300 leading-tight">
                     {cert.label}
                   </span>
@@ -52,48 +51,48 @@ export function TrustWall({ partners }: TrustWallProps) {
             Trusted By
           </h2>
 
-          {/* Partner logo grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
-            {partners.map((partner) => (
-              <a
-                key={partner.id}
-                href={partner.website_url || undefined}
-                target={partner.website_url ? '_blank' : undefined}
-                rel="noopener noreferrer"
-                className={partner.website_url ? 'cursor-pointer' : 'cursor-default'}
-              >
-                <div
-                  className="aspect-[3/2] rounded-lg flex items-center justify-center p-4
-                    bg-white/40 dark:bg-slate-800/40
-                    border border-slate-100 dark:border-slate-800
-                    transition-all duration-300
-                    hover:bg-white/80 dark:hover:bg-slate-800/80
-                    hover:shadow-sm"
-                >
-                  {partner.logo ? (
-                    <img
-                      src={partner.logo}
-                      alt={partner.name}
-                      loading="lazy"
-                      decoding="async"
-                      className="max-h-full max-w-full object-contain transition-all duration-300"
-                      style={{ filter: 'grayscale(100%)' }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.filter = 'grayscale(0%)'
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.filter = 'grayscale(100%)'
-                      }}
-                    />
-                  ) : (
-                    <span className="text-xs font-medium text-slate-400 dark:text-slate-500 text-center">
-                      {partner.name}
-                    </span>
-                  )}
-                </div>
-              </a>
-            ))}
-          </div>
+          {/* Partner logo grid — staggered reveal */}
+          <ScrollReveal staggerChildren={0.05} viewportMargin="-40px 0px">
+            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
+              {partners.map((partner) => (
+                <RevealItem key={partner.id}>
+                  <a
+                    href={partner.website_url || undefined}
+                    target={partner.website_url ? '_blank' : undefined}
+                    rel="noopener noreferrer"
+                    className={partner.website_url ? 'cursor-pointer' : 'cursor-default'}
+                  >
+                    <div
+                      className="aspect-[3/2] rounded-xl flex items-center justify-center p-4
+                        bg-white/60 dark:bg-slate-800/60
+                        border border-slate-200 dark:border-white/5
+                        transition-all duration-300
+                        hover:bg-white dark:hover:bg-slate-800
+                        hover:border-slate-300 dark:hover:border-white/10
+                        hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)]
+                        hover:-translate-y-0.5
+                        group"
+                    >
+                      {partner.logo ? (
+                        <img
+                          src={partner.logo}
+                          alt={partner.name}
+                          loading="lazy"
+                          decoding="async"
+                          className="max-h-full max-w-full object-contain transition-all duration-500
+                            grayscale group-hover:grayscale-0"
+                        />
+                      ) : (
+                        <span className="text-xs font-medium text-slate-400 dark:text-slate-500 text-center group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
+                          {partner.name}
+                        </span>
+                      )}
+                    </div>
+                  </a>
+                </RevealItem>
+              ))}
+            </div>
+          </ScrollReveal>
 
           {/* Divider */}
           <div className="border-t border-slate-200 dark:border-slate-700 max-w-xl mx-auto mb-8" />
@@ -106,11 +105,15 @@ export function TrustWall({ partners }: TrustWallProps) {
             {CERTIFICATIONS.map((cert) => (
               <div
                 key={cert.label}
-                className="flex items-center gap-3 p-3 rounded-lg bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700"
+                className="flex items-center gap-3 p-3.5 rounded-xl
+                  bg-white/70 dark:bg-slate-800/70
+                  border border-blue-100 dark:border-blue-500/10
+                  shadow-[0_2px_8px_rgba(0,0,0,0.02)]
+                  transition-all duration-300
+                  hover:shadow-[0_4px_12px_rgba(59,130,246,0.06)]
+                  hover:border-blue-200 dark:hover:border-blue-500/20"
               >
-                <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xs text-blue-600 dark:text-blue-400 font-bold">✓</span>
-                </span>
+                <BadgeCheck size={18} className="text-blue-500 dark:text-blue-400 flex-shrink-0" />
                 <span className="text-xs font-medium text-slate-700 dark:text-slate-300 leading-tight">
                   {cert.label}
                 </span>

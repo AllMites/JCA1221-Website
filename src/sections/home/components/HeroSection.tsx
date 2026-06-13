@@ -264,23 +264,37 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
 
         {/* Dual CTA */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '600ms' }}>
-          {/* Primary CTA */}
+          {/* Primary CTA — premium gradient button */}
           <button
             onClick={onCtaClick}
-            className="group inline-flex items-center gap-2 px-8 py-4 text-white font-semibold font-heading rounded-full border border-white/20 bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md shadow-[0_4px_16px_var(--btn-glow)] hover:shadow-[0_8px_24px_var(--btn-glow)] active:scale-[0.98] transition-all duration-300"
-            style={{ '--btn-glow': wordAccent.glow } as React.CSSProperties}
+            className="group relative inline-flex items-center gap-2.5 px-8 py-4 text-white font-semibold font-heading rounded-full transition-all duration-500
+              bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400
+              hover:from-blue-400 hover:via-cyan-400 hover:to-blue-400
+              shadow-[0_0_24px_rgba(59,130,246,0.3),0_4px_12px_rgba(59,130,246,0.15)]
+              hover:shadow-[0_0_36px_rgba(59,130,246,0.45),0_8px_20px_rgba(59,130,246,0.2)]
+              active:scale-[0.97]
+              overflow-hidden"
           >
-            {hero.ctaLabel || 'Partner With Us'}
+            {/* Subtle shine sweep on hover */}
+            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+            <span className="relative z-10">{hero.ctaLabel || 'Partner With Us'}</span>
           </button>
 
-          {/* Secondary CTA — Our Impact */}
+          {/* Secondary CTA — glass pill */}
           <button
             onClick={onSecondaryCtaClick}
-            className="group inline-flex items-center gap-2 px-8 py-4 text-white/80 hover:text-white font-semibold font-heading rounded-full border border-white/20 backdrop-blur-sm hover:backdrop-blur-md hover:border-white/40 active:scale-[0.98] transition-all duration-300"
+            className="group inline-flex items-center gap-2 px-8 py-4 text-white/70 hover:text-white font-semibold font-heading rounded-full
+              bg-white/5 hover:bg-white/10
+              border border-white/15 hover:border-white/30
+              backdrop-blur-md
+              shadow-[0_4px_12px_rgba(0,0,0,0.05)]
+              hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)]
+              active:scale-[0.97]
+              transition-all duration-300"
           >
             Our Impact
             <ArrowDown
-              size={18}
+              size={16}
               className="group-hover:translate-y-0.5 transition-transform duration-300"
             />
           </button>

@@ -164,25 +164,28 @@ export function FinalCta({ contactInfo }: FinalCtaProps) {
             <button
               type="submit"
               disabled={!isValid || state === 'loading'}
-              className="inline-flex items-center gap-2 px-8 py-3 text-white font-semibold font-heading rounded-full
-                bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90
-                backdrop-blur-md border border-white/20
-                shadow-[0_4px_16px_rgba(59,130,246,0.25)]
-                hover:shadow-[0_8px_24px_rgba(59,130,246,0.35)]
-                active:scale-[0.98]
-                transition-all duration-300
-                disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+              className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-semibold font-heading rounded-full
+                bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400
+                hover:from-blue-400 hover:via-cyan-400 hover:to-blue-400
+                shadow-[0_0_24px_rgba(59,130,246,0.25),0_4px_12px_rgba(59,130,246,0.12)]
+                hover:shadow-[0_0_36px_rgba(59,130,246,0.4),0_8px_20px_rgba(59,130,246,0.18)]
+                active:scale-[0.97]
+                transition-all duration-500
+                disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100
+                overflow-hidden"
             >
+              {/* Shine sweep on hover */}
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
               {state === 'loading' ? (
-                <>
+                <span className="relative z-10 flex items-center gap-2">
                   <Loader2 size={18} className="animate-spin" />
                   Sending...
-                </>
+                </span>
               ) : (
-                <>
+                <span className="relative z-10 flex items-center gap-2.5">
                   <Send size={18} />
                   Send Message
-                </>
+                </span>
               )}
             </button>
           </form>
