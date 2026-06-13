@@ -92,8 +92,7 @@ export function TermsPage() {
 
         <h2>6. Third-Party Links</h2>
         <p>
-          The Site may contain links to third-party websites (e.g., Calendly for
-          scheduling, Google Maps for location). We do not control these sites and
+          The Site may contain links to third-party websites (e.g., Google Maps for location). We do not control these sites and
           are not responsible for their content or practices. Access them at your
           own risk.
         </p>

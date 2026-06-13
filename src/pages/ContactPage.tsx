@@ -9,7 +9,7 @@ import { submitContact } from '@/lib/api'
 import { usePageContent, usePartners, getPageValue } from '@/hooks/use-content'
 import type {
   FormConfig, InquiryType, TimelineOption, TeamContact,
-  OfficeInfo, PartnerLogo, DownloadableResource, SchedulingInfo,
+  OfficeInfo, PartnerLogo,
 } from '@/../product/sections/contact-and-partnerships/types'
 
 const FALLBACK_TITLE = "Let's Build Together"
@@ -58,8 +58,6 @@ export function ContactPage() {
   const timelineOptions: TimelineOption[] = (getPageValue(content, 'form', 'timeline_options') as TimelineOption[]) ?? []
   const teamContacts: TeamContact[] = (getPageValue(content, 'team', 'contacts') as TeamContact[]) ?? []
   const officeInfo = getPageValue(content, 'office', 'info') as OfficeInfo | null
-  const downloadableResource = getPageValue(content, 'resources', 'capability_statement') as DownloadableResource | null
-  const schedulingInfo = getPageValue(content, 'cta', 'scheduling') as SchedulingInfo | null
 
   // Map partners to PartnerLogo shape
   const partnerLogos: PartnerLogo[] = partners
@@ -105,27 +103,8 @@ export function ContactPage() {
               hoursNote: '',
             }}
             partnerLogos={partnerLogos}
-            downloadableResource={downloadableResource ?? {
-              title: '',
-              description: '',
-              fileName: '',
-              fileSize: '',
-              fileUrl: '',
-            }}
-            schedulingInfo={schedulingInfo ?? {
-              title: '',
-              description: '',
-              ctaText: '',
-              calendarUrl: '',
-            }}
             onSubmitBasic={handleSubmit}
             onSubmitDetailed={handleSubmit}
-            onDownloadPDF={() => {
-              // Download triggered by anchor href
-            }}
-            onScheduleCall={() =>
-              window.open(schedulingInfo?.calendarUrl ?? 'https://calendly.com/jca1221/partnership-consultation', '_blank')
-            }
           />
         )}
       </ErrorBoundary>

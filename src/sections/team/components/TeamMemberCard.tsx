@@ -20,13 +20,15 @@ export function TeamMemberCard({ member, index }: TeamMemberCardProps) {
         <div className="aspect-[3/4] md:aspect-auto md:h-full relative">
           {/* Gradient placeholder */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-slate-800/20 dark:from-blue-600/20 dark:via-blue-700/10 dark:to-slate-900" />
-          {/* Profile image */}
-          <img
-            src={member.photo}
-            alt={member.name}
-            loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          />
+          {/* Profile image — only render when photo exists */}
+          {member.photo && (
+            <img
+              src={member.photo}
+              alt={member.name}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+          )}
           {/* Gradient overlay for consistent look */}
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-transparent" />
         </div>

@@ -7,8 +7,8 @@ export interface TeamMember {
   role: string
   /** Professional credentials suffix (e.g., "Atty.", "P.E.", "Ph.D.") */
   credentials?: string
-  /** Path to profile photo */
-  photo: string
+  /** Path to profile photo (optional — gradient placeholder used when absent) */
+  photo?: string
   /** Short bio (2-3 sentences) */
   bio: string
   /** Key quote from this team member */

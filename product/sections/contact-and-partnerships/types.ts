@@ -135,16 +135,8 @@ export interface ContactAndPartnershipsProps {
   officeInfo: OfficeInfo
   /** Partner and certifier logos */
   partnerLogos: PartnerLogo[]
-  /** Downloadable resource */
-  downloadableResource: DownloadableResource
-  /** Scheduling CTA config */
-  schedulingInfo: SchedulingInfo
   /** Called when user submits basic form (tier 1 only) */
   onSubmitBasic?: (data: ContactFormData) => void
   /** Called when user submits with detailed fields (tier 2) */
   onSubmitDetailed?: (data: ContactFormData) => void
-  /** Called when user clicks download capability statement */
-  onDownloadPDF?: () => void
-  /** Called when user clicks schedule a call */
-  onScheduleCall?: () => void
 }

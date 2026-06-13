@@ -113,7 +113,6 @@ export function PrivacyPage() {
         <ul>
           <li><strong>Google Fonts:</strong> Fonts loaded from fonts.googleapis.com. Google's privacy policy applies to those requests.</li>
           <li><strong>CDN (jsDelivr):</strong> JavaScript libraries loaded from cdn.jsdelivr.net for visual effects. jsDelivr's privacy policy applies.</li>
-          <li><strong>Calendly:</strong> If you book a consultation call, you are redirected to Calendly's scheduling platform. Calendly's privacy policy applies to data you enter there.</li>
           <li><strong>Google Analytics (optional):</strong> If you consent to analytics cookies, Google Analytics processes anonymized usage data on our behalf.</li>
         </ul>
 

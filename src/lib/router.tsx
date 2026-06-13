@@ -8,6 +8,9 @@ import { PageSkeleton, HeroPageSkeleton, DetailPageSkeleton } from '@/components
 const HomePage = lazy(() =>
   import('@/pages/HomePage').then((m) => ({ default: m.HomePage })),
 )
+const HomeAltPage = lazy(() =>
+  import('@/pages/HomeAltPage').then((m) => ({ default: m.HomeAltPage })),
+)
 const AboutPage = lazy(() =>
   import('@/pages/AboutPage').then((m) => ({ default: m.AboutPage })),
 )
@@ -84,7 +87,7 @@ const ExportPage = lazy(() =>
 // ─── Skeleton map (per path pattern) ───────────────────────────────────────
 
 function getSkeleton(pathname: string) {
-  if (pathname === '/') return <HeroPageSkeleton />
+  if (pathname === '/' || pathname === '/alt') return <HeroPageSkeleton />
   if (pathname.startsWith('/projects/') && pathname.split('/').length === 3)
     return <DetailPageSkeleton />
   return <PageSkeleton />
@@ -112,6 +115,7 @@ export const router = createBrowserRouter([
     children: [
       // ═══ JCA 1221 Website Routes ═══
       { path: '/', element: <HomePage /> },
+      { path: '/alt', element: <HomeAltPage /> },
       { path: '/about', element: <AboutPage /> },
       { path: '/projects', element: <ProjectsPage /> },
       { path: '/projects/:projectId', element: <ProjectDetailPage /> },

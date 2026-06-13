@@ -1,11 +1,10 @@
-import { MapPin, Phone, Mail, Clock, User, Building2, ArrowDown, Paperclip } from 'lucide-react'
+import { useState } from 'react'
+import { MapPin, Phone, Mail, Clock, User, Building2 } from 'lucide-react'
 import { GlassPill } from '@/components/GlassPill'
 import type {
   OfficeInfo,
   TeamContact,
   PartnerLogo,
-  DownloadableResource,
-  SchedulingInfo,
 } from '@/../product/sections/contact-and-partnerships/types'
 // ─── Shared card surface classes ─────────────────────────────────────────────
 const cardSurface =
@@ -43,13 +42,6 @@ function OfficeCard({ office }: OfficeCardProps) {
             <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{office.city}</p>
           </div>
         </div>
-        <a
-          href={`tel:${office.phone}`}
-          className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-        >
-          <Phone className="w-4 h-4 flex-shrink-0" />
-          {office.phone}
-        </a>
         <a
           href={`mailto:${office.email}`}
           className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
@@ -104,13 +96,15 @@ function TeamContactCard({ contact }: TeamContactCardProps) {
           <Mail className="w-3 h-3" />
           {contact.email}
         </a>
-        <a
-          href={`tel:${contact.phone}`}
-          className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-        >
-          <Phone className="w-3 h-3" />
-          {contact.phone}
-        </a>
+        {contact.phone && (
+          <a
+            href={`tel:${contact.phone}`}
+            className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+          >
+            <Phone className="w-3 h-3" />
+            {contact.phone}
+          </a>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-1.5">
@@ -132,6 +126,26 @@ interface PartnerLogosProps {
   logos: PartnerLogo[]
 }
 
+function PartnerLogoImage({ src, name }: { src: string; name: string }) {
+  const [errored, setErrored] = useState(false)
+  if (errored) {
+    return (
+      <span className="text-[9px] text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-400 text-center leading-tight transition-colors font-mono">
+        {name}
+      </span>
+    )
+  }
+  return (
+    <img
+      src={src}
+      alt={name}
+      loading="lazy"
+      onError={() => setErrored(true)}
+      className="max-w-full max-h-full object-contain"
+    />
+  )
+}
+
 function PartnerLogos({ logos }: PartnerLogosProps) {
   return (
     <div className={cardSurface}>
@@ -149,70 +163,10 @@ function PartnerLogos({ logos }: PartnerLogosProps) {
             className="aspect-[3/2] rounded-xl bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-white/5 flex items-center justify-center p-3 grayscale hover:grayscale-0 hover:border-slate-300 dark:hover:border-white/15 transition-all duration-300 cursor-default group"
             title={logo.name}
           >
-            <span className="text-[9px] text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-400 text-center leading-tight transition-colors font-mono">
-              {logo.name}
-            </span>
+            <PartnerLogoImage src={logo.imageUrl} name={logo.name} />
           </div>
         ))}
       </div>
-    </div>
-  )
-}
-
-// ─── Download PDF CTA ───────────────────────────────────────────────────────
-interface DownloadCTAProps {
-  resource: DownloadableResource
-  onDownload?: () => void
-}
-
-function DownloadCTA({ resource, onDownload }: DownloadCTAProps) {
-  return (
-    <button
-      onClick={() => onDownload?.()}
-      className={`w-full text-left ${cardSurface} ${cardHover} group`}
-    >
-      <div className="flex items-start gap-4">
-        <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-400/20 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 dark:group-hover:bg-blue-500/25 transition-colors">
-          <ArrowDown className="w-5 h-5 text-blue-600 dark:text-blue-300" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <h5 className="text-sm font-heading font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-blue-700 dark:group-hover:text-blue-200 transition-colors">
-            {resource.title}
-          </h5>
-          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-2">
-            {resource.description}
-          </p>
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-slate-400 dark:text-slate-500">
-            <Paperclip className="w-3 h-3" />
-            {resource.fileName} ({resource.fileSize})
-          </span>
-        </div>
-      </div>
-    </button>
-  )
-}
-
-// ─── Schedule Call CTA ──────────────────────────────────────────────────────
-interface ScheduleCTAProps {
-  scheduling: SchedulingInfo
-  onSchedule?: () => void
-}
-
-function ScheduleCTA({ scheduling, onSchedule }: ScheduleCTAProps) {
-  return (
-    <div className="p-5 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-500/10 dark:to-cyan-500/5 backdrop-blur-lg border border-blue-200 dark:border-blue-400/20 shadow-[0_4px_16px_rgba(0,0,0,0.04)] dark:shadow-none">
-      <h5 className="text-sm font-heading font-semibold text-slate-900 dark:text-white mb-1.5">
-        {scheduling.title}
-      </h5>
-      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-        {scheduling.description}
-      </p>
-      <button
-        onClick={() => onSchedule?.()}
-        className="w-full px-5 py-3 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300"
-      >
-        {scheduling.ctaText}
-      </button>
     </div>
   )
 }
@@ -222,26 +176,15 @@ interface ContactInfoPanelProps {
   officeInfo: OfficeInfo
   teamContacts: TeamContact[]
   partnerLogos: PartnerLogo[]
-  downloadableResource: DownloadableResource
-  schedulingInfo: SchedulingInfo
-  onDownloadPDF?: () => void
-  onScheduleCall?: () => void
 }
 
 export function ContactInfoPanel({
   officeInfo,
   teamContacts,
   partnerLogos,
-  downloadableResource,
-  schedulingInfo,
-  onDownloadPDF,
-  onScheduleCall,
 }: ContactInfoPanelProps) {
   return (
     <div className="space-y-4">
-      {/* Schedule CTA — prominent at top */}
-      <ScheduleCTA scheduling={schedulingInfo} onSchedule={onScheduleCall} />
-
       {/* Office info */}
       <OfficeCard office={officeInfo} />
 
@@ -254,9 +197,6 @@ export function ContactInfoPanel({
 
       {/* Partner logos */}
       <PartnerLogos logos={partnerLogos} />
-
-      {/* Download PDF */}
-      <DownloadCTA resource={downloadableResource} onDownload={onDownloadPDF} />
     </div>
   )
 }

@@ -165,6 +165,5 @@ const mockTeamContact = {
   email: "mc.santos@jca1221.com",
   phone: "+63 2 8123 4568",
   inquiryCategories: ["LGU Partnerships", "National Government Agency Inquiries"],
-  imageUrl: "/images/team/maria-santos.jpg",
 };
 ```

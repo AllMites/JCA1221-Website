@@ -18,12 +18,8 @@ export default function ContactPreview() {
       teamContacts={teamContacts}
       officeInfo={data.officeInfo}
       partnerLogos={data.partnerLogos}
-      downloadableResource={data.downloadableResource}
-      schedulingInfo={data.schedulingInfo}
       onSubmitBasic={(formData) => void formData}
       onSubmitDetailed={(formData) => void formData}
-      onDownloadPDF={() => void 0}
-      onScheduleCall={() => void 0}
     />
   )
 }

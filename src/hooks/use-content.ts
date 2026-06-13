@@ -179,6 +179,7 @@ export function usePageContent(page: string) {
 
   const load = useCallback(async () => {
     setLoading(true)
+    if (!hasSupabaseCredentials) { setLoading(false); return }
     try {
       const { data } = await supabase
         .from('page_content')

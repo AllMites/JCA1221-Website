@@ -12,12 +12,8 @@ export function ContactView({
   teamContacts,
   officeInfo,
   partnerLogos,
-  downloadableResource,
-  schedulingInfo,
   onSubmitBasic,
   onSubmitDetailed,
-  onDownloadPDF,
-  onScheduleCall,
 }: ContactAndPartnershipsProps) {
   return (
     <div className="relative">
@@ -61,10 +57,6 @@ export function ContactView({
               officeInfo={officeInfo}
               teamContacts={teamContacts}
               partnerLogos={partnerLogos}
-              downloadableResource={downloadableResource}
-              schedulingInfo={schedulingInfo}
-              onDownloadPDF={onDownloadPDF}
-              onScheduleCall={onScheduleCall}
             />
           </div>
         </div>

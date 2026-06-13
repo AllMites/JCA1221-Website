@@ -99,7 +99,7 @@ const mockValuePillar = {
 const mockFounder = {
   name: "Atty. Jehremiah Asis",
   title: "Founder & Chairman",
-  imageUrl: "/images/team/jehremiah-asis.jpg",
+  imageUrl: "/images/team/jehremiah-asis.png",
   bio: "Former corporate lawyer...",
   quotes: [{ text: "Water is life...", context: "On founding JCA 1221" }],
   milestones: [{ year: 2015, title: "Founded JCA 1221", description: "..." }],

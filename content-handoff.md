@@ -1,287 +1,206 @@
-# JCA 1221 Website — Content & Assets Handoff
+# JCA 1221 Website — Phased Content Delivery
 
-**To:** Secretary  
-**From:** Jehremiah  
-**Date:** June 1, 2026
+**To:** Secretary / Jehremiah  
+**From:** Development  
+**Updated:** June 9, 2026
 
----
-
-## Before You Read This
-
-This list looks long. Most of it is already done — the website is fully written and working, just using gradient color blocks where real photos will go. What I actually need from you:
-
-- **Photos/images** (Section 1) — ~25 files
-- **Contact info verification** (Section 2) — quick yes/no
-- **One PDF** (Section 3)
-- **A few link confirmations** (Section 4)
-
-Everything else (Sections 5–7) is just for Jehremiah to review at his leisure.
+> **How this works:** Each phase is a self-contained batch. Work through phases in order. The site can go live after Phase 1 is complete; later phases progressively replace placeholders with real content.
 
 ---
 
-## 1. IMAGES NEEDED
+## PHASE 1 — Launch Essentials _(Site goes live after this phase)_
 
-All image files go into the `/public/images/` folder in the website repo. Best way: put all files in a Google Drive folder or USB and I'll place them.
+Minimum viable content for a credible public launch. No site should go live without these.
 
-### Folder structure to create:
+### 1A. People — Verify or Replace
 
-```
-images/
-├── team/
-│   ├── jehri-asis.jpg
-│   ├── jehremiah-asis.jpg
-│   ├── maria-santos.jpg
-│   └── antonio-reyes.jpg
-├── projects/
-│   ├── puerto-princesa.jpg
-│   ├── puerto-princesa-hero.jpg
-│   ├── puerto-princesa-1.jpg
-│   ├── puerto-princesa-2.jpg
-│   ├── puerto-princesa-3.jpg
-│   ├── gingoog.jpg
-│   ├── gingoog-hero.jpg
-│   ├── gingoog-1.jpg
-│   ├── gingoog-2.jpg
-│   ├── del-carmen.jpg
-│   ├── del-carmen-hero.jpg
-│   ├── del-carmen-1.jpg
-│   ├── del-carmen-2.jpg
-│   └── del-carmen-3.jpg
-├── expansion/
-│   ├── siargao-pyrolysis.jpg
-│   └── cebu-planning.jpg
-├── partners/
-│   ├── puerto-princesa-lgu.png
-│   ├── denr.png
-│   ├── asian-water-council.png
-│   ├── gingoog-lgu.png
-│   ├── del-carmen-lgu.png
-│   └── tieza.png
-└── hero-water.jpg
-```
+Five team members were AI-generated. Before launch, each must be either confirmed as real or swapped with real people. If a person is placeholder, either provide the real person's details or remove the card.
 
-### Team Photos (headshots)
+| Person | Title | Action Required |
+|--------|-------|----------------|
+| **Maria Clara Santos** | Head of Government Partnerships | ☐ Real? → confirm name, provide headshot, confirm `mc.santos@jca1221.com` / OR replace |
+| **Antonio C. Reyes** | Director of Investor Relations | ☐ Real? → confirm name, provide headshot, confirm `a.reyes@jca1221.com` / OR replace |
+| **Elena R. Cruz** | Chief Technology Officer | ☐ Real? → confirm name, provide headshot, confirm `e.cruz@jca1221.com` / OR replace |
+| **Rafael T. Mendoza** | Head of Operations, Puerto Princesa | ☐ Real? → confirm name, provide headshot, confirm `r.mendoza@jca1221.com` / OR replace |
+| **Sofia L. Tan** | Solid Waste Program Lead | ☐ Real? → confirm name, provide headshot, confirm `s.tan@jca1221.com` / OR replace |
 
-Square crop, minimum 400×400 pixels. Professional headshots preferred.
+> Headshots: square crop, minimum 400×400px. Professional or professional-looking photo. Place in `public/images/team/`.
 
-| File | Person | Notes |
-|------|--------|-------|
-| `team/jehri-asis.jpg` | Atty. Jehremiah C. Asis — Founder & CEO | |
-| `team/jehremiah-asis.jpg` | Same person, same photo is fine | Used on a different page |
-| `team/maria-santos.jpg` | Maria Clara Santos — Head of Government Partnerships | **Verify: real person or placeholder name?** |
-| `team/antonio-reyes.jpg` | Antonio Reyes — Investor Relations Director | **Verify: real person or placeholder name?** |
+### 1B. Contact Details — Verify
 
-### Project Photos — Puerto Princesa
+| Field | Current Value | Correct? |
+|-------|--------------|---------| 
+| Office address | Unit 2808, 28F, The Peak Tower, 107 Leviste St, Salcedo Village, Makati City 1227 | ☐ Yes / ☐ Correct to: _______ |
+| Office phone | +63 2 8123 4567 | ☐ Yes / ☐ Correct to: _______ |
+| Office hours | Monday–Friday, 9:00 AM – 6:00 PM PHT | ☐ Yes / ☐ Correct to: _______ |
+| Jehremiah's email | jhasis@jca1221.com | ☐ Yes / ☐ Correct to: _______ |
+| Jehremiah's LinkedIn | linkedin.com/in/jehremiah-asis | ☐ Yes / ☐ Correct to: _______ |
+| Google Maps link | maps.google.com/?q=The+Peak+Tower+Makati | ☐ Yes / ☐ Correct to: _______ |
+| Calendly booking link | calendly.com/jca1221/partnership-consultation | ☐ Confirm link is live / ☐ Correct to: _______ |
 
-The award-winning water reclamation facility.
+### 1C. Del Carmen Project — Photos (none uploaded yet)
 
-| File | Usage | Suggested Content |
-|------|-------|-------------------|
-| `projects/puerto-princesa.jpg` | Home page carousel card | Exterior/facility shot, 420×300px area |
-| `projects/puerto-princesa-hero.jpg` | Project detail page banner | Wide establishing shot, 1920×1080px |
-| `projects/puerto-princesa-1.jpg` | Gallery | Treatment tanks, equipment |
-| `projects/puerto-princesa-2.jpg` | Gallery | Team on site, operations |
-| `projects/puerto-princesa-3.jpg` | Gallery | Bay restoration results, Ironman event |
+Del Carmen is the only project with zero photos. The home carousel card and project detail page currently show no image. Minimum 2 photos needed before launch.
 
-### Project Photos — Gingoog City
+| File | Usage | Dimensions | Status |
+|------|-------|-----------|--------|
+| `projects/del-carmen.jpg` | Home carousel card | 800×600px | ☐ Needed |
+| `projects/del-carmen-hero.jpg` | Project detail banner | 1920×1080px wide shot | ☐ Needed |
+| `projects/del-carmen-1.jpg` | Gallery — site or community | Any landscape | ☐ Needed |
 
-The modular treatment facility in Misamis Oriental.
+### 1D. Social Preview Image
 
-| File | Usage | Suggested Content |
-|------|-------|-------------------|
-| `projects/gingoog.jpg` | Home page carousel card | Site/facility shot |
-| `projects/gingoog-hero.jpg` | Project detail page banner | Wide establishing shot, 1920×1080px |
-| `projects/gingoog-1.jpg` | Gallery | Construction or site context |
-| `projects/gingoog-2.jpg` | Gallery | Coastal context, community |
+When anyone shares the site on Facebook, Viber, LinkedIn, or texts the URL — this image appears. Currently missing.
 
-### Project Photos — Del Carmen, Siargao
+| File | Dimensions | What it should show |
+|------|-----------|-------------------|
+| `public/images/og-preview.jpg` | 1200×630px | JCA 1221 logo + company tagline on a clean branded background |
 
-The pyrolysis and solid waste facility.
+### 1E. Capability Statement PDF
 
-| File | Usage | Suggested Content |
-|------|-------|-------------------|
-| `projects/del-carmen.jpg` | Home page carousel card | Siargao context or facility rendering |
-| `projects/del-carmen-hero.jpg` | Project detail page banner | Wide establishing shot, 1920×1080px |
-| `projects/del-carmen-1.jpg` | Gallery | Site or community context |
-| `projects/del-carmen-2.jpg` | Gallery | Siargao environment/tourism context |
-| `projects/del-carmen-3.jpg` | Gallery | Technology or planning visuals |
+The Contact page has a download button for this document. If not ready, the button will appear but fail.
 
-### Expansion Initiative Photos
-
-| File | Usage | Suggested Content |
-|------|-------|-------------------|
-| `expansion/siargao-pyrolysis.jpg` | Home page expansion card | Siargao island context, 1200×800px |
-| `expansion/cebu-planning.jpg` | Home page expansion card | Cebu provincial context, 1200×800px |
-
-### Hero Background
-
-| File | Usage | Suggested Content |
-|------|-------|-------------------|
-| `hero-water.jpg` | Full-screen homepage hero | Philippine coastal/water scene, 1920×1080px. Clean water, bay, or ocean. Avoid cluttered or low-light shots — text overlays on top. |
-
-### Partner & Certifier Logos
-
-Transparent PNG format, ~300×200px each. These display in grayscale on the contact page.
-
-| File | Organization |
-|------|-------------|
-| `partners/puerto-princesa-lgu.png` | City Government of Puerto Princesa |
-| `partners/denr.png` | Department of Environment and Natural Resources |
-| `partners/asian-water-council.png` | Asian Water Council |
-| `partners/gingoog-lgu.png` | City of Gingoog |
-| `partners/del-carmen-lgu.png` | Municipality of Del Carmen |
-| `partners/tieza.png` | Tourism Infrastructure and Enterprise Zone Authority |
+| Item | File Path | Status |
+|------|-----------|--------|
+| Capability Statement PDF | `public/downloads/capability-statement.pdf` | ☐ Provide file — OR — ☐ Hide button temporarily |
 
 ---
 
-## 2. CONTACT INFORMATION — Please Verify
+## PHASE 2 — Credibility Layer _(Replace remaining placeholder images)_
 
-All phone numbers, emails, and the office address need confirmation. Mark any corrections directly on this list.
+Deploy after Phase 1 is live. These significantly improve presentation but aren't launch blockers.
 
-### Office
+### 2A. Remaining Project Gallery Photos
 
-- **Address:** Unit 2808, 28th Floor, The Peak Tower, 107 Leviste Street, Salcedo Village, Makati City, Metro Manila 1227
-- **Phone:** +63 2 8123 4567
-- **General email:** partnerships@jca1221.com
-- **Hours:** Monday–Friday, 9:00 AM – 6:00 PM PHT
+| File | Project | Usage | Status |
+|------|---------|-------|--------|
+| `projects/puerto-princesa-2.jpg` | Puerto Princesa | Gallery — team on site / operations | ☐ Needed |
+| `projects/puerto-princesa-3.jpg` | Puerto Princesa | Gallery — bay restoration / Ironman event | ☐ Needed |
+| `projects/gingoog-1.jpg` | Gingoog | Gallery — construction or site context | ☐ Needed |
+| `projects/gingoog-2.jpg` | Gingoog | Gallery — coastal context / community | ☐ Needed |
+| `projects/del-carmen-2.jpg` | Del Carmen | Gallery — Siargao environment / tourism | ☐ Needed |
+| `projects/del-carmen-3.jpg` | Del Carmen | Gallery — technology or planning visuals | ☐ Needed |
 
-### Jehremiah
+### 2B. Expansion Section Photos
 
-- **Email:** jhasis@jca1221.com
-- **Phone:** +63 2 8123 4567
+Two cards on the Home page Expansion section. Currently no images.
 
-### Maria Clara Santos — Head of Government Partnerships
+| File | Card | Suggested Content | Dimensions | Status |
+|------|------|-------------------|-----------|--------|
+| `expansion/siargao-pyrolysis.jpg` | Del Carmen / Siargao expansion | Siargao island, coastal context | 1200×800px | ☐ Needed |
+| `expansion/cebu-planning.jpg` | Cebu provincial study | Cebu aerial or urban context | 1200×800px | ☐ Needed |
 
-☐ **Is this a real person?** If yes, provide:
-- Correct spelling of name
-- Actual email (currently: mc.santos@jca1221.com)
-- Actual phone (currently: +63 2 8123 4568)
-- Headshot photo
+### 2C. Live Dashboard Numbers — Verify
 
-If no, provide the actual person's info.
+The Technology page shows live metrics that animate on load. These need to be real numbers.
 
-### Antonio Reyes — Investor Relations Director
-
-☐ **Is this a real person?** If yes, provide:
-- Correct spelling of name
-- Actual email (currently: a.reyes@jca1221.com)
-- Actual phone (currently: +63 2 8123 4569)
-- Headshot photo
-
-If no, provide the actual person's info.
-
----
-
-## 3. DOWNLOADABLE DOCUMENT
-
-| File | Current Reference | Action |
-|------|------------------|--------|
-| Capability Statement PDF | `downloads/capability-statement.pdf` (listed as 4.2 MB) | ☐ Provide the file |
-
-Should this be the JCA 1221 corporate capability statement? Or a different document?
+| Metric | Current Value | Real? |
+|--------|--------------|-------|
+| Total water treated | 2,920,000 m³ | ☐ Confirm / ☐ Correct to: _______ |
+| Current daily output | 4,127 m³/day | ☐ Confirm / ☐ Correct to: _______ |
+| Treatment quality rate | 98.7% | ☐ Confirm / ☐ Correct to: _______ |
+| Solar energy share | 34% | ☐ Confirm / ☐ Correct to: _______ |
 
 ---
 
-## 4. EXTERNAL LINKS — Confirm
+## PHASE 3 — Content Review _(Jehremiah reads and approves all page text)_
 
-| Link | Current Value | Correct? |
-|------|--------------|----------|
-| Calendar booking | `https://calendly.com/jca1221/partnership-consultation` | ☐ Yes / ☐ No → correct link: _______ |
-| Google Maps | `https://maps.google.com/?q=The+Peak+Tower+Makati` | ☐ Yes / ☐ No → correct link: _______ |
+All text is written and live — these are review passes, not rewrites. Mark any corrections.
 
----
+### 3A. Impact Stats (Home Page)
 
-## 5. CONTENT REVIEW (For Jehremiah)
+| Stat | Current Value | Correct? |
+|------|--------------|---------| 
+| Daily treatment capacity | 4,000 m³/day | ☐ Yes / ☐ Correct: _______ |
+| Active project sites | 3 | ☐ Yes / ☐ Correct: _______ |
+| International awards | 1 Asian Water Award | ☐ Yes / ☐ Correct: _______ |
+| Events/shorelines restored | 2 international events | ☐ Yes / ☐ Correct: _______ |
 
-The website text is already written. Jehremiah should review these sections at his convenience. Corrections can be marked directly on the data files or noted here.
+### 3B. Project Numbers
 
-### Home Page — `product/sections/home/data.json`
+| Project | Cost | People Served | Jobs | Correct? |
+|---------|------|--------------|------|---------|
+| Puerto Princesa | PHP 450M+ | 300,000+ | 50+ | ☐ Yes / ☐ Corrections: _______ |
+| Gingoog | PHP 280M est. | 150,000+ | 30+ | ☐ Yes / ☐ Corrections: _______ |
+| Del Carmen | PHP 320M est. | 40,000+ | 15 tons/day throughput | ☐ Yes / ☐ Corrections: _______ |
 
-Key items to check:
-- **Tagline:** "Earth Renewal for Generations" (note: older roadmap document says "Water Renewal for Generations" — which is correct?)
-- **Description:** "Philippine environmental infrastructure — restoring coastal ecosystems through nature-mimicking technology and public-private partnerships."
-- **Mission values:** Serbisyo Hindi Negosyo, Zero Corruption, Integrity in Every Project, Environmental Stewardship — descriptions accurate?
-- **Impact stats:** Numbers all correct? (4,000 m³ daily, 3 active sites, 1 Asian Water Award, 2 international events restored)
-- **Expansion initiatives:** Siargao pyrolysis and Cebu planning — descriptions and statuses accurate?
+### 3C. Tagline Confirmation
 
-### About Page — `product/sections/about-and-mission/data.json`
+The homepage hero cycles: **"Water Renewal for Generations"** → **"Land Renewal for Generations"** → **"Waste Renewal for Generations"**  
+SEO description and document subtitle use **"Earth Renewal for Generations"** as the umbrella phrase.
 
-- **Founder letter:** Long first-person letter — any edits?
-- **Founder milestones:** Years and events correct? (2015 Corporate Law, 2017 Turning Point, 2019 Founded, 2022 Puerto Princesa, 2025 Award & Expansion)
-- **Founder quotes:** Accurate to how Jehremiah actually speaks?
-- **Value pillars:** Four pillars with sub-points — content accurate?
+☐ Acceptable as-is?  
+☐ Change umbrella phrase to: _______________________
 
-### Projects Page — `product/sections/projects-and-track-record/data.json`
+### 3D. Pages to Read and Approve
 
-- **Puerto Princesa:** PHP 450M+ cost, 300,000+ served, 50+ jobs — numbers correct?
-- **Gingoog:** PHP 280M est. cost, 150,000+ est. served, 30+ jobs — correct?
-- **Del Carmen:** PHP 320M est. cost, 40,000+ est. served, 15 tons/day throughput — correct?
-- **Awards, partners, technology descriptions** — all accurate?
+Each file is in `product/sections/`. Review on screen or request a printed copy.
 
-### Technology Page — `product/sections/technology-and-approach/data.json`
-
-- **Process flow** (5 steps: Collection → Biological → Clarification → UV → Release) — accurate?
-- **Comparison table** (6 points: JCA vs traditional) — claims defensible?
-- **Technology pillars** (Biological, Modular, Solar/IoT, Scalable) — descriptions accurate?
-- **Live dashboard numbers** (2,920,000 m³ total, 4,127 m³/day, 98.7% quality, 34% solar) — are these real metrics or placeholder? If placeholder, what real numbers should display?
-
-### Contact Page — `product/sections/contact-and-partnerships/data.json`
-
-- **Section subtitle:** "Partner with JCA 1221 to bring world-class environmental infrastructure to your community. Serious inquiries only." — tone acceptable?
-- **Form fields and placeholders** — all appropriate?
-- **Success message** after form submission — wording OK?
+| Page | File | Key things to verify |
+|------|------|---------------------|
+| Home | `home/data.json` | Mission values text, descriptions, expansion card text |
+| About | `about-and-mission/data.json` | Founder letter, milestone years, quotes, value pillars |
+| Projects | `projects-and-track-record/data.json` | Award descriptions, partner descriptions, technology claims |
+| Technology | `technology-and-approach/data.json` | Process flow accuracy, comparison table claims |
+| Team | `team/data.json` | All 6 bios — especially the 5 unconfirmed members |
 
 ---
 
-## 6. BRAND & TECHNICAL ITEMS
+## PHASE 4 — Polish _(Optional enhancements, deploy when ready)_
 
-| Item | Current | Action Needed |
-|------|---------|---------------|
-| **Company name** | JCA 1221 Holdings | ☐ Confirm |
-| **Tagline** | "Earth Renewal for Generations" vs "Water Renewal for Generations" | ☐ **Pick one** — inconsistency in current files |
-| **Page title tag** | "JCA 1221 Holdings — Environmental Infrastructure" | ☐ Confirm or provide new |
-| **Meta description** (Google snippet) | Not set | ☐ Provide ~155 character description |
-| **Social preview image** (OG image) | Not set | ☐ Provide 1200×630px image for link sharing |
-| **Favicon** (browser tab icon) | Auto-generated "J" in blue box | ☐ Provide logo/icon file, or OK to keep |
-| **Website domain** | Not configured | ☐ What domain will this live on? |
+These are improvements but the site works well without them.
 
----
+### 4A. Hero Background Photos (Optional)
 
-## 7. DESIGN COLORS (For Reference)
+The homepage hero currently uses gradient backgrounds (looks good). If high-quality photos are available, they can be added behind each theme.
 
-Current color scheme across the entire website:
+| File | Theme | What to Shoot / Source |
+|------|-------|----------------------|
+| `hero/water-bg.jpg` | Water slide | Coastal bay, water treatment, ocean — clean blue tones |
+| `hero/land-bg.jpg` | Land slide | Green landscape, forest, restoration site |
+| `hero/waste-bg.jpg` | Waste slide | Pyrolysis plant, clean facility, circular economy |
 
-| Role | Color | Feel |
-|------|-------|------|
-| **Primary** | Blue | Water, coastal, technology |
-| **Accent** | Amber | Warmth, awards, earth tones |
-| **Neutral** | Slate | Professional gray |
+> Minimum 1920×1080px. Must not compete with the white headline text. Only add if images are strong.
 
-If these don't match the brand, specify replacements.
+### 4B. Meta Description
 
----
+Used by Google in search result snippets. Max 155 characters.
 
-## Summary Checklist
+**Current:** _(not set — Google auto-generates from page text)_  
+**Needed:** One sentence describing JCA 1221 for someone who finds it via Google search.
 
-**Must have before launch:**
-- [ ] 25 image files (list in Section 1)
-- [ ] Verified contact info (Section 2)
-- [ ] Maria Clara Santos — real or replacement
-- [ ] Antonio Reyes — real or replacement
-- [ ] Capability statement PDF (Section 3)
-- [ ] Calendly link confirmed (Section 4)
-- [ ] Tagline inconsistency resolved (Section 6)
-- [ ] Domain name
+Example: _"JCA 1221 Holdings — Philippine water reclamation and solid waste infrastructure through public-private partnerships. Water renewal for generations."_ (155 chars)
 
-**Should have before launch:**
-- [ ] Meta description for SEO
-- [ ] Favicon/logo file
-- [ ] Social preview image
-
-**Nice to have:**
-- [ ] Jehremiah content review (Section 5)
-- [ ] Google Maps link confirmed
+☐ Approve example above — OR — ☐ Provide alternative: _______________________________
 
 ---
 
-All text files with the current website content are in the `product/sections/` folder. I can print any of them out if Jehremiah wants to review on paper.
+## Delivery Summary
+
+| Phase | What it unlocks | Who delivers |
+|-------|----------------|-------------|
+| **Phase 1** | **Public launch** — site goes live | Jehremiah provides content, dev deploys |
+| **Phase 2** | Replaces remaining placeholder images | Jehremiah provides photos |
+| **Phase 3** | All text verified as accurate | Jehremiah reviews and marks corrections |
+| **Phase 4** | Optional polish — hero photos, SEO copy | Jehremiah provides if available |
+
+---
+
+## Assets Still Needed — Master List
+
+All image files go into `public/images/`. Best delivery method: shared Google Drive folder.
+
+**Phase 1 (launch blockers):**
+- [ ] 5 team headshots (or confirmation to remove placeholders) — `team/*.jpg`
+- [ ] Del Carmen thumbnail + hero + 1 gallery photo — `projects/del-carmen*.jpg`
+- [ ] Social preview image 1200×630px — `images/og-preview.jpg`
+- [ ] Capability statement PDF — `downloads/capability-statement.pdf`
+
+**Phase 2:**
+- [ ] Puerto Princesa gallery photos 2 & 3 — `projects/puerto-princesa-2.jpg`, `-3.jpg`
+- [ ] Gingoog gallery photos 1 & 2 — `projects/gingoog-1.jpg`, `-2.jpg`
+- [ ] Del Carmen gallery photos 2 & 3 — `projects/del-carmen-2.jpg`, `-3.jpg`
+- [ ] Expansion photos for Siargao + Cebu — `expansion/*.jpg`
+
+**Phase 4 (optional):**
+- [ ] Hero background photos — `hero/water-bg.jpg`, `land-bg.jpg`, `waste-bg.jpg`

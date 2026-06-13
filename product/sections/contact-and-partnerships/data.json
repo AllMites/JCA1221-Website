@@ -68,7 +68,7 @@
       "email": "jhasis@jca1221.com",
       "phone": "+63 2 8123 4567",
       "inquiryCategories": ["Investment Partnerships", "Strategic Direction"],
-      "imageUrl": "/images/team/jehremiah-asis.jpg"
+      "imageUrl": "/images/team/jehremiah-asis.png"
     },
     {
       "id": "partnerships",
@@ -76,8 +76,7 @@
       "title": "Head of Government Partnerships",
       "email": "mc.santos@jca1221.com",
       "phone": "+63 2 8123 4568",
-      "inquiryCategories": ["LGU Partnerships", "National Government Agency Inquiries"],
-      "imageUrl": "/images/team/maria-santos.jpg"
+      "inquiryCategories": ["LGU Partnerships", "National Government Agency Inquiries"]
     },
     {
       "id": "investors",
@@ -85,8 +84,7 @@
       "title": "Investor Relations Director",
       "email": "a.reyes@jca1221.com",
       "phone": "+63 2 8123 4569",
-      "inquiryCategories": ["Investment Partnerships", "Due Diligence"],
-      "imageUrl": "/images/team/antonio-reyes.jpg"
+      "inquiryCategories": ["Investment Partnerships", "Due Diligence"]
     }
   ],
   "officeInfo": {
@@ -99,11 +97,11 @@
   },
   "partnerLogos": [
     { "name": "City Government of Puerto Princesa", "imageUrl": "/images/partners/puerto-princesa-lgu.png" },
-    { "name": "Department of Environment and Natural Resources", "imageUrl": "/images/partners/denr.png" },
+    { "name": "Department of Environment and Natural Resources", "imageUrl": "/images/partners/denr.svg" },
     { "name": "Asian Water Council", "imageUrl": "/images/partners/asian-water-council.png" },
     { "name": "City of Gingoog", "imageUrl": "/images/partners/gingoog-lgu.png" },
     { "name": "Municipality of Del Carmen", "imageUrl": "/images/partners/del-carmen-lgu.png" },
-    { "name": "Tourism Infrastructure and Enterprise Zone Authority", "imageUrl": "/images/partners/tieza.png" }
+    { "name": "Tourism Infrastructure and Enterprise Zone Authority", "imageUrl": "/images/partners/tieza.svg" }
   ],
   "downloadableResource": {
     "title": "JCA 1221 Capability Statement",
