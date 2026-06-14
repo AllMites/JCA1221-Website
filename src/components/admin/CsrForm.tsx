@@ -10,6 +10,14 @@ interface CsrFormProps {
 export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
   const [name, setName] = useState('')
   const [slug, setSlug] = useState('')
+  const [slugTouched, setSlugTouched] = useState(false)
+
+  // Auto-generate slug from name on create mode, unless user manually edited slug
+  useEffect(() => {
+    if (!csr && !slugTouched) {
+      setSlug(name.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))
+    }
+  }, [name, csr, slugTouched])
   const [category, setCategory] = useState('')
   const [description, setDescription] = useState('')
   const [story, setStory] = useState('')
@@ -82,7 +90,7 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
         </div>
         <div>
           <label className="block text-xs font-medium text-slate-500 mb-1">Slug *</label>
-          <input value={slug} onChange={(e) => setSlug(e.target.value)} required className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white" />
+          <input value={slug} onChange={(e) => { setSlug(e.target.value); setSlugTouched(true) }} required className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white" />
         </div>
       </div>
 

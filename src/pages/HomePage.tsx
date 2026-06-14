@@ -48,7 +48,7 @@ export function HomePage() {
     () =>
       projects.map((p) => ({
         id: p.id,
-        slug: p.slug,
+        slug: p.slug || p.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
         name: p.name,
         location: p.location,
         status: p.status,

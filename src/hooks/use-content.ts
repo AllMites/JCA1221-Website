@@ -82,7 +82,17 @@ export function useProject(slug: string) {
   const load = useCallback(async () => {
     setLoading(true)
     try {
-      const p = await fetchBySlug<Project>('projects', slug)
+      // Try slug first; fall back to UUID lookup for old links
+      let p = await fetchBySlug<Project>('projects', slug)
+      if (!p && slug && hasSupabaseCredentials) {
+        const { data } = await supabase
+          .from('projects')
+          .select('*')
+          .eq('id', slug)
+          .eq('published', true)
+          .single()
+        p = data as Project | null
+      }
       if (!p) { setProject(null); setLoading(false); return }
 
       const [{ data: awards }, { data: widgets }] = await Promise.all([
