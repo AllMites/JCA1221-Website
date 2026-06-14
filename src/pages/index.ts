@@ -1,5 +1,4 @@
 export { HomePage } from './HomePage'
-export { HomeAltPage } from './HomeAltPage'
 export { AboutPage } from './AboutPage'
 export { ProjectsPage } from './ProjectsPage'
 export { ProjectDetailPage } from './ProjectDetailPage'

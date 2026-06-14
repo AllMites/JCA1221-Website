@@ -8,7 +8,27 @@ import { TeamForm } from '@/components/admin/TeamForm'
 import { PartnerForm } from '@/components/admin/PartnerForm'
 import { CsrForm } from '@/components/admin/CsrForm'
 export default function EditorPage() {
-  useRequireAuth()
+  const { isAuthenticated, loading: authLoading } = useRequireAuth()
+
+  // Auth gate
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-sm text-slate-400">Loading…</p>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
+        <div className="text-center">
+          <p className="text-slate-500 mb-4">Please sign in to access the editor.</p>
+          <a href="/login" className="px-4 py-2 text-sm rounded-full bg-blue-500 text-white">Sign In</a>
+        </div>
+      </div>
+    )
+  }
 
   const [activeTab, setActiveTab] = useState<EditorTab>('projects')
 
@@ -18,7 +38,14 @@ export default function EditorPage() {
   const [editingItem, setEditingItem] = useState<any | null>(null)
   const [creating, setCreating] = useState(false)
 
-  const tableName = activeTab === 'csr' ? 'csr_projects' : activeTab
+  const TABLE_NAME_MAP: Record<EditorTab, string> = {
+    projects: 'projects',
+    news: 'news_articles',
+    team: 'team_members',
+    partners: 'partners',
+    csr: 'csr_projects',
+  }
+  const tableName = TABLE_NAME_MAP[activeTab]
 
   const fetchItems = useCallback(async () => {
     setLoading(true)
