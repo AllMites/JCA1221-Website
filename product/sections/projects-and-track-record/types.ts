@@ -53,6 +53,8 @@ export interface ProjectKeyMetric {
 export interface ProjectCard {
   /** Unique project identifier */
   id: string
+  /** URL-safe slug for routing */
+  slug: string
   /** Project name */
   name: string
   /** City/province location */

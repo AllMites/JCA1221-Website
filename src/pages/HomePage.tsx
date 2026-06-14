@@ -48,6 +48,7 @@ export function HomePage() {
     () =>
       projects.map((p) => ({
         id: p.id,
+        slug: p.slug,
         name: p.name,
         location: p.location,
         status: p.status,
@@ -70,7 +71,7 @@ export function HomePage() {
   }, [])
 
   const handleProjectClick = useCallback(
-    (id: string) => navigate(`/projects/${id}`),
+    (slug: string) => navigate(`/projects/${slug}`),
     [navigate],
   )
 

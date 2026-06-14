@@ -130,7 +130,7 @@ export function ProjectCarousel({ projects, onProjectClick }: ProjectCarouselPro
             <div key={project.id} className="snap-start">
               <ProjectCardItem
                 project={project}
-                onClick={() => onProjectClick?.(project.id)}
+                onClick={() => onProjectClick?.(project.slug)}
               />
             </div>
           ))}

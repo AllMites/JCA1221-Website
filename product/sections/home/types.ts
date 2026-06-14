@@ -22,6 +22,8 @@ export interface ProjectStat {
 
 export interface ProjectCard {
   id: string
+  /** URL-safe slug for routing */
+  slug: string
   name: string
   location: string
   status: ProjectStatus

@@ -97,7 +97,7 @@ export function ProjectList({
                 <RevealItem key={project.id}>
                   <ProjectCardItem
                     project={project}
-                    onClick={() => onProjectClick?.(project.id)}
+                    onClick={() => onProjectClick?.(project.slug)}
                   />
                 </RevealItem>
               ))}
