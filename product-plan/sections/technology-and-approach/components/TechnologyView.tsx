@@ -1,19 +1,27 @@
 import type { TechnologyAndApproachProps } from '../types'
-import { ProcessFlowSection } from './ProcessFlowSection'
+import { TechnologyCarouselSection } from './TechnologyCarouselSection'
 import { ComparisonSection } from './ComparisonSection'
 import { TechnologyGridSection } from './TechnologyGridSection'
 import { LiveDashboardSection } from './LiveDashboardSection'
 
 export function TechnologyView({
-  processSteps,
+  sectionTitle,
+  sectionSubtitle,
+  carousel,
   comparison,
   technologyPillars,
   liveMetrics,
 }: TechnologyAndApproachProps) {
   return (
     <div>
-      {/* Process flow — emerald */}
-      <ProcessFlowSection steps={processSteps} />
+      {/* Carousel — merged process flow with interactive video previews */}
+      <TechnologyCarouselSection
+        title={sectionTitle}
+        subtitle={sectionSubtitle}
+        eyebrow={carousel.eyebrow}
+        steps={carousel.steps}
+        videoHoldDuration={carousel.videoHoldDuration}
+      />
 
       {/* Comparison — amber */}
       <ComparisonSection comparison={comparison} />

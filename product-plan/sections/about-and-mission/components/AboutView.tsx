@@ -3,6 +3,7 @@ import { FounderLetterSection } from './FounderLetterSection'
 import { ValuePillarSection } from './ValuePillarSection'
 import { FounderProfileSection } from './FounderProfileSection'
 import { ArrowRight } from 'lucide-react'
+import { ScrollReveal, RevealItem } from '../../shared/ScrollReveal'
 
 export function AboutView({
   founderLetter,
@@ -14,21 +15,27 @@ export function AboutView({
   return (
     <div className="font-body">
       {/* 1. Founder's Letter — dark water background */}
-      <FounderLetterSection letter={founderLetter} />
+      <ScrollReveal direction="up">
+        <FounderLetterSection letter={founderLetter} />
+      </ScrollReveal>
 
       {/* 2. Value Pillars — each its own colored section */}
-      {valuePillars.map((pillar, index) => (
-        <ValuePillarSection key={pillar.id} pillar={pillar} index={index} />
-      ))}
+      <ScrollReveal staggerChildren={0.1} viewportMargin="-40px 0px">
+        {valuePillars.map((pillar, index) => (
+          <RevealItem key={pillar.id}>
+            <ValuePillarSection pillar={pillar} index={index} />
+          </RevealItem>
+        ))}
+      </ScrollReveal>
 
       {/* 3. Founder Profile — quotes + timeline */}
-      <FounderProfileSection profile={founderProfile} />
+      <ScrollReveal direction="up">
+        <FounderProfileSection profile={founderProfile} />
+      </ScrollReveal>
 
       {/* 4. CTA — blue-tinted glass */}
-      <section className="relative py-20 sm:py-28 overflow-hidden bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-950">
-        {/* Top accent line */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 dark:via-blue-600/20 to-transparent" />
-
+      <ScrollReveal direction="up">
+        <section className="relative py-20 sm:py-28 overflow-hidden bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-950">
         <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 dark:text-white mb-4">
             Ready to build with integrity?
@@ -46,7 +53,8 @@ export function AboutView({
             <ArrowRight size={18} />
           </button>
         </div>
-      </section>
+        </section>
+      </ScrollReveal>
     </div>
   )
 }

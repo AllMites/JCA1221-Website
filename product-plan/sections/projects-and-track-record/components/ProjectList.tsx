@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import type { ProjectsProps, FilterStatus, ProjectStatus } from '../types'
+import type { ProjectsProps, FilterStatus } from '../types'
 import { PortfolioSummaryBar } from './PortfolioSummaryBar'
 import { ProjectCardItem } from './ProjectCard'
+import { ShaderBackground } from '../../shared/ShaderBackground'
+import { ScrollReveal, RevealItem } from '../../shared/ScrollReveal'
 
 const FILTER_OPTIONS: { label: string; value: FilterStatus }[] = [
   { label: 'All Projects', value: 'all' },
@@ -10,12 +12,15 @@ const FILTER_OPTIONS: { label: string; value: FilterStatus }[] = [
   { label: 'Planning', value: 'planning' },
 ]
 
-const STATUS_DOT: Record<FilterStatus, string> = {
-  all: 'bg-slate-400',
-  operational: 'bg-emerald-500',
-  development: 'bg-amber-500',
-  planning: 'bg-blue-400',
+const FILTER_CAPSULE: Record<FilterStatus, string> = {
+  all: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border-blue-200/50 dark:border-blue-800/30',
+  operational: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200/50 dark:border-emerald-800/30',
+  development: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200/50 dark:border-amber-800/30',
+  planning: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border-blue-200/50 dark:border-blue-800/30',
 }
+
+const FILTER_INACTIVE =
+  'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/20 dark:border-white/10 shadow-[2px_2px_6px_rgba(0,0,0,0.04),-1px_-1px_4px_rgba(255,255,255,0.8)] dark:shadow-[2px_2px_6px_rgba(0,0,0,0.3),-1px_-1px_4px_rgba(255,255,255,0.02)]'
 
 export function ProjectList({
   portfolioSummary,
@@ -42,9 +47,10 @@ export function ProjectList({
 
       {/* Section header + filters */}
       <section className="relative py-16 overflow-hidden bg-white dark:bg-slate-950">
+        <ShaderBackground variant="light" opacity={0.5} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="text-center mb-10">
+          <ScrollReveal direction="up" className="text-center mb-10">
             <p className="text-sm font-medium font-heading uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-3">
               Our Portfolio
             </p>
@@ -55,27 +61,23 @@ export function ProjectList({
               Each facility is a public-private partnership built on integrity, delivering measurable
               environmental outcomes for Philippine communities.
             </p>
-          </div>
+          </ScrollReveal>
 
-          {/* Filter pills — neumorphic */}
+          {/* Filter pills — full colored capsule for active */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             {FILTER_OPTIONS.map((opt) => {
               const isActive = activeFilter === opt.value
-              const dotColor = STATUS_DOT[opt.value]
 
               return (
                 <button
                   key={opt.value}
                   onClick={() => handleFilter(opt.value)}
-                  className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium font-heading rounded-full transition-all duration-200 ${
+                  className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium font-heading rounded-full border transition-all duration-200 ${
                     isActive
-                      ? 'text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-800 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.06),inset_-1px_-1px_3px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.4),inset_-1px_-1px_2px_rgba(255,255,255,0.05)]'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/20 dark:border-white/10 shadow-[2px_2px_6px_rgba(0,0,0,0.04),-1px_-1px_4px_rgba(255,255,255,0.8)] dark:shadow-[2px_2px_6px_rgba(0,0,0,0.3),-1px_-1px_4px_rgba(255,255,255,0.02)] hover:shadow-[3px_3px_8px_rgba(0,0,0,0.06),-2px_-2px_6px_rgba(255,255,255,0.9)] dark:hover:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-2px_-2px_6px_rgba(255,255,255,0.03)]'
+                      ? FILTER_CAPSULE[opt.value]
+                      : FILTER_INACTIVE
                   }`}
                 >
-                  {opt.value !== 'all' && (
-                    <span className={`w-2 h-2 rounded-full ${dotColor}`} />
-                  )}
                   {opt.label}
                 </button>
               )
@@ -90,15 +92,16 @@ export function ProjectList({
               </p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
+            <ScrollReveal staggerChildren={0.08} viewportMargin="-40px 0px" className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
               {filteredProjects.map((project) => (
-                <ProjectCardItem
-                  key={project.id}
-                  project={project}
-                  onClick={() => onProjectClick?.(project.id)}
-                />
+                <RevealItem key={project.id}>
+                  <ProjectCardItem
+                    project={project}
+                    onClick={() => onProjectClick?.(project.slug)}
+                  />
+                </RevealItem>
               ))}
-            </div>
+            </ScrollReveal>
           )}
         </div>
       </section>

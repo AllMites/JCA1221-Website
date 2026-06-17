@@ -1,5 +1,7 @@
 import type { ValuePillar, SectionColor, GlassTint } from '../types'
 import { ShieldCheck, RefreshCw, HeartHandshake, Trophy } from 'lucide-react'
+import { ShaderBackground } from '../../shared/ShaderBackground'
+import type { ShaderVariant } from '../../shared/ShaderBackground'
 
 interface ValuePillarSectionProps {
   pillar: ValuePillar
@@ -55,6 +57,14 @@ const ICON_TINT: Record<GlassTint, string> = {
   blue: 'bg-blue-100/80 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400',
 }
 
+// Section color → shader variant
+const SECTION_SHADER: Record<SectionColor, ShaderVariant> = {
+  amber: 'amber',
+  emerald: 'emerald',
+  blue: 'blue',
+  slate: 'slate',
+}
+
 export function ValuePillarSection({ pillar, index }: ValuePillarSectionProps) {
   const IconComponent = ICON_MAP[pillar.icon] ?? Trophy
   const isEven = index % 2 === 0
@@ -64,8 +74,7 @@ export function ValuePillarSection({ pillar, index }: ValuePillarSectionProps) {
       {/* Top accent line */}
       <div className={`absolute top-0 left-0 right-0 h-px bg-gradient-to-r ${SECTION_LINE[pillar.sectionColor]} opacity-0`} style={{ opacity: 1 }} />
 
-      {/* Subtle background texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-transparent to-transparent opacity-30 pointer-events-none" />
+      <ShaderBackground variant={SECTION_SHADER[pillar.sectionColor]} opacity={0.4} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-10 lg:gap-16 items-center lg:items-start`}>
@@ -109,9 +118,6 @@ export function ValuePillarSection({ pillar, index }: ValuePillarSectionProps) {
           </div>
         </div>
       </div>
-
-      {/* Bottom decorative line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/30 dark:via-slate-700/20 to-transparent" />
     </section>
   )
 }

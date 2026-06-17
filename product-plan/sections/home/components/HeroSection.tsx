@@ -1,133 +1,318 @@
 import { ArrowDown, Droplets } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useScroll, useTransform, motion } from 'framer-motion'
 import type { HeroContent } from '../types'
+import { ShaderBackground, type ShaderVariant } from '../../shared/ShaderBackground'
+import { GlassPill } from '../../shared/GlassPill'
+
+
+const CYCLE_WORDS = ['Water', 'Land', 'Waste']
+const CYCLE_INTERVAL = 6000
+
+// ─── Letter stagger constants ─────────────────────────────────────────────
+const LETTER_DURATION = 350 // ms per letter animation
+const LETTER_STAGGER = 60 // ms between consecutive letters
+/** Total time from first letter start to last letter animation end */
+const cycleTotalMs = (word: string) => LETTER_DURATION + (word.length - 1) * LETTER_STAGGER
+
+// ─── Background config per word ───────────────────────────────────────────
+
+interface WordBgConfig {
+  variant: ShaderVariant
+  gradient: string
+  image?: string   // optional background image URL
+  video?: string   // optional background video URL (takes precedence over image)
+}
+
+const WORD_BG: Record<string, WordBgConfig> = {
+  Water: {
+    variant: 'blue',
+    gradient: 'from-slate-950 via-blue-950 to-slate-900',
+    // image: '/images/projects/water-reclamation.jpg',
+  },
+  Land: {
+    variant: 'leaves',
+    gradient: 'from-slate-950 via-emerald-950 to-slate-900',
+    // image: '/images/projects/land-restoration.jpg',
+  },
+  Waste: {
+    variant: 'amber',
+    gradient: 'from-slate-950 via-amber-950 to-slate-900',
+    // image: '/images/projects/waste-management.jpg',
+  },
+}
 
 interface HeroSectionProps {
   hero: HeroContent
   onCtaClick?: () => void
-  onShellReveal?: () => void
-  onShellHide?: () => void
+  onSecondaryCtaClick?: () => void
 }
 
-export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: HeroSectionProps) {
-  const edgeTimer = useRef<ReturnType<typeof setTimeout>>()
+/** Icon color per word theme */
+const WORD_ACCENT: Record<string, { bg: string; ring: string; icon: string; text: string; glow: string }> = {
+  Water: {
+    bg: 'bg-blue-500/20', ring: 'ring-blue-400/30', icon: 'text-blue-400',
+    text: 'text-blue-300', glow: 'rgba(59,130,246,0.3)',
+  },
+  Land: {
+    bg: 'bg-emerald-500/20', ring: 'ring-emerald-400/30', icon: 'text-emerald-400',
+    text: 'text-emerald-300', glow: 'rgba(16,185,129,0.3)',
+  },
+  Waste: {
+    bg: 'bg-amber-500/20', ring: 'ring-amber-400/30', icon: 'text-amber-400',
+    text: 'text-amber-300', glow: 'rgba(245,158,11,0.3)',
+  },
+}
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (e.clientY <= 64) {
-      clearTimeout(edgeTimer.current)
-      onShellReveal?.()
-    } else {
-      edgeTimer.current = setTimeout(() => onShellHide?.(), 300)
-    }
-  }
+export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSectionProps) {
+  const cycleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const bgTeardownRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const [wordIndex, setWordIndex] = useState(0)
+  const [cycling, setCycling] = useState(false)
+
+  // ─── Background cross-fade state ───────────────────────────────────────
+  const activeBgWordRef = useRef(CYCLE_WORDS[0])
+  const [overlayWord, setOverlayWord] = useState<string | null>(null)
+  const [overlayVisible, setOverlayVisible] = useState(false)
+
+  // ─── Parallax scroll effect ─────────────────────────────────────────────
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollY } = useScroll()
+  // Map section scroll position to parallax offset: 0 → 0, 1 → -150px (bg moves slower upward)
+  const parallaxY = useTransform(scrollY, [0, window.innerHeight], [0, -120])
+
+  const currentWord = CYCLE_WORDS[wordIndex]
+  const nextWord = CYCLE_WORDS[(wordIndex + 1) % CYCLE_WORDS.length]
+  // Accent follows overlay while it exists in DOM — syncs eyebrow/icon
+  // transition with background, and doesn't snap back during fade-out
+  const visualWord = overlayWord ?? currentWord
+  const wordAccent = WORD_ACCENT[visualWord]
 
   useEffect(() => {
-    return () => clearTimeout(edgeTimer.current)
+    return () => {
+      clearTimeout(cycleTimer.current)
+      clearTimeout(bgTeardownRef.current)
+    }
   }, [])
+
+  // Cycling word timer
+  useEffect(() => {
+    const id = setInterval(() => setCycling(true), CYCLE_INTERVAL)
+    return () => clearInterval(id)
+  }, [])
+
+  // When cycling starts, schedule state reset after all letters finish
+  useEffect(() => {
+    if (!cycling) return
+    const current = CYCLE_WORDS[wordIndex]
+    const ms = cycleTotalMs(current) + 80 // small buffer after last letter
+    cycleTimer.current = setTimeout(() => {
+      setWordIndex((i) => (i + 1) % CYCLE_WORDS.length)
+      setCycling(false)
+    }, ms)
+    return () => clearTimeout(cycleTimer.current)
+  }, [cycling, wordIndex])
+
+  // ─── Background cross-fade effect (synced to letter animation) ─────────
+  useEffect(() => {
+    if (!cycling) {
+      // Letters finished → fade overlay out, then remove overlay DOM
+      if (overlayWord) {
+        activeBgWordRef.current = overlayWord      // 1. swap base behind opacity-1 overlay
+        setOverlayVisible(false)                    // 2. start CSS fade-out
+        bgTeardownRef.current = setTimeout(() => {  // 3. after transition: drop overlay DOM
+          setOverlayWord(null)
+          clearTimeout(bgTeardownRef.current)
+        }, cycleTotalMs(currentWord))
+      }
+      return
+    }
+
+    // Cycling started → render overlay, then trigger fade-in
+    setOverlayWord(nextWord)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setOverlayVisible(true))
+    })
+
+    return () => clearTimeout(bgTeardownRef.current)
+  }, [cycling, nextWord]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ─── Background layer renderer ─────────────────────────────────────────
+  const renderBgLayer = (word: string, className = '') => {
+    const cfg = WORD_BG[word]
+    return (
+      <div className={`absolute inset-0 ${className}`}>
+        <div className={`absolute inset-0 bg-gradient-to-b ${cfg.gradient}`} />
+        <ShaderBackground variant={cfg.variant} opacity={0.7} animated />
+        {cfg.video ? (
+          <video
+            src={cfg.video}
+            autoPlay muted loop playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : cfg.image ? (
+          <img src={cfg.image} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        ) : null}
+      </div>
+    )
+  }
 
   return (
     <section
-      onMouseMove={handleMouseMove}
+      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Water background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-blue-950 to-slate-900" />
+      {/* Background layers with parallax — scroll slower than foreground */}
+      <motion.div className="absolute inset-0" style={{ y: parallaxY }}>
+        {/* Base background layer — current word theme */}
+        {renderBgLayer(activeBgWordRef.current)}
 
-      {/* Animated water gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[120%] aspect-square rounded-full opacity-30"
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.4) 0%, rgba(30,64,175,0.2) 40%, transparent 70%)',
-            animation: 'pulse-water 8s ease-in-out infinite',
-          }}
-        />
-        <div
-          className="absolute top-1/3 -left-1/4 w-[80%] aspect-square rounded-full opacity-20"
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(245,158,11,0.2) 0%, transparent 60%)',
-            animation: 'pulse-water 10s ease-in-out infinite 2s',
-          }}
-        />
-        <div
-          className="absolute bottom-0 right-0 w-[60%] aspect-square rounded-full opacity-25"
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.3) 0%, rgba(6,182,212,0.15) 40%, transparent 70%)',
-            animation: 'pulse-water 12s ease-in-out infinite 5s',
-          }}
-        />
-
-        {/* Subtle noise texture */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noise)%27/%3E%3C/svg%3E")',
-          backgroundRepeat: 'repeat',
-          backgroundSize: '128px 128px',
-        }} />
-      </div>
-
-      {/* Shell edge detection zone (invisible) */}
-      <div className="fixed top-0 left-0 right-0 h-16 z-50 pointer-events-none" aria-hidden="true" />
+        {/* Overlay background layer — cross-fades in synced to letter animation */}
+        {overlayWord && (
+          <div
+            className="absolute inset-0 transition-opacity ease-in-out pointer-events-none"
+            style={{
+              opacity: overlayVisible ? 1 : 0,
+              transitionDuration: `${cycleTotalMs(currentWord)}ms`,
+            }}
+          >
+            {renderBgLayer(overlayWord)}
+          </div>
+        )}
+      </motion.div>
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Water droplet icon */}
+        {/* Icon with glass — accent color follows current word */}
         <div className="mb-8 flex justify-center animate-fade-in-up" style={{ animationDelay: '0ms' }}>
-          <div className="p-4 rounded-full bg-blue-500/20 backdrop-blur-sm ring-1 ring-blue-400/30">
-            <Droplets size={36} className="text-blue-400" strokeWidth={1.5} />
-          </div>
+          <GlassPill as="div" className={`p-4 rounded-full ${wordAccent.bg} ring-1 ${wordAccent.ring} transition-colors duration-500`}>
+            <Droplets size={36} className={`${wordAccent.icon} transition-colors duration-500`} strokeWidth={1.5} />
+          </GlassPill>
         </div>
 
         {/* Site name */}
         <p
-          className="text-sm font-medium font-heading uppercase tracking-[0.25em] text-blue-300 mb-6 animate-fade-in-up"
+          className={`text-sm font-medium font-heading uppercase tracking-[0.25em] ${wordAccent.text} mb-6 animate-fade-in-up transition-colors duration-500`}
           style={{ animationDelay: '150ms' }}
         >
           {hero.siteName}
         </p>
 
-        {/* Tagline */}
+        {/* Tagline with cycling word */}
         <h1
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold font-heading text-white tracking-tight leading-[0.95] mb-8 animate-fade-in-up"
           style={{ animationDelay: '300ms' }}
         >
-          {hero.tagline}
+          {/* Cycling word — CSS grid cell for stable width regardless of word length */}
+          <span
+            className="relative inline-grid overflow-hidden h-[1em]"
+            style={{
+              gridTemplateAreas: "'slot'",
+            }}
+          >
+            {/* Invisible spacers: all words with per-letter inline-block structure (matches visible words exactly, prevents kerning-driven width shifts) */}
+            {CYCLE_WORDS.map((w) => (
+              <span key={`spacer-${w}`} className="invisible pointer-events-none" aria-hidden="true" style={{ gridArea: 'slot' }}>
+                {w.split('').map((letter, i) => (
+                  <span key={i} className="inline-block">{letter}</span>
+                ))}
+                &nbsp;
+              </span>
+            ))}
+
+            {/* Current word — letters exit staggered */}
+            <span className="inline-block" style={{ gridArea: 'slot' }}>
+              {currentWord.split('').map((letter, i) => (
+                <span
+                  key={`cur-${wordIndex}-${i}`}
+                  className={`inline-block ${cycling ? 'animate-letter-out' : ''}`}
+                  style={{ animationDelay: `${i * LETTER_STAGGER}ms` }}
+                >
+                  {letter}
+                </span>
+              ))}
+              {/* Non-breaking space between cycling word and static text */}
+              &nbsp;
+            </span>
+
+            {/* Next word — letters enter staggered (only during cycle) */}
+            {cycling && (
+              <span className="inline-block" style={{ gridArea: 'slot' }}>
+                {nextWord.split('').map((letter, i) => (
+                  <span
+                    key={`next-${wordIndex}-${i}`}
+                    className="inline-block animate-letter-in"
+                    style={{ animationDelay: `${i * LETTER_STAGGER + 100}ms` }}
+                  >
+                    {letter}
+                  </span>
+                ))}
+                &nbsp;
+              </span>
+            )}
+          </span>
+          Renewal for Generations
         </h1>
 
         {/* Description */}
         <p
-          className="text-lg sm:text-xl text-blue-200/80 max-w-2xl mx-auto leading-relaxed mb-12 animate-fade-in-up"
+          className={`text-lg sm:text-xl ${wordAccent.text}/80 max-w-2xl mx-auto leading-relaxed mb-12 animate-fade-in-up transition-colors duration-500`}
           style={{ animationDelay: '450ms' }}
         >
           {hero.description}
         </p>
 
-        {/* CTA */}
-        <div className="animate-fade-in-up" style={{ animationDelay: '600ms' }}>
+        {/* Dual CTA */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '600ms' }}>
+          {/* Primary CTA — premium gradient button */}
           <button
             onClick={onCtaClick}
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-900 font-semibold font-heading rounded-full hover:bg-blue-50 hover:shadow-lg hover:shadow-blue-500/25 active:scale-[0.98] transition-all duration-300"
+            className="group relative inline-flex items-center gap-2.5 px-8 py-4 text-white font-semibold font-heading rounded-full transition-all duration-500
+              bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400
+              hover:from-blue-400 hover:via-cyan-400 hover:to-blue-400
+              shadow-[0_0_24px_rgba(59,130,246,0.3),0_4px_12px_rgba(59,130,246,0.15)]
+              hover:shadow-[0_0_36px_rgba(59,130,246,0.45),0_8px_20px_rgba(59,130,246,0.2)]
+              active:scale-[0.97]
+              overflow-hidden"
           >
-            {hero.ctaLabel}
+            {/* Subtle shine sweep on hover */}
+            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+            <span className="relative z-10">{hero.ctaLabel || 'Partner With Us'}</span>
+          </button>
+
+          {/* Secondary CTA — glass pill */}
+          <button
+            onClick={onSecondaryCtaClick}
+            className="group inline-flex items-center gap-2 px-8 py-4 text-white/70 hover:text-white font-semibold font-heading rounded-full
+              bg-white/5 hover:bg-white/10
+              border border-white/15 hover:border-white/30
+              backdrop-blur-md
+              shadow-[0_4px_12px_rgba(0,0,0,0.05)]
+              hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)]
+              active:scale-[0.97]
+              transition-all duration-300"
+          >
+            Our Impact
             <ArrowDown
-              size={18}
+              size={16}
               className="group-hover:translate-y-0.5 transition-transform duration-300"
             />
           </button>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+      {/* Scroll indicator — fades out on scroll */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        initial={{ opacity: 1 }}
+        style={{ opacity: useTransform(scrollY, [0, 200], [1, 0]) }}
+      >
         <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-1.5">
           <div className="w-1 h-2.5 rounded-full bg-white/40 animate-scroll-dot" />
         </div>
-      </div>
+      </motion.div>
 
       <style>{`
-        @keyframes pulse-water {
-          0%, 100% { transform: translate(-50%, 0) scale(1); }
-          50% { transform: translate(-50%, -2%) scale(1.05); }
-        }
         @keyframes fade-in-up {
           from { opacity: 0; transform: translateY(24px); }
           to { opacity: 1; transform: translateY(0); }
@@ -136,12 +321,26 @@ export function HeroSection({ hero, onCtaClick, onShellReveal, onShellHide }: He
           0%, 100% { transform: translateY(0); opacity: 0.4; }
           50% { transform: translateY(8px); opacity: 1; }
         }
+        @keyframes letter-out {
+          from { transform: translateY(0); opacity: 1; }
+          to { transform: translateY(-105%); opacity: 0; }
+        }
+        @keyframes letter-in {
+          from { transform: translateY(105%); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
         .animate-fade-in-up {
           opacity: 0;
           animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .animate-scroll-dot {
           animation: scroll-dot 2s ease-in-out infinite;
+        }
+        .animate-letter-out {
+          animation: letter-out ${LETTER_DURATION}ms cubic-bezier(0.4, 0, 1, 1) both;
+        }
+        .animate-letter-in {
+          animation: letter-in ${LETTER_DURATION}ms cubic-bezier(0, 0, 0.2, 1) both;
         }
       `}</style>
     </section>

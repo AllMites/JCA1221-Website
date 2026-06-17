@@ -1,6 +1,8 @@
 import { useRef, useEffect, useState } from 'react'
 import * as Icons from 'lucide-react'
 import type { TechnologyPillar } from '../types'
+import { ShaderBackground } from '../../shared/ShaderBackground'
+import { GlassPill } from '../../shared/GlassPill'
 
 interface TechnologyGridSectionProps {
   pillars: TechnologyPillar[]
@@ -33,12 +35,12 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
       ref={ref}
       className="relative py-20 sm:py-28 overflow-hidden"
     >
-      {/* Blue-tinted background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-blue-950/70 to-slate-950" />
+      {/* Solid deep background */}
+      <div className="absolute inset-0 bg-slate-950" />
 
-      {/* Atmospheric glass orbs */}
-      <div className="absolute top-10 right-10 w-[30rem] h-[30rem] rounded-full bg-blue-500/6 blur-[150px]" />
-      <div className="absolute bottom-0 left-1/3 w-80 h-80 rounded-full bg-blue-400/5 blur-[100px]" />
+
+      {/* Noise dither */}
+      <ShaderBackground variant="bubbles" opacity={0.5} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
@@ -69,12 +71,12 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
                 }}
               >
                 {/* Glass card with hover lift */}
-                <div className="h-full p-6 sm:p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/25 shadow-[0_4px_24px_rgba(59,130,246,0.06),0_0_0_1px_rgba(255,255,255,0.03)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.12),0_0_0_1px_rgba(59,130,246,0.1)] transition-all duration-500 hover:-translate-y-1">
+                <div className="h-full p-6 sm:p-8 rounded-xl bg-white/10 border border-white/10 hover:border-blue-400/25 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.03)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.10),0_0_0_1px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-1">
                   {/* Icon + title row */}
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/15 backdrop-blur-sm border border-blue-400/20 flex items-center justify-center shadow-[0_4px_16px_rgba(59,130,246,0.1)]">
+                    <GlassPill as="div" className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/20 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
                       {IconComponent && <IconComponent className="w-6 h-6 text-blue-300" />}
-                    </div>
+                    </GlassPill>
                     <h3 className="text-lg sm:text-xl font-heading font-bold text-white group-hover:text-blue-200 transition-colors duration-300">
                       {pillar.title}
                     </h3>
@@ -85,15 +87,15 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
                     {pillar.description}
                   </p>
 
-                  {/* Technology tags */}
+                  {/* Technology tags with liquid glass */}
                   <div className="flex flex-wrap gap-2">
                     {pillar.tags.map((tag) => (
-                      <span
+                      <GlassPill
                         key={tag}
-                        className="px-3 py-1 text-xs font-mono rounded-full bg-blue-500/10 border border-blue-400/15 text-blue-300/80 backdrop-blur-sm"
+                        className="px-3 py-1 text-xs font-mono rounded-full bg-blue-500/10 border border-blue-400/15 text-blue-300/80"
                       >
                         {tag}
-                      </span>
+                      </GlassPill>
                     ))}
                   </div>
                 </div>

@@ -1,5 +1,7 @@
 import type { FounderProfile } from '../types'
 import { User, Quote } from 'lucide-react'
+import { ShaderBackground } from '../../shared/ShaderBackground'
+import { GlassPill } from '../../shared/GlassPill'
 
 interface FounderProfileSectionProps {
   profile: FounderProfile
@@ -8,8 +10,7 @@ interface FounderProfileSectionProps {
 export function FounderProfileSection({ profile }: FounderProfileSectionProps) {
   return (
     <section className="relative py-20 sm:py-28 overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950">
-      {/* Top accent line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 dark:via-blue-600/20 to-transparent" />
+      <ShaderBackground variant="light" opacity={0.5} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
@@ -26,10 +27,10 @@ export function FounderProfileSection({ profile }: FounderProfileSectionProps) {
           {/* Left column: Photo + Name + Signature quote */}
           <div className="lg:w-[380px] shrink-0">
             <div className="rounded-2xl backdrop-blur-xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:shadow-[0_8px_40px_rgba(59,130,246,0.04)] p-8 text-center">
-              {/* Photo placeholder — glass circle */}
-              <div className="w-28 h-28 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-900 dark:to-slate-800 border-4 border-white/30 dark:border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.12)] flex items-center justify-center">
+              {/* Photo placeholder — liquid glass circle */}
+              <GlassPill as="div" className="w-28 h-28 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-900 dark:to-slate-800 border-4 border-white/30 dark:border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.12)] flex items-center justify-center" aria-label={`Photo of ${profile.name}`}>
                 <User size={40} className="text-blue-400 dark:text-blue-300" />
-              </div>
+              </GlassPill>
 
               {/* Name */}
               <h3 className="font-bold font-heading text-xl text-slate-900 dark:text-white mb-1">

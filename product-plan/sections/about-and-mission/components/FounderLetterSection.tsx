@@ -1,4 +1,5 @@
 import { Quote } from 'lucide-react'
+import { ShaderBackground } from '../../shared/ShaderBackground'
 
 interface FounderLetterSectionProps {
   letter: string
@@ -22,9 +23,7 @@ export function FounderLetterSection({ letter }: FounderLetterSectionProps) {
 
       {/* Subtle noise texture overlay */}
       <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
-
-      {/* Decorative top line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent" />
+      <ShaderBackground variant="blue" opacity={0.4} />
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section label */}
@@ -71,9 +70,6 @@ export function FounderLetterSection({ letter }: FounderLetterSectionProps) {
           <div className="absolute -bottom-px -right-px w-12 h-12 rounded-br-3xl border-b border-r border-blue-400/20 pointer-events-none" />
         </div>
       </div>
-
-      {/* Bottom decorative line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/20 to-transparent" />
     </section>
   )
 }

@@ -1,16 +1,23 @@
 import type { ProjectCard as ProjectCardType, ProjectStatus } from '../types'
-import { MapPin, ArrowRight } from 'lucide-react'
+import { MapPin, ArrowRight, CheckCircle2, Wrench, ClipboardCheck } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
-const STATUS_COLORS: Record<ProjectStatus, string> = {
-  operational: 'bg-emerald-500',
-  development: 'bg-amber-500',
-  planning: 'bg-blue-400',
-}
-
-const STATUS_LABELS: Record<ProjectStatus, string> = {
-  operational: 'Operational',
-  development: 'In Development',
-  planning: 'Planning',
+const STATUS_CAPSULE: Record<ProjectStatus, { label: string; icon: LucideIcon; className: string }> = {
+  operational: {
+    label: 'Operational',
+    icon: CheckCircle2,
+    className: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200/50 dark:border-emerald-800/30',
+  },
+  development: {
+    label: 'In Development',
+    icon: Wrench,
+    className: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200/50 dark:border-amber-800/30',
+  },
+  planning: {
+    label: 'Planning',
+    icon: ClipboardCheck,
+    className: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border-blue-200/50 dark:border-blue-800/30',
+  },
 }
 
 interface ProjectCardItemProps {
@@ -26,14 +33,30 @@ export function ProjectCardItem({ project, onClick }: ProjectCardItemProps) {
     >
       {/* Image area */}
       <div className="relative h-48 sm:h-56 bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-950 dark:to-slate-800 overflow-hidden">
+        {/* Lazy-loaded project photo */}
+        <img
+          src={project.heroImage}
+          alt={project.name}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         {/* Gradient image placeholder */}
         <div className="absolute inset-0 opacity-30 dark:opacity-40 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-blue-600 to-blue-900 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-500" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent dark:from-slate-900/90 dark:via-slate-900/40" />
 
-        {/* Status badge */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm text-slate-700 dark:text-slate-300 shadow-sm">
-          <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[project.status] ?? 'bg-slate-400'}`} />
-          {STATUS_LABELS[project.status] ?? project.status}
+        {/* Status capsule — full colored pill like news type badges */}
+        <div className="absolute top-3 left-3">
+          {(() => {
+            const c = STATUS_CAPSULE[project.status]
+            const Icon = c.icon
+            return (
+              <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium font-heading rounded-full border ${c.className}`}>
+                <Icon size={12} />
+                {c.label}
+              </span>
+            )
+          })()}
         </div>
 
         {/* Hover overlay */}

@@ -1,6 +1,8 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { TrendingUp, Droplets, Gauge, Sun } from 'lucide-react'
 import type { LiveMetrics, LiveMetric, ChartDataPoint } from '../types'
+import { ShaderBackground } from '../../shared/ShaderBackground'
+import { GlassPill } from '../../shared/GlassPill'
 
 interface LiveDashboardSectionProps {
   liveMetrics: LiveMetrics
@@ -285,13 +287,13 @@ function MetricCard({ metric, color }: { metric: LiveMetric; color: string }) {
 
   return (
     <div className="flex-shrink-0 w-[300px] sm:w-[340px]">
-      <div className="h-full p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.03)] hover:border-white/15 transition-all duration-300">
+      <div className="h-full p-6 rounded-xl bg-white/10 border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.03)] hover:border-white/15 transition-all duration-300">
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
           {IconComponent && (
-            <div className="w-9 h-9 rounded-lg bg-slate-500/10 border border-white/10 flex items-center justify-center">
+            <GlassPill as="div" className="w-9 h-9 rounded-lg bg-slate-500/10 border border-white/10 flex items-center justify-center">
               <IconComponent className="w-4 h-4 text-slate-300" />
-            </div>
+            </GlassPill>
           )}
           <p className="text-xs font-mono uppercase tracking-wider text-slate-400 leading-tight flex-1">
             {metric.label}
@@ -344,10 +346,19 @@ function AutoScrollCarousel({
 }) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const animRef = useRef<number>(0)
+  const isPaused = useRef(false)
   const speedPxPerS = 40 // scroll speed
 
   // Clone metrics 3× for seamless wraparound
   const tripled = [...metrics, ...metrics, ...metrics]
+
+  // Respect reduced-motion preference
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (mq.matches) {
+      isPaused.current = true
+    }
+  }, [])
 
   useEffect(() => {
     const el = scrollRef.current
@@ -363,11 +374,13 @@ function AutoScrollCarousel({
       const dt = (now - lastTime) / 1000
       lastTime = now
 
-      el.scrollLeft += speedPxPerS * dt
+      if (!isPaused.current) {
+        el.scrollLeft += speedPxPerS * dt
 
-      // When we scroll past the second full set, reset to the first clone position
-      if (el.scrollLeft >= singleWidth * 2) {
-        el.scrollLeft -= singleWidth
+        // When we scroll past the second full set, reset to the first clone position
+        if (el.scrollLeft >= singleWidth * 2) {
+          el.scrollLeft -= singleWidth
+        }
       }
 
       animRef.current = requestAnimationFrame(animate)
@@ -380,7 +393,11 @@ function AutoScrollCarousel({
   return (
     <div
       ref={scrollRef}
-      className="flex gap-5 overflow-x-hidden pb-4"
+      className="flex gap-5 overflow-x-hidden pb-4 motion-safe-auto-scroll"
+      onMouseEnter={() => { isPaused.current = true }}
+      onMouseLeave={() => { isPaused.current = false }}
+      onFocus={() => { isPaused.current = true }}
+      onBlur={() => { isPaused.current = false }}
     >
       {tripled.map((metric, i) => {
         const color = colors[metric.id] || '#3b82f6'
@@ -401,19 +418,13 @@ export function LiveDashboardSection({ liveMetrics }: LiveDashboardSectionProps)
   }
 
   return (
-    <section className="relative py-20 sm:py-28 overflow-hidden">
-      {/* Slate/dark background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900/90 to-slate-950" />
+    <section className="relative py-20 sm:py-28 overflow-hidden" aria-label="Live impact metrics dashboard">
+      {/* Solid deep background */}
+      <div className="absolute inset-0 bg-slate-950" />
+
 
       {/* Subtle grid texture */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
+      <ShaderBackground variant="leaves" opacity={0.4} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
@@ -433,7 +444,7 @@ export function LiveDashboardSection({ liveMetrics }: LiveDashboardSectionProps)
         </div>
 
         {/* Auto-scrolling carousel */}
-        <div className="relative">
+        <div className="relative" aria-live="polite">
           {/* Gradient fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-r from-transparent to-slate-950 z-10 pointer-events-none" />

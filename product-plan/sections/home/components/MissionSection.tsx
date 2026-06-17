@@ -1,5 +1,6 @@
 import { HeartHandshake, ShieldCheck, Scale, Leaf } from 'lucide-react'
 import type { MissionValue } from '../types'
+import { ShaderBackground } from '../../shared/ShaderBackground'
 
 interface MissionSectionProps {
   values: MissionValue[]
@@ -40,9 +41,7 @@ export function MissionSection({ values }: MissionSectionProps) {
     <section className="relative py-20 sm:py-28 overflow-hidden bg-amber-50/30 dark:bg-slate-950">
       {/* Background — warm cream/earth tone, distinct from dark carousel */}
       <div className="absolute inset-0 bg-gradient-to-b from-amber-50/60 via-amber-50/20 to-white dark:from-amber-950/20 dark:via-slate-950 dark:to-slate-950" />
-
-      {/* Warm decorative line */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 dark:via-amber-600 to-transparent opacity-40" />
+      <ShaderBackground variant="amber" opacity={0.5} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}

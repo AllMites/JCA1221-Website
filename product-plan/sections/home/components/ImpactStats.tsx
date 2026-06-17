@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import type { ImpactStat as ImpactStatType } from '../types'
+import { ShaderBackground } from '../../shared/ShaderBackground'
 
 interface ImpactStatsProps {
   stats: ImpactStatType[]
@@ -54,7 +55,7 @@ function AnimatedCounter({ number: target, suffix, label, description }: ImpactS
 
   return (
     <div ref={ref} className="text-center group">
-      <div className="mb-2 font-bold font-heading text-4xl sm:text-5xl md:text-6xl text-white tracking-tight tabular-nums">
+      <div className="mb-2 font-bold font-heading text-4xl sm:text-5xl md:text-6xl text-white tracking-tight tabular-nums" role="status" aria-live="polite">
         {count.toLocaleString()}
         <span className="text-2xl sm:text-3xl text-blue-400 ml-1">{suffix}</span>
       </div>
@@ -66,13 +67,10 @@ function AnimatedCounter({ number: target, suffix, label, description }: ImpactS
 
 export function ImpactStats({ stats }: ImpactStatsProps) {
   return (
-    <section className="relative py-20 sm:py-28 overflow-hidden bg-slate-900">
+    <section className="relative py-20 sm:py-28 overflow-hidden bg-slate-900" aria-label="Impact statistics">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent" />
-
-      {/* Decorative line top */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
+      <ShaderBackground variant="slate" opacity={0.5} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
@@ -95,9 +93,6 @@ export function ImpactStats({ stats }: ImpactStatsProps) {
           ))}
         </div>
       </div>
-
-      {/* Bottom decorative line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
     </section>
   )
 }

@@ -1,5 +1,6 @@
-import { Construction, ArrowUpRight, MapPin } from 'lucide-react'
+import { Construction, MapPin } from 'lucide-react'
 import type { Expansion, ExpansionInitiative } from '../types'
+import { ShaderBackground } from '../../shared/ShaderBackground'
 
 interface ExpansionSectionProps {
   expansion: Expansion
@@ -16,6 +17,13 @@ function InitiativeCard({ initiative }: { initiative: ExpansionInitiative }) {
     <div className="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden hover:shadow-xl transition-all duration-500">
       {/* Image area */}
       <div className="h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden">
+        <img
+          src={initiative.image}
+          alt={initiative.title}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 to-amber-500/10 dark:from-blue-500/10 dark:to-amber-500/5" />
       </div>
 
@@ -52,9 +60,7 @@ export function ExpansionSection({ expansion }: ExpansionSectionProps) {
     <section className="relative py-20 sm:py-28 overflow-hidden bg-white dark:bg-slate-950">
       {/* Subtle background */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950" />
-
-      {/* Top decorative line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-300 dark:via-amber-800 to-transparent opacity-50" />
+      <ShaderBackground variant="leaves" opacity={0.5} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
