@@ -10,6 +10,9 @@
   directory = "netlify/functions"
   external_node_modules = ["@sendgrid/mail", "@supabase/supabase-js"]
 
+[functions.environment]
+  SUPABASE_URL = "https://urtdzvtdekyycdnszlyp.supabase.co"
+
 # ── Domain canonicalisation ────────────────────────────────────────────
 
 # www → non-www (root domain)
