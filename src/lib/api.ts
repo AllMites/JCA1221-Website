@@ -1,6 +1,8 @@
 /**
  * API client for Netlify functions.
  */
+import { supabase } from './supabase'
+
 const BASE = '/.netlify/functions'
 
 async function request<T>(
@@ -18,16 +20,19 @@ async function request<T>(
   return res.json() as Promise<T>
 }
 
-function authedRequest<T>(
+async function authedRequest<T>(
   path: string,
   options?: RequestInit,
 ): Promise<T> {
-  const code = sessionStorage.getItem('jca_admin_code')
+  // Get Supabase session token — also try to refresh if expired
+  const { data } = await supabase.auth.getSession()
+  const token = data.session?.access_token
+
   return request<T>(path, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      ...(code ? { Authorization: `Bearer ${code}` } : {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(options?.headers ?? {}),
     },
   })

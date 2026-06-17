@@ -11,7 +11,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
   }
 
   if (event.httpMethod !== 'GET') return json({ error: 'Method not allowed' }, 405)
-  if (!isAdminAuthorized(event.headers.authorization ?? null, event.headers["client-ip"] ?? event.headers["x-forwarded-for"]?.split(",")[0]?.trim())) {
+  if (!(await isAdminAuthorized(event.headers.authorization ?? null, event.headers["client-ip"] ?? event.headers["x-forwarded-for"]?.split(",")[0]?.trim()))) {
     return json({ error: 'Unauthorized' }, 401)
   }
 
