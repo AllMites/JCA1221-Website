@@ -10,6 +10,22 @@
   directory = "netlify/functions"
   external_node_modules = ["@sendgrid/mail", "@supabase/supabase-js"]
 
+# ── Domain canonicalisation ────────────────────────────────────────────
+
+# www → non-www (root domain)
+[[redirects]]
+  from = "https://www.jca1221.com/*"
+  to = "https://jca1221.com/:splat"
+  status = 301
+
+# Netlify subdomain → custom domain
+[[redirects]]
+  from = "https://*.netlify.app/*"
+  to = "https://jca1221.com/:splat"
+  status = 301
+
+# ── SPA fallback ───────────────────────────────────────────────────────
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
