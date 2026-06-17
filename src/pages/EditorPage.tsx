@@ -45,10 +45,12 @@ export default function EditorPage() {
     team: 'team_members',
     partners: 'partners',
     csr: 'csr_projects',
+    guide: '',
   }
   const tableName = TABLE_NAME_MAP[activeTab]
 
   const fetchItems = useCallback(async () => {
+    if (!tableName) { setItems([]); setLoading(false); return }
     setLoading(true)
     const { data } = await supabase
       .from(tableName)
