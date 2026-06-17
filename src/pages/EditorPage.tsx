@@ -45,6 +45,7 @@ export default function EditorPage() {
     team: 'team_members',
     partners: 'partners',
     csr: 'csr_projects',
+    guide: '', // guide tab renders GuideView, no backing table
   }
   const tableName = TABLE_NAME_MAP[activeTab]
 

@@ -27,6 +27,7 @@
   "projects": [
     {
       "id": "puerto-princesa",
+      "slug": "puerto-princesa",
       "name": "Puerto Princesa Water Reclamation & Learning Center",
       "location": "Puerto Princesa City, Palawan",
       "status": "operational",
@@ -76,6 +77,7 @@
     },
     {
       "id": "gingoog",
+      "slug": "gingoog",
       "name": "Gingoog City Septage Treatment Facility",
       "location": "Gingoog City, Misamis Oriental",
       "status": "development",
@@ -116,6 +118,7 @@
     },
     {
       "id": "del-carmen",
+      "slug": "del-carmen",
       "name": "Del Carmen Solid Waste Management & Pyrolysis Facility",
       "location": "Del Carmen, Siargao Island, Surigao del Norte",
       "status": "planning",
