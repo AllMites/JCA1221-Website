@@ -2,7 +2,7 @@ import { useAuth } from '@/hooks/use-auth'
 import { supabase } from '@/lib/supabase'
 import { useNavigate } from 'react-router-dom'
 
-type AdminTab = 'submissions' | 'news' | 'projects' | 'team' | 'partners' | 'csr' | 'page-content' | 'users' | 'media' | 'audit'
+type AdminTab = 'submissions' | 'news' | 'projects' | 'team' | 'partners' | 'csr' | 'page-content' | 'users' | 'media' | 'audit' | 'guide'
 
 interface AdminSidebarProps {
   activeTab: AdminTab
@@ -18,6 +18,7 @@ const CONTENT_TABS: { id: AdminTab; label: string }[] = [
   { id: 'csr', label: 'CSR' },
   { id: 'page-content', label: 'Page Text' },
   { id: 'media', label: 'Media' },
+  { id: 'guide', label: 'Guide' },
 ]
 
 const ADMIN_TABS: { id: AdminTab; label: string }[] = [

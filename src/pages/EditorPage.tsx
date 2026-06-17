@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRequireAuth } from '@/hooks/use-auth'
 import { EditorSidebar, type EditorTab } from '@/components/editor/EditorSidebar'
+import { GuideView } from '@/components/admin/GuideView'
 import { NewsForm } from '@/components/admin/NewsForm'
 import { ProjectForm } from '@/components/admin/ProjectForm'
 import { TeamForm } from '@/components/admin/TeamForm'
@@ -92,7 +93,13 @@ export default function EditorPage() {
       <EditorSidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
       <main className="flex-1 flex">
-        {/* List panel */}
+        {/* Guide tab — full width, no list panel */}
+        {activeTab === 'guide' ? (
+          <div className="flex-1 p-6 overflow-y-auto">
+            <GuideView />
+          </div>
+        ) : (<>
+          {/* List panel */}
         <div className="w-64 border-r border-slate-200 dark:border-white/10 bg-white/40 dark:bg-black/20 p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-xs font-heading font-bold uppercase tracking-wider text-slate-400">
@@ -190,6 +197,7 @@ export default function EditorPage() {
             </div>
           )}
         </div>
+          </>)}
       </main>
     </div>
   )

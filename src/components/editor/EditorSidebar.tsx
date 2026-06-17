@@ -7,6 +7,7 @@ const EDITOR_TABS = [
   { id: 'team', label: 'Team' },
   { id: 'partners', label: 'Partners' },
   { id: 'csr', label: 'CSR' },
+  { id: 'guide', label: 'Guide' },
 ] as const
 
 export type EditorTab = (typeof EDITOR_TABS)[number]['id']

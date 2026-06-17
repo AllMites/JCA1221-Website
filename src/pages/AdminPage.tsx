@@ -12,6 +12,7 @@ import { PageContentForm } from '@/components/admin/PageContentForm'
 import { UserManagement } from '@/components/admin/UserManagement'
 import { AuditLog } from '@/components/admin/AuditLog'
 import { MediaLibrary } from '@/components/admin/MediaLibrary'
+import { GuideView } from '@/components/admin/GuideView'
 import type { NewsArticle, Project, TeamMember, Partner, CsrProject, PageContent } from '@/lib/content-types'
 import {
   listSubmissions,
@@ -21,7 +22,7 @@ import {
 } from '@/lib/api'
 
 type StatusFilter = 'active' | 'all' | 'deleted'
-type AdminTab = 'submissions' | 'news' | 'projects' | 'team' | 'partners' | 'csr' | 'page-content' | 'users' | 'media' | 'audit'
+type AdminTab = 'submissions' | 'news' | 'projects' | 'team' | 'partners' | 'csr' | 'page-content' | 'users' | 'media' | 'audit' | 'guide'
 
 export function AdminPage() {
   const { isAuthenticated, loading: authLoading } = useAuth()
@@ -780,8 +781,15 @@ export function AdminPage() {
         {/* Audit tab */}
         {activeTab === 'audit' && <AuditLog />}
 
+        {/* Guide tab */}
+        {activeTab === 'guide' && (
+          <div className="max-w-5xl mx-auto">
+            <GuideView />
+          </div>
+        )}
+
         {/* Other tabs — keep placeholder */}
-        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && activeTab !== 'csr' && activeTab !== 'page-content' && activeTab !== 'users' && activeTab !== 'media' && activeTab !== 'audit' && (
+        {activeTab !== 'submissions' && activeTab !== 'news' && activeTab !== 'projects' && activeTab !== 'team' && activeTab !== 'partners' && activeTab !== 'csr' && activeTab !== 'page-content' && activeTab !== 'users' && activeTab !== 'media' && activeTab !== 'audit' && activeTab !== 'guide' && (
           <div className="text-center py-12">
             <p className="text-slate-400 text-sm">{activeTab} editor coming in next tasks.</p>
           </div>
