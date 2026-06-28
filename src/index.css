@@ -63,7 +63,7 @@
   color-scheme: light;
   --radius: 0.5rem;
   /* Backgrounds & Foregrounds — slate */
-  --background: oklch(0.985 0.001 106.424); /* slate-50 */
+  --background: oklch(0.985 0.006 262); /* slate-50 tinted toward Pacific Blue */
   --foreground: oklch(0.216 0.006 56.043); /* slate-900 */
   --card: oklch(1 0 0); /* white */
   --card-foreground: oklch(0.216 0.006 56.043); /* slate-900 */

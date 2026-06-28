@@ -30,6 +30,9 @@ const PrivacyPage = lazy(() =>
 const TermsPage = lazy(() =>
   import('@/pages/TermsPage').then((m) => ({ default: m.TermsPage })),
 )
+const TechnologyPage = lazy(() =>
+  import('@/pages/TechnologyPage').then((m) => ({ default: m.TechnologyPage })),
+)
 const TeamPage = lazy(() =>
   import('@/pages/TeamPage').then((m) => ({ default: m.TeamPage })),
 )
@@ -120,6 +123,7 @@ export const router = createBrowserRouter([
       { path: '/about', element: <AboutPage /> },
       { path: '/projects', element: <ProjectsPage /> },
       { path: '/projects/:projectId', element: <ProjectDetailPage /> },
+      { path: '/technology', element: <TechnologyPage /> },
       { path: '/contact', element: <ContactPage /> },
       { path: '/team', element: <TeamPage /> },
       { path: '/news', element: <NewsPage /> },

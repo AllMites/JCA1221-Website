@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { ProjectList } from '@/sections/projects-and-track-record/components/ProjectList'
@@ -15,9 +15,6 @@ export function ProjectsPage() {
   const { projects, loading } = useProjects()
   const { projects: csrProjects } = useCsrProjects()
 
-  useEffect(() => {
-    document.title = 'Projects — JCA 1221 Holdings'
-  }, [])
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -48,10 +45,16 @@ export function ProjectsPage() {
   }
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
+    <>
+      <PageSEO
+        title="Projects — JCA 1221 Holdings"
+        description="Track record of completed and ongoing environmental infrastructure projects across the Philippines — coastal restoration, solid waste management, and water treatment."
+        canonical="https://jca1221.com/projects"
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
     >
       <ErrorBoundary>
         {loading ? (
@@ -75,5 +78,6 @@ export function ProjectsPage() {
         )}
       </ErrorBoundary>
     </AppShell>
+    </>
   )
 }

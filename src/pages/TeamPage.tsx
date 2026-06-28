@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { TeamView } from '@/sections/team/components/TeamView'
@@ -16,9 +16,6 @@ export function TeamPage() {
   const navigate = useNavigate()
   const { members, loading } = useTeam()
 
-  useEffect(() => {
-    document.title = 'Team — JCA 1221 Holdings'
-  }, [])
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -40,10 +37,16 @@ export function TeamPage() {
   }))
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
+    <>
+      <PageSEO
+        title="Our Team — JCA 1221 Holdings"
+        description="Meet the leadership team behind JCA 1221 Holdings — environmental engineers, investment professionals, and community development experts."
+        canonical="https://jca1221.com/team"
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
     >
       <ErrorBoundary>
         {loading ? (
@@ -57,5 +60,6 @@ export function TeamPage() {
         )}
       </ErrorBoundary>
     </AppShell>
+    </>
   )
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { AboutView } from '@/sections/about-and-mission/components/AboutView'
@@ -15,9 +15,6 @@ export function AboutPage() {
   const navigate = useNavigate()
   const { content, loading } = usePageContent('about')
 
-  useEffect(() => {
-    document.title = 'About — JCA 1221 Holdings'
-  }, [])
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -29,11 +26,17 @@ export function AboutPage() {
   const valuePillars: ValuePillar[] = (getPageValue(content, 'values', 'pillars') as ValuePillar[]) ?? []
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
-    >
+    <>
+      <PageSEO
+        title="About — JCA 1221 Holdings"
+        description="JCA 1221 Holdings develops Philippine environmental infrastructure through nature-based solutions, long-term ecosystem stewardship, and public-private partnerships."
+        canonical="https://jca1221.com/about"
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
+      >
       <ErrorBoundary>
         {loading ? (
           <PageSkeleton />
@@ -55,5 +58,6 @@ export function AboutPage() {
         )}
       </ErrorBoundary>
     </AppShell>
+    </>
   )
 }

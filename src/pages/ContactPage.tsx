@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { ContactView } from '@/sections/contact-and-partnerships/components/ContactView'
@@ -33,9 +33,6 @@ export function ContactPage() {
 
   const loading = contentLoading || partnersLoading
 
-  useEffect(() => {
-    document.title = 'Contact — JCA 1221 Holdings'
-  }, [])
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -78,10 +75,16 @@ export function ContactPage() {
   }
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
+    <>
+      <PageSEO
+        title="Contact — JCA 1221 Holdings"
+        description="Get in touch with JCA 1221 Holdings to discuss partnerships, investment, or environmental infrastructure projects in the Philippines."
+        canonical="https://jca1221.com/contact"
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
     >
       <ErrorBoundary>
         {loading ? (
@@ -109,5 +112,6 @@ export function ContactPage() {
         )}
       </ErrorBoundary>
     </AppShell>
+    </>
   )
 }

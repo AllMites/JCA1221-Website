@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { LegalPageLayout } from '@/components/LegalPageLayout'
@@ -8,9 +8,6 @@ export function TermsPage() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    document.title = 'Terms of Service — JCA 1221 Holdings'
-  }, [])
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -18,10 +15,17 @@ export function TermsPage() {
   }))
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
+    <>
+      <PageSEO
+        title="Terms of Service — JCA 1221 Holdings"
+        description="Terms of Service for the JCA 1221 Holdings website."
+        canonical="https://jca1221.com/terms"
+        noIndex
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
     >
       <LegalPageLayout
         title="Terms of Service"
@@ -147,9 +151,10 @@ export function TermsPage() {
         </p>
         <ul>
           <li><strong>Email:</strong> <a href="mailto:legal@jca1221.com">legal@jca1221.com</a></li>
-          <li><strong>Address:</strong> Unit 2808, 28th Floor, The Peak Tower, 107 Leviste Street, Salcedo Village, Makati City, Metro Manila 1227, Philippines</li>
+          <li><strong>Address:</strong> 4E PDCP Bank Center, Salcedo Village, V.A. Rufino St, Makati City, 1227 Metro Manila, Philippines</li>
         </ul>
       </LegalPageLayout>
     </AppShell>
+    </>
   )
 }

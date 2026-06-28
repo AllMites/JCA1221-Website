@@ -1,5 +1,5 @@
 // src/sections/home/components/FeaturedProjects.tsx
-import { useRef, useCallback, type MouseEvent } from 'react'
+import { useRef, useState, useCallback, type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, ArrowRight } from 'lucide-react'
 import { useReducedMotion } from 'framer-motion'
@@ -27,6 +27,7 @@ const TILT_DEGREES = 5
 function TiltCard({ project }: { project: ProjectCard }) {
   const reducedMotion = useReducedMotion()
   const ref = useRef<HTMLAnchorElement>(null)
+  const [imgError, setImgError] = useState(false)
   const metrics = (project.stats ?? []).slice(0, 2)
 
   const handleMouseMove = useCallback(
@@ -71,12 +72,13 @@ function TiltCard({ project }: { project: ProjectCard }) {
     >
       {/* Image */}
       <div className="relative aspect-video overflow-hidden bg-slate-200 dark:bg-slate-800">
-        {project.image ? (
+        {project.image && !imgError ? (
           <img
             src={project.image}
             alt={project.name}
             loading="lazy"
             decoding="async"
+            onError={() => setImgError(true)}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
@@ -112,7 +114,7 @@ function TiltCard({ project }: { project: ProjectCard }) {
           <div className="flex gap-5 pt-3 border-t border-slate-200 dark:border-slate-800">
             {metrics.map((m, i) => (
               <div key={i}>
-                <p className="text-base font-bold font-heading text-slate-700 dark:text-slate-300">
+                <p className="text-base font-bold font-mono text-slate-700 dark:text-slate-300">
                   {m.value}
                 </p>
                 <p className="text-[10px] text-slate-400 uppercase tracking-wider">

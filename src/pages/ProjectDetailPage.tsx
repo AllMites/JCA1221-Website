@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useParams, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { ProjectDetail } from '@/sections/projects-and-track-record/components/ProjectDetail'
@@ -22,11 +22,6 @@ export function ProjectDetailPage() {
     isActive: item.href === '/projects',
   }))
 
-  useEffect(() => {
-    document.title = project
-      ? `${project.name} — JCA 1221 Holdings`
-      : 'Project Not Found — JCA 1221 Holdings'
-  }, [project])
 
   // Map Supabase project to section ProjectDetail shape
   const mappedProject: ProjectDetailType | null = project ? {
@@ -85,27 +80,34 @@ export function ProjectDetailPage() {
   }
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
-    >
-      <ErrorBoundary>
-        {loading ? (
-          <DetailPageSkeleton />
-        ) : mappedProject ? (
-          <>
-            <Breadcrumbs
-              segments={[
-                { label: 'Home', href: '/' },
-                { label: 'Projects', href: '/projects' },
-                { label: mappedProject.name },
-              ]}
-            />
-            <ProjectDetail project={mappedProject} partners={partners} onBack={() => navigate('/projects')} />
-          </>
-        ) : null}
-      </ErrorBoundary>
-    </AppShell>
+    <>
+      <PageSEO
+        title={mappedProject ? `${mappedProject.name} — JCA 1221 Holdings` : 'Projects — JCA 1221 Holdings'}
+        description={mappedProject?.shortDescription ?? 'Environmental infrastructure project by JCA 1221 Holdings in the Philippines.'}
+        canonical={mappedProject ? `https://jca1221.com/projects/${projectId}` : 'https://jca1221.com/projects'}
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
+      >
+        <ErrorBoundary>
+          {loading ? (
+            <DetailPageSkeleton />
+          ) : mappedProject ? (
+            <>
+              <Breadcrumbs
+                segments={[
+                  { label: 'Home', href: '/' },
+                  { label: 'Projects', href: '/projects' },
+                  { label: mappedProject.name },
+                ]}
+              />
+              <ProjectDetail project={mappedProject} partners={partners} onBack={() => navigate('/projects')} />
+            </>
+          ) : null}
+        </ErrorBoundary>
+      </AppShell>
+    </>
   )
 }

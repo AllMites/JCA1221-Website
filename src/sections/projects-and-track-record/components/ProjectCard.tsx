@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { ProjectCard as ProjectCardType, ProjectStatus } from '@/../product/sections/projects-and-track-record/types'
 import { MapPin, ArrowRight, CheckCircle2, Wrench, ClipboardCheck } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -26,6 +27,9 @@ interface ProjectCardItemProps {
 }
 
 export function ProjectCardItem({ project, onClick }: ProjectCardItemProps) {
+  const [imgError, setImgError] = useState(false)
+  const showImg = !!project.heroImage && !imgError
+
   return (
     <button
       onClick={onClick}
@@ -33,14 +37,16 @@ export function ProjectCardItem({ project, onClick }: ProjectCardItemProps) {
     >
       {/* Image area */}
       <div className="relative h-48 sm:h-56 bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-950 dark:to-slate-800 overflow-hidden">
-        {/* Lazy-loaded project photo */}
-        <img
-          src={project.heroImage}
-          alt={project.name}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        {showImg && (
+          <img
+            src={project.heroImage}
+            alt={project.name}
+            loading="lazy"
+            decoding="async"
+            onError={() => setImgError(true)}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
         {/* Gradient image placeholder */}
         <div className="absolute inset-0 opacity-30 dark:opacity-40 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-blue-600 to-blue-900 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-500" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent dark:from-slate-900/90 dark:via-slate-900/40" />

@@ -2,51 +2,73 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jca1221.com/</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://jca1221.com/about</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://jca1221.com/projects</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://jca1221.com/projects/puerto-princesa</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://jca1221.com/projects/gingoog</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://jca1221.com/projects/del-carmen</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://jca1221.com/technology</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://jca1221.com/team</loc>
+    <lastmod>2026-06-18</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://jca1221.com/news</loc>
+    <lastmod>2026-06-18</lastmod>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://jca1221.com/contact</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://jca1221.com/privacy</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>
     <loc>https://jca1221.com/terms</loc>
+    <lastmod>2026-06-18</lastmod>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>

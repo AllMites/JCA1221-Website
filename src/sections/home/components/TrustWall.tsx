@@ -15,8 +15,10 @@ interface TrustWallProps {
 }
 
 export function TrustWall({ partners }: TrustWallProps) {
-  // Certifications-only fallback when no partners
-  if (!partners || partners.length === 0) {
+  const partnersWithLogos = (partners ?? []).filter(p => !!p.logo)
+
+  // Certifications-only when no partners have real logo assets
+  if (partnersWithLogos.length === 0) {
     return (
       <section className="py-16 sm:py-24 bg-slate-50/50 dark:bg-slate-950/50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,7 +56,7 @@ export function TrustWall({ partners }: TrustWallProps) {
           {/* Partner logo grid — staggered reveal */}
           <ScrollReveal staggerChildren={0.05} viewportMargin="-40px 0px">
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
-              {partners.map((partner) => (
+              {partnersWithLogos.map((partner) => (
                 <RevealItem key={partner.id}>
                   <a
                     href={partner.website_url || undefined}
@@ -73,20 +75,14 @@ export function TrustWall({ partners }: TrustWallProps) {
                         hover:-translate-y-0.5
                         group"
                     >
-                      {partner.logo ? (
-                        <img
-                          src={partner.logo}
-                          alt={partner.name}
-                          loading="lazy"
-                          decoding="async"
-                          className="max-h-full max-w-full object-contain transition-all duration-500
-                            grayscale group-hover:grayscale-0"
-                        />
-                      ) : (
-                        <span className="text-xs font-medium text-slate-400 dark:text-slate-500 text-center group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
-                          {partner.name}
-                        </span>
-                      )}
+                      <img
+                        src={partner.logo!}
+                        alt={partner.name}
+                        loading="lazy"
+                        decoding="async"
+                        className="max-h-full max-w-full object-contain transition-all duration-500
+                          grayscale group-hover:grayscale-0"
+                      />
                     </div>
                   </a>
                 </RevealItem>

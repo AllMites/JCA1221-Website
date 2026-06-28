@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useCallback } from 'react'
+import { useMemo, useCallback } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { HomeView } from '@/sections/home/components/HomeView'
@@ -30,9 +31,6 @@ export function HomePage() {
 
   const loading = projectsLoading || contentLoading || impactLoading
 
-  useEffect(() => {
-    document.title = 'JCA 1221 Holdings — Environmental Infrastructure'
-  }, [])
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -76,10 +74,16 @@ export function HomePage() {
   )
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
+    <>
+      <PageSEO
+        title="JCA 1221 Holdings — Philippine Environmental Infrastructure"
+        description="Restoring Philippine coastal ecosystems through nature-mimicking water treatment, solid waste management, and public-private partnerships."
+        canonical="https://jca1221.com"
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
     >
       <ErrorBoundary>
         {loading ? (
@@ -98,5 +102,6 @@ export function HomePage() {
         )}
       </ErrorBoundary>
     </AppShell>
+    </>
   )
 }

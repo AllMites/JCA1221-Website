@@ -287,15 +287,15 @@ function MetricCard({ metric, color }: { metric: LiveMetric; color: string }) {
 
   return (
     <div className="flex-shrink-0 w-[300px] sm:w-[340px]">
-      <div className="h-full p-6 rounded-xl bg-white/10 border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.03)] hover:border-white/15 transition-all duration-300">
+      <div className="h-full p-6 rounded-xl bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-[0_4px_24px_rgba(0,0,0,0.1)] hover:border-slate-300 dark:hover:border-white/15 transition-all duration-300">
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
           {IconComponent && (
-            <GlassPill as="div" className="w-9 h-9 rounded-lg bg-slate-500/10 border border-white/10 flex items-center justify-center">
-              <IconComponent className="w-4 h-4 text-slate-300" />
+            <GlassPill as="div" className="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-500/10 border border-slate-200 dark:border-white/10 flex items-center justify-center">
+              <IconComponent className="w-4 h-4 text-slate-500 dark:text-slate-300" />
             </GlassPill>
           )}
-          <p className="text-xs font-mono uppercase tracking-wider text-slate-400 leading-tight flex-1">
+          <p className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 leading-tight flex-1">
             {metric.label}
           </p>
           {/* Live indicator */}
@@ -312,7 +312,7 @@ function MetricCard({ metric, color }: { metric: LiveMetric; color: string }) {
 
         {/* Value */}
         <div className="mb-1">
-          <span className="text-2xl sm:text-3xl font-heading font-bold text-white">
+          <span className="text-2xl sm:text-3xl font-heading font-bold text-slate-900 dark:text-white">
             <LiveCount
               metricId={metric.id}
               baseValue={metric.currentValue}
@@ -322,12 +322,12 @@ function MetricCard({ metric, color }: { metric: LiveMetric; color: string }) {
         </div>
 
         {/* Context */}
-        <p className="text-xs text-slate-400 leading-relaxed mb-5">
+        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-5">
           {metric.context}
         </p>
 
         {/* Chart area */}
-        <div className="w-full h-32 rounded-xl bg-slate-950/40 border border-white/5 p-2">
+        <div className="w-full h-32 rounded-xl bg-slate-100 dark:bg-slate-950/40 border border-slate-200 dark:border-white/5 p-2">
           {chart}
         </div>
       </div>
@@ -420,7 +420,7 @@ export function LiveDashboardSection({ liveMetrics }: LiveDashboardSectionProps)
   return (
     <section className="relative py-20 sm:py-28 overflow-hidden" aria-label="Live impact metrics dashboard">
       {/* Solid deep background */}
-      <div className="absolute inset-0 bg-slate-950" />
+      <div className="absolute inset-0 bg-slate-50 dark:bg-slate-950" />
 
 
       {/* Subtle grid texture */}
@@ -429,13 +429,13 @@ export function LiveDashboardSection({ liveMetrics }: LiveDashboardSectionProps)
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-12">
-          <p className="text-slate-400/80 text-sm font-mono tracking-widest uppercase mb-4">
+          <p className="text-slate-500 dark:text-slate-400/80 text-sm font-mono tracking-widest uppercase mb-4">
             Measurable Impact
           </p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white mb-4">
             {liveMetrics.title}
           </h2>
-          <div className="flex items-center justify-center gap-2 text-slate-400">
+          <div className="flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
             <span className="text-sm">
               {liveMetrics.subtitle} — since {liveMetrics.sinceDate}
@@ -446,8 +446,8 @@ export function LiveDashboardSection({ liveMetrics }: LiveDashboardSectionProps)
         {/* Auto-scrolling carousel */}
         <div className="relative" aria-live="polite">
           {/* Gradient fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-r from-transparent to-slate-950 z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-50 dark:from-slate-950 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-r from-transparent to-slate-50 dark:to-slate-950 z-10 pointer-events-none" />
 
           <AutoScrollCarousel metrics={liveMetrics.metrics} colors={metricColors} />
         </div>

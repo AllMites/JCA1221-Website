@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Mail, Linkedin, Quote } from 'lucide-react'
 import type { TeamMember } from '@/../product/sections/team/types'
 
@@ -8,6 +9,7 @@ interface TeamMemberCardProps {
 
 export function TeamMemberCard({ member, index }: TeamMemberCardProps) {
   const isEven = index % 2 === 0
+  const [photoError, setPhotoError] = useState(false)
 
   return (
     <div
@@ -20,12 +22,13 @@ export function TeamMemberCard({ member, index }: TeamMemberCardProps) {
         <div className="aspect-[3/4] md:aspect-auto md:h-full relative">
           {/* Gradient placeholder */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-slate-800/20 dark:from-blue-600/20 dark:via-blue-700/10 dark:to-slate-900" />
-          {/* Profile image — only render when photo exists */}
-          {member.photo && (
+          {/* Profile image — only render when photo exists and hasn't errored */}
+          {member.photo && !photoError && (
             <img
               src={member.photo}
               alt={member.name}
               loading="lazy"
+              onError={() => setPhotoError(true)}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
           )}
@@ -58,7 +61,7 @@ export function TeamMemberCard({ member, index }: TeamMemberCardProps) {
 
         {/* Quote */}
         {member.quote && (
-          <div className="mb-4 pl-4 border-l-2 border-amber-400/60 dark:border-amber-500/40">
+          <div className="mb-4 px-4 py-3 rounded-lg bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-700/30">
             <Quote size={14} className="text-amber-400 dark:text-amber-500 mb-1 opacity-50" />
             <p className="text-sm italic text-slate-500 dark:text-slate-400 leading-relaxed">
               "{member.quote}"

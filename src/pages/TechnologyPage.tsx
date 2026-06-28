@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { TechnologyView } from '@/sections/technology-and-approach/components/TechnologyView'
@@ -11,9 +11,6 @@ export function TechnologyPage() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    document.title = 'Technology & Approach — JCA 1221 Holdings'
-  }, [])
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -21,10 +18,16 @@ export function TechnologyPage() {
   }))
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
+    <>
+      <PageSEO
+        title="Technology & Approach — JCA 1221 Holdings"
+        description="Nature-mimicking water treatment, solid waste management, and coastal ecosystem restoration — the technology behind JCA 1221's environmental infrastructure projects."
+        canonical="https://jca1221.com/technology"
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
     >
       <ErrorBoundary>
         <TechnologyView
@@ -38,5 +41,6 @@ export function TechnologyPage() {
         />
       </ErrorBoundary>
     </AppShell>
+    </>
   )
 }

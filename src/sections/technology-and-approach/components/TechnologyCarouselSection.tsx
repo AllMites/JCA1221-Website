@@ -250,7 +250,7 @@ export function TechnologyCarouselSection({
       className="relative py-20 sm:py-28 overflow-hidden"
     >
       {/* Solid deep background */}
-      <div className="absolute inset-0 bg-slate-950" />
+      <div className="absolute inset-0 bg-white dark:bg-slate-950" />
 
       {/* Atmospheric cyan orbs */}
       <div className="absolute top-20 left-1/4 w-96 h-96 rounded-full bg-cyan-500/8 blur-[120px]" />
@@ -262,13 +262,13 @@ export function TechnologyCarouselSection({
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header — merged from ProcessFlowSection */}
         <div className="text-center mb-12">
-          <p className="text-cyan-300/80 text-sm font-mono tracking-widest uppercase mb-4">
+          <p className="text-cyan-700 dark:text-cyan-300/80 text-sm font-mono tracking-widest uppercase mb-4">
             {eyebrow}
           </p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white mb-4">
             {title}
           </h2>
-          <p className="text-cyan-100/60 max-w-xl mx-auto text-lg leading-relaxed">
+          <p className="text-slate-600 dark:text-cyan-100/60 max-w-xl mx-auto text-lg leading-relaxed">
             {subtitle}
           </p>
         </div>
@@ -288,6 +288,7 @@ export function TechnologyCarouselSection({
                       w-16 h-16 sm:w-20 sm:h-20 rounded-2xl
                       border-2 transition-all duration-300 cursor-pointer
                       snap-center flex-shrink-0
+                      bg-white/50 dark:bg-transparent
                       ${getGlowClass(i)}
                       ${resolvedIndex === i ? 'opacity-100 scale-100' : 'opacity-50 scale-95 hover:opacity-75'}
                     `}
@@ -300,11 +301,11 @@ export function TechnologyCarouselSection({
                     {IconComponent && (
                       <IconComponent
                         className={`w-6 h-6 sm:w-7 sm:h-7 ${
-                          resolvedIndex === i ? 'text-cyan-300' : 'text-slate-400'
+                          resolvedIndex === i ? 'text-cyan-600 dark:text-cyan-300' : 'text-slate-400 dark:text-slate-400'
                         }`}
                       />
                     )}
-                    <span className="text-[9px] sm:text-[10px] font-mono text-slate-400 leading-tight text-center px-1 hidden sm:block">
+                    <span className="text-[9px] sm:text-[10px] font-mono text-slate-500 dark:text-slate-400 leading-tight text-center px-1 hidden sm:block">
                       {step.label}
                     </span>
                   </button>
@@ -323,9 +324,9 @@ export function TechnologyCarouselSection({
         <div className="max-w-3xl mx-auto mb-6">
           <div
             className="relative aspect-video rounded-xl overflow-hidden
-                        bg-slate-900/80 backdrop-blur-sm
-                        border border-white/10
-                        shadow-[0_0_24px_rgba(6,182,212,0.15)]"
+                        bg-slate-100 dark:bg-slate-900/80 backdrop-blur-sm
+                        border border-slate-200 dark:border-white/10
+                        shadow-[0_0_24px_rgba(6,182,212,0.10)]"
           >
             <AnimatePresence mode="wait">
               {showVideo && (
@@ -414,10 +415,10 @@ export function TechnologyCarouselSection({
             exit={{ opacity: 0, y: -6 }}
             transition={fadeTransition}
           >
-            <h3 className="text-lg sm:text-xl font-heading font-semibold text-white mb-2">
+            <h3 className="text-lg sm:text-xl font-heading font-semibold text-slate-900 dark:text-white mb-2">
               {resolvedStep?.label}
             </h3>
-            <p className="text-sm text-cyan-100/50 leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-cyan-100/50 leading-relaxed">
               {resolvedStep?.description}
             </p>
           </motion.div>

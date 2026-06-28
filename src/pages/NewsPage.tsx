@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { NewsView } from '@/sections/news/components/NewsView'
@@ -12,9 +12,6 @@ export function NewsPage() {
   const navigate = useNavigate()
   const { articles, loading } = useNews()
 
-  useEffect(() => {
-    document.title = 'News — JCA 1221 Holdings'
-  }, [])
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -22,10 +19,16 @@ export function NewsPage() {
   }))
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
+    <>
+      <PageSEO
+        title="News — JCA 1221 Holdings"
+        description="Latest news, project updates, and announcements from JCA 1221 Holdings."
+        canonical="https://jca1221.com/news"
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
     >
       <ErrorBoundary>
         {loading ? (
@@ -39,5 +42,6 @@ export function NewsPage() {
         )}
       </ErrorBoundary>
     </AppShell>
+    </>
   )
 }

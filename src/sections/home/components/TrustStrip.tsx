@@ -39,7 +39,7 @@ function StatItem({ stat }: { stat: ImpactStat }) {
   return (
     <div ref={ref} className="text-center group cursor-default">
       <div
-        className="mb-1 font-bold font-heading text-3xl sm:text-4xl text-slate-900 dark:text-white tracking-tight tabular-nums"
+        className="mb-1 font-bold font-mono text-3xl sm:text-4xl text-slate-900 dark:text-white tracking-tight tabular-nums"
         role="status"
         aria-live="polite"
       >

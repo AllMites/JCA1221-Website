@@ -36,7 +36,7 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
       className="relative py-20 sm:py-28 overflow-hidden"
     >
       {/* Solid deep background */}
-      <div className="absolute inset-0 bg-slate-950" />
+      <div className="absolute inset-0 bg-white dark:bg-slate-950" />
 
 
       {/* Noise dither */}
@@ -45,13 +45,13 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-14">
-          <p className="text-blue-300/80 text-sm font-mono tracking-widest uppercase mb-4">
+          <p className="text-blue-600 dark:text-blue-300/80 text-sm font-mono tracking-widest uppercase mb-4">
             Core Technology
           </p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white mb-4">
             Four Pillars of Our Systems
           </h2>
-          <p className="text-blue-100/60 max-w-xl mx-auto text-lg leading-relaxed">
+          <p className="text-slate-600 dark:text-blue-100/60 max-w-xl mx-auto text-lg leading-relaxed">
             Modular, biological, and transparent — the same stack powers everything from 300k-person cities to small island communities.
           </p>
         </div>
@@ -71,19 +71,19 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
                 }}
               >
                 {/* Glass card with hover lift */}
-                <div className="h-full p-6 sm:p-8 rounded-xl bg-white/10 border border-white/10 hover:border-blue-400/25 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.03)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.10),0_0_0_1px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-1">
+                <div className="h-full p-6 sm:p-8 rounded-xl bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 hover:border-blue-400/50 dark:hover:border-blue-400/25 shadow-sm dark:shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-md dark:hover:shadow-[0_8px_40px_rgba(0,0,0,0.10)] transition-all duration-500 hover:-translate-y-1">
                   {/* Icon + title row */}
                   <div className="flex items-center gap-4 mb-4">
-                    <GlassPill as="div" className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/20 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
-                      {IconComponent && <IconComponent className="w-6 h-6 text-blue-300" />}
+                    <GlassPill as="div" className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-400/20 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.06)]">
+                      {IconComponent && <IconComponent className="w-6 h-6 text-blue-600 dark:text-blue-300" />}
                     </GlassPill>
-                    <h3 className="text-lg sm:text-xl font-heading font-bold text-white group-hover:text-blue-200 transition-colors duration-300">
+                    <h3 className="text-lg sm:text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-200 transition-colors duration-300">
                       {pillar.title}
                     </h3>
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-blue-100/50 leading-relaxed mb-5">
+                  <p className="text-sm text-slate-600 dark:text-blue-100/50 leading-relaxed mb-5">
                     {pillar.description}
                   </p>
 
@@ -92,7 +92,7 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
                     {pillar.tags.map((tag) => (
                       <GlassPill
                         key={tag}
-                        className="px-3 py-1 text-xs font-mono rounded-full bg-blue-500/10 border border-blue-400/15 text-blue-300/80"
+                        className="px-3 py-1 text-xs font-mono rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-400/15 text-blue-700 dark:text-blue-300/80"
                       >
                         {tag}
                       </GlassPill>

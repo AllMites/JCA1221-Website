@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { PageSEO } from '@/components/PageSEO'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
 import { LegalPageLayout } from '@/components/LegalPageLayout'
@@ -8,9 +8,6 @@ export function PrivacyPage() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    document.title = 'Privacy Policy — JCA 1221 Holdings'
-  }, [])
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -18,10 +15,17 @@ export function PrivacyPage() {
   }))
 
   return (
-    <AppShell
-      navigationItems={navItems}
-      onNavigate={(href) => navigate(href)}
-      onCtaClick={() => navigate('/contact')}
+    <>
+      <PageSEO
+        title="Privacy Policy — JCA 1221 Holdings"
+        description="Privacy Policy for the JCA 1221 Holdings website."
+        canonical="https://jca1221.com/privacy"
+        noIndex
+      />
+      <AppShell
+        navigationItems={navItems}
+        onNavigate={(href) => navigate(href)}
+        onCtaClick={() => navigate('/contact')}
     >
       <LegalPageLayout
         title="Privacy Policy"
@@ -157,8 +161,7 @@ export function PrivacyPage() {
         <ul>
           <li><strong>Data Protection Officer:</strong> Atty. Jehremiah Asis</li>
           <li><strong>Email:</strong> <a href="mailto:privacy@jca1221.com">privacy@jca1221.com</a></li>
-          <li><strong>Phone:</strong> +63 2 8123 4567</li>
-          <li><strong>Address:</strong> Unit 2808, 28th Floor, The Peak Tower, 107 Leviste Street, Salcedo Village, Makati City, Metro Manila 1227, Philippines</li>
+          <li><strong>Address:</strong> 4E PDCP Bank Center, Salcedo Village, V.A. Rufino St, Makati City, 1227 Metro Manila, Philippines</li>
         </ul>
 
         <p className="!mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-400 dark:text-slate-500">
@@ -168,5 +171,6 @@ export function PrivacyPage() {
         </p>
       </LegalPageLayout>
     </AppShell>
+    </>
   )
 }

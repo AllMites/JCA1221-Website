@@ -52,6 +52,14 @@ export function useNews() {
   return { articles, loading, error, reload: load }
 }
 
+function isPlaceholderProject(p: Project): boolean {
+  const name = (p.name ?? '').trim().toLowerCase()
+  const slug = (p.slug ?? '').trim().toLowerCase()
+  if (!name) return true
+  if (name === 'test project' || name === 'test' || slug === 'test') return true
+  return false
+}
+
 // ── Projects ──
 export function useProjects() {
   const [projects, setProjects] = useState<Project[]>([])
@@ -62,7 +70,7 @@ export function useProjects() {
     setLoading(true)
     try {
       const data = await fetchPublished<Project>('projects', 'order')
-      setProjects(data)
+      setProjects(data.filter(p => !isPlaceholderProject(p)))
     } catch (e) {
       setError((e as Error).message)
     } finally {

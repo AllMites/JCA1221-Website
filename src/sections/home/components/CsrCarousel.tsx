@@ -14,7 +14,11 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [imgErrors, setImgErrors] = useState<Set<string>>(() => new Set())
   const reducedMotion = useReducedMotion()
+  const handleImgError = useCallback((id: string) => {
+    setImgErrors(prev => { const s = new Set(prev); s.add(id); return s })
+  }, [])
   const AUTO_ADVANCE_MS = 5000
 
   const totalCards = projects.length + 1 // +1 for end hint card
@@ -42,7 +46,7 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
   if (!projects || projects.length === 0) return null
 
   return (
-    <section className="relative py-20 overflow-hidden bg-white dark:bg-slate-950">
+    <section className="relative py-20 overflow-clip bg-white dark:bg-slate-950">
       <ShaderBackground variant="light" opacity={0.3} />
 
       {/* Section header */}
@@ -85,7 +89,7 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
         ref={scrollRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="relative z-10 overflow-x-auto overscroll-x-contain pb-2"
+        className="relative z-10 w-full overflow-x-auto overscroll-x-contain pb-2"
       >
         <div
           className="flex gap-5 px-4 sm:px-6 lg:px-8 pb-4 snap-x snap-mandatory"
@@ -105,12 +109,13 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
               >
                 {/* Hero image */}
                 <div className="relative h-44 bg-gradient-to-br from-lime-100 to-slate-200 dark:from-lime-950 dark:to-slate-800 overflow-hidden">
-                  {csr.hero_image ? (
+                  {csr.hero_image && !imgErrors.has(csr.id) ? (
                     <img
                       src={csr.hero_image}
                       alt={csr.name}
                       loading="lazy"
                       decoding="async"
+                      onError={() => handleImgError(csr.id)}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   ) : (
@@ -167,7 +172,7 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
                     <div className="flex gap-5 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                       {stats.slice(0, 2).map((s, i) => (
                         <div key={i}>
-                          <p className="text-base font-bold font-heading text-slate-700 dark:text-slate-300">
+                          <p className="text-base font-bold font-mono text-slate-700 dark:text-slate-300">
                             {s.value}
                           </p>
                           <p className="text-[10px] text-slate-400 uppercase tracking-wider">
