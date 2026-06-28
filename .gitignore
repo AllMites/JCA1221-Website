@@ -30,3 +30,17 @@ npm-debug.log*
 
 # Verification screenshots
 verify-*.png
+
+# Local Netlify folder
+.netlify
+
+# Obsidian graph output
+graphify-out/
+
+# Screenshots / mockup exports in root (stay in design tool, not repo)
+/*.png
+/*.jpeg
+/*.jpg
+
+# Project docs tooling
+.impeccable/
