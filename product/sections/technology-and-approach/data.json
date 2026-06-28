@@ -16,7 +16,7 @@
     ]
   },
   "sectionTitle": "How It Works",
-  "sectionSubtitle": "Nature-mimicking technology that cleans water affordably, reliably, and at any scale.",
+  "sectionSubtitle": "Nature-mimicking technology that treats water without the cost and footprint of conventional plants.",
   "carousel": {
     "eyebrow": "From Waste to Resource",
     "videoHoldDuration": 5000,
@@ -31,7 +31,7 @@
       {
         "id": "biological",
         "label": "Biological Treatment",
-        "description": "In the Sequential Batch Reactor, naturally occurring microorganisms consume organic pollutants. This is the same nitrogen cycle found in healthy rivers and aquariums — just optimized for scale.",
+        "description": "In the Sequential Batch Reactor, naturally occurring microorganisms consume organic pollutants. The same nitrogen cycle that keeps rivers and aquariums healthy \u2014 engineered for city scale.",
         "iconName": "Microscope",
         "videoSrc": ""
       },
@@ -69,7 +69,7 @@
       "step": 2,
       "title": "Biological Treatment",
       "icon": "Microscope",
-      "description": "In the Sequential Batch Reactor, naturally occurring microorganisms consume organic pollutants. This is the same nitrogen cycle found in healthy rivers and aquariums — just optimized for scale."
+      "description": "In the Sequential Batch Reactor, naturally occurring microorganisms consume organic pollutants. The same nitrogen cycle that keeps rivers and aquariums healthy \u2014 engineered for city scale."
     },
     {
       "step": 3,
@@ -137,7 +137,7 @@
       "id": "biological",
       "title": "Biological Nutrient Removal",
       "icon": "Microscope",
-      "description": "Our systems use naturally occurring bacteria to break down pollutants — the same nitrogen cycle that keeps rivers and aquariums healthy. No harsh chemicals. No toxic byproducts. Just biology, guided by engineering.",
+      "description": "Bacteria break down pollutants — the same nitrogen cycle that keeps rivers and aquariums healthy. No chemicals. No toxic byproducts. Biology guided by engineering.",
       "tags": ["SBR Technology", "Aerobic & Anoxic Cycles", "Natural Microorganisms", "Zero Chemical Odor"]
     },
     {
