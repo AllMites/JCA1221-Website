@@ -7,7 +7,16 @@ import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { PageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
 import { useProjects, useCsrProjects } from '@/hooks/use-content'
-import type { ProjectCard, PortfolioSummary, ProjectStatus, ProjectKeyMetric } from '@/../product/sections/projects-and-track-record/types'
+import type { ProjectCard, PortfolioSummary, ProjectStatus, ProjectKeyMetric, ProjectSector } from '@/../product/sections/projects-and-track-record/types'
+
+function deriveSector(p: { name: string; technology?: { tags?: string[] } | null }): ProjectSector | undefined {
+  const tags = p.technology?.tags ?? []
+  const tagStr = tags.join(' ').toLowerCase()
+  const name = p.name.toLowerCase()
+  if (tagStr.includes('solid waste') || tagStr.includes('pyrolysis') || tagStr.includes('waste-to-energy') || name.includes('solid waste')) return 'solid_waste'
+  if (tagStr.includes('coastal') && !tagStr.includes('wastewater') && !tagStr.includes('sewage') && !tagStr.includes('septage')) return 'coastal'
+  return 'water'
+}
 
 export function ProjectsPage() {
   const location = useLocation()
@@ -28,6 +37,8 @@ export function ProjectsPage() {
     name: p.name,
     location: p.location,
     status: p.status as ProjectStatus,
+    sector: deriveSector(p),
+    yearStarted: p.year_started,
     heroImage: p.hero_image ?? '',
     shortDescription: p.short_description,
     keyMetric: ((p.stats && p.stats[0]) ? p.stats[0] : { label: '', value: '' }) as ProjectKeyMetric,

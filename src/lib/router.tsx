@@ -39,6 +39,9 @@ const TeamPage = lazy(() =>
 const NewsPage = lazy(() =>
   import('@/pages/NewsPage').then((m) => ({ default: m.NewsPage })),
 )
+const HelpPage = lazy(() =>
+  import('@/pages/HelpPage').then((m) => ({ default: m.HelpPage })),
+)
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 )
@@ -127,6 +130,7 @@ export const router = createBrowserRouter([
       { path: '/contact', element: <ContactPage /> },
       { path: '/team', element: <TeamPage /> },
       { path: '/news', element: <NewsPage /> },
+      { path: '/help', element: <HelpPage /> },
       { path: '/privacy', element: <PrivacyPage /> },
       { path: '/terms', element: <TermsPage /> },
 

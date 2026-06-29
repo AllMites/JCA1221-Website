@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import './index.css'
 import { router } from '@/lib/router'
 import { AuthProvider } from '@/hooks/use-auth'
+import { NetworkStatus } from '@/components/NetworkStatus'
 
 // No liquidGL elements currently active.
 // Import { initLiquidGL } from '@/components/LiquidGlass' when needed
@@ -15,6 +16,7 @@ const boot = () => {
     <StrictMode>
       <HelmetProvider>
         <AuthProvider>
+          <NetworkStatus />
           <RouterProvider router={router} />
         </AuthProvider>
       </HelmetProvider>

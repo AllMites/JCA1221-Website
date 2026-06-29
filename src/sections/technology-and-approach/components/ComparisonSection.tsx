@@ -1,10 +1,60 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, type ReactNode } from 'react'
 import { Check, X } from 'lucide-react'
 import type { Comparison } from '@/../product/sections/technology-and-approach/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
+import { Tooltip } from '@/components/Tooltip'
 
 interface ComparisonSectionProps {
   comparison: Comparison
+}
+
+/** Wrap known technical terms in text with Tooltip spans */
+function renderWithTooltips(text: string): ReactNode[] {
+  const terms: Record<string, string> = {
+    PPP: 'Public-Private Partnership — a contractual arrangement between government and private sector for infrastructure projects under the Philippine BOT Law.',
+    'public-private partnership': 'Public-Private Partnership — a contractual arrangement between government and private sector for infrastructure projects under the Philippine BOT Law.',
+    biological: 'Biological treatment uses naturally occurring microorganisms — not chemicals — to break down organic pollutants in wastewater.',
+    modular: 'Modular design uses prefabricated treatment units that can be deployed in phases, allowing communities to start small and scale as they grow.',
+    IoT: 'Internet of Things — a network of sensors and devices that stream real-time data to the cloud for remote monitoring and diagnostics.',
+    effluent: 'Effluent is treated wastewater discharged from a treatment facility — our systems achieve quality that meets or exceeds DENR standards.',
+    BOD: 'Biochemical Oxygen Demand — a measure of organic pollution in water. Lower BOD means cleaner water. Our systems achieve over 90% BOD reduction.',
+    'constructed wetland': 'Constructed wetlands are engineered ecosystems that use plants, soil, and microbes to treat wastewater naturally — requiring minimal energy and no chemicals.',
+  }
+
+  const result: ReactNode[] = []
+  let remaining = text
+
+  // Sort terms by length (longest first) to avoid partial matches
+  const sortedTerms = Object.entries(terms).sort((a, b) => b[0].length - a[0].length)
+
+  while (remaining.length > 0) {
+    let matched = false
+    for (const [term, tooltip] of sortedTerms) {
+      const idx = remaining.toLowerCase().indexOf(term.toLowerCase())
+      if (idx !== -1) {
+        // Push text before the match
+        if (idx > 0) {
+          result.push(remaining.slice(0, idx))
+        }
+        // Push the tooltip-wrapped term
+        result.push(
+          <Tooltip key={`${term}-${idx}`} content={tooltip}>
+            {remaining.slice(idx, idx + term.length)}
+          </Tooltip>,
+        )
+        remaining = remaining.slice(idx + term.length)
+        matched = true
+        break
+      }
+    }
+    if (!matched) {
+      // No more terms matched — push remaining text and break
+      result.push(remaining)
+      break
+    }
+  }
+
+  return result
 }
 
 export function ComparisonSection({ comparison }: ComparisonSectionProps) {
@@ -97,7 +147,7 @@ export function ComparisonSection({ comparison }: ComparisonSectionProps) {
                     </div>
                   </div>
                   <p className="text-sm text-blue-900/80 dark:text-blue-100/70 leading-relaxed">
-                    {point.jca}
+                    {renderWithTooltips(point.jca)}
                   </p>
                 </div>
 
@@ -109,7 +159,7 @@ export function ComparisonSection({ comparison }: ComparisonSectionProps) {
                     </div>
                   </div>
                   <p className="text-sm text-slate-500 dark:text-slate-300/50 leading-relaxed">
-                    {point.traditional}
+                    {renderWithTooltips(point.traditional)}
                   </p>
                 </div>
               </div>

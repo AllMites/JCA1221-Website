@@ -1,8 +1,9 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, type ReactNode } from 'react'
 import * as Icons from 'lucide-react'
 import type { TechnologyPillar } from '@/../product/sections/technology-and-approach/types'
 import { ShaderBackground } from '@/components/ShaderBackground'
 import { GlassPill } from '@/components/GlassPill'
+import { Tooltip } from '@/components/Tooltip'
 
 interface TechnologyGridSectionProps {
   pillars: TechnologyPillar[]
@@ -13,6 +14,53 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Blocks: Icons.Blocks,
   Zap: Icons.Zap,
   Globe: Icons.Globe,
+}
+
+/** Wrap known technical terms in text with Tooltip spans */
+function renderWithTooltips(text: string): ReactNode[] {
+  const terms: Record<string, string> = {
+    BOD: 'Biochemical Oxygen Demand — a measure of organic pollution in water. Lower BOD means cleaner water.',
+    'constructed wetland': 'Constructed wetlands are engineered ecosystems that use plants, soil, and microbes to treat wastewater naturally.',
+    effluent: 'Effluent is treated wastewater discharged from a treatment facility.',
+    IoT: 'Internet of Things — sensors streaming real-time data to the cloud for remote monitoring.',
+    'Sequential Batch Reactor': 'A fill-and-draw activated sludge treatment system where wastewater is treated in batches using naturally occurring microorganisms.',
+    SBR: 'Sequential Batch Reactor — a biological wastewater treatment process using naturally occurring microorganisms in timed batch cycles.',
+    modular: 'Modular design uses prefabricated units deployed in phases — start small, scale with demand.',
+    PPP: 'Public-Private Partnership — a contractual arrangement between government and private sector for infrastructure projects.',
+    'Biological Nutrient Removal': 'A wastewater treatment process where bacteria remove nitrogen and phosphorus — the same cycles that keep rivers and aquariums healthy.',
+    'solar-assisted': 'Solar panels integrated into facility operations to reduce grid energy consumption and carbon footprint.',
+  }
+
+  const result: ReactNode[] = []
+  let remaining = text
+
+  const sortedTerms = Object.entries(terms).sort((a, b) => b[0].length - a[0].length)
+
+  while (remaining.length > 0) {
+    let matched = false
+    for (const [term, tooltip] of sortedTerms) {
+      const idx = remaining.toLowerCase().indexOf(term.toLowerCase())
+      if (idx !== -1) {
+        if (idx > 0) {
+          result.push(remaining.slice(0, idx))
+        }
+        result.push(
+          <Tooltip key={`${term}-${idx}`} content={tooltip}>
+            {remaining.slice(idx, idx + term.length)}
+          </Tooltip>,
+        )
+        remaining = remaining.slice(idx + term.length)
+        matched = true
+        break
+      }
+    }
+    if (!matched) {
+      result.push(remaining)
+      break
+    }
+  }
+
+  return result
 }
 
 export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
@@ -84,7 +132,7 @@ export function TechnologyGridSection({ pillars }: TechnologyGridSectionProps) {
 
                   {/* Description */}
                   <p className="text-sm text-slate-600 dark:text-blue-100/50 leading-relaxed mb-5">
-                    {pillar.description}
+                    {renderWithTooltips(pillar.description)}
                   </p>
 
                   {/* Technology tags with liquid glass */}

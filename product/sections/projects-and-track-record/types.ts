@@ -50,6 +50,8 @@ export interface ProjectKeyMetric {
   value: string
 }
 
+export type ProjectSector = 'water' | 'solid_waste' | 'coastal'
+
 export interface ProjectCard {
   /** Unique project identifier */
   id: string
@@ -61,6 +63,10 @@ export interface ProjectCard {
   location: string
   /** Current project status */
   status: ProjectStatus
+  /** Project sector category */
+  sector?: ProjectSector
+  /** Year project started (for sorting) */
+  yearStarted?: number | null
   /** Path to card thumbnail image */
   heroImage: string
   /** One-line project summary for the card */

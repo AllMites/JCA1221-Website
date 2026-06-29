@@ -235,6 +235,66 @@ html.dark {
   }
 }
 
+/* Print styles for capability statement download */
+@media print {
+  /* Hide nav, footer decorations, and interactive elements */
+  header, .skip-to-content, footer, .no-print,
+  button:not(.print\:block button), [role="tooltip"],
+  .CookieConsent, .sticky {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  .print\:block {
+    display: block !important;
+  }
+
+  /* Reset backgrounds and shadows for clean print */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  /* Ensure text contrast for print */
+  h1, h2, h3, h4, h5, h6 {
+    color: #0f172a !important;
+    page-break-after: avoid;
+  }
+
+  p, li, span {
+    color: #1e293b !important;
+  }
+
+  /* Card-like elements: remove glass effects, keep structure */
+  .rounded-xl, .rounded-lg {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+    background: white !important;
+    break-inside: avoid;
+  }
+
+  /* FAQ accordion: expand all for print */
+  .grid-rows-\\[0fr\\] {
+    grid-template-rows: 1fr !important;
+  }
+
+  .grid-rows-\\[0fr\\] .overflow-hidden {
+    overflow: visible !important;
+  }
+
+  /* Remove animations */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  @page {
+    margin: 1.5cm;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .motion-safe-auto-scroll {
     /* Auto-scroll animation enabled — respects user motion preference */
@@ -280,5 +340,88 @@ html.dark {
     to {
       height: 0;
     }
+  }
+}
+
+/* ─── Print styles — clean project detail pages ─── */
+@media print {
+  /* Hide navigation, footer, and interactive elements */
+  header, footer, nav, .skip-to-content,
+  button:not(.print-keep), [role="banner"],
+  .cookie-consent, .back-to-top, .no-print {
+    display: none !important;
+  }
+
+  /* Remove backgrounds and shadows for clean output */
+  *, *::before, *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: #000 !important;
+  }
+
+  /* Ensure images fit page width */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Keep section spacing compact */
+  section {
+    padding: 1rem 0 !important;
+    page-break-inside: avoid;
+  }
+
+  /* Card borders visible in print */
+  .rounded-xl, [class*="rounded-"] {
+    border: 1px solid #ccc !important;
+  }
+
+  /* Force background colors on status capsules for print contrast */
+  .bg-emerald-500\\/90, .bg-emerald-500\\/20,
+  [class*="bg-emerald-"] {
+    background-color: #059669 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .bg-amber-500\\/90, .bg-amber-500\\/20,
+  [class*="bg-amber-"] {
+    background-color: #d97706 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .bg-blue-500\\/90, .bg-blue-500\\/20,
+  [class*="bg-blue-"] {
+    background-color: #2563eb !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Print-only header with project name */
+  .print-header {
+    display: block !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #000;
+  }
+
+  /* Ensure links show their URL */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75rem;
+    color: #555 !important;
+  }
+
+  /* But don't show fragment links or javascript */
+  a[href^="#"]::after,
+  a[href^="javascript"]::after {
+    content: none;
   }
 }

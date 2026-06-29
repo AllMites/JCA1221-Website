@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { ProjectDetailProps, ProjectStatus } from '@/../product/sections/projects-and-track-record/types'
-import { MapPin, ArrowLeft, Trophy, Users, Building2, Calendar, Leaf, Zap, Award, CheckCircle2, Wrench, ClipboardCheck } from 'lucide-react'
+import { MapPin, ArrowLeft, Trophy, Users, Building2, Calendar, Leaf, Zap, Award, CheckCircle2, Wrench, ClipboardCheck, Printer } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
@@ -68,16 +68,27 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
 
         {/* Content */}
         <div className="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-12 sm:pb-16">
-          {/* Back button */}
-          {onBack && (
+          {/* Back button + Download PDF */}
+          <div className="flex items-center justify-between mb-6">
+            {onBack && (
+              <button
+                onClick={onBack}
+                className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors font-heading font-medium"
+              >
+                <ArrowLeft size={16} />
+                Back to Projects
+              </button>
+            )}
+            {/* Download as PDF — outline button that triggers browser print */}
             <button
-              onClick={onBack}
-              className="mb-6 inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors font-heading font-medium"
+              onClick={() => window.print()}
+              className="no-print print-keep inline-flex items-center gap-2 px-4 py-2 text-sm font-medium font-heading rounded-full border border-white/30 text-slate-200 hover:text-white hover:border-white/50 bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200"
+              title="Download as PDF (Ctrl+P)"
             >
-              <ArrowLeft size={16} />
-              Back to Projects
+              <Printer size={16} />
+              Download PDF
             </button>
-          )}
+          </div>
 
           {/* Status capsule — full colored pill like news type badges */}
           <div className="mb-4">

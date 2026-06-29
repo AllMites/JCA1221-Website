@@ -35,6 +35,7 @@ export function ContactForm({
   const [showDetailed, setShowDetailed] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
   const scrollTarget = useRef<HTMLDivElement>(null)
 
   // ── Spam protection ──────────────────────────────────────────────────────
@@ -43,6 +44,18 @@ export function ContactForm({
   const [honeypot, setHoneypot] = useState('')
   const HONEYPOT_MIN_SECONDS = 3 // reject if form filled faster than this
   const COOLDOWN_SECONDS = 30 // minimum seconds between submissions
+
+  // ── Form state preservation: save form data so it survives re-renders on error ──
+  const savedFormRef = useRef<ContactFormData>(formData)
+  // Keep ref in sync with state on every change
+  savedFormRef.current = formData
+
+  // ── Character limits ──────────────────────────────────────────────────────
+  const MESSAGE_MAX_LENGTH = 500
+
+  // ── Philippine phone regex ───────────────────────────────────────────────
+  // Matches +63, 63, or 0 prefix, then 9XX XXX XXXX or similar
+  const PH_PHONE_REGEX = /^(\+63|63|0)[\s-]?9\d{2}[\s-]?\d{3}[\s-]?\d{4}$/
 
   const validate = (): boolean => {
     const errs: FormErrors = {}
@@ -58,6 +71,16 @@ export function ContactForm({
     } else if (formData.message.trim().length < 20) {
       errs.message = 'Please provide at least 20 characters'
     }
+    // ── Phone validation (Philippine) ─────────────────────────────────────
+    if (formData.phone && formData.phone.trim()) {
+      if (!PH_PHONE_REGEX.test(formData.phone.trim())) {
+        errs.phone = 'Enter a valid PH number (e.g. +639171234567 or 09171234567)'
+      }
+    }
+    // ── Message length ────────────────────────────────────────────────────
+    if (formData.message.length > MESSAGE_MAX_LENGTH) {
+      errs.message = `Message must be ${MESSAGE_MAX_LENGTH} characters or fewer`
+    }
     setErrors(errs)
     return Object.keys(errs).length === 0
   }
@@ -66,7 +89,9 @@ export function ContactForm({
     field: keyof ContactFormData,
     value: string
   ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    // Enforce max length on message field
+    const sanitized = field === 'message' ? value.slice(0, MESSAGE_MAX_LENGTH) : value
+    setFormData((prev) => ({ ...prev, [field]: sanitized }))
     if (errors[field]) {
       setErrors((prev) => {
         const next = { ...prev }
@@ -107,6 +132,12 @@ export function ContactForm({
 
     if (!validate()) return
 
+    // ── Confirmation dialog ───────────────────────────────────────────────
+    setShowConfirm(true)
+  }
+
+  const confirmSubmit = () => {
+    setShowConfirm(false)
     lastSubmit.current = Date.now()
     setSubmitting(true)
     // Simulate brief submission delay
@@ -119,6 +150,10 @@ export function ContactForm({
         onSubmitBasic?.(formData)
       }
     }, 800)
+  }
+
+  const cancelSubmit = () => {
+    setShowConfirm(false)
   }
 
   const handleToggleDetailed = () => {
@@ -172,15 +207,28 @@ export function ContactForm({
       : 'border-slate-200 dark:border-white/10 focus:border-blue-400/50 focus:shadow-[0_0_0_1px_rgba(0,0,0,0.2)] hover:border-slate-300 dark:hover:border-white/15'
 
     if (field.type === 'textarea') {
+      const isMessage = field.name === 'message'
       return (
-        <textarea
-          name={field.name}
-          placeholder={field.placeholder}
-          value={value}
-          onChange={(e) => handleChange(fieldName, e.target.value)}
-          rows={4}
-          className={`${baseClasses} ${stateClasses} resize-none`}
-        />
+        <div>
+          <textarea
+            name={field.name}
+            placeholder={field.placeholder}
+            value={value}
+            onChange={(e) => handleChange(fieldName, e.target.value)}
+            rows={4}
+            maxLength={isMessage ? MESSAGE_MAX_LENGTH : undefined}
+            className={`${baseClasses} ${stateClasses} resize-none`}
+          />
+          {isMessage && (
+            <p className={`text-right text-xs mt-1 font-mono ${
+              value.length > MESSAGE_MAX_LENGTH * 0.9
+                ? 'text-amber-500 dark:text-amber-400'
+                : 'text-slate-400 dark:text-slate-500'
+            }`}>
+              {value.length}/{MESSAGE_MAX_LENGTH}
+            </p>
+          )}
+        </div>
       )
     }
 
@@ -348,6 +396,36 @@ export function ContactForm({
             )}
           </button>
         </div>
+
+        {/* ── Confirmation modal ─────────────────────────────────────────── */}
+        {showConfirm && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <div className="mx-4 w-full max-w-sm rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.2)] p-6">
+              <h4 className="text-lg font-heading font-semibold text-slate-900 dark:text-white mb-2">
+                Confirm Submission
+              </h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                You are about to send this to JCA1221 Holdings. Proceed?
+              </p>
+              <div className="flex gap-3 justify-end">
+                <button
+                  type="button"
+                  onClick={cancelSubmit}
+                  className="px-4 py-2 text-sm font-medium rounded-full text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmSubmit}
+                  className="px-4 py-2 text-sm font-medium rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 border border-white/20 transition-all"
+                >
+                  Send Inquiry
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </form>
   )

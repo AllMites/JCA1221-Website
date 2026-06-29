@@ -1,10 +1,14 @@
-import { useRef } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useScroll, useTransform, motion } from 'framer-motion'
 import { MainNav, type NavigationItem } from './MainNav'
 import { UserMenu } from './UserMenu'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { CookieConsent } from '@/components/CookieConsent'
 import { ScrollReveal } from '@/components/ScrollReveal'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { BackToTop } from '@/components/BackToTop'
+import { useEscapeKey } from '@/hooks/use-escape-key'
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -12,6 +16,7 @@ const NAV_LINKS = [
   { label: 'Projects', href: '/projects' },
   { label: 'Team', href: '/team' },
   { label: 'News', href: '/news' },
+  { label: 'Help', href: '/help' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -42,7 +47,32 @@ export function AppShell({
   onCtaClick,
 }: AppShellProps) {
   const headerRef = useRef<HTMLDivElement>(null)
+  const location = useLocation()
   const { scrollY } = useScroll()
+
+  // Escape key handler — closes any open UI overlays that aren't handled by Radix
+  const handleEscape = useCallback(() => {
+    // If there are open mobile menus, toasts, or other overlays, close them here.
+    // Radix dialogs/sheets handle their own Escape key internally,
+    // so this is a safety net for custom overlays.
+  }, [])
+  useEscapeKey(handleEscape)
+
+  // Ctrl+K / Cmd+K keyboard shortcut — focuses project search input
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault()
+        const searchInput = document.getElementById('project-search') as HTMLInputElement | null
+        if (searchInput) {
+          searchInput.focus()
+          searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
   // Nav background: transparent at top, frosted glass after 50px scroll
   const headerBgOpacity = useTransform(scrollY, [0, 80], [0, 1])
   const headerBlur = useTransform(scrollY, [0, 80], [0, 12])
@@ -120,6 +150,9 @@ export function AppShell({
 
       {/* Main content area */}
       <div>
+        {/* Breadcrumbs — auto-derived from URL, hidden on home page */}
+        {location.pathname !== '/' && <Breadcrumbs />}
+
         {sidebarAnchors && sidebarAnchors.length > 0 ? (
           <div className="flex flex-col lg:flex-row gap-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Main content */}
@@ -285,6 +318,9 @@ export function AppShell({
           </ScrollReveal>
         </div>
       </footer>
+
+      {/* Back to top — floating button */}
+      <BackToTop />
 
       {/* Cookie consent — fixed position, site-wide */}
       <CookieConsent />

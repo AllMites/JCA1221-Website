@@ -48,7 +48,7 @@ export function FinalCta({ contactInfo }: FinalCtaProps) {
     } catch (err) {
       setState('error')
       setErrorMessage(
-        err instanceof Error ? err.message : 'Something went wrong. Please try again.',
+        err instanceof Error ? err.message : 'Unable to submit your inquiry. Please check your connection and try again.',
       )
     }
   }
