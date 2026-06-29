@@ -28,14 +28,6 @@ const SECTION_BG: Record<SectionColor, string> = {
     'bg-gradient-to-b from-slate-100 via-slate-50/60 to-white dark:from-slate-900 dark:via-slate-950 dark:to-black',
 }
 
-// Section top accent line
-const SECTION_LINE: Record<SectionColor, string> = {
-  amber: 'from-transparent via-amber-400/40 dark:via-amber-600/30 to-transparent',
-  emerald: 'from-transparent via-emerald-400/40 dark:via-emerald-600/30 to-transparent',
-  blue: 'from-transparent via-blue-400/40 dark:via-blue-600/30 to-transparent',
-  slate: 'from-transparent via-amber-400/30 dark:via-amber-600/20 to-transparent',
-}
-
 // Glass card tint based on pillar's glassTint
 const GLASS_TINT: Record<GlassTint, string> = {
   amber: 'bg-amber-50/50 dark:bg-amber-900/20 border-amber-200/30 dark:border-amber-700/20',
@@ -47,7 +39,7 @@ const GLASS_TINT: Record<GlassTint, string> = {
 const GLASS_SHADOW: Record<GlassTint, string> = {
   amber: 'shadow-[0_4px_24px_rgba(245,158,11,0.06)] dark:shadow-[0_4px_24px_rgba(245,158,11,0.04)]',
   emerald: 'shadow-[0_4px_24px_rgba(16,185,129,0.06)] dark:shadow-[0_4px_24px_rgba(16,185,129,0.04)]',
-  blue: 'shadow-[0_4px_24px_rgba(59,130,246,0.08)] dark:shadow-[0_4px_24px_rgba(59,130,246,0.04)]',
+  blue: 'shadow-[0_4px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.04)]',
 }
 
 // Icon container tint
@@ -71,9 +63,6 @@ export function ValuePillarSection({ pillar, index }: ValuePillarSectionProps) {
 
   return (
     <section className={`relative py-20 sm:py-28 overflow-hidden ${SECTION_BG[pillar.sectionColor]}`}>
-      {/* Top accent line */}
-      <div className={`absolute top-0 left-0 right-0 h-px bg-gradient-to-r ${SECTION_LINE[pillar.sectionColor]} opacity-0`} style={{ opacity: 1 }} />
-
       <ShaderBackground variant={SECTION_SHADER[pillar.sectionColor]} opacity={0.4} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,10 +70,10 @@ export function ValuePillarSection({ pillar, index }: ValuePillarSectionProps) {
           {/* Left/Right: Pillar header — glass card */}
           <div className="lg:w-[380px] shrink-0">
             <div
-              className={`sticky top-28 rounded-2xl backdrop-blur-xl border border-white/20 dark:border-white/10 ${GLASS_SHADOW[pillar.glassTint]} ${GLASS_TINT[pillar.glassTint]} p-8 transition-all duration-500`}
+              className={`sticky top-28 rounded-xl border border-white/20 dark:border-white/10 ${GLASS_SHADOW[pillar.glassTint]} ${GLASS_TINT[pillar.glassTint]} p-8 transition-all duration-500`}
             >
               {/* Icon */}
-              <div className={`mb-5 w-14 h-14 rounded-2xl flex items-center justify-center shadow-[inset_1px_1px_3px_rgba(255,255,255,0.5),inset_-1px_-1px_2px_rgba(0,0,0,0.04)] ${ICON_TINT[pillar.glassTint]}`}>
+              <div className={`mb-5 w-14 h-14 rounded-xl flex items-center justify-center shadow-[inset_1px_1px_3px_rgba(255,255,255,0.5),inset_-1px_-1px_2px_rgba(0,0,0,0.04)] ${ICON_TINT[pillar.glassTint]}`}>
                 <IconComponent size={26} />
               </div>
 
@@ -105,7 +94,7 @@ export function ValuePillarSection({ pillar, index }: ValuePillarSectionProps) {
             {pillar.subPoints.map((point) => (
               <div
                 key={point.title}
-                className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all duration-300 p-6 sm:p-8"
+                className="rounded-xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all duration-300 p-6 sm:p-8"
               >
                 <h3 className="font-bold font-heading text-base text-slate-900 dark:text-white mb-2">
                   {point.title}
