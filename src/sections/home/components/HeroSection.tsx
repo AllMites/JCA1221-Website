@@ -256,7 +256,7 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
 
         {/* Description */}
         <p
-          className={`text-lg sm:text-xl ${wordAccent.text}/90 max-w-2xl mx-auto leading-relaxed mb-12 animate-fade-in-up transition-colors duration-500 [text-shadow:0_2px_12px_rgba(0,0,0,0.7),0_1px_3px_rgba(0,0,0,0.5)]`}
+          className={`text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed mb-12 animate-fade-in-up [text-shadow:0_2px_12px_rgba(0,0,0,0.7),0_1px_3px_rgba(0,0,0,0.5)]`}
           style={{ animationDelay: '450ms' }}
         >
           {hero.description}
