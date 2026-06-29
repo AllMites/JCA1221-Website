@@ -31,7 +31,7 @@ export function AppShell({
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-body">
       {/* Top navigation bar — glass panel */}
       <header
-        className="sticky top-0 z-50 bg-white/60 dark:bg-slate-950/60 backdrop-blur-xl border-b border-white/20 dark:border-white/10 shadow-[0_4px_24px_rgba(59,130,246,0.06)] dark:shadow-[0_4px_24px_rgba(59,130,246,0.04)]"
+        className="sticky top-0 z-50 bg-white/60 dark:bg-slate-950/60 backdrop-blur-md border-b border-white/20 dark:border-white/10 shadow-[0_4px_24px_rgba(59,130,246,0.06)] dark:shadow-[0_4px_24px_rgba(59,130,246,0.04)]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -72,7 +72,7 @@ export function AppShell({
             {/* Floating glass sidebar with page anchors */}
             <aside className="lg:w-56 shrink-0 py-8">
               <nav
-                className="sticky top-24 space-y-1 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-2xl border border-white/20 dark:border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.06)] dark:shadow-[0_8px_32px_rgba(59,130,246,0.03)] p-5"
+                className="sticky top-24 space-y-1 bg-white/70 dark:bg-slate-900/70 rounded-2xl border border-white/20 dark:border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.06)] dark:shadow-[0_8px_32px_rgba(59,130,246,0.03)] p-5"
                 aria-label="On this page"
               >
                 <h4 className="text-xs font-semibold font-heading uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
@@ -104,7 +104,7 @@ export function AppShell({
       </div>
 
       {/* Footer — subtle glass bar */}
-      <footer className="border-t border-white/20 dark:border-white/10 mt-16 bg-white/40 dark:bg-slate-950/40 backdrop-blur-md">
+      <footer className="border-t border-white/20 dark:border-white/10 mt-16 bg-white/40 dark:bg-slate-950/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500 dark:text-slate-400">
             <span className="font-heading font-medium text-slate-700 dark:text-slate-300">

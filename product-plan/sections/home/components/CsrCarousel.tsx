@@ -123,7 +123,7 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
                   {/* Category badge */}
                   {csr.category && (
                     <div className="absolute top-3 left-3">
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium font-heading rounded-full border backdrop-blur-sm bg-lime-100 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300 border-lime-200/50 dark:border-lime-800/30">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium font-heading rounded-full border bg-lime-100 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300 border-lime-200/50 dark:border-lime-800/30">
                         {csr.category}
                       </span>
                     </div>

@@ -9,7 +9,6 @@ export function TeamView({ sectionTitle, sectionSubtitle, members }: TeamViewPro
     <div className="font-body">
       {/* Header section */}
       <section className="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-blue-50/50 to-white dark:from-blue-950/20 dark:to-slate-950">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300/40 dark:via-blue-600/20 to-transparent" />
         <ShaderBackground variant="blue" opacity={0.4} />
 
         <ScrollReveal direction="up">
@@ -48,7 +47,6 @@ export function TeamView({ sectionTitle, sectionSubtitle, members }: TeamViewPro
 
       {/* Footer CTA */}
       <section className="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-slate-50/50 to-white dark:from-slate-900/30 dark:to-slate-950">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300/40 dark:via-blue-600/20 to-transparent" />
         <ShaderBackground variant="light" opacity={0.2} />
 
         <ScrollReveal direction="up">
@@ -63,7 +61,7 @@ export function TeamView({ sectionTitle, sectionSubtitle, members }: TeamViewPro
             </p>
             <a
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium font-heading rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(59,130,246,0.25)] hover:shadow-[0_6px_24px_rgba(59,130,246,0.35)] transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium font-heading rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.12)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.18)] transition-all duration-300"
             >
               Contact Us
             </a>

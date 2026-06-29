@@ -105,7 +105,7 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
               <a
                 key={csr.id}
                 href={`/projects?tab=csr#${csr.slug}`}
-                className="group/card flex-shrink-0 w-[350px] snap-start text-left rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-lime-400/50 dark:hover:border-lime-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-lime-500/10 dark:hover:shadow-lime-500/5 transition-all duration-500"
+                className="group/card flex-shrink-0 w-[350px] snap-start text-left rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-lime-400/50 dark:hover:border-lime-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-lime-500/10 dark:hover:shadow-lime-500/5 transition-all duration-500"
               >
                 {/* Hero image */}
                 <div className="relative h-44 bg-gradient-to-br from-lime-100 to-slate-200 dark:from-lime-950 dark:to-slate-800 overflow-hidden">
@@ -188,7 +188,7 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
           })}
 
           {/* End hint card */}
-          <div className="flex-shrink-0 w-[280px] flex items-center justify-center rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30">
+          <div className="flex-shrink-0 w-[280px] flex items-center justify-center rounded-xl border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30">
             <div className="text-center p-6">
               <Heart size={24} className="text-slate-300 dark:text-slate-600 mx-auto mb-2" />
               <p className="text-sm text-slate-400 dark:text-slate-500 font-heading">

@@ -20,7 +20,7 @@ const FILTER_CAPSULE: Record<FilterStatus, string> = {
 }
 
 const FILTER_INACTIVE =
-  'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/20 dark:border-white/10 shadow-[2px_2px_6px_rgba(0,0,0,0.04),-1px_-1px_4px_rgba(255,255,255,0.8)] dark:shadow-[2px_2px_6px_rgba(0,0,0,0.3),-1px_-1px_4px_rgba(255,255,255,0.02)]'
+  'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 bg-white/60 dark:bg-slate-800/60 border border-white/20 dark:border-white/10 shadow-[2px_2px_6px_rgba(0,0,0,0.04),-1px_-1px_4px_rgba(255,255,255,0.8)] dark:shadow-[2px_2px_6px_rgba(0,0,0,0.3),-1px_-1px_4px_rgba(255,255,255,0.02)]'
 
 export function ProjectList({
   portfolioSummary,

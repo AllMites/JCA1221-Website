@@ -32,7 +32,6 @@ export function NewsView({ sectionTitle, sectionSubtitle, articles }: NewsViewPr
     <div className="font-body">
       {/* Header section */}
       <section className="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-blue-50/50 to-white dark:from-blue-950/20 dark:to-slate-950">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300/40 dark:via-blue-600/20 to-transparent" />
         <ShaderBackground variant="blue" opacity={0.4} />
 
         <ScrollReveal direction="up">

@@ -252,10 +252,6 @@ export function TechnologyCarouselSection({
       {/* Solid deep background */}
       <div className="absolute inset-0 bg-slate-950" />
 
-      {/* Atmospheric cyan orbs */}
-      <div className="absolute top-20 left-1/4 w-96 h-96 rounded-full bg-cyan-500/8 blur-[120px]" />
-      <div className="absolute bottom-10 right-1/4 w-80 h-80 rounded-full bg-blue-500/6 blur-[100px]" />
-      <div className="absolute top-1/2 right-1/3 w-64 h-64 rounded-full bg-cyan-400/5 blur-[80px]" />
 
       <ShaderBackground variant="currents" opacity={0.4} />
 
@@ -323,7 +319,7 @@ export function TechnologyCarouselSection({
         <div className="max-w-3xl mx-auto mb-6">
           <div
             className="relative aspect-video rounded-xl overflow-hidden
-                        bg-slate-900/80 backdrop-blur-sm
+                        bg-slate-900/80
                         border border-white/10
                         shadow-[0_0_24px_rgba(6,182,212,0.15)]"
           >
@@ -377,7 +373,7 @@ export function TechnologyCarouselSection({
                 className="absolute inset-0 flex items-center justify-center bg-black/20 cursor-pointer"
                 onClick={handleVideoClick}
               >
-                <div className="w-16 h-16 rounded-full bg-cyan-500/30 backdrop-blur-sm border border-cyan-400/40 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-cyan-500/30 border border-cyan-400/40 flex items-center justify-center">
                   <Icons.Play className="w-7 h-7 text-white ml-1" />
                 </div>
               </div>
@@ -386,7 +382,7 @@ export function TechnologyCarouselSection({
             {/* Locked indicator */}
             {lockedIndex !== null && (
               <div className="absolute top-3 right-3 px-2 py-1 rounded-md
-                              bg-amber-400/20 backdrop-blur-sm border border-amber-400/30
+                              bg-amber-400/20 border border-amber-400/30
                               text-amber-300 text-xs font-mono flex items-center gap-1 z-10">
                 <Icons.Lock className="w-3 h-3" />
                 Locked
@@ -396,7 +392,7 @@ export function TechnologyCarouselSection({
             {/* Ended overlay */}
             {videoState === 'ended' && lockedIndex === null && showVideo && (
               <div className="absolute bottom-3 right-3 px-2 py-1 rounded-md
-                              bg-slate-900/60 backdrop-blur-sm border border-white/5
+                              bg-slate-900/60 border border-white/5
                               text-slate-400 text-xs font-mono z-10">
                 Hold
               </div>

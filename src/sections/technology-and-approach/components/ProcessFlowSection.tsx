@@ -104,7 +104,7 @@ export function ProcessFlowSection({ steps }: ProcessFlowSectionProps) {
                 >
                   {/* Icon circle — glass */}
                   <div className="relative flex-shrink-0 z-10">
-                    <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-cyan-500/15 backdrop-blur-lg border border-cyan-400/20 flex items-center justify-center shadow-[0_8px_32px_rgba(34,211,238,0.12),0_0_0_1px_rgba(34,211,238,0.08)] group-hover:shadow-[0_8px_32px_rgba(34,211,238,0.2)] transition-shadow duration-300">
+                    <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-xl bg-cyan-500/15 backdrop-blur-lg border border-cyan-400/20 flex items-center justify-center shadow-[0_8px_32px_rgba(34,211,238,0.12),0_0_0_1px_rgba(34,211,238,0.08)] group-hover:shadow-[0_8px_32px_rgba(34,211,238,0.2)] transition-shadow duration-300">
                       {IconComponent && <IconComponent className="w-7 h-7 lg:w-8 lg:h-8 text-cyan-300" />}
                     </div>
                     {/* Step number badge */}

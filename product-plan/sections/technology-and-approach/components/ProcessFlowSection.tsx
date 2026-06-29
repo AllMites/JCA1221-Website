@@ -38,10 +38,6 @@ export function ProcessFlowSection({ steps }: ProcessFlowSectionProps) {
       {/* Solid deep background */}
       <div className="absolute inset-0 bg-slate-950" />
 
-      {/* Atmospheric cyan orbs — radial avoids linear banding */}
-      <div className="absolute top-20 left-1/4 w-96 h-96 rounded-full bg-cyan-500/8 blur-[120px]" />
-      <div className="absolute bottom-10 right-1/4 w-80 h-80 rounded-full bg-blue-500/6 blur-[100px]" />
-      <div className="absolute top-1/2 right-1/3 w-64 h-64 rounded-full bg-cyan-400/5 blur-[80px]" />
 
       {/* Noise dither — breaks residual bands */}
       <ShaderBackground variant="currents" opacity={0.4} />
@@ -104,11 +100,11 @@ export function ProcessFlowSection({ steps }: ProcessFlowSectionProps) {
                 >
                   {/* Icon circle — glass */}
                   <div className="relative flex-shrink-0 z-10">
-                    <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-cyan-500/15 backdrop-blur-lg border border-cyan-400/20 flex items-center justify-center shadow-[0_8px_32px_rgba(34,211,238,0.12),0_0_0_1px_rgba(34,211,238,0.08)] group-hover:shadow-[0_8px_32px_rgba(34,211,238,0.2)] transition-shadow duration-300">
+                    <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-cyan-500/15 border border-cyan-400/20 flex items-center justify-center shadow-[0_8px_32px_rgba(34,211,238,0.12),0_0_0_1px_rgba(34,211,238,0.08)] group-hover:shadow-[0_8px_32px_rgba(34,211,238,0.2)] transition-shadow duration-300">
                       {IconComponent && <IconComponent className="w-7 h-7 lg:w-8 lg:h-8 text-cyan-300" />}
                     </div>
                     {/* Step number badge */}
-                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-cyan-500/80 backdrop-blur-sm border border-cyan-400/30 flex items-center justify-center text-xs font-mono font-bold text-white">
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-cyan-500/80 border border-cyan-400/30 flex items-center justify-center text-xs font-mono font-bold text-white">
                       {step.step}
                     </div>
                   </div>

@@ -56,7 +56,7 @@ function OfficeCard({ office }: OfficeCardProps) {
 
       {/* Map placeholder */}
       <div className="mt-4 h-32 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-white/5 flex items-center justify-center overflow-hidden relative group cursor-pointer">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.06),transparent)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-transparent dark:from-black/10 dark:to-transparent" />
         <div className="relative z-10 text-center">
           <MapPin className="w-5 h-5 text-blue-400/60 mx-auto mb-1" />
           <span className="text-xs text-slate-400 dark:text-slate-500">View on Google Maps</span>

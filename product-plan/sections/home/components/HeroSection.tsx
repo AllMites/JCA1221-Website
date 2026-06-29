@@ -286,7 +286,7 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
             className="group inline-flex items-center gap-2 px-8 py-4 text-white/70 hover:text-white font-semibold font-heading rounded-full
               bg-white/5 hover:bg-white/10
               border border-white/15 hover:border-white/30
-              backdrop-blur-md
+             
               shadow-[0_4px_12px_rgba(0,0,0,0.05)]
               hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)]
               active:scale-[0.97]

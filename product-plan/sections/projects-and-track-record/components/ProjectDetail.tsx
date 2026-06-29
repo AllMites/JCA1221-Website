@@ -83,7 +83,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
               const c = STATUS_CAPSULE[project.status]
               const Icon = c.icon
               return (
-                <span className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-medium font-heading rounded-full border backdrop-blur-sm ${c.className}`}>
+                <span className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-medium font-heading rounded-full border ${c.className}`}>
                   <Icon size={12} />
                   {c.label}
                 </span>
@@ -113,7 +113,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
       {/* Hero description — glass panel bridging hero to content */}
       <section className="relative -mt-8 pb-8 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl backdrop-blur-xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:shadow-[0_8px_40px_rgba(59,130,246,0.04)] p-6 sm:p-8">
+          <div className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:shadow-[0_8px_40px_rgba(59,130,246,0.04)] p-6 sm:p-8">
             <p className="text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed max-w-4xl">
               {project.heroDescription}
             </p>
@@ -128,7 +128,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {project.stats.map((stat) => (
                 <RevealItem key={stat.label}>
-                  <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 text-center"
+                  <div className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 text-center"
                   >
                     <p className="text-2xl sm:text-3xl font-bold font-heading text-blue-600 dark:text-blue-400 tabular-nums mb-1">
                       {stat.value}
@@ -163,7 +163,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
 
           {/* Glass description card */}
           <ScrollReveal direction="up" delay={0.1}>
-            <div className="mb-8 rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 sm:p-8">
+            <div className="mb-8 rounded-2xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 sm:p-8">
               <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                 {project.technology.description}
               </p>
@@ -175,7 +175,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
             <div className="flex flex-wrap gap-2">
               {project.technology.tags.map((tag) => (
                 <RevealItem key={tag}>
-                  <span className="px-3 py-1.5 text-xs font-medium font-heading rounded-full bg-blue-100/80 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border border-blue-200/30 dark:border-blue-700/20 backdrop-blur-sm"
+                  <span className="px-3 py-1.5 text-xs font-medium font-heading rounded-full bg-blue-100/80 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border border-blue-200/30 dark:border-blue-700/20"
                   >
                     {tag}
                   </span>
@@ -216,7 +216,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
             <div className="grid sm:grid-cols-2 gap-4">
               {project.impactMetrics.map((metric) => (
                 <RevealItem key={metric.label}>
-                  <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6"
+                  <div className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6"
                   >
                     <div className="flex items-baseline gap-2 mb-2">
                       <span className="text-2xl font-bold font-heading text-emerald-600 dark:text-emerald-400 tabular-nums">
@@ -258,7 +258,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
               </ScrollReveal>
 
               {project.awards.length === 0 ? (
-                <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 text-center">
+                <div className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 text-center">
                   <Award size={24} className="text-slate-300 dark:text-slate-600 mx-auto mb-2" />
                   <p className="text-sm text-slate-400 dark:text-slate-500">
                     No awards yet — this project is still in progress.
@@ -269,7 +269,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
                   <div className="space-y-4">
                     {project.awards.map((award, i) => (
                       <RevealItem key={i}>
-                        <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6"
+                        <div className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6"
                         >
                           <div className="flex items-start gap-3">
                             <Trophy size={20} className="text-amber-500 dark:text-amber-400 shrink-0 mt-0.5" />
@@ -307,7 +307,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
               </ScrollReveal>
 
               <ScrollReveal staggerChildren={0.06}>
-                <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6">
+                <div className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6">
                   {partners && partners.length > 0 ? (
                     <PartnerBadges partners={partners} projectId={project.id} title="" />
                   ) : (

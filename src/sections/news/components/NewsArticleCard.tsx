@@ -35,7 +35,7 @@ export function NewsArticleCard({ article }: { article: NewsArticle }) {
       href={article.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.12)] dark:hover:shadow-[0_8px_40px_rgba(59,130,246,0.06)] hover:border-blue-300/30 dark:hover:border-blue-600/20 transition-all duration-300 p-5 sm:p-6"
+      className="group block rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.10)] dark:hover:shadow-[0_8px_40px_rgba(0,0,0,0.06)] hover:border-blue-300/30 dark:hover:border-blue-600/20 transition-all duration-300 p-5 sm:p-6"
     >
       {/* Type badge + Source */}
       <div className="flex items-center justify-between mb-3">

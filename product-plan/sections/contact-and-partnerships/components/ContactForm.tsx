@@ -333,7 +333,7 @@ export function ContactForm({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.18),0_1px_3px_rgba(0,0,0,0.12)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+            className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.18),0_1px_3px_rgba(0,0,0,0.12)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
           >
             {submitting ? (
               <>

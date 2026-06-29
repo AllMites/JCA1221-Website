@@ -33,7 +33,7 @@ const DEFAULT_PILLARS: Pillar[] = [
 function NeumorphicPillarCard({ pillar }: { pillar: Pillar }) {
   return (
     <div
-      className="group p-6 sm:p-8 rounded-2xl cursor-pointer select-none transition-all duration-200
+      className="group p-6 sm:p-8 rounded-xl cursor-pointer select-none transition-all duration-200
         bg-white/60 dark:bg-slate-800/60
         shadow-[3px_3px_8px_rgba(0,0,0,0.06),-2px_-2px_6px_rgba(255,255,255,0.9)]
         dark:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-2px_-2px_6px_rgba(255,255,255,0.03)]

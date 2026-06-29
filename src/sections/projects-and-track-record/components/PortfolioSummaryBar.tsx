@@ -64,7 +64,7 @@ function AnimatedSummaryCounter({ icon: Icon, number: target, suffix, label }: S
   return (
     <div ref={ref} className="text-center group">
       {/* Icon in liquid glass circle */}
-      <GlassPill as="div" className="w-12 h-12 mx-auto mb-3 rounded-full bg-white/60 dark:bg-slate-800/60 border border-white/20 dark:border-white/10 shadow-[0_4px_16px_rgba(59,130,246,0.08)] flex items-center justify-center">
+      <GlassPill as="div" className="w-12 h-12 mx-auto mb-3 rounded-full bg-white/60 dark:bg-slate-800/60 border border-white/20 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.08)] flex items-center justify-center">
         <Icon size={20} className="text-blue-500 dark:text-blue-400" />
       </GlassPill>
       <div className="mb-1 font-bold font-heading text-3xl sm:text-4xl text-slate-900 dark:text-white tracking-tight tabular-nums" role="status" aria-live="polite">
@@ -106,9 +106,6 @@ export function PortfolioSummaryBar({ summary }: PortfolioSummaryBarProps) {
 
   return (
     <section className="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-slate-50 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950" aria-label="Portfolio summary statistics">
-      {/* Top accent line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 dark:via-blue-600/20 to-transparent" />
-
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Stats grid */}
         <ScrollReveal staggerChildren={0.1} className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">

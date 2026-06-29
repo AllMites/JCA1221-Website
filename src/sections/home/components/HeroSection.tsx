@@ -52,7 +52,7 @@ interface HeroSectionProps {
 const WORD_ACCENT: Record<string, { bg: string; ring: string; icon: string; text: string; glow: string }> = {
   Water: {
     bg: 'bg-blue-500/20', ring: 'ring-blue-400/30', icon: 'text-blue-400',
-    text: 'text-blue-300', glow: 'rgba(59,130,246,0.3)',
+    text: 'text-blue-300', glow: 'rgba(0,0,0,0.3)',
   },
   Land: {
     bg: 'bg-emerald-500/20', ring: 'ring-emerald-400/30', icon: 'text-emerald-400',
@@ -270,8 +270,8 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
             className="group relative inline-flex items-center gap-2.5 px-8 py-4 text-white font-semibold font-heading rounded-full transition-all duration-500
               bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400
               hover:from-blue-400 hover:via-cyan-400 hover:to-blue-400
-              shadow-[0_0_24px_rgba(59,130,246,0.3),0_4px_12px_rgba(59,130,246,0.15)]
-              hover:shadow-[0_0_36px_rgba(59,130,246,0.45),0_8px_20px_rgba(59,130,246,0.2)]
+              shadow-[0_0_24px_rgba(0,0,0,0.3),0_4px_12px_rgba(0,0,0,0.15)]
+              hover:shadow-[0_0_36px_rgba(0,0,0,0.45),0_8px_20px_rgba(0,0,0,0.2)]
               active:scale-[0.97]
               overflow-hidden"
           >

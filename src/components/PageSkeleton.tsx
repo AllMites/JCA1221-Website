@@ -4,7 +4,7 @@ function PageSkeletonShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
       {/* Glass header skeleton */}
-      <header className="sticky top-0 z-50 border-b border-border/10 bg-card/60 backdrop-blur-xl shadow-[0_4px_24px_rgba(59,130,246,0.06)] dark:shadow-[0_4px_24px_rgba(59,130,246,0.04)]">
+      <header className="sticky top-0 z-50 border-b border-border/10 bg-card/60 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Skeleton className="h-6 w-36 rounded-md" />
@@ -49,7 +49,7 @@ export function PageSkeleton() {
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-border/10 bg-card/60 backdrop-blur-md p-6 space-y-4 shadow-[0_4px_16px_rgba(59,130,246,0.04)]"
+              className="rounded-xl border border-border/10 bg-card/60 backdrop-blur-md p-6 space-y-4 shadow-[0_4px_16px_rgba(0,0,0,0.04)]"
             >
               <Skeleton className="h-40 w-full rounded-xl" />
               <Skeleton className="h-5 w-3/4 rounded-md" />
@@ -82,7 +82,7 @@ export function DetailPageSkeleton() {
     <PageSkeletonShell>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Skeleton className="h-4 w-48 rounded-md mb-8" />
-        <Skeleton className="h-56 w-full rounded-2xl mb-8" />
+        <Skeleton className="h-56 w-full rounded-xl mb-8" />
         <Skeleton className="h-8 w-3/4 rounded-lg mb-4" />
         <Skeleton className="h-5 w-1/2 rounded-md mb-6" />
         <div className="space-y-3">

@@ -85,7 +85,7 @@ export function MainNav({ items, onNavigate }: MainNavProps) {
           onClick={() => setMobileOpen(false)}
         />
         <nav
-          className={`absolute top-0 right-0 w-72 h-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-l border-white/20 dark:border-white/10 shadow-[-8px_0_32px_rgba(59,130,246,0.06)] p-6 pt-20 flex flex-col gap-2 transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          className={`absolute top-0 right-0 w-72 h-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-l border-white/20 dark:border-white/10 shadow-[-8px_0_32px_rgba(0,0,0,0.06)] p-6 pt-20 flex flex-col gap-2 transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
           role="navigation"
           aria-label="Mobile navigation"
         >

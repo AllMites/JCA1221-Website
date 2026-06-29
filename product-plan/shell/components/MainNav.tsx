@@ -80,7 +80,7 @@ export function MainNav({ items, onNavigate }: MainNavProps) {
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 z-40">
           <div
-            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/30"
             onClick={() => setMobileOpen(false)}
           />
           <nav

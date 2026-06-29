@@ -26,7 +26,7 @@ export function FounderProfileSection({ profile }: FounderProfileSectionProps) {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
           {/* Left column: Photo + Name + Signature quote */}
           <div className="lg:w-[380px] shrink-0">
-            <div className="rounded-2xl backdrop-blur-xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:shadow-[0_8px_40px_rgba(59,130,246,0.04)] p-8 text-center">
+            <div className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:shadow-[0_8px_40px_rgba(59,130,246,0.04)] p-8 text-center">
               {/* Photo placeholder — liquid glass circle */}
               <GlassPill as="div" className="w-28 h-28 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-900 dark:to-slate-800 border-4 border-white/30 dark:border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.12)] flex items-center justify-center" aria-label={`Photo of ${profile.name}`}>
                 <User size={40} className="text-blue-400 dark:text-blue-300" />
@@ -57,7 +57,7 @@ export function FounderProfileSection({ profile }: FounderProfileSectionProps) {
               {profile.quotes.map((q, i) => (
                 <div
                   key={i}
-                  className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 flex flex-col"
+                  className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 flex flex-col"
                 >
                   <Quote size={14} className="text-blue-400/40 dark:text-blue-500/40 mb-3 shrink-0" />
                   <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic mb-4 flex-1 font-body">
@@ -82,7 +82,7 @@ export function FounderProfileSection({ profile }: FounderProfileSectionProps) {
                     <div className="absolute left-[10px] sm:left-[18px] top-1.5 w-3 h-3 rounded-full bg-white dark:bg-slate-900 border-2 border-blue-400 dark:border-blue-500 shadow-[0_0_0_4px_rgba(59,130,246,0.1)] group-hover:shadow-[0_0_0_8px_rgba(59,130,246,0.15)] group-hover:border-blue-500 dark:group-hover:border-blue-400 transition-all duration-300" />
 
                     {/* Milestone card */}
-                    <div className="rounded-xl backdrop-blur-sm border border-white/20 dark:border-white/10 bg-white/40 dark:bg-slate-900/40 shadow-[0_2px_12px_rgba(0,0,0,0.03)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(59,130,246,0.06)] dark:hover:shadow-[0_4px_20px_rgba(59,130,246,0.04)] hover:-translate-y-0.5 transition-all duration-300 p-4 sm:p-5">
+                    <div className="rounded-xl border border-white/20 dark:border-white/10 bg-white/40 dark:bg-slate-900/40 shadow-[0_2px_12px_rgba(0,0,0,0.03)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(59,130,246,0.06)] dark:hover:shadow-[0_4px_20px_rgba(59,130,246,0.04)] hover:-translate-y-0.5 transition-all duration-300 p-4 sm:p-5">
                       <div className="flex items-baseline gap-3 mb-1">
                         <span className="text-xs font-bold font-heading text-blue-500 dark:text-blue-400 tabular-nums">
                           {m.year}

@@ -169,7 +169,7 @@ export function ContactForm({
 
     const stateClasses = error
       ? 'border-red-400/50 focus:border-red-400 shadow-[0_0_0_1px_rgba(248,113,113,0.15)]'
-      : 'border-slate-200 dark:border-white/10 focus:border-blue-400/50 focus:shadow-[0_0_0_1px_rgba(59,130,246,0.2)] hover:border-slate-300 dark:hover:border-white/15'
+      : 'border-slate-200 dark:border-white/10 focus:border-blue-400/50 focus:shadow-[0_0_0_1px_rgba(0,0,0,0.2)] hover:border-slate-300 dark:hover:border-white/15'
 
     if (field.type === 'textarea') {
       return (

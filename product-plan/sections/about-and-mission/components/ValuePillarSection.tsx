@@ -81,7 +81,7 @@ export function ValuePillarSection({ pillar, index }: ValuePillarSectionProps) {
           {/* Left/Right: Pillar header — glass card */}
           <div className="lg:w-[380px] shrink-0">
             <div
-              className={`sticky top-28 rounded-2xl backdrop-blur-xl border border-white/20 dark:border-white/10 ${GLASS_SHADOW[pillar.glassTint]} ${GLASS_TINT[pillar.glassTint]} p-8 transition-all duration-500`}
+              className={`sticky top-28 rounded-2xl border border-white/20 dark:border-white/10 ${GLASS_SHADOW[pillar.glassTint]} ${GLASS_TINT[pillar.glassTint]} p-8 transition-all duration-500`}
             >
               {/* Icon */}
               <div className={`mb-5 w-14 h-14 rounded-2xl flex items-center justify-center shadow-[inset_1px_1px_3px_rgba(255,255,255,0.5),inset_-1px_-1px_2px_rgba(0,0,0,0.04)] ${ICON_TINT[pillar.glassTint]}`}>
@@ -105,7 +105,7 @@ export function ValuePillarSection({ pillar, index }: ValuePillarSectionProps) {
             {pillar.subPoints.map((point) => (
               <div
                 key={point.title}
-                className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all duration-300 p-6 sm:p-8"
+                className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all duration-300 p-6 sm:p-8"
               >
                 <h3 className="font-bold font-heading text-base text-slate-900 dark:text-white mb-2">
                   {point.title}

@@ -17,7 +17,7 @@ function MissionCard({ value }: { value: MissionValue }) {
   const IconComponent = ICON_MAP[value.icon] ?? Leaf
 
   return (
-    <div className="group relative p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-blue-300 dark:hover:border-blue-800 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-500">
+    <div className="group relative p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-blue-300 dark:hover:border-blue-800 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-500">
       {/* Icon */}
       <div className="mb-4 w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50 transition-colors duration-500">
         <IconComponent size={22} className="text-blue-600 dark:text-blue-400" />

@@ -59,7 +59,7 @@ export function TrustStrip({ stats, partnerLogos }: TrustStripProps) {
   return (
     <section id="trust-strip" className="relative -mt-16 z-20">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-xl border border-white/20 dark:border-white/10 shadow-lg">
+        <div className="bg-white/80 dark:bg-slate-900/80 rounded-xl border border-white/20 dark:border-white/10 shadow-lg">
           {/* Stats row */}
           <ScrollReveal staggerChildren={0.08} viewportMargin="0px 0px" className="grid grid-cols-2 md:grid-cols-4 py-8 px-4 sm:px-8 gap-y-8 md:gap-y-0">
             {stats.slice(0, 4).map((stat) => (

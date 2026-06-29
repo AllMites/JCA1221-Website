@@ -448,7 +448,7 @@ export function AdminPage() {
                 {submissions.map((s) => (
                   <div
                     key={s.id}
-                    className={`rounded-2xl border transition-all ${
+                    className={`rounded-xl border transition-all ${
                       s.deleted_at
                         ? 'bg-red-50/50 dark:bg-red-500/5 border-red-200 dark:border-red-400/10 opacity-60'
                         : s.acknowledged

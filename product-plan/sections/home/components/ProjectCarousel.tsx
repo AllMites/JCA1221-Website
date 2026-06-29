@@ -52,7 +52,7 @@ function ProjectCardItem({ project, onClick }: { project: ProjectCardType; onCli
             const c = STATUS_CAPSULE[project.status]
             const Icon = c.icon
             return (
-              <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium font-heading rounded-full border backdrop-blur-sm ${c.className}`}>
+              <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium font-heading rounded-full border ${c.className}`}>
                 <Icon size={12} />
                 {c.label}
               </span>

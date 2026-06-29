@@ -60,7 +60,7 @@ export default function ShellPreview() {
               ].map((v) => (
                 <div
                   key={v.title}
-                  className="relative p-6 rounded-2xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md shadow-[0_4px_24px_rgba(59,130,246,0.06)] dark:shadow-[0_4px_24px_rgba(59,130,246,0.03)] overflow-hidden"
+                  className="relative p-6 rounded-xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-hidden"
                 >
                   {/* Glass tint overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-100/40 to-amber-100/20 dark:from-blue-900/20 dark:to-amber-900/10" />

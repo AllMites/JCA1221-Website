@@ -167,8 +167,8 @@ export function FinalCta({ contactInfo }: FinalCtaProps) {
               className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-semibold font-heading rounded-full
                 bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400
                 hover:from-blue-400 hover:via-cyan-400 hover:to-blue-400
-                shadow-[0_0_24px_rgba(59,130,246,0.25),0_4px_12px_rgba(59,130,246,0.12)]
-                hover:shadow-[0_0_36px_rgba(59,130,246,0.4),0_8px_20px_rgba(59,130,246,0.18)]
+                shadow-[0_0_24px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.10)]
+                hover:shadow-[0_0_36px_rgba(0,0,0,0.4),0_8px_20px_rgba(0,0,0,0.18)]
                 active:scale-[0.97]
                 transition-all duration-500
                 disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100

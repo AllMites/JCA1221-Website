@@ -161,9 +161,6 @@ export function AppShell({
 
       {/* Footer — enhanced with gradient, logo, and reveal animation */}
       <footer className="relative mt-16 border-t border-slate-200 dark:border-white/10 bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-        {/* Subtle top glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-blue-400/40 to-transparent dark:via-blue-400/20" />
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <ScrollReveal direction="up" duration={0.5}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">

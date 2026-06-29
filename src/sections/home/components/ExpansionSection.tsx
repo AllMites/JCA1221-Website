@@ -14,7 +14,7 @@ const STATUS_STYLES: Record<string, string> = {
 
 function InitiativeCard({ initiative }: { initiative: ExpansionInitiative }) {
   return (
-    <div className="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden hover:shadow-xl transition-all duration-500">
+    <div className="group relative rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden hover:shadow-xl transition-all duration-500">
       {/* Image area */}
       <div className="h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden">
         <img

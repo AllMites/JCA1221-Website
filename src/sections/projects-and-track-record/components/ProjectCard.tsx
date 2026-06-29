@@ -33,7 +33,7 @@ export function ProjectCardItem({ project, onClick }: ProjectCardItemProps) {
   return (
     <button
       onClick={onClick}
-      className="group w-full text-left rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-blue-400/50 dark:hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/5 transition-all duration-500 cursor-pointer"
+      className="group w-full text-left rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-blue-400/50 dark:hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/5 transition-all duration-500 cursor-pointer"
     >
       {/* Image area */}
       <div className="relative h-48 sm:h-56 bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-950 dark:to-slate-800 overflow-hidden">
@@ -48,7 +48,7 @@ export function ProjectCardItem({ project, onClick }: ProjectCardItemProps) {
           />
         )}
         {/* Gradient image placeholder */}
-        <div className="absolute inset-0 opacity-30 dark:opacity-40 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-blue-600 to-blue-900 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-500" />
+        <div className="absolute inset-0 opacity-30 dark:opacity-40 bg-gradient-to-br from-blue-900/60 via-blue-950/40 to-slate-950/40 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-500" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent dark:from-slate-900/90 dark:via-slate-900/40" />
 
         {/* Status capsule — full colored pill like news type badges */}

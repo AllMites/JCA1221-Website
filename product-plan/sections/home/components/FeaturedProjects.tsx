@@ -62,7 +62,7 @@ function TiltCard({ project }: { project: ProjectCard }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="group block rounded-xl overflow-hidden
-        bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm
+        bg-white/80 dark:bg-slate-900/80
         border border-white/20 dark:border-white/10
         shadow-sm
         transition-colors duration-200 ease-out
@@ -86,7 +86,7 @@ function TiltCard({ project }: { project: ProjectCard }) {
         )}
 
         {/* Status dot */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-white/20 dark:border-white/10 text-xs font-medium font-heading text-slate-700 dark:text-slate-300">
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 dark:bg-slate-900/80 border border-white/20 dark:border-white/10 text-xs font-medium font-heading text-slate-700 dark:text-slate-300">
           <span className={`w-2 h-2 rounded-full ${statusDotColor(project.status)}`} />
           {project.status}
         </div>

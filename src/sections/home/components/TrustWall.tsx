@@ -106,7 +106,7 @@ export function TrustWall({ partners }: TrustWallProps) {
                   border border-blue-100 dark:border-blue-500/10
                   shadow-[0_2px_8px_rgba(0,0,0,0.02)]
                   transition-all duration-300
-                  hover:shadow-[0_4px_12px_rgba(59,130,246,0.06)]
+                  hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]
                   hover:border-blue-200 dark:hover:border-blue-500/20"
               >
                 <BadgeCheck size={18} className="text-blue-500 dark:text-blue-400 flex-shrink-0" />

@@ -34,7 +34,7 @@ export function NotFoundPage() {
         </p>
         <button
           onClick={() => navigate('/')}
-          className="px-6 py-3 text-sm font-medium font-heading rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(59,130,246,0.25)] transition-all duration-300"
+          className="px-6 py-3 text-sm font-medium font-heading rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.12)] transition-all duration-300"
         >
           Back to Home
         </button>

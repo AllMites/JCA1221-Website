@@ -47,7 +47,7 @@ export function AboutView({
 
           <button
             onClick={onCtaClick}
-            className="inline-flex items-center gap-2.5 px-8 py-3.5 text-base font-medium font-heading rounded-full transition-all duration-300 text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_24px_rgba(59,130,246,0.3),0_1px_4px_rgba(59,130,246,0.15)] hover:shadow-[0_8px_32px_rgba(59,130,246,0.4),0_2px_8px_rgba(59,130,246,0.2)] active:shadow-[0_2px_12px_rgba(59,130,246,0.2)] hover:-translate-y-0.5 active:translate-y-0"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 text-base font-medium font-heading rounded-full transition-all duration-300 text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 border border-white/20 shadow-[0_4px_24px_rgba(59,130,246,0.3),0_1px_4px_rgba(59,130,246,0.15)] hover:shadow-[0_8px_32px_rgba(59,130,246,0.4),0_2px_8px_rgba(59,130,246,0.2)] active:shadow-[0_2px_12px_rgba(59,130,246,0.2)] hover:-translate-y-0.5 active:translate-y-0"
           >
             {ctaText}
             <ArrowRight size={18} />

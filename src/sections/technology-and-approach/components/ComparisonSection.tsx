@@ -81,7 +81,7 @@ export function ComparisonSection({ comparison }: ComparisonSectionProps) {
               }}
             >
               {/* Glass row */}
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_1.2fr] gap-3 md:gap-4 p-4 md:p-5 rounded-2xl bg-white dark:bg-white/5 backdrop-blur-lg border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/8 transition-colors duration-300">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_1.2fr] gap-3 md:gap-4 p-4 md:p-5 rounded-xl bg-white dark:bg-white/5 backdrop-blur-lg border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/8 transition-colors duration-300">
                 {/* Label */}
                 <div className="flex items-center">
                   <span className="text-sm font-heading font-semibold text-slate-800 dark:text-slate-200">

@@ -35,7 +35,7 @@ export function LegalPageLayout({ title, lastUpdated, children }: LegalPageLayou
         </div>
 
         {/* Content card */}
-        <div className="rounded-2xl bg-white dark:bg-white/5 backdrop-blur-lg border border-slate-200 dark:border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.03)] p-8 sm:p-10 lg:p-12">
+        <div className="rounded-xl bg-white dark:bg-white/5 backdrop-blur-lg border border-slate-200 dark:border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.03)] p-8 sm:p-10 lg:p-12">
           <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-heading prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white prose-h2:text-xl prose-h3:text-lg prose-p:text-sm prose-p:leading-relaxed prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-li:text-sm prose-li:text-slate-600 dark:prose-li:text-slate-300 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline">
             {children}
           </div>

@@ -56,8 +56,10 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
             className={`w-full h-full object-cover transition-opacity duration-300 ${heroErrored ? 'opacity-0' : ''}`}
           />
         </motion.div>
-        {/* Gradient image placeholder — always present as fallback */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-950 to-slate-900" />
+        {/* Gradient image placeholder — only shown when image fails to load */}
+        {heroErrored && (
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-950 to-slate-900" />
+        )}
         <ShaderBackground variant="dark" opacity={0.4} />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-950/30 to-slate-950/30" />
 
@@ -113,7 +115,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
       {/* Hero description — glass panel bridging hero to content */}
       <section className="relative -mt-8 pb-8 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl backdrop-blur-xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 shadow-[0_8px_40px_rgba(59,130,246,0.08)] dark:shadow-[0_8px_40px_rgba(59,130,246,0.04)] p-6 sm:p-8">
+          <div className="rounded-xl backdrop-blur-xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 shadow-[0_8px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.04)] p-6 sm:p-8">
             <p className="text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed max-w-4xl">
               {project.heroDescription}
             </p>
@@ -128,7 +130,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {project.stats.map((stat) => (
                 <RevealItem key={stat.label}>
-                  <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 text-center"
+                  <div className="rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 text-center"
                   >
                     <p className="text-2xl sm:text-3xl font-bold font-heading text-blue-600 dark:text-blue-400 tabular-nums mb-1">
                       {stat.value}
@@ -146,7 +148,6 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
 
       {/* Technology section — distinct colored bg */}
       <section className="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-blue-50/50 to-white dark:from-blue-950/20 dark:to-slate-950">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300/40 dark:via-blue-600/20 to-transparent" />
         <ShaderBackground variant="blue" opacity={0.4} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -163,7 +164,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
 
           {/* Glass description card */}
           <ScrollReveal direction="up" delay={0.1}>
-            <div className="mb-8 rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 sm:p-8">
+            <div className="mb-8 rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 sm:p-8">
               <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                 {project.technology.description}
               </p>
@@ -197,7 +198,6 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
 
       {/* Environmental impact section — emerald green bg */}
       <section className="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-slate-950">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-300/40 dark:via-emerald-600/20 to-transparent" />
         <ShaderBackground variant="emerald" opacity={0.4} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -216,7 +216,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
             <div className="grid sm:grid-cols-2 gap-4">
               {project.impactMetrics.map((metric) => (
                 <RevealItem key={metric.label}>
-                  <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6"
+                  <div className="rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6"
                   >
                     <div className="flex items-baseline gap-2 mb-2">
                       <span className="text-2xl font-bold font-heading text-emerald-600 dark:text-emerald-400 tabular-nums">
@@ -239,7 +239,6 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
 
       {/* Awards & Partners section — amber gold */}
       <section className="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-amber-50/30 to-white dark:from-amber-950/15 dark:to-slate-950">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-300/40 dark:via-amber-600/20 to-transparent" />
         <ShaderBackground variant="amber" opacity={0.4} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -258,7 +257,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
               </ScrollReveal>
 
               {project.awards.length === 0 ? (
-                <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 text-center">
+                <div className="rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 text-center">
                   <Award size={24} className="text-slate-300 dark:text-slate-600 mx-auto mb-2" />
                   <p className="text-sm text-slate-400 dark:text-slate-500">
                     No awards yet — this project is still in progress.
@@ -269,7 +268,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
                   <div className="space-y-4">
                     {project.awards.map((award, i) => (
                       <RevealItem key={i}>
-                        <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6"
+                        <div className="rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6"
                         >
                           <div className="flex items-start gap-3">
                             <Trophy size={20} className="text-amber-500 dark:text-amber-400 shrink-0 mt-0.5" />
@@ -307,7 +306,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
               </ScrollReveal>
 
               <ScrollReveal staggerChildren={0.06}>
-                <div className="rounded-2xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6">
+                <div className="rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6">
                   {partners && partners.length > 0 ? (
                     <PartnerBadges partners={partners} projectId={project.id} title="" />
                   ) : (

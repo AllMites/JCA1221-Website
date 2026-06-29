@@ -16,10 +16,6 @@ export function FounderLetterSection({ letter }: FounderLetterSectionProps) {
       {/* Water-gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900" />
 
-      {/* Atmospheric glass orbs */}
-      <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-400/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-3xl" />
 
       {/* Subtle noise texture overlay */}
       <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
@@ -37,7 +33,7 @@ export function FounderLetterSection({ letter }: FounderLetterSectionProps) {
         {/* Frosted glass letter panel */}
         <div className="relative group">
           {/* Glass panel */}
-          <div className="relative rounded-3xl bg-white/5 dark:bg-white/[0.03] backdrop-blur-2xl border border-white/10 shadow-[0_8px_48px_rgba(59,130,246,0.08),0_2px_8px_rgba(59,130,246,0.05)] p-8 sm:p-12 lg:p-14">
+          <div className="relative rounded-3xl bg-white/5 dark:bg-white/[0.03]  border border-white/10 shadow-[0_8px_48px_rgba(59,130,246,0.08),0_2px_8px_rgba(59,130,246,0.05)] p-8 sm:p-12 lg:p-14">
             {/* Subtle inner glass glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/[0.06] via-transparent to-blue-400/[0.04] pointer-events-none" />
 

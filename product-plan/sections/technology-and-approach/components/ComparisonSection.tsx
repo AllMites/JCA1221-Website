@@ -30,9 +30,6 @@ export function ComparisonSection({ comparison }: ComparisonSectionProps) {
       {/* Solid deep background */}
       <div className="absolute inset-0 bg-slate-950" />
 
-      {/* Subtle blue atmospheric orbs */}
-      <div className="absolute top-1/3 right-1/3 w-96 h-96 rounded-full bg-blue-500/5 blur-[120px]" />
-      <div className="absolute bottom-20 left-1/4 w-72 h-72 rounded-full bg-slate-500/4 blur-[100px]" />
 
       {/* Noise dither */}
       <ShaderBackground variant="ripples" opacity={0.4} />
@@ -55,13 +52,13 @@ export function ComparisonSection({ comparison }: ComparisonSectionProps) {
         <div className="hidden md:grid grid-cols-[1fr_1.2fr_1.2fr] gap-4 mb-4 px-4">
           <div />
           <div className="text-center">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/15 backdrop-blur-sm border border-blue-400/20 text-sm font-heading font-semibold text-blue-300">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/15 border border-blue-400/20 text-sm font-heading font-semibold text-blue-300">
               <Check className="w-4 h-4" />
               JCA 1221
             </span>
           </div>
           <div className="text-center">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-500/15 backdrop-blur-sm border border-slate-400/20 text-sm font-heading font-semibold text-slate-300">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-500/15 border border-slate-400/20 text-sm font-heading font-semibold text-slate-300">
               <X className="w-4 h-4" />
               Traditional
             </span>
@@ -81,7 +78,7 @@ export function ComparisonSection({ comparison }: ComparisonSectionProps) {
               }}
             >
               {/* Glass row */}
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_1.2fr] gap-3 md:gap-4 p-4 md:p-5 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10 hover:bg-white/8 transition-colors duration-300">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_1.2fr] gap-3 md:gap-4 p-4 md:p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/8 transition-colors duration-300">
                 {/* Label */}
                 <div className="flex items-center">
                   <span className="text-sm font-heading font-semibold text-slate-200">

@@ -285,7 +285,7 @@ export function TechnologyCarouselSection({
                     type="button"
                     className={`
                       flex flex-col items-center justify-center gap-1
-                      w-16 h-16 sm:w-20 sm:h-20 rounded-2xl
+                      w-16 h-16 sm:w-20 sm:h-20 rounded-xl
                       border-2 transition-all duration-300 cursor-pointer
                       snap-center flex-shrink-0
                       bg-white/50 dark:bg-transparent

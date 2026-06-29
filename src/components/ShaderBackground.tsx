@@ -149,15 +149,15 @@ function drawDark(ctx: CanvasRenderingContext2D, w: number, h: number, _t: numbe
 function drawBlue(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
   const rng = mulberry32(7)
 
-  drawOrb(ctx, w * 0.28 + Math.sin(t * 0.28) * 50, h * 0.38 + Math.cos(t * 0.23) * 30, w * 0.6, 'rgba(59,130,246,0.20)')
+  drawOrb(ctx, w * 0.28 + Math.sin(t * 0.28) * 50, h * 0.38 + Math.cos(t * 0.23) * 30, w * 0.6, 'rgba(0,0,0,0.20)')
   drawOrb(ctx, w * 0.72 + Math.cos(t * 0.33) * 45, h * 0.55 + Math.sin(t * 0.28) * 30, w * 0.5, 'rgba(6,182,212,0.16)')
-  drawOrb(ctx, w * 0.52 + Math.sin(t * 0.38) * 35, h * 0.28 + Math.cos(t * 0.42) * 20, w * 0.45, 'rgba(59,130,246,0.12)')
+  drawOrb(ctx, w * 0.52 + Math.sin(t * 0.38) * 35, h * 0.28 + Math.cos(t * 0.42) * 20, w * 0.45, 'rgba(0,0,0,0.10)')
 
   for (let i = 0; i < 12; i++) {
     const y0 = (h / 13) * (i + 1)
     const ph = t * 0.22 + i * 0.65
     ctx.lineWidth = 1 + (i % 3 === 0 ? 0.5 : 0)
-    ctx.strokeStyle = `rgba(59,130,246,${0.07 + i * 0.005})`
+    ctx.strokeStyle = `rgba(0,0,0,${0.07 + i * 0.005})`
     ctx.beginPath()
     ctx.moveTo(0, y0)
     for (let x = 0; x <= w; x += 3) ctx.lineTo(x, y0 + Math.sin(x * 0.0018 + ph) * 22 + Math.sin(x * 0.0045 + ph * 1.6) * 12)

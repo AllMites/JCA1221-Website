@@ -30,7 +30,7 @@ function ProjectCardItem({ project, onClick }: { project: ProjectCardType; onCli
   return (
     <button
       onClick={onClick}
-      className="group/card flex-shrink-0 w-[380px] sm:w-[420px] text-left rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-blue-400/50 dark:hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/5 transition-all duration-500 cursor-pointer"
+      className="group/card flex-shrink-0 w-[380px] sm:w-[420px] text-left rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-blue-400/50 dark:hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/5 transition-all duration-500 cursor-pointer"
     >
       {/* Image area */}
       <div className="relative h-52 bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-950 dark:to-slate-800 overflow-hidden">
@@ -136,7 +136,7 @@ export function ProjectCarousel({ projects, onProjectClick }: ProjectCarouselPro
           ))}
 
           {/* End hint card */}
-          <div className="flex-shrink-0 w-[280px] flex items-center justify-center rounded-2xl border border-dashed border-slate-700 dark:border-slate-800 bg-slate-800/30">
+          <div className="flex-shrink-0 w-[280px] flex items-center justify-center rounded-xl border border-dashed border-slate-700 dark:border-slate-800 bg-slate-800/30">
             <div className="text-center p-6">
               <ArrowRight size={24} className="text-slate-600 mx-auto mb-2" />
               <p className="text-sm text-slate-500 font-heading">

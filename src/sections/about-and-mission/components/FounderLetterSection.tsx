@@ -37,7 +37,7 @@ export function FounderLetterSection({ letter }: FounderLetterSectionProps) {
         {/* Frosted glass letter panel */}
         <div className="relative group">
           {/* Glass panel */}
-          <div className="relative rounded-3xl bg-white/5 dark:bg-white/[0.03] backdrop-blur-2xl border border-white/10 shadow-[0_8px_48px_rgba(59,130,246,0.08),0_2px_8px_rgba(59,130,246,0.05)] p-8 sm:p-12 lg:p-14">
+          <div className="relative rounded-3xl bg-white/5 dark:bg-white/[0.03] backdrop-blur-2xl border border-white/10 shadow-[0_8px_48px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.05)] p-8 sm:p-12 lg:p-14">
             {/* Subtle inner glass glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/[0.06] via-transparent to-blue-400/[0.04] pointer-events-none" />
 

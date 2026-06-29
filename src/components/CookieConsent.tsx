@@ -88,7 +88,7 @@ export function CookieConsent() {
         className="fixed bottom-0 left-0 right-0 z-[70] p-4 sm:p-6"
         style={{ animation: 'cookie-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
       >
-        <div className="max-w-2xl mx-auto rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-[0_-8px_40px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)] dark:shadow-[0_-8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.03)] p-5 sm:p-6">
+        <div className="max-w-2xl mx-auto rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-[0_-8px_40px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)] dark:shadow-[0_-8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.03)] p-5 sm:p-6">
           {/* Header */}
           <div className="flex items-start gap-3 mb-4">
             <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-400/20 flex items-center justify-center flex-shrink-0">
@@ -171,7 +171,7 @@ export function CookieConsent() {
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <button
               onClick={acceptAll}
-              className="px-5 py-2.5 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(59,130,246,0.25)] transition-all duration-200"
+              className="px-5 py-2.5 text-sm font-heading font-semibold rounded-full text-white bg-blue-500/80 hover:bg-blue-500/90 active:bg-blue-600/90 backdrop-blur-md border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.12)] transition-all duration-200"
             >
               Accept All
             </button>
