@@ -87,7 +87,8 @@ export function useImpactStats() {
         return
       }
 
-      const { data: projects, error } = await supabase
+      try {
+        const { data: projects, error } = await supabase
         .from('projects')
         .select('impact_metrics')
         .eq('published', true)
@@ -110,7 +111,7 @@ export function useImpactStats() {
           for (let i = 0; i < METRIC_CATEGORIES.length; i++) {
             if (metricMatchesCategory(metric, METRIC_CATEGORIES[i])) {
               aggregated[i] += extractNumericValue(metric)
-              break // Each metric goes to at most one category
+              break
             }
           }
         }
@@ -137,6 +138,9 @@ export function useImpactStats() {
       if (!cancelled) {
         setStats(displayStats)
         setLoading(false)
+      }
+      } catch {
+        if (!cancelled) setLoading(false)
       }
     }
 
