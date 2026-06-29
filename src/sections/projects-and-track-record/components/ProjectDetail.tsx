@@ -105,7 +105,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
           </div>
 
           {/* Project name */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-white mb-3 max-w-3xl leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-slate-200 mb-3 max-w-3xl leading-tight">
             {project.name}
           </h1>
 

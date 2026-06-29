@@ -150,8 +150,8 @@ export function AppShell({
 
       {/* Main content area */}
       <div>
-        {/* Breadcrumbs — auto-derived from URL, hidden on home page */}
-        {location.pathname !== '/' && <Breadcrumbs />}
+        {/* Breadcrumbs — hidden on home + project detail pages */}
+        {location.pathname !== '/' && !location.pathname.startsWith('/projects/') && <Breadcrumbs />}
 
         {sidebarAnchors && sidebarAnchors.length > 0 ? (
           <div className="flex flex-col lg:flex-row gap-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
