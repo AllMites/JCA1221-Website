@@ -6,12 +6,9 @@
   directory = "netlify/functions"
   external_node_modules = ["@sendgrid/mail", "@supabase/supabase-js"]
 
-[functions.environment]
-  SUPABASE_URL = "https://urtdzvtdekyycdnszlyp.supabase.co"
+# ── Redirects ──────────────────────────────────────────────────────────
 
-# ── Domain canonicalisation ────────────────────────────────────────────
-
-# www → non-www (root domain)
+# www → non-www
 [[redirects]]
   from = "https://www.jca1221.com/*"
   to = "https://jca1221.com/:splat"
@@ -23,45 +20,10 @@
   to = "https://jca1221.com/:splat"
   status = 301
 
-# ── SPA fallback ───────────────────────────────────────────────────────
-
+# SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# Service worker — never cache (browsers must check for updates)
-[[headers]]
-  for = "/sw.js"
-  [headers.values]
-    Cache-Control = "no-cache"
-    Service-Worker-Allowed = "/"
-
-# Web app manifest — brief cache
-[[headers]]
-  for = "/manifest.webmanifest"
-  [headers.values]
-    Cache-Control = "public, max-age=3600"
-    Content-Type = "application/manifest+json"
-
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "no-cache"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://urtdzvtdekyycdnszlyp.supabase.co; frame-src https://calendly.com"
-  [headers.status]
-    HTTP-200 = true
+# Headers are in public/_headers (Netlify reads this file automatically)
