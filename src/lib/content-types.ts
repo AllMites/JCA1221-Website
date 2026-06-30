@@ -3,7 +3,7 @@ export type ProjectStatus = 'operational' | 'development' | 'planning'
 export type PartnerType = 'LGU' | 'national_agency' | 'private_sector' | 'community' | 'regulatory'
 export type NewsCategory = 'awards' | 'projects' | 'policy' | 'expansion' | 'media'
 export type NewsType = 'media-coverage' | 'award' | 'feature'
-export type WidgetType = 'process_flow' | 'comparison_table' | 'video_carousel' | 'monitoring'
+export type WidgetType = 'process_flow' | 'comparison_table' | 'video_carousel' | 'monitoring' | 'visitor_portfolio'
 export type AuditAction = 'create' | 'update' | 'delete'
 export type UserRole = 'admin' | 'editor'
 

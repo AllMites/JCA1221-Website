@@ -1,0 +1,223 @@
+{
+  "categories": [
+    {
+      "id": "academic-2025",
+      "label": "Academic & Educational Visits",
+      "subtitle": "2025",
+      "icon": "🏫",
+      "entries": [
+        {
+          "organization": "Western Philippines University",
+          "date": "May 9, 2025",
+          "visitors": "Engineering Students",
+          "purpose": "Technical Educational Tour",
+          "highlights": ["Green Engineering", "Sustainable Technologies", "Resource Recovery"],
+          "impact": "Students gained practical exposure to wastewater treatment technologies, reinforcing PPWRLC's mission of nurturing future engineers and environmental leaders.",
+          "referenceUrl": "https://www.facebook.com/linbert.lamorino/posts/pfbid02CYox6r1YP1eZ3LdLC7T7i2ndAAPEUevThFoKzj4SjEKSWim8kCcSy1VruhBZYWUEl"
+        }
+      ]
+    },
+    {
+      "id": "academic-2024",
+      "label": "Academic & Educational Visits",
+      "subtitle": "2024",
+      "icon": "🏫",
+      "entries": [
+        {
+          "organization": "Mapúa University",
+          "date": "July 16, 2024",
+          "visitors": "35 Chemical Engineering Students",
+          "purpose": "Educational Plant Tour",
+          "highlights": ["Circular Economy", "Wastewater Technology", "Sustainability", "Practical Engineering Applications"],
+          "impact": "PPWRLC bridged classroom learning with real-world engineering applications, strengthening its reputation as one of the Philippines' premier environmental learning facilities.",
+          "referenceUrl": "https://www.facebook.com/profile/100064337551348/search/?q=treatment%20plant"
+        }
+      ]
+    },
+    {
+      "id": "lgu-benchmarking",
+      "label": "LGU Benchmarking Visits",
+      "icon": "🏛️",
+      "entries": [
+        {
+          "organization": "Municipality of San Vicente, Palawan",
+          "date": "November 11, 2024",
+          "visitors": "DENR-CENRO Roxas",
+          "purpose": "Benchmarking on Sewage Treatment Plant Operations",
+          "highlights": ["Sustainable Water Management", "Technical Knowledge Sharing", "Environmental Protection", "Replicable LGU Practices"],
+          "impact": "The visit highlighted PPWRLC as a benchmark facility for local governments seeking innovative and sustainable wastewater management systems that can be replicated in their own communities.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid02G1YD8arQZYH1bsR4yDxi4CinTShP4VN54nbSUyRsvPTkBXWesP7CK1eRarFvmsHUl"
+        }
+      ]
+    },
+    {
+      "id": "government-2024",
+      "label": "Government Agency Visits",
+      "subtitle": "2024",
+      "icon": "🏢",
+      "entries": [
+        {
+          "organization": "Palawan Provincial General Services Office",
+          "date": "August 2024",
+          "purpose": "Government Learning Visit",
+          "highlights": ["Environmental Sustainability", "Water Management", "Technical Learning", "Government Collaboration"],
+          "impact": "The visit further established PPWRLC as a trusted learning destination for government agencies seeking innovative environmental solutions.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid034jogkxUE573ykq6nz2HfrLKwmyNReF6JCdTdPwRuRBs1qEAh48Z4NNz5qBdfJnV5l"
+        }
+      ]
+    },
+    {
+      "id": "government-2023",
+      "label": "Government Agency Visits",
+      "subtitle": "2023",
+      "icon": "🏢",
+      "entries": [
+        {
+          "organization": "Puerto Princesa City Youth Development Office",
+          "date": "August 28, 2023",
+          "purpose": "Educational Plant Tour",
+          "highlights": ["Water Cycle", "Wastewater Recycling", "Environmental Stewardship", "Youth Leadership"],
+          "impact": "PPWRLC empowered future leaders through environmental education, fostering greater appreciation for water conservation and sustainability.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid0vjSoyfsmv7XZCVcYht6hksRZHtaMwzSjBySi4hceKNHnqYEmB9qyZW6zBB8c5esGl"
+        }
+      ]
+    },
+    {
+      "id": "government-2022",
+      "label": "Government Agency Visits",
+      "subtitle": "2022",
+      "icon": "🏢",
+      "entries": [
+        {
+          "organization": "Puerto Princesa City Fire Department",
+          "date": "January 22, 2022",
+          "purpose": "Discussion on utilizing recycled water for firefighting operations",
+          "highlights": ["Water Reuse", "Public Safety", "Disaster Preparedness", "Sustainable Resource Management"],
+          "impact": "The proposed collaboration demonstrated how treated wastewater can support emergency response while conserving potable water resources.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid026Z5uFYw8T8QQJWBK47mzdGDc4xTTS7HfNLLHXPpbgQbsHhLQdnRDWXiYHDVwzrRDl"
+        }
+      ]
+    },
+    {
+      "id": "water-utility-2024",
+      "label": "Water Utility & Industry Visits",
+      "subtitle": "2024",
+      "icon": "💧",
+      "entries": [
+        {
+          "organization": "Metropolitan Cebu Water District (MCWD)",
+          "date": "July 26, 2024",
+          "purpose": "Technical Plant Visit",
+          "highlights": ["Advanced Wastewater Technologies", "Utility Operations", "Knowledge Exchange", "Sustainable Development"],
+          "impact": "The visit fostered collaboration among water utilities while promoting the exchange of best practices in sustainable wastewater management.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid0nnaX7BFkMcWePeZw2hzDC6ag85oqZpmwh9UdLSMHfkVJ76r5fwBrvH11WLBvWrKul"
+        }
+      ]
+    },
+    {
+      "id": "water-utility-2022",
+      "label": "Water Utility & Industry Visits",
+      "subtitle": "2022",
+      "icon": "💧",
+      "entries": [
+        {
+          "organization": "Palawan Water (El Nido Wastewater Treatment Plant)",
+          "date": "March 11, 2022",
+          "purpose": "Technical Collaboration",
+          "highlights": ["Industry Best Practices", "Environmental Collaboration", "Knowledge Sharing", "Wastewater Operations"],
+          "impact": "The visit strengthened cooperation among wastewater service providers in Palawan, reinforcing PPWRLC's role as a regional center for technical learning and environmental collaboration.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid0NJdTKKq9XwHWGb7BPsCtfScmRsTdJb9AHR8cLi4HvKY26ecQhZNJYXh9g15TQna9l"
+        }
+      ]
+    },
+    {
+      "id": "international-2023",
+      "label": "International & Diplomatic Visits",
+      "subtitle": "2023",
+      "icon": "🌍",
+      "entries": [
+        {
+          "organization": "International City/County Management Association (ICMA)",
+          "date": "March 14, 2023",
+          "visitors": "USAID and City ENRO",
+          "purpose": "International Study Tour",
+          "highlights": ["Sustainable Infrastructure", "Public-Private Partnerships", "Environmental Innovation", "International Knowledge Sharing"],
+          "impact": "Delegates gained valuable insights into PPWRLC's pioneering wastewater treatment model, reinforcing its position as a demonstration facility for international development organizations.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid0R4QLvbNKtzkTUi5X46uDVvGk6UMyUeqdH5tW1kU1DsdwgSj7tCN8FyLp5vfBuZT6l"
+        }
+      ]
+    },
+    {
+      "id": "international-2022",
+      "label": "International & Diplomatic Visits",
+      "subtitle": "2022",
+      "icon": "🌍",
+      "entries": [
+        {
+          "organization": "Ambassador of Canada",
+          "date": "February 21, 2022",
+          "visitors": "Excellency Peter MacArthur",
+          "purpose": "Courtesy and Technical Visit",
+          "highlights": ["International Recognition", "Canadian Technologies", "Environmental Innovation", "Bilateral Engagement"],
+          "impact": "The visit underscored PPWRLC's growing international recognition as a world-class environmental facility capable of showcasing innovative wastewater treatment technologies.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid02dkNNB9dNkP7cwrJyTc49kehvULLEUYjeBxgKAo5Pt7gueACgxEdYrRev4Hg7ekCil"
+        }
+      ]
+    },
+    {
+      "id": "youth-community",
+      "label": "Youth & Community Engagement",
+      "icon": "🤝",
+      "entries": [
+        {
+          "organization": "Save Puerto Princesa Bays",
+          "date": "July 16, 2023",
+          "visitors": "Open House Tour",
+          "purpose": "Public Environmental Awareness",
+          "highlights": ["Community Education", "Public Awareness", "Environmental Conservation", "Bay Rehabilitation"],
+          "impact": "The Open House demonstrated PPWRLC's commitment to educate the public about wastewater treatment and its role in restoring Puerto Princesa Bay.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid02F9jo8w45PMXmWxzuPakL231PewqjWBKonJ4xxvEwjBjtW7aFS33gtWCUjGZHiej1l"
+        }
+      ]
+    },
+    {
+      "id": "ppp-milestones",
+      "label": "Government-Private Partnership Milestones",
+      "icon": "🤝",
+      "entries": [
+        {
+          "organization": "First Septage Fee Remittance",
+          "date": "February 21, 2022",
+          "visitors": "Puerto Princesa City Water District, City Government of Puerto Princesa, PPWRLC",
+          "purpose": "Public-Private Partnership Milestone — ₱1,071,354.38 First Remittance",
+          "highlights": ["Sustainable Financing", "Bay Rehabilitation", "Clean Water Act Compliance"],
+          "impact": "The successful remittance demonstrated the effectiveness of Puerto Princesa's Public-Private Partnership model, ensuring sustainable operations for PPWRLC and continued protection of Puerto Princesa Bay.",
+          "referenceUrl": "https://www.facebook.com/PPWRLC/posts/pfbid0t52FFs3MMsfi86eePA8xuhjAggVqKuZAtcjgU5osiuL8j3XdUg6fQMqsmiVK84wSl"
+        }
+      ]
+    },
+    {
+      "id": "international-recognition",
+      "label": "International Recognition",
+      "subtitle": "2025",
+      "icon": "🏆",
+      "stats": [
+        { "label": "Wastewater Treated", "value": "2B+ Liters" },
+        { "label": "Pollutants Removed", "value": "2M+ kg" },
+        { "label": "People Benefited", "value": "3M+" },
+        { "label": "Bay Rehabilitation", "value": "Success" }
+      ],
+      "entries": [
+        {
+          "organization": "Asian Water Improvement Project of the Year",
+          "date": "October 24, 2025",
+          "visitors": "InterContinental Kuala Lumpur, Malaysia",
+          "purpose": "Award Ceremony — First combined septage and sewage treatment facility producing recycled water in the Philippines",
+          "highlights": ["Asian Water 2025", "First-of-its-kind in PH", "Pioneering PPP Model", "Regional Benchmark"],
+          "impact": "Receiving the Asian Water Improvement Project of the Year placed PPWRLC among Asia's leading environmental infrastructure projects. This recognition validates the facility's pioneering Public-Private Partnership model and demonstrates that innovations developed in Puerto Princesa can serve as a benchmark for cities and municipalities across the Philippines and the Asia-Pacific region.",
+          "referenceUrl": "https://www.facebook.com/jehremiah.asis/posts/pfbid09TGcEt8Da5DJtko39URcNN3MP2Gdq2huGeRdAiTo86yiwwW7Co1MABuo4NgxCzMsl"
+        }
+      ]
+    }
+  ]
+}
