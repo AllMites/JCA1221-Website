@@ -37,6 +37,9 @@ verify-*.png
 # Obsidian graph output
 graphify-out/
 
+# Printouts / page exports
+printouts/
+
 # Screenshots / mockup exports in root (stay in design tool, not repo)
 /*.png
 /*.jpeg
