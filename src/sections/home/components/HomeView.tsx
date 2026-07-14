@@ -24,17 +24,17 @@ const PILLARS = [
   {
     title: 'Stewardship',
     description:
-      "We don't own the land or water — we restore what's been damaged, for the next generation.",
+      "We restore what's been damaged, for the next generations.",
   },
   {
     title: 'Ingenuity',
     description:
-      'Filipino-engineered solutions that cost 60% less than conventional infrastructure — built to last.',
+      'Filipino-engineered, customized, innovative solutions, built to last.',
   },
   {
-    title: 'Partnership',
+    title: 'Purpose',
     description:
-      'We work with, not for — LGUs, communities, and the private sector share ownership.',
+      'We work to fulfill community goals.',
   },
 ]
 
