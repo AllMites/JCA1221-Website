@@ -66,10 +66,10 @@ export function MainNav({ items, onNavigate }: MainNavProps) {
         ))}
       </nav>
 
-      {/* Mobile hamburger — neumorphic circle */}
+      {/* Mobile hamburger — neumorphic circle, solid bg for visibility */}
       <button
         onClick={() => setMobileOpen(!mobileOpen)}
-        className="md:hidden p-2.5 rounded-full text-slate-600 dark:text-slate-400 bg-white/40 dark:bg-slate-800/40 shadow-[3px_3px_8px_rgba(0,0,0,0.06),-2px_-2px_6px_rgba(255,255,255,0.9)] dark:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-2px_-2px_6px_rgba(255,255,255,0.03)] active:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.08),inset_-1px_-1px_3px_rgba(255,255,255,0.6)] dark:active:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.4),inset_-1px_-1px_2px_rgba(255,255,255,0.05)] transition-all duration-200"
+        className="md:hidden p-2.5 rounded-full text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 shadow-[3px_3px_8px_rgba(0,0,0,0.10),-2px_-2px_6px_rgba(255,255,255,0.8)] dark:shadow-[3px_3px_8px_rgba(0,0,0,0.5),-2px_-2px_6px_rgba(255,255,255,0.06)] active:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.12),inset_-1px_-1px_3px_rgba(255,255,255,0.5)] dark:active:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.5),inset_-1px_-1px_2px_rgba(255,255,255,0.05)] transition-all duration-200 z-50"
         aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
         aria-expanded={mobileOpen}
       >

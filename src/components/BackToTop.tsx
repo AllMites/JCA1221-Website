@@ -27,7 +27,8 @@ export function BackToTop() {
       onClick={scrollToTop}
       aria-label="Back to top"
       className={cn(
-        'fixed bottom-8 right-8 z-40',
+        'fixed right-6 z-50',
+        'bottom-24 sm:bottom-8', // mobile: above cookie consent; desktop: normal
         'w-12 h-12 rounded-full',
         'flex items-center justify-center',
         'bg-[oklch(0.546_0.245_262.881)]', // Pacific Blue (blue-600)
