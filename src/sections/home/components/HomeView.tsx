@@ -47,7 +47,7 @@ export function HomeView({
   onCtaClick,
   onSecondaryCtaClick,
 }: NewHomeViewProps) {
-  const partnerNames = partners.slice(0, 6).map((p) => p.name)
+  const partnerNames = ['City of Puerto Princesa', 'Mun. of Del Carmen', 'Siargao', 'Gingoog City', 'Samal']
 
   return (
     <div className="font-body">

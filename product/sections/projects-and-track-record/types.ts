@@ -78,7 +78,7 @@ export interface ProjectCard {
 export interface TechWidget {
   id: string
   project_id: string
-  widget_type: 'process_flow' | 'comparison_table' | 'video_carousel' | 'monitoring'
+  widget_type: 'process_flow' | 'comparison_table' | 'video_carousel' | 'monitoring' | 'visitor_portfolio'
   title: string | null
   description: string | null
   config: Record<string, unknown>

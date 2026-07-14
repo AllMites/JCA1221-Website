@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { ProjectDetailProps, ProjectStatus } from '@/../product/sections/projects-and-track-record/types'
-import { MapPin, ArrowLeft, Calendar, Leaf, Zap, CheckCircle2, Wrench, ClipboardCheck, Printer } from 'lucide-react'
+import { MapPin, ArrowLeft, Leaf, Zap, CheckCircle2, Wrench, ClipboardCheck, Printer } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
@@ -30,13 +30,6 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
   const reducedMotion = useReducedMotion()
   const { scrollY } = useScroll()
   const heroImageY = useTransform(scrollY, [0, 600], [0, -80])
-  const isPuertoPrincesa = project.id === 'puerto-princesa'
-  const yearRange =
-    project.yearStarted
-      ? project.yearCompleted
-        ? `${project.yearStarted} – ${project.yearCompleted}`
-        : `${project.yearStarted} – Present`
-      : 'Timeline TBD'
 
   return (
     <div className="font-body">
@@ -109,18 +102,12 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
             {project.name}
           </h1>
 
-          {/* Location + timeline */}
+          {/* Location */}
           <div className="flex flex-wrap items-center gap-4 text-slate-300 text-sm">
             <span className="inline-flex items-center gap-1.5">
               <MapPin size={14} />
               {project.location}
             </span>
-            {!isPuertoPrincesa && (
-            <span className="inline-flex items-center gap-1.5">
-              <Calendar size={14} />
-              {yearRange}
-            </span>
-            )}
           </div>
         </div>
       </section>
@@ -204,7 +191,7 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
       {project.techWidgets && project.techWidgets.length > 0 && (
         <section className="relative py-16 sm:py-20 bg-white dark:bg-slate-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <TechWidgetsSection widgets={project.techWidgets.filter(w => w.widget_type !== 'process_flow')} />
+            <TechWidgetsSection widgets={project.techWidgets.filter(w => w.widget_type !== 'process_flow' && w.widget_type !== 'visitor_portfolio')} />
           </div>
         </section>
       )}
