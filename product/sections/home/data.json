@@ -15,7 +15,7 @@
   "hero": {
     "siteName": "JCA 1221 Holdings",
     "tagline": "Earth Renewal for Generations",
-    "description": "Philippine environmental infrastructure — restoring coastal ecosystems through nature-mimicking technology and public-private partnerships.",
+    "description": "Philippine environmental infrastructure — restoring coastal ecosystems through nature-inspired technology and public-private partnerships.",
     "backgroundImage": "/images/hero-water.jpg",
     "ctaLabel": "Our Projects",
     "ctaHref": "#projects"
@@ -59,7 +59,7 @@
       "id": "del-carmen",
       "name": "Del Carmen Integrated Environmental Facility",
       "location": "Del Carmen, Siargao Island, Surigao del Norte",
-      "status": "development",
+      "status": "operational",
       "image": "/images/projects/del-carmen.jpg",
       "description": "A next-generation facility combining wastewater treatment with solid waste management via pyrolysis technology — designed to handle tourism-driven waste while protecting Siargao's world-famous ecosystems.",
       "award": {

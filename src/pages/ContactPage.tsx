@@ -13,7 +13,7 @@ import type {
 } from '@/../product/sections/contact-and-partnerships/types'
 
 const FALLBACK_TITLE = "Let's Build Together"
-const FALLBACK_SUBTITLE = 'Partner with JCA 1221 to bring world-class environmental infrastructure to your community. Serious inquiries only.'
+const FALLBACK_SUBTITLE = 'Partner with JCA 1221 to bring world-class environmental infrastructure to your community.'
 
 interface FormConfigWithTitles extends Record<string, unknown> {
   basicFields?: FormConfig['basicFields']

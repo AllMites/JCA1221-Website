@@ -19,7 +19,7 @@
     "name": "Jehremiah C. Asis",
     "role": "Founder & CEO, JCA 1221 Holdings Inc.",
     "photo": "/images/team/jehri-asis.jpg",
-    "signatureQuote": "If people can't afford to clean polluted water, the environment will continue to suffer. That's why we go where others won't.",
+    "signatureQuote": "If people can't afford to clean polluted water, or process their trash, the environment will continue to suffer. That's why we go where others won't.",
     "quotes": [
       {
         "text": "Pollution is the same whether it happens in an urban center or a remote barangay. The water doesn't care about jurisdiction.",
@@ -38,27 +38,37 @@
       {
         "year": 2015,
         "title": "Corporate Law Career",
-        "description": "Practiced project finance law in Manila, structuring complex transactions and developing the financial discipline that would later underpin JCA 1221's public-private partnership model."
+        "description": "Practiced project finance law in Manila from 1999-2015, structuring complex transactions and developing the financial discipline that would later underpin JCA 1221's public-private partnership model."
       },
       {
         "year": 2017,
         "title": "The Turning Point",
-        "description": "A near-fatal car accident prompted a period of deep reflection, shifting focus from corporate practice toward environmental infrastructure and public service."
+        "description": "A near-fatal car accident prompted a period of deep reflection, resulting in a deepening of the foundations for environmental advocacy and public service."
       },
       {
         "year": 2019,
         "title": "JCA 1221 Founded",
-        "description": "Established JCA 1221 Holdings with the mission of bringing affordable, nature-mimicking wastewater treatment to Philippine communities — starting with the places others overlooked."
+        "description": "Established JCA 1221 Holdings with the mission of bringing affordable, nature-inspired technologies for building to Philippine communities — starting with the places others overlooked."
       },
       {
         "year": 2022,
         "title": "Puerto Princesa Breakthrough",
-        "description": "Led the development of the Philippines' first city-scale combined septage and sewage treatment facility, now preventing 4,000 cubic meters of untreated wastewater from reaching the bay daily."
+        "description": "Led the development of the Philippines' first city-scale combined septage and sewage treatment facility, now preventing up to 4,000 cubic meters of untreated wastewater from reaching the bay daily."
+      },
+      {
+        "year": 2023,
+        "title": "Mindanao & Siargao Expansion",
+        "description": "Commissioned the Gingoog wastewater purification plant, demonstrating that the Puerto Princesa technology and business model is replicable. Inaugurated the Del Carmen Siargao septage recycling facility, demonstrating the first island-based wastewater solution and laid the foundation for an island-based circular economy program."
       },
       {
         "year": 2025,
-        "title": "Asian Water Award & Expansion",
-        "description": "Puerto Princesa facility won the 2025 Asian Water Award for Water Reclamation Project of the Year. Launched expansion to Gingoog City and Del Carmen, Siargao with pyrolysis-based solid waste management."
+        "title": "Asian Water Award",
+        "description": "Puerto Princesa facility won the 2025 Asian Water Award for Water Reclamation Project of the Year."
+      },
+      {
+        "year": 2026,
+        "title": "Del Carmen Siargao Breakthrough",
+        "description": "Launched the Siargao Zero Waste and Plastic Waste-to-Fuel facility, the first successful island-based solid waste management solution in the Philippines and displayed the Philippines' first integrated wastewater and solid waste management program under a circular economy framework."
       }
     ]
   },
@@ -69,7 +79,7 @@
       "icon": "ShieldCheck",
       "sectionColor": "amber",
       "glassTint": "amber",
-      "description": "Integrity isn't a marketing angle — it's the foundation of every project we build. When a project must be done right — on time, on budget, to spec — our commitment to doing it properly is our strongest advantage.",
+      "description": "Integrity isn't a marketing angle — it's the fundamental prospect of our company. From designing solutions to implementing our projects, we always put our clients' interests ahead of ours.",
       "subPoints": [
         {
           "title": "Full transparency in procurement",
@@ -77,11 +87,11 @@
         },
         {
           "title": "Community-first accountability",
-          "description": "We don't just report to government agencies. We answer to the communities whose water we clean, whose bays we restore, and whose trust we earn project by project."
+          "description": "We don't waste due process. Primarily, we hold ourselves accountable not only to government agencies, but also to the communities whose environments we help restore."
         },
         {
-          "title": "Ethical procurement, auditable end-to-end",
-          "description": "Strict ethical procurement policies apply across all projects, vendors, and subcontractors. Every transaction is documented and auditable — giving partners full confidence in every peso spent."
+          "title": "Solutions First Mentality",
+          "description": "We approach every project by pulling the understanding, required resources, and context, tailor fitting every solution to ensure success."
         }
       ]
     },
@@ -94,8 +104,8 @@
       "description": "Nature doesn't produce waste — everything cycles. Our treatment systems follow the same principle: wastewater becomes clean water, solid waste becomes energy, and what was once pollution becomes productive.",
       "subPoints": [
         {
-          "title": "Biological treatment mimics nature",
-          "description": "Our systems use the same nitrogen cycle found in healthy aquatic ecosystems. Microorganisms do the heavy lifting — no harsh chemicals, no energy-intensive brute force."
+          "title": "Our systems mimic nature's cleaning processes",
+          "description": "Microorganisms do the heavy lifting — no harsh chemicals, no energy-intensive brute force. For solid waste, we design with the environment in mind by meeting and exceeding regulatory standards."
         },
         {
           "title": "Recycled water returns to the ecosystem",
@@ -113,7 +123,7 @@
       "icon": "HeartHandshake",
       "sectionColor": "blue",
       "glassTint": "blue",
-      "description": "Service, Not Business. We are profitable and financially sustainable — but profit is the engine, not the destination. Our pricing model ensures communities can afford clean water, because environmental protection can't depend on wealth.",
+      "description": "Service, Not Business. We are profitable and financially sustainable — but profit is the engine, not the destination. Our pricing model ensures communities can afford clean water and proper waste treatment, because environmental protection can't depend on wealth.",
       "subPoints": [
         {
           "title": "Affordable for communities",
@@ -124,8 +134,8 @@
           "description": "We navigate the legal, financial, and regulatory complexity of PPPs so that local governments get infrastructure that works — with transparent governance and clear accountability at every stage."
         },
         {
-          "title": "Knowledge transfer, not dependency",
-          "description": "Every facility includes a Learning Center component. We train local operators, share technical knowledge, and build capacity so communities own their environmental future."
+          "title": "Long Term Stability",
+          "description": "Our solutions match current needs with available resources that produce immediate impact with long-term benefits. We build with flexibility that allows for expansion to meet future needs and available resources. The result: high-impact sustainable solutions"
         }
       ]
     },
@@ -143,11 +153,11 @@
         },
         {
           "title": "Puerto Princesa Bay rehabilitation",
-          "description": "The bay, once too polluted for recreation, now hosts international Ironman triathlons and dragon boat races. Water quality is monitored, verified, and publicly transparent."
+          "description": "The bay, once too polluted for recreation, now hosts international Ironman triathlons and dragon boat races. Water quality is monitored, verified, and publicly transparent. Scientists from the University of the Philippines have validated the effectiveness of our technology and our success in Puerto Princesa Bay."
         },
         {
           "title": "Scaling to new communities",
-          "description": "Active projects in Gingoog City (Mindanao), Del Carmen (Siargao), and a pipeline of 5+ municipalities in assessment — each with the same integrity-first, nature-first approach."
+          "description": "Active projects in Gingoog City (Mindanao), Del Carmen (Siargao), and a pipeline of municipalities in assessment — each with the same integrity-first, nature-first approach."
         }
       ]
     }

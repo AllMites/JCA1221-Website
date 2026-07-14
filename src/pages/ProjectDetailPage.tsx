@@ -13,9 +13,9 @@ export function ProjectDetailPage() {
   const { projectId } = useParams<{ projectId: string }>()
   const navigate = useNavigate()
   const { project, loading: projectLoading } = useProject(projectId ?? '')
-  const { partners, loading: partnersLoading } = usePartners()
+  const { partners } = usePartners()
 
-  const loading = projectLoading || partnersLoading
+  const loading = projectLoading
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -103,7 +103,7 @@ export function ProjectDetailPage() {
                   { label: mappedProject.name },
                 ]}
               />
-              <ProjectDetail project={mappedProject} partners={partners} onBack={() => navigate('/projects')} />
+              <ProjectDetail project={mappedProject} onBack={() => navigate('/projects')} />
             </>
           ) : null}
         </ErrorBoundary>

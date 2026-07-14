@@ -279,7 +279,7 @@ export function ContactForm({
             Send an Inquiry
           </h3>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            We respond to every inquiry within 2 business days. All fields marked with{' '}
+            All fields marked with{' '}
             <span className="text-blue-600 dark:text-blue-300">*</span> are required.
           </p>
         </div>

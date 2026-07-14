@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import type { ProjectDetailProps, ProjectStatus } from '@/../product/sections/projects-and-track-record/types'
-import { MapPin, ArrowLeft, Trophy, Users, Building2, Calendar, Leaf, Zap, Award, CheckCircle2, Wrench, ClipboardCheck, Printer } from 'lucide-react'
+import { MapPin, ArrowLeft, Calendar, Leaf, Zap, CheckCircle2, Wrench, ClipboardCheck, Printer } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { ShaderBackground } from '@/components/ShaderBackground'
 import { TechWidgetsSection } from './TechWidgetsSection'
-import { PartnerBadges } from '@/sections/contact-and-partnerships/components/PartnerBadges'
 
 const STATUS_CAPSULE: Record<ProjectStatus, { label: string; icon: LucideIcon; className: string }> = {
   operational: {
@@ -26,11 +25,12 @@ const STATUS_CAPSULE: Record<ProjectStatus, { label: string; icon: LucideIcon; c
   },
 }
 
-export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps) {
+export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
   const [heroErrored, setHeroErrored] = useState(false)
   const reducedMotion = useReducedMotion()
   const { scrollY } = useScroll()
   const heroImageY = useTransform(scrollY, [0, 600], [0, -80])
+  const isPuertoPrincesa = project.id === 'puerto-princesa'
   const yearRange =
     project.yearStarted
       ? project.yearCompleted
@@ -115,10 +115,12 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
               <MapPin size={14} />
               {project.location}
             </span>
+            {!isPuertoPrincesa && (
             <span className="inline-flex items-center gap-1.5">
               <Calendar size={14} />
               {yearRange}
             </span>
+            )}
           </div>
         </div>
       </section>
@@ -202,7 +204,7 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
       {project.techWidgets && project.techWidgets.length > 0 && (
         <section className="relative py-16 sm:py-20 bg-white dark:bg-slate-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <TechWidgetsSection widgets={project.techWidgets} />
+            <TechWidgetsSection widgets={project.techWidgets.filter(w => w.widget_type !== 'process_flow')} />
           </div>
         </section>
       )}
@@ -245,93 +247,6 @@ export function ProjectDetail({ project, partners, onBack }: ProjectDetailProps)
               ))}
             </div>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Awards & Partners section — amber gold */}
-      <section className="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-amber-50/30 to-white dark:from-amber-950/15 dark:to-slate-950">
-        <ShaderBackground variant="amber" opacity={0.4} />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10">
-            {/* Awards */}
-            <div>
-              <ScrollReveal direction="up">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
-                    <Trophy size={18} className="text-amber-600 dark:text-amber-400" />
-                  </div>
-                  <h2 className="text-2xl font-bold font-heading text-slate-900 dark:text-white">
-                    Awards & Recognition
-                  </h2>
-                </div>
-              </ScrollReveal>
-
-              {project.awards.length === 0 ? (
-                <div className="rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 text-center">
-                  <Award size={24} className="text-slate-300 dark:text-slate-600 mx-auto mb-2" />
-                  <p className="text-sm text-slate-400 dark:text-slate-500">
-                    No awards yet — this project is still in progress.
-                  </p>
-                </div>
-              ) : (
-                <ScrollReveal staggerChildren={0.1}>
-                  <div className="space-y-4">
-                    {project.awards.map((award, i) => (
-                      <RevealItem key={i}>
-                        <div className="rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6"
-                        >
-                          <div className="flex items-start gap-3">
-                            <Trophy size={20} className="text-amber-500 dark:text-amber-400 shrink-0 mt-0.5" />
-                            <div>
-                              <h3 className="font-bold font-heading text-slate-900 dark:text-white text-base mb-1">
-                                {award.title}
-                              </h3>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
-                                {award.organization}, {award.year}
-                              </p>
-                              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                {award.description}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </RevealItem>
-                    ))}
-                  </div>
-                </ScrollReveal>
-              )}
-            </div>
-
-            {/* Partners */}
-            <div>
-              <ScrollReveal direction="up">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                    <Building2 size={18} className="text-blue-600 dark:text-blue-400" />
-                  </div>
-                  <h2 className="text-2xl font-bold font-heading text-slate-900 dark:text-white">
-                    Partners
-                  </h2>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal staggerChildren={0.06}>
-                <div className="rounded-xl backdrop-blur-lg border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 sm:p-6">
-                  {partners && partners.length > 0 ? (
-                    <PartnerBadges partners={partners} projectId={project.id} title="" />
-                  ) : (
-                    <div className="text-center">
-                      <Users size={24} className="text-slate-300 dark:text-slate-600 mx-auto mb-2" />
-                      <p className="text-sm text-slate-400 dark:text-slate-500">
-                        No partners listed yet.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
         </div>
       </section>
     </div>

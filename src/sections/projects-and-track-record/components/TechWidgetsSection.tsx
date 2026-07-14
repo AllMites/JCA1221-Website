@@ -9,7 +9,9 @@ interface TechWidgetsSectionProps {
 export function TechWidgetsSection({ widgets }: TechWidgetsSectionProps) {
   if (!widgets || widgets.length === 0) return null
 
-  const sorted = [...widgets].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+  const sorted = [...widgets]
+    .filter((w) => w.widget_type !== 'process_flow')
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
 
   return (
     <div className="space-y-16 py-16">

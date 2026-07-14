@@ -74,7 +74,7 @@ export function TrustStrip({ stats, partnerLogos }: TrustStripProps) {
             <div className="border-t border-slate-200 dark:border-slate-700 py-4 px-4 sm:px-8">
               <div className="flex items-center justify-center gap-6 flex-wrap">
                 <span className="text-xs font-medium text-slate-400 dark:text-slate-500 font-heading uppercase tracking-wider">
-                  Trusted By
+                  Serving
                 </span>
                 {partnerLogos.map((name, i) => (
                   <span

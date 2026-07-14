@@ -6,8 +6,6 @@ import type { Partner } from '@/lib/content-types'
 const CERTIFICATIONS = [
   { label: 'Philippine SEC Registered' },
   { label: 'DENR Environmental Compliance' },
-  { label: 'DILG PPP Framework' },
-  { label: 'ISO 14001 (in progress)' },
 ]
 
 interface TrustWallProps {
@@ -50,7 +48,7 @@ export function TrustWall({ partners }: TrustWallProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <h2 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 dark:text-white text-center mb-8">
-            Trusted By
+            Serving
           </h2>
 
           {/* Partner logo grid — staggered reveal */}

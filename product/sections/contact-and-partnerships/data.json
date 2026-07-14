@@ -19,7 +19,7 @@
     ]
   },
   "sectionTitle": "Let's Build Together",
-  "sectionSubtitle": "Partner with JCA 1221 to bring world-class environmental infrastructure to your community. Serious inquiries only.",
+  "sectionSubtitle": "Partner with JCA 1221 to bring world-class environmental infrastructure to your community.",
   "formConfig": {
     "basicFields": [
       { "name": "fullName", "label": "Full Name", "type": "text", "required": true, "placeholder": "Juan dela Cruz" },
