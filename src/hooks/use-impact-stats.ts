@@ -103,7 +103,16 @@ export function useImpactStats() {
         .eq('published', true)
 
       if (error || !projects) {
-        if (!cancelled) setLoading(false)
+        // Fallback: show known count rather than nothing
+        if (!cancelled) {
+          setStats([{
+            number: 3,
+            suffix: '',
+            label: 'Active Projects',
+            description: 'Water and waste infrastructure across the Philippines',
+          }])
+          setLoading(false)
+        }
         return
       }
 
@@ -149,7 +158,16 @@ export function useImpactStats() {
         setLoading(false)
       }
       } catch {
-        if (!cancelled) setLoading(false)
+        // Fallback on any fetch failure
+        if (!cancelled) {
+          setStats([{
+            number: 3,
+            suffix: '',
+            label: 'Active Projects',
+            description: 'Water and waste infrastructure across the Philippines',
+          }])
+          setLoading(false)
+        }
       }
     }
 
