@@ -156,7 +156,7 @@ export function AppShell({
         {sidebarAnchors && sidebarAnchors.length > 0 ? (
           <div className="flex flex-col lg:flex-row gap-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Main content */}
-            <main id="main-content" className="flex-1 min-w-0 py-8">{children}</main>
+            <main id="main-content" className="flex-1 min-w-0 py-8 pb-28">{children}</main>
 
             {/* Floating glass sidebar with page anchors */}
             <aside className="lg:w-56 shrink-0 py-8">
