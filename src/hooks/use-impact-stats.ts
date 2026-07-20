@@ -83,7 +83,16 @@ export function useImpactStats() {
       setLoading(true)
 
       if (!hasSupabaseCredentials) {
-        if (!cancelled) setLoading(false)
+        // Fallback: show known project count so counter isn't "0"
+        if (!cancelled) {
+          setStats([{
+            number: 3,
+            suffix: '',
+            label: 'Active Projects',
+            description: 'Water and waste infrastructure across the Philippines',
+          }])
+          setLoading(false)
+        }
         return
       }
 

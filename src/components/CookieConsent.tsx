@@ -88,7 +88,7 @@ export function CookieConsent() {
         className="fixed bottom-0 left-0 right-0 z-[70] p-4 sm:p-6"
         style={{ animation: 'cookie-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
       >
-        <div className="max-w-2xl mx-auto rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-[0_-8px_40px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)] dark:shadow-[0_-8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.03)] p-5 sm:p-6">
+        <div className="max-w-2xl mx-auto rounded-xl bg-white dark:bg-slate-900 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-[0_-8px_40px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.04)] dark:shadow-[0_-8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.03)] p-5 sm:p-6">
           {/* Header */}
           <div className="flex items-start gap-3 mb-4">
             <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-400/20 flex items-center justify-center flex-shrink-0">
@@ -177,7 +177,7 @@ export function CookieConsent() {
             </button>
             <button
               onClick={essentialOnly}
-              className="px-5 py-2.5 text-sm font-heading font-medium rounded-full text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-white/10 transition-all duration-200"
+              className="px-5 py-2.5 text-sm font-heading font-medium rounded-full text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-white/10 transition-all duration-200"
             >
               Essential Only
             </button>
