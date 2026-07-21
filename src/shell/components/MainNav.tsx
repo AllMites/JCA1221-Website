@@ -78,7 +78,7 @@ export function MainNav({ items, onNavigate }: MainNavProps) {
 
       {/* Mobile slide-out — glass panel with slide animation */}
       <div
-        className={`md:hidden fixed inset-0 z-40 overflow-hidden transition-opacity duration-300 ${mobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`md:hidden fixed inset-0 z-[60] overflow-hidden transition-opacity duration-300 ${mobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
       >
         <div
           className="absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-300"
