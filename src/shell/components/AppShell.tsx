@@ -96,7 +96,7 @@ export function AppShell({
       {/* Top navigation bar — scroll-aware: transparent → frosted glass */}
       <motion.header
         ref={headerRef}
-        className="sticky top-0 z-50 border-b border-white/20 dark:border-white/10"
+        className="sticky top-0 z-50 border-b border-white/20 dark:border-white/10 relative"
         style={{
           backdropFilter: useTransform(headerBlur, (v) => `blur(${v}px)`),
           WebkitBackdropFilter: useTransform(headerBlur, (v) => `blur(${v}px)`),
