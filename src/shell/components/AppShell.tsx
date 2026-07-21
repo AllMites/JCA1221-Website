@@ -218,6 +218,9 @@ export function AppShell({
                 <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
                   Makati, Metro Manila, Philippines
                 </p>
+                <p className="mt-2 text-xs text-slate-300 dark:text-slate-600">
+                  <a href="https://webruler.dev" target="_blank" rel="noopener noreferrer" className="hover:text-slate-500 dark:hover:text-slate-400 transition-colors">Website by Web Ruler</a>
+                </p>
               </div>
 
               {/* Navigation columns */}
