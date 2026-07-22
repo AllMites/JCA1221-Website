@@ -2,12 +2,24 @@ import { ArrowDown, Droplets } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useScroll, useTransform, motion } from 'framer-motion'
 import type { HeroContent } from '@/../product/sections/home/types'
-import { ShaderBackground, type ShaderVariant } from '@/components/ShaderBackground'
 import { GlassPill } from '@/components/GlassPill'
 
 
 const CYCLE_WORDS = ['Water', 'Land', 'Waste']
 const CYCLE_INTERVAL = 6000
+
+// ─── Hero video — one cinematic backdrop per word ─────────────────────────
+const HERO_VIDEOS: Record<string, string> = {
+  Water:  '/videos/projects/compressed/puerto-princesa-hero.mp4',
+  Land:   '/videos/projects/compressed/gingoog-hero.mp4',
+  Waste:  '/videos/projects/compressed/del-carmen-hero.mp4',
+}
+
+const HERO_POSTERS: Record<string, string> = {
+  Water:  '/videos/projects/compressed/puerto-princesa-hero-poster.webp',
+  Land:   '/videos/projects/compressed/gingoog-hero-poster.webp',
+  Waste:  '/videos/projects/compressed/del-carmen-hero-poster.webp',
+}
 
 // ─── Letter stagger constants ─────────────────────────────────────────────
 const LETTER_DURATION = 350 // ms per letter animation
@@ -15,31 +27,16 @@ const LETTER_STAGGER = 60 // ms between consecutive letters
 /** Total time from first letter start to last letter animation end */
 const cycleTotalMs = (word: string) => LETTER_DURATION + (word.length - 1) * LETTER_STAGGER
 
-// ─── Background config per word ───────────────────────────────────────────
-
-interface WordBgConfig {
-  variant: ShaderVariant
-  gradient: string
-  image?: string   // optional background image URL
-  video?: string   // optional background video URL (takes precedence over image)
+// ─── Tint overlay per word (color shifts with word cycle) ─────────────────
+interface WordTint {
+  color: string   // Tailwind color class for the tint overlay
+  accent: string  // accent text color
 }
 
-const WORD_BG: Record<string, WordBgConfig> = {
-  Water: {
-    variant: 'blue',
-    gradient: 'from-slate-950 via-blue-950 to-slate-900',
-    // image: '/images/projects/water-reclamation.jpg',
-  },
-  Land: {
-    variant: 'leaves',
-    gradient: 'from-slate-950 via-emerald-950 to-slate-900',
-    // image: '/images/projects/land-restoration.jpg',
-  },
-  Waste: {
-    variant: 'amber',
-    gradient: 'from-slate-950 via-amber-950 to-slate-900',
-    // image: '/images/projects/waste-management.jpg',
-  },
+const WORD_TINT: Record<string, WordTint> = {
+  Water:  { color: 'from-blue-950/70 via-blue-900/60 to-slate-950/80', accent: 'text-blue-300' },
+  Land:   { color: 'from-emerald-950/70 via-emerald-900/60 to-slate-950/80', accent: 'text-emerald-300' },
+  Waste:  { color: 'from-amber-950/70 via-amber-900/60 to-slate-950/80', accent: 'text-amber-300' },
 }
 
 interface HeroSectionProps {
@@ -139,20 +136,19 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
 
   // ─── Background layer renderer ─────────────────────────────────────────
   const renderBgLayer = (word: string, className = '') => {
-    const cfg = WORD_BG[word]
+    const tint = WORD_TINT[word]
     return (
       <div className={`absolute inset-0 ${className}`}>
-        <div className={`absolute inset-0 bg-gradient-to-b ${cfg.gradient}`} />
-        <ShaderBackground variant={cfg.variant} opacity={0.7} animated />
-        {cfg.video ? (
-          <video
-            src={cfg.video}
-            autoPlay muted loop playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        ) : cfg.image ? (
-          <img src={cfg.image} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        ) : null}
+        <video
+          src={HERO_VIDEOS[word]}
+          poster={HERO_POSTERS[word]}
+          autoPlay muted loop playsInline preload="none"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Dark tint overlay that shifts with word theme */}
+        <div className={`absolute inset-0 bg-gradient-to-b ${tint.color}`} />
+        {/* Extra dark scrim for text legibility */}
+        <div className="absolute inset-0 bg-slate-950/20" />
       </div>
     )
   }
