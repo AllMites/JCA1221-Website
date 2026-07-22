@@ -141,9 +141,31 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
     // Set slow playback on all videos once mounted
     CYCLE_WORDS.forEach((word) => {
       const el = videoRefs.current[word]
-      if (el) el.playbackRate = 0.6
+      if (el) {
+        el.playbackRate = 0.6
+        el.loop = true
+      }
     })
   }, [])
+
+  // ─── Video visibility control — pause hidden, reset + play on fade-in ──
+  useEffect(() => {
+    CYCLE_WORDS.forEach((word) => {
+      const el = videoRefs.current[word]
+      if (!el) return
+      const isActive = word === activeBgWordRef.current
+      const isIncoming = word === overlayWord && overlayVisible
+      if (isActive || isIncoming) {
+        // Reset to start when fading in as overlay
+        if (isIncoming && !isActive) {
+          el.currentTime = 0
+        }
+        if (el.paused) el.play()
+      } else {
+        el.pause()
+      }
+    })
+  }, [activeBgWordRef.current, overlayWord, overlayVisible])
 
   return (
     <section
