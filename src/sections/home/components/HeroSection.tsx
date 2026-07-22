@@ -134,20 +134,32 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
     return () => clearTimeout(bgTeardownRef.current)
   }, [cycling, nextWord]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // ─── Video playback rate — slow cinematic movement ─────────────────────
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({})
+
+  useEffect(() => {
+    // Set slow playback on all videos once mounted
+    CYCLE_WORDS.forEach((word) => {
+      const el = videoRefs.current[word]
+      if (el) el.playbackRate = 0.6
+    })
+  }, [])
+
   // ─── Background layer renderer ─────────────────────────────────────────
-  const renderBgLayer = (word: string, className = '') => {
+  const renderBgLayer = (word: string, visible: boolean, className = '') => {
     const tint = WORD_TINT[word]
     return (
-      <div className={`absolute inset-0 ${className}`}>
+      <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${className}`}
+        style={{ opacity: visible ? 1 : 0, pointerEvents: visible ? 'auto' : 'none' }}
+      >
         <video
+          ref={(el) => { videoRefs.current[word] = el }}
           src={HERO_VIDEOS[word]}
           poster={HERO_POSTERS[word]}
-          autoPlay muted loop playsInline preload="none"
+          autoPlay muted loop playsInline preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Dark tint overlay that shifts with word theme */}
         <div className={`absolute inset-0 bg-gradient-to-b ${tint.color}`} />
-        {/* Extra dark scrim for text legibility */}
         <div className="absolute inset-0 bg-slate-950/20" />
       </div>
     )
@@ -158,23 +170,20 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background layers with parallax — scroll slower than foreground */}
+      {/* Background layers with parallax — all videos preloaded, visibility toggled */}
       <motion.div className="absolute inset-0" style={{ y: parallaxY }}>
-        {/* Base background layer — current word theme */}
-        {renderBgLayer(activeBgWordRef.current)}
-
-        {/* Overlay background layer — cross-fades in synced to letter animation */}
-        {overlayWord && (
-          <div
-            className="absolute inset-0 transition-opacity ease-in-out pointer-events-none"
-            style={{
-              opacity: overlayVisible ? 1 : 0,
-              transitionDuration: `${cycleTotalMs(currentWord)}ms`,
-            }}
-          >
-            {renderBgLayer(overlayWord)}
-          </div>
-        )}
+        {CYCLE_WORDS.map((word) => {
+          const isBase = word === activeBgWordRef.current
+          const isOverlay = word === overlayWord
+          return (
+            <div key={word}>
+              {/* Base: visible when this word is active and not being overlaid */}
+              {renderBgLayer(word, isBase && !isOverlay)}
+              {/* Overlay: cross-fades in during word transition */}
+              {isOverlay && renderBgLayer(word, overlayVisible, 'pointer-events-none')}
+            </div>
+          )
+        })}
       </motion.div>
 
       {/* Content */}
