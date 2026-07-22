@@ -145,42 +145,31 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
     })
   }, [])
 
-  // ─── Background layer renderer ─────────────────────────────────────────
-  const renderBgLayer = (word: string, visible: boolean, className = '') => {
-    const tint = WORD_TINT[word]
-    return (
-      <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${className}`}
-        style={{ opacity: visible ? 1 : 0, pointerEvents: visible ? 'auto' : 'none' }}
-      >
-        <video
-          ref={(el) => { videoRefs.current[word] = el }}
-          src={HERO_VIDEOS[word]}
-          poster={HERO_POSTERS[word]}
-          autoPlay muted loop playsInline preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className={`absolute inset-0 bg-gradient-to-b ${tint.color}`} />
-        <div className="absolute inset-0 bg-slate-950/20" />
-      </div>
-    )
-  }
-
   return (
     <section
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background layers with parallax — all videos preloaded, visibility toggled */}
+      {/* Background layers with parallax — all videos preloaded, one visible at a time */}
       <motion.div className="absolute inset-0" style={{ y: parallaxY }}>
         {CYCLE_WORDS.map((word) => {
-          const isBase = word === activeBgWordRef.current
-          const isOverlay = word === overlayWord
+          const isActive = word === activeBgWordRef.current
+          const isIncoming = word === overlayWord
+          // Active base: full opacity. Incoming overlay: fades in. Neither: hidden.
+          const visible = isActive || (isIncoming && overlayVisible)
           return (
-            <div key={word}>
-              {/* Base: visible when this word is active and not being overlaid */}
-              {renderBgLayer(word, isBase && !isOverlay)}
-              {/* Overlay: cross-fades in during word transition */}
-              {isOverlay && renderBgLayer(word, overlayVisible, 'pointer-events-none')}
+            <div key={word} className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out"
+              style={{ opacity: visible ? 1 : 0, pointerEvents: visible ? 'auto' : 'none' }}
+            >
+              <video
+                ref={(el) => { videoRefs.current[word] = el }}
+                src={HERO_VIDEOS[word]}
+                poster={HERO_POSTERS[word]}
+                autoPlay muted loop playsInline preload="auto"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className={`absolute inset-0 bg-gradient-to-b ${WORD_TINT[word].color}`} />
+              <div className="absolute inset-0 bg-slate-950/20" />
             </div>
           )
         })}
