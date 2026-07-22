@@ -7,6 +7,18 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion
 import { ShaderBackground } from '@/components/ShaderBackground'
 import { TechWidgetsSection } from './TechWidgetsSection'
 
+const PROJECT_HERO_VIDEOS: Record<string, string> = {
+  'puerto-princesa': '/videos/projects/compressed/puerto-princesa-hero.mp4',
+  'gingoog': '/videos/projects/compressed/gingoog-hero.mp4',
+  'del-carmen': '/videos/projects/compressed/del-carmen-hero.mp4',
+}
+
+const PROJECT_HERO_POSTERS: Record<string, string> = {
+  'puerto-princesa': '/videos/projects/compressed/puerto-princesa-hero-poster.webp',
+  'gingoog': '/videos/projects/compressed/gingoog-hero-poster.webp',
+  'del-carmen': '/videos/projects/compressed/del-carmen-hero-poster.webp',
+}
+
 const STATUS_CAPSULE: Record<ProjectStatus, { label: string; icon: LucideIcon; className: string }> = {
   operational: {
     label: 'Operational',
@@ -30,6 +42,8 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
   const reducedMotion = useReducedMotion()
   const { scrollY } = useScroll()
   const heroImageY = useTransform(scrollY, [0, 600], [0, -80])
+  const heroVideo = PROJECT_HERO_VIDEOS[project.id] ?? null
+  const heroPoster = PROJECT_HERO_POSTERS[project.id] ?? null
 
   return (
     <div className="font-body">
@@ -40,14 +54,27 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           className="absolute inset-0 w-full h-full"
           style={reducedMotion ? undefined : { y: heroImageY }}
         >
-          <img
-            src={project.heroImage}
-            alt={project.name}
-            fetchPriority="high"
-            decoding="async"
-            onError={() => setHeroErrored(true)}
-            className={`w-full h-full object-cover transition-opacity duration-300 ${heroErrored ? 'opacity-0' : ''}`}
-          />
+          {heroVideo ? (
+            <video
+              src={heroVideo}
+              poster={heroPoster ?? undefined}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <img
+              src={project.heroImage}
+              alt={project.name}
+              fetchPriority="high"
+              decoding="async"
+              onError={() => setHeroErrored(true)}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${heroErrored ? 'opacity-0' : ''}`}
+            />
+          )}
         </motion.div>
         {/* Gradient image placeholder — only shown when image fails to load */}
         {heroErrored && (
