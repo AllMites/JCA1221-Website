@@ -127,9 +127,13 @@ export function AppShell({
                 e.preventDefault()
                 onNavigate?.('/')
               }}
-              className="text-lg font-bold font-heading tracking-tight shrink-0 text-foreground"
+              className="shrink-0"
             >
-              {siteName}
+              <img
+                src="/logo-nav.png"
+                alt={siteName}
+                className="h-10 w-auto"
+              />
             </a>
 
             {/* Navigation + CTA + Theme */}

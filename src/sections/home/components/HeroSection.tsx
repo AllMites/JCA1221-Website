@@ -1,4 +1,4 @@
-import { ArrowDown, Droplets } from 'lucide-react'
+import { ArrowDown } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useScroll, useTransform, motion } from 'framer-motion'
 import type { HeroContent } from '@/../product/sections/home/types'
@@ -199,10 +199,10 @@ export function HeroSection({ hero, onCtaClick, onSecondaryCtaClick }: HeroSecti
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Icon with glass — accent color follows current word */}
+        {/* Brand mark */}
         <div className="mb-8 flex justify-center animate-fade-in-up" style={{ animationDelay: '0ms' }}>
-          <GlassPill as="div" className={`p-4 rounded-full ${wordAccent.bg} ring-1 ${wordAccent.ring} transition-colors duration-500`}>
-            <Droplets size={36} className={`${wordAccent.icon} transition-colors duration-500`} strokeWidth={1.5} />
+          <GlassPill as="div" className={`p-3 rounded-full ${wordAccent.bg} ring-1 ${wordAccent.ring} transition-colors duration-500`}>
+            <img src="/logo-nav.png" alt="JCA1221" className="h-9 w-auto" />
           </GlassPill>
         </div>
 
