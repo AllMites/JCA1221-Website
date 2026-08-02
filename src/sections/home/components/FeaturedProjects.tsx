@@ -133,7 +133,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   if (!projects || projects.length === 0) return null
 
   return (
-    <section className="py-20 sm:py-28 bg-white dark:bg-slate-950">
+    <section id="projects" className="py-20 sm:py-28 bg-white dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <ScrollReveal direction="up" duration={0.5}>
