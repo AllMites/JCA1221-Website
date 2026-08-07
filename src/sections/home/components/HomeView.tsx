@@ -3,17 +3,15 @@ import { HeroSection } from './HeroSection'
 import { TrustStrip } from './TrustStrip'
 import { MissionPillars } from './MissionPillars'
 import { FeaturedProjects } from './FeaturedProjects'
-import { TrustWall } from './TrustWall'
 import { CsrCarousel } from './CsrCarousel'
 import { FinalCta } from './FinalCta'
 import type { HeroContent, ProjectCard, ImpactStat } from '@/../product/sections/home/types'
-import type { Partner, CsrProject } from '@/lib/content-types'
+import type { CsrProject } from '@/lib/content-types'
 
 export interface NewHomeViewProps {
   hero: HeroContent
   projectCards: ProjectCard[]
   impactStats: ImpactStat[]
-  partners: Partner[]
   csrProjects: CsrProject[]
   onCtaClick?: () => void
   onSecondaryCtaClick?: () => void
@@ -42,7 +40,6 @@ export function HomeView({
   hero,
   projectCards,
   impactStats,
-  partners,
   csrProjects,
   onCtaClick,
   onSecondaryCtaClick,
@@ -70,9 +67,6 @@ export function HomeView({
 
       {/* Section 4: Featured Projects */}
       <FeaturedProjects projects={projectCards} />
-
-      {/* Section 5: Trust Wall */}
-      <TrustWall partners={partners} />
 
       {/* Section 6: CSR Spotlight */}
       <CsrCarousel
