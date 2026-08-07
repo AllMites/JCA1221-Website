@@ -94,7 +94,8 @@ export interface TeamMember {
 }
 
 // ── CSR ──
-export interface CsrTimelineEntry {
+// DB column is `timeline` but rendered as newsletter entries.
+export interface CsrNewsletterEntry {
   date: string
   title: string
   description: string
@@ -111,7 +112,7 @@ export interface CsrProject {
   location: string
   hero_image: string | null
   stats: ProjectStat[]
-  timeline: CsrTimelineEntry[]
+  timeline: CsrNewsletterEntry[]
   sdg_tags: string[]
   gallery: string[]
   linked_project_id: string | null
