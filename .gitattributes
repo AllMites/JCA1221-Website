@@ -1,0 +1,7 @@
+# The gate layer is executed by `sh` on every platform, including this repo's
+# Windows checkouts. With the default core.autocrlf on Windows these files come
+# back out of git with CRLF endings and sh fails on the carriage return
+# (`$'\r': command not found`) — so the gate would break on a fresh clone of the
+# very commit that added it. Pin them to LF.
+*.sh text eol=lf
+.githooks/* text eol=lf
