@@ -1,0 +1,39 @@
+{
+  "_comment": [
+    "Claude Code hook wiring for gates/claude-hook.js. Install with:",
+    "    npm run gate:install-hooks",
+    "which copies this file to .claude/settings.json (it is not written there in the",
+    "repo because .claude/settings.json is a per-machine file that also carries model,",
+    "permission and MCP settings a developer may already have set — copying over it is",
+    "a decision for whoever owns the checkout, not for the repo).",
+    "PostToolUse marks the turn dirty (~30ms); Stop runs the whole of gates/run.sh once",
+    "and blocks with exit 2 if it fails."
+  ],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/gates/claude-hook.js\"",
+            "timeout": 15,
+            "statusMessage": "Marking the turn for the gate"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/gates/claude-hook.js\"",
+            "timeout": 180,
+            "statusMessage": "Running gates/run.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
