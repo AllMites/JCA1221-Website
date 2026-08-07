@@ -1,0 +1,19 @@
+#!/bin/sh
+# Runs the repo's one gate before a commit is written. Installed by
+# `npm run prepare` (git config core.hooksPath .githooks) so every clone and every
+# worktree gets it without anybody remembering to copy a file into .git/hooks.
+#
+# GATE_ALLOW_STAGED: inside a pre-commit hook, "the index differs from HEAD" is the
+# normal state, not the stale-index hazard gates/git-tree-guard.sh exists to catch.
+#
+# ponytail: this gates the working tree, not the staged snapshot. `git commit -p` or
+# `git add -p` can therefore commit a subset that the gate never saw. Add a
+# `git stash --keep-index` wrapper here if partial staging becomes common; today it
+# is not, and the CI gate in .github/workflows/gate.yml catches the difference.
+root=$(git rev-parse --show-toplevel)
+
+# core.hooksPath is repo-wide, not per-worktree, so this hook also fires in checkouts
+# of branches that forked before gates/ existed. Nothing to run there is not a failure.
+[ -f "$root/gates/run.sh" ] || exit 0
+
+exec env GATE_ALLOW_STAGED=1 sh "$root/gates/run.sh"
