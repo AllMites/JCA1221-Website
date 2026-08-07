@@ -96,7 +96,7 @@ export function PartnerForm({ partner, onSave, onCancel }: PartnerFormProps) {
     setShowConfirm(false)
   }
 
-  const inputBase = 'w-full min-h-9 px-3 py-1 text-sm rounded-md bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const inputBase = 'w-full h-field px-field-x py-field-y text-sm rounded-field bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400'
 

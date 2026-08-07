@@ -83,7 +83,7 @@ export function FaqSection() {
               const isOpen = openIndex === index
               return (
                 <RevealItem key={index}>
-                  <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 overflow-hidden transition-all duration-300">
+                  <div className="rounded-card border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 overflow-hidden transition-all duration-300">
                     <button
                       onClick={() => toggle(index)}
                       className="w-full flex items-center justify-between px-5 py-4 sm:px-6 sm:py-5 text-left hover:bg-slate-100 dark:hover:bg-white/8 transition-colors duration-200"

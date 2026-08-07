@@ -131,12 +131,17 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
     }
   }
 
-  const inputBase = 'w-full min-h-9 px-3 py-1 text-sm rounded-md bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const inputBase = 'w-full h-field px-field-x py-field-y text-sm rounded-field bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const textareaBase = inputBase.replace('h-field', 'min-h-field')
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400'
 
   function inputClass(field: keyof FieldErrors) {
     return `${inputBase} ${fieldErrors[field] ? inputError : inputNormal}`
+  }
+
+  function textareaClass(field: keyof FieldErrors) {
+    return `${textareaBase} ${fieldErrors[field] ? inputError : inputNormal}`
   }
 
   return (
@@ -224,7 +229,7 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
           onChange={(e) => { setExcerpt(e.target.value.slice(0, EXCERPT_MAX)); clearFieldError('excerpt') }}
           rows={3}
           maxLength={EXCERPT_MAX}
-          className={`${inputClass('excerpt')} resize-none`}
+          className={`${textareaClass('excerpt')} resize-none`}
         />
         <p className="text-right text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-0.5">{excerpt.length}/{EXCERPT_MAX}</p>
         {fieldErrors.excerpt && (

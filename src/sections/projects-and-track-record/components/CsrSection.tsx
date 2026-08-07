@@ -107,14 +107,14 @@ export function CsrSection({ projects, title, subtitle }: CsrSectionProps) {
 
         {/* Grid view */}
         {view === 'grid' && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-card">
             {filtered.map((csr) => {
               const stats = (csr.stats as Array<{ label: string; value: string }>) ?? []
               return (
                 <div
                   key={csr.id}
                   id={csr.slug}
-                  className="group/card h-full flex flex-col rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-lime-400/50 dark:hover:border-lime-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-lime-500/10 dark:hover:shadow-lime-500/5 transition-all duration-500"
+                  className="group/card h-full flex flex-col rounded-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-lime-400/50 dark:hover:border-lime-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-lime-500/10 dark:hover:shadow-lime-500/5 transition-all duration-500"
                 >
                   {/* Hero image */}
                   <div className="relative h-44 bg-gradient-to-br from-lime-100 to-slate-200 dark:from-lime-950 dark:to-slate-800 overflow-hidden">
@@ -143,8 +143,8 @@ export function CsrSection({ projects, title, subtitle }: CsrSectionProps) {
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="font-bold font-heading text-slate-900 dark:text-white text-lg leading-tight group-hover/card:text-lime-600 dark:group-hover/card:text-lime-400 transition-colors duration-300">
+                  <div className="p-card flex flex-col flex-1">
+                    <h3 className="font-bold font-heading text-slate-900 dark:text-white text-card-title leading-tight group-hover/card:text-lime-600 dark:group-hover/card:text-lime-400 transition-colors duration-300">
                       {csr.name}
                     </h3>
 

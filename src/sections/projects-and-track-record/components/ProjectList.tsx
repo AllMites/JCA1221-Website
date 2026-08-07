@@ -156,7 +156,7 @@ export function ProjectList({
                 placeholder="Search projects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full min-h-9 pl-9 pr-4 py-1 text-sm rounded-full border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-400 dark:focus:border-blue-500 transition-all"
+                className="w-full h-field pl-9 pr-4 py-field-y text-sm rounded-field border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-400 dark:focus:border-blue-500 transition-all"
               />
             </div>
 
@@ -234,7 +234,7 @@ export function ProjectList({
               </p>
             </div>
           ) : (
-            <ScrollReveal staggerChildren={0.08} viewportMargin="-40px 0px" className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <ScrollReveal staggerChildren={0.08} viewportMargin="-40px 0px" className="grid md:grid-cols-2 lg:grid-cols-2 gap-card">
               {filteredAndSorted.map((project) => (
                 <RevealItem key={project.id} className="h-full">
                   <ProjectCardItem

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { ChevronDown, Check, AlertCircle, Send } from 'lucide-react'
 import { ScrollReveal, RevealItem } from '@/components/ScrollReveal'
 import type {
@@ -39,7 +39,10 @@ export function ContactForm({
   const scrollTarget = useRef<HTMLDivElement>(null)
 
   // ── Spam protection ──────────────────────────────────────────────────────
-  const renderTime = useRef(Date.now())
+  const renderTime = useRef(0)
+  useEffect(() => {
+    renderTime.current = Date.now()
+  }, [])
   const lastSubmit = useRef(0)
   const [honeypot, setHoneypot] = useState('')
   const HONEYPOT_MIN_SECONDS = 3 // reject if form filled faster than this
@@ -47,8 +50,9 @@ export function ContactForm({
 
   // ── Form state preservation: save form data so it survives re-renders on error ──
   const savedFormRef = useRef<ContactFormData>(formData)
-  // Keep ref in sync with state on every change
-  savedFormRef.current = formData
+  useEffect(() => {
+    savedFormRef.current = formData
+  }, [formData])
 
   // ── Character limits ──────────────────────────────────────────────────────
   const MESSAGE_MAX_LENGTH = 500
@@ -167,7 +171,7 @@ export function ContactForm({
   if (submitted) {
     return (
       <div className="h-full flex items-center">
-        <div className="p-8 sm:p-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.03)] text-center w-full">
+        <div className="p-card rounded-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.03)] text-center w-full">
           <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-emerald-100 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-400/30 flex items-center justify-center">
             <Check className="w-8 h-8 text-emerald-600 dark:text-emerald-300" />
           </div>
@@ -200,7 +204,7 @@ export function ContactForm({
   ) => {
     const fieldName = field.name as keyof ContactFormData
     const error = errors[fieldName]
-    const baseClasses = `w-full min-h-9 px-3 py-1 text-sm rounded-md bg-slate-50 dark:bg-slate-800/60 border transition-all duration-300 outline-none font-body text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500`
+    const baseClasses = `w-full h-field px-field-x py-field-y text-sm rounded-field bg-slate-50 dark:bg-slate-800/60 border transition-all duration-300 outline-none font-body text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500`
 
     const stateClasses = error
       ? 'border-red-400/50 focus:border-red-400 shadow-[0_0_0_1px_rgba(248,113,113,0.15)]'
@@ -217,7 +221,7 @@ export function ContactForm({
             onChange={(e) => handleChange(fieldName, e.target.value)}
             rows={4}
             maxLength={isMessage ? MESSAGE_MAX_LENGTH : undefined}
-            className={`${baseClasses} ${stateClasses} resize-none`}
+            className={`${baseClasses.replace('h-field', 'min-h-field')} ${stateClasses} resize-none`}
           />
           {isMessage && (
             <p className={`text-right text-xs mt-1 font-mono ${
@@ -269,7 +273,7 @@ export function ContactForm({
 
   return (
     <form onSubmit={handleSubmit} className="h-full">
-      <div className="p-6 sm:p-8 lg:p-10 rounded-xl bg-white dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.03)]">
+      <div className="p-card rounded-card bg-white dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.04),0_0_0_1px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.03)]">
         {/* Form header */}
         <div className="mb-8">
           <p className="text-xs font-mono uppercase tracking-widest text-blue-600 dark:text-blue-300/70 mb-3">
@@ -400,7 +404,7 @@ export function ContactForm({
         {/* ── Confirmation modal ─────────────────────────────────────────── */}
         {showConfirm && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="mx-4 w-full max-w-sm rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.2)] p-6">
+            <div className="mx-4 w-full max-w-sm rounded-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.2)] p-card">
               <h4 className="text-lg font-heading font-semibold text-slate-900 dark:text-white mb-2">
                 Confirm Submission
               </h4>

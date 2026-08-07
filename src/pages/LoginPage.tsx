@@ -120,13 +120,13 @@ export function LoginPage() {
   }
 
   // Shared input classes
-  const inputBase = 'w-full min-h-9 px-3 py-1 text-sm rounded-md bg-slate-50 dark:bg-white/5 border outline-none text-slate-900 dark:text-white placeholder:text-slate-400 transition-all duration-200'
+  const inputBase = 'w-full h-field px-field-x py-field-y text-sm rounded-field bg-slate-50 dark:bg-white/5 border outline-none text-slate-900 dark:text-white placeholder:text-slate-400 transition-all duration-200'
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400 shadow-[0_0_0_1px_rgba(248,113,113,0.15)]'
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-sm p-6 rounded-xl bg-white dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10">
+      <div className="w-full max-w-sm p-card rounded-card bg-white dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10">
         <h1 className="text-lg font-heading font-bold text-slate-900 dark:text-white mb-2">
           Sign In
         </h1>

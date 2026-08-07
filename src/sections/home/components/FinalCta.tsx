@@ -58,7 +58,7 @@ export function FinalCta({ contactInfo }: FinalCtaProps) {
       <section className="py-20 sm:py-28 bg-white dark:bg-slate-950">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="rounded-xl p-10 text-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-white/20 dark:border-white/10 shadow-sm">
+            <div className="rounded-card p-card text-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-white/20 dark:border-white/10 shadow-sm">
               <div className="w-14 h-14 rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center mx-auto mb-4">
                 <Send size={24} className="text-emerald-600 dark:text-emerald-400" />
               </div>
@@ -95,7 +95,7 @@ export function FinalCta({ contactInfo }: FinalCtaProps) {
 
           <form
             onSubmit={handleSubmit}
-            className="rounded-xl p-6 sm:p-8 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-white/20 dark:border-white/10 shadow-sm"
+            className="rounded-card p-card bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-white/20 dark:border-white/10 shadow-sm"
           >
             <div className="grid sm:grid-cols-2 gap-4 mb-4">
               <div>
@@ -108,7 +108,7 @@ export function FinalCta({ contactInfo }: FinalCtaProps) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full min-h-9 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-colors"
+                  className="w-full h-field rounded-field border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-field-x py-field-y text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-colors"
                   placeholder="Your name"
                 />
               </div>
@@ -122,7 +122,7 @@ export function FinalCta({ contactInfo }: FinalCtaProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full min-h-9 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-colors"
+                  className="w-full h-field rounded-field border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-field-x py-field-y text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-colors"
                   placeholder="you@example.com"
                 />
               </div>
@@ -137,7 +137,7 @@ export function FinalCta({ contactInfo }: FinalCtaProps) {
                 type="text"
                 value={organization}
                 onChange={(e) => setOrganization(e.target.value)}
-                className="w-full min-h-9 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-colors"
+                className="w-full h-field rounded-field border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-field-x py-field-y text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-colors"
                 placeholder="Your organization (optional)"
               />
             </div>
@@ -152,7 +152,7 @@ export function FinalCta({ contactInfo }: FinalCtaProps) {
                 onChange={(e) => setMessage(e.target.value)}
                 required
                 rows={4}
-                className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-colors resize-none"
+                className="w-full rounded-field border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-field-x py-field-y text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-colors resize-none"
                 placeholder="Tell us about your project or interest..."
               />
             </div>
