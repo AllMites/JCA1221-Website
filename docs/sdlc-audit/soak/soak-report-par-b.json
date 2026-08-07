@@ -1,0 +1,113 @@
+{
+  "schema": "hermes.soak.v1",
+  "label": "par-b",
+  "branch": "soak/par-b",
+  "base": "main",
+  "cycles": 4,
+  "baseline_commits": 170,
+  "duration_ms": 151768,
+  "passed": true,
+  "failures": [],
+  "results": [
+    {
+      "cycle": 1,
+      "file": "src/soak/par-b-cycle-1.ts",
+      "head": "2b4e964",
+      "seeded_exit": 1,
+      "fixed_exit": 0,
+      "preflight_route": "approve",
+      "preflight_exit": 0,
+      "commits": 171,
+      "preflight_log_lines": 1,
+      "dirty": "",
+      "checks": {
+        "defect_rejected": true,
+        "defect_named": true,
+        "typecheck_fired": true,
+        "lint_fired": true,
+        "fix_accepted": true,
+        "routed_approve": true,
+        "tree_clean_after_commit": true,
+        "commit_landed": true,
+        "history_advanced": true,
+        "preflight_log_appended": true
+      },
+      "failures": []
+    },
+    {
+      "cycle": 2,
+      "file": "src/soak/par-b-cycle-2.ts",
+      "head": "732bcc9",
+      "seeded_exit": 1,
+      "fixed_exit": 0,
+      "preflight_route": "approve",
+      "preflight_exit": 0,
+      "commits": 172,
+      "preflight_log_lines": 2,
+      "dirty": "",
+      "checks": {
+        "defect_rejected": true,
+        "defect_named": true,
+        "typecheck_fired": true,
+        "lint_fired": true,
+        "fix_accepted": true,
+        "routed_approve": true,
+        "tree_clean_after_commit": true,
+        "commit_landed": true,
+        "history_advanced": true,
+        "preflight_log_appended": true
+      },
+      "failures": []
+    },
+    {
+      "cycle": 3,
+      "file": "src/soak/par-b-cycle-3.ts",
+      "head": "10cb477",
+      "seeded_exit": 1,
+      "fixed_exit": 0,
+      "preflight_route": "approve",
+      "preflight_exit": 0,
+      "commits": 173,
+      "preflight_log_lines": 3,
+      "dirty": "",
+      "checks": {
+        "defect_rejected": true,
+        "defect_named": true,
+        "typecheck_fired": true,
+        "lint_fired": true,
+        "fix_accepted": true,
+        "routed_approve": true,
+        "tree_clean_after_commit": true,
+        "commit_landed": true,
+        "history_advanced": true,
+        "preflight_log_appended": true
+      },
+      "failures": []
+    },
+    {
+      "cycle": 4,
+      "file": "src/soak/par-b-cycle-4.ts",
+      "head": "399f264",
+      "seeded_exit": 1,
+      "fixed_exit": 0,
+      "preflight_route": "approve",
+      "preflight_exit": 0,
+      "commits": 174,
+      "preflight_log_lines": 4,
+      "dirty": "",
+      "checks": {
+        "defect_rejected": true,
+        "defect_named": true,
+        "typecheck_fired": true,
+        "lint_fired": true,
+        "fix_accepted": true,
+        "routed_approve": true,
+        "tree_clean_after_commit": true,
+        "commit_landed": true,
+        "history_advanced": true,
+        "preflight_log_appended": true
+      },
+      "failures": []
+    }
+  ]
+}
