@@ -18,8 +18,12 @@ dist/
 .env.local
 .env.*.local
 
-# Claude worktrees
-.claude/
+# Claude worktrees and per-developer overrides.
+# This was a bare `.claude/`, which was broader than its own comment: it silently
+# swallowed `git add .claude/settings.json` and `.claude/hooks/`, i.e. exactly the
+# gate wiring that has to be committed for every clone to get the same gate.
+.claude/worktrees/
+.claude/settings.local.json
 
 # Logs
 *.log
@@ -47,3 +51,10 @@ printouts/
 
 # Project docs tooling
 .impeccable/
+
+# Gate caches. ESLint's --cache writes .eslintcache into the cwd; without this line
+# the gate would dirty the tree it just checked and gates/git-tree-guard.sh would
+# fail on the second run of every card. Left at the default per-worktree location on
+# purpose — node_modules/ is a symlink shared by every worktree here.
+.eslintcache
+

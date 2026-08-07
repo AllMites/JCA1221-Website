@@ -28,7 +28,7 @@ export function TrustWall({ partners }: TrustWallProps) {
               {CERTIFICATIONS.map((cert) => (
                 <div
                   key={cert.label}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700"
+                  className="flex items-center gap-3 p-3.5 rounded-card bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700"
                 >
                   <BadgeCheck size={18} className="text-blue-500 dark:text-blue-400 flex-shrink-0" />
                   <span className="text-xs font-medium text-slate-700 dark:text-slate-300 leading-tight">
@@ -63,7 +63,7 @@ export function TrustWall({ partners }: TrustWallProps) {
                     className={partner.website_url ? 'cursor-pointer' : 'cursor-default'}
                   >
                     <div
-                      className="aspect-[3/2] rounded-xl flex items-center justify-center p-4
+                      className="aspect-[3/2] rounded-card flex items-center justify-center p-4
                         bg-white/60 dark:bg-slate-800/60
                         border border-slate-200 dark:border-white/5
                         transition-all duration-300
@@ -99,7 +99,7 @@ export function TrustWall({ partners }: TrustWallProps) {
             {CERTIFICATIONS.map((cert) => (
               <div
                 key={cert.label}
-                className="flex items-center gap-3 p-3.5 rounded-xl
+                className="flex items-center gap-3 p-3.5 rounded-card
                   bg-white/70 dark:bg-slate-800/70
                   border border-blue-100 dark:border-blue-500/10
                   shadow-[0_2px_8px_rgba(0,0,0,0.02)]

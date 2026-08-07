@@ -9,7 +9,7 @@ import type {
 } from '@/../product/sections/contact-and-partnerships/types'
 // ─── Shared card surface classes ─────────────────────────────────────────────
 const cardSurface =
-  'p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03),0_0_0_1px_rgba(0,0,0,0.01)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.02)]'
+  'p-card rounded-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.03),0_0_0_1px_rgba(0,0,0,0.01)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.02)]'
 
 const iconBox =
   'w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-400/20 flex items-center justify-center'
@@ -55,7 +55,7 @@ function OfficeCard({ office }: OfficeCardProps) {
       </div>
 
       {/* Map placeholder */}
-      <div className="mt-4 h-32 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-white/5 flex items-center justify-center overflow-hidden relative group cursor-pointer">
+      <div className="mt-4 h-32 rounded-card bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-white/5 flex items-center justify-center overflow-hidden relative group cursor-pointer">
         <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-transparent dark:from-black/10 dark:to-transparent" />
         <div className="relative z-10 text-center">
           <MapPin className="w-5 h-5 text-blue-400/60 mx-auto mb-1" />
@@ -160,7 +160,7 @@ function PartnerLogos({ logos }: PartnerLogosProps) {
           {logos.map((logo) => (
             <RevealItem key={logo.name}>
               <div
-                className="aspect-[3/2] rounded-xl bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-white/5 flex items-center justify-center p-3 grayscale hover:grayscale-0 hover:border-slate-300 dark:hover:border-white/15 transition-all duration-300 cursor-default group"
+                className="aspect-[3/2] rounded-card bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-white/5 flex items-center justify-center p-3 grayscale hover:grayscale-0 hover:border-slate-300 dark:hover:border-white/15 transition-all duration-300 cursor-default group"
                 title={logo.name}
               >
                 <PartnerLogoImage src={logo.imageUrl} name={logo.name} />

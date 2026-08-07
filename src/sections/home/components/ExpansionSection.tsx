@@ -14,7 +14,7 @@ const STATUS_STYLES: Record<string, string> = {
 
 function InitiativeCard({ initiative }: { initiative: ExpansionInitiative }) {
   return (
-    <div className="group relative rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden hover:shadow-xl transition-all duration-500">
+    <div className="group relative rounded-card border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden hover:shadow-xl transition-all duration-500">
       {/* Image area */}
       <div className="h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden">
         <img
@@ -28,7 +28,7 @@ function InitiativeCard({ initiative }: { initiative: ExpansionInitiative }) {
       </div>
 
       {/* Content */}
-      <div className="p-6">
+      <div className="p-card">
         {/* Location */}
         <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-3">
           <MapPin size={12} />
@@ -37,7 +37,7 @@ function InitiativeCard({ initiative }: { initiative: ExpansionInitiative }) {
 
         {/* Title + Status */}
         <div className="flex items-start justify-between gap-4 mb-3">
-          <h3 className="font-bold font-heading text-lg text-slate-900 dark:text-white leading-tight group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
+          <h3 className="font-bold font-heading text-card-title text-slate-900 dark:text-white leading-tight group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
             {initiative.title}
           </h3>
         </div>
@@ -78,7 +78,7 @@ export function ExpansionSection({ expansion }: ExpansionSectionProps) {
         </div>
 
         {/* Initiative cards */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-card max-w-4xl mx-auto">
           {expansion.initiatives.map((initiative) => (
             <InitiativeCard key={initiative.title} initiative={initiative} />
           ))}
