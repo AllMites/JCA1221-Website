@@ -200,7 +200,7 @@ export function ContactForm({
   ) => {
     const fieldName = field.name as keyof ContactFormData
     const error = errors[fieldName]
-    const baseClasses = `w-full px-4 py-3 text-sm rounded-xl bg-slate-50 dark:bg-slate-800/60 border transition-all duration-300 outline-none font-body text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500`
+    const baseClasses = `w-full min-h-9 px-3 py-1 text-sm rounded-md bg-slate-50 dark:bg-slate-800/60 border transition-all duration-300 outline-none font-body text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500`
 
     const stateClasses = error
       ? 'border-red-400/50 focus:border-red-400 shadow-[0_0_0_1px_rgba(248,113,113,0.15)]'

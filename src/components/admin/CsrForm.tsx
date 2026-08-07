@@ -132,7 +132,7 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
     }
   }
 
-  const inputBase = 'w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const inputBase = 'w-full min-h-9 px-3 py-1 text-sm rounded-md bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400'
 
@@ -197,12 +197,12 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Stats (JSON)</label>
-        <textarea value={statsJson} onChange={(e) => setStatsJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"label":"Trees Planted","value":"1,200"}]' />
+        <textarea value={statsJson} onChange={(e) => setStatsJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-md bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"label":"Trees Planted","value":"1,200"}]' />
       </div>
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Timeline (JSON)</label>
-        <textarea value={timelineJson} onChange={(e) => setTimelineJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"date":"2024-01","title":"Project Launch","description":"Started...","photo":null}]' />
+        <textarea value={timelineJson} onChange={(e) => setTimelineJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-md bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"date":"2024-01","title":"Project Launch","description":"Started...","photo":null}]' />
       </div>
 
       <div>
