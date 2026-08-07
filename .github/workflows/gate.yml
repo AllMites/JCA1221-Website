@@ -1,0 +1,35 @@
+name: gate
+
+# The same `sh gates/run.sh` that the pre-commit hook, the Claude Code Stop hook and
+# the sdlc-review agent run. CI is not a second opinion here — it is the same script,
+# so a card cannot be green locally and red here for reasons nobody can reproduce.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The lint tier scopes to `git merge-base <base> HEAD`, which needs history.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: gates/run.sh
+        env:
+          # On a PR, the base commit GitHub already resolved. On a push to main there
+          # is no PR base, so scope to the pushed commit's own parent — which is the
+          # diff that just landed.
+          GATE_BASE: ${{ github.event.pull_request.base.sha || 'HEAD^' }}
+          GATE_VERBOSE: '1'
+        run: sh gates/run.sh

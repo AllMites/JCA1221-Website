@@ -7,6 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "gate": "sh gates/run.sh",
+    "gate:install-hooks": "node -e \"require('fs').copyFileSync('gates/claude-settings.json','.claude/settings.json')\"",
+    "prepare": "git config core.hooksPath .githooks || exit 0",
     "preview": "vite preview"
   },
   "dependencies": {
