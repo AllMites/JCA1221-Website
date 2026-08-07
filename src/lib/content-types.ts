@@ -94,6 +94,7 @@ export interface TeamMember {
 }
 
 // ── CSR ──
+// DB column is `timeline`; the site renders these as newsletter entries.
 export interface CsrTimelineEntry {
   date: string
   title: string

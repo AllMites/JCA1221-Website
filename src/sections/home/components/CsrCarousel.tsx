@@ -21,7 +21,7 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
   }, [])
   const AUTO_ADVANCE_MS = 5000
 
-  const totalCards = projects.length + 1 // +1 for end hint card
+  const totalCards = projects.length
   const cardWidth = 350 + 20 // 350px card + 20px gap
 
   // Pause on hover
@@ -186,16 +186,6 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
               </a>
             )
           })}
-
-          {/* End hint card */}
-          <div className="flex-shrink-0 w-[280px] flex items-center justify-center rounded-xl border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30">
-            <div className="text-center p-6">
-              <Heart size={24} className="text-slate-300 dark:text-slate-600 mx-auto mb-2" />
-              <p className="text-sm text-slate-400 dark:text-slate-500 font-heading">
-                More CSR initiatives underway
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
