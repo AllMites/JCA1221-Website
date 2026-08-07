@@ -6,7 +6,7 @@ import { HomeView } from '@/sections/home/components/HomeView'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { HeroPageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
-import { useProjects, usePartners, usePageContent, getPageValue, useCsrProjects } from '@/hooks/use-content'
+import { useProjects, usePageContent, getPageValue, useCsrProjects } from '@/hooks/use-content'
 import { useImpactStats } from '@/hooks/use-impact-stats'
 import type { ProjectCard, HeroContent } from '@/../product/sections/home/types'
 
@@ -26,7 +26,6 @@ export function HomePage() {
   const { projects, loading: projectsLoading } = useProjects()
   const { content, loading: contentLoading } = usePageContent('home')
   const { stats: impactStats, loading: impactLoading } = useImpactStats()
-  const { partners } = usePartners()
   const { projects: csrProjects } = useCsrProjects()
 
   const loading = projectsLoading || contentLoading || impactLoading
@@ -93,7 +92,6 @@ export function HomePage() {
             hero={hero}
             projectCards={projectCards}
             impactStats={impactStats}
-            partners={partners}
             csrProjects={csrProjects}
             onCtaClick={handleCtaClick}
             onSecondaryCtaClick={handleSecondaryCtaClick}
