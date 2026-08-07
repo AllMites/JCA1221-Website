@@ -206,8 +206,8 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">Timeline (JSON)</label>
-        <textarea value={timelineJson} onChange={(e) => setTimelineJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-field bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"date":"2024-01","title":"Project Launch","description":"Started...","photo":null}]' />
+        <label className="block text-xs font-medium text-slate-500 mb-1">Newsletter Entries (JSON)</label>
+        <textarea value={timelineJson} onChange={(e) => setTimelineJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-field bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"date":"2024-01","title":"...","description":"...","photo":null}]' />
       </div>
 
       <div>

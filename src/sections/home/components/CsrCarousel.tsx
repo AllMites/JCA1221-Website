@@ -21,7 +21,7 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
   }, [])
   const AUTO_ADVANCE_MS = 5000
 
-  const totalCards = projects.length + 1 // +1 for end hint card
+  const totalCards = projects.length
   const cardWidth = 350 + 20 // 350px card + 20px gap
 
   // Pause on hover
@@ -101,6 +101,7 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
         >
           {projects.map((csr) => {
             const stats = (csr.stats as Array<{ label: string; value: string }>) ?? []
+            const entries = csr.timeline ?? []
             return (
               <a
                 key={csr.id}
@@ -147,24 +148,28 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
                     </p>
                   )}
 
-                  {csr.description && (
-                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
-                      {csr.description}
-                    </p>
-                  )}
-
-                  {/* SDG badges */}
-                  {csr.sdg_tags && csr.sdg_tags.length > 0 && (
-                    <div className="flex gap-1.5 mt-3 flex-wrap">
-                      {csr.sdg_tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2.5 py-0.5 text-[10px] font-semibold font-heading rounded-full bg-lime-400/10 text-lime-700 dark:text-lime-400 border border-lime-400/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                  {entries.length > 0 ? (
+                    <div className="mt-2">
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-lime-600 dark:text-lime-400">
+                        Newsletter
+                      </p>
+                      <div className="mt-1.5 divide-y divide-slate-100 dark:divide-slate-800">
+                        {entries.slice(0, 2).map((entry, i) => (
+                          <div key={i} className="py-1.5 first:pt-0">
+                            <p className="text-[10px] text-slate-400">{entry.date}</p>
+                            <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-1">
+                              {entry.title}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
+                  ) : (
+                    csr.description && (
+                      <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                        {csr.description}
+                      </p>
+                    )
                   )}
 
                   {/* Mini stats */}
@@ -186,16 +191,6 @@ export function CsrCarousel({ projects, title, subtitle }: CsrCarouselProps) {
               </a>
             )
           })}
-
-          {/* End hint card */}
-          <div className="flex-shrink-0 w-[280px] flex items-center justify-center rounded-card border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30">
-            <div className="text-center p-6">
-              <Heart size={24} className="text-slate-300 dark:text-slate-600 mx-auto mb-2" />
-              <p className="text-sm text-slate-400 dark:text-slate-500 font-heading">
-                More CSR initiatives underway
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>

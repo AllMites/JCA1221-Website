@@ -12,10 +12,9 @@ export function ContactView({
   timelineOptions,
   teamContacts,
   officeInfo,
-  partnerLogos,
   onSubmitBasic,
   onSubmitDetailed,
-}: ContactAndPartnershipsProps) {
+}: Omit<ContactAndPartnershipsProps, 'partnerLogos'>) {
   return (
     <div className="relative">
       {/* Background — light in light mode, dark gradient in dark mode */}
@@ -62,7 +61,6 @@ export function ContactView({
               <ContactInfoPanel
                 officeInfo={officeInfo}
                 teamContacts={teamContacts}
-                partnerLogos={partnerLogos}
               />
             </div>
           </ScrollReveal>

@@ -9,9 +9,7 @@ const CATEGORY_OPTIONS: { label: string; value: NewsCategory }[] = [
   { label: 'All News', value: 'all' },
   { label: 'Awards', value: 'awards' },
   { label: 'Projects', value: 'projects' },
-  { label: 'Expansion', value: 'expansion' },
-  { label: 'Policy', value: 'policy' },
-  { label: 'Media', value: 'media' },
+  { label: 'Others', value: 'others' },
 ]
 
 export function NewsView({ sectionTitle, sectionSubtitle, articles }: NewsViewProps) {
@@ -19,6 +17,9 @@ export function NewsView({ sectionTitle, sectionSubtitle, articles }: NewsViewPr
 
   const filteredArticles = useMemo(() => {
     if (activeCategory === 'all') return articles
+    if (activeCategory === 'others') {
+      return articles.filter((a) => a.category !== 'awards' && a.category !== 'projects')
+    }
     return articles.filter((a) => a.category === activeCategory)
   }, [articles, activeCategory])
 

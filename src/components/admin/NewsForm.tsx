@@ -10,7 +10,7 @@ interface NewsFormProps {
 
 type FieldErrors = Partial<Record<keyof Partial<NewsArticle> | 'tags', string>>
 
-const CATEGORIES: NewsCategory[] = ['awards', 'projects', 'policy', 'expansion', 'media']
+const CATEGORIES: NewsCategory[] = ['awards', 'projects', 'others']
 const TYPES: NewsType[] = ['media-coverage', 'award', 'feature']
 
 export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
@@ -19,7 +19,7 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10))
   const [excerpt, setExcerpt] = useState('')
   const [url, setUrl] = useState('')
-  const [category, setCategory] = useState<NewsCategory>('media')
+  const [category, setCategory] = useState<NewsCategory>('others')
   const [type, setType] = useState<NewsType>('media-coverage')
   const [tags, setTags] = useState('')
   const [saving, setSaving] = useState(false)
@@ -35,7 +35,7 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
   // ── Form state preservation ──────────────────────────────────────────────
   const savedFormRef = useRef({
     title: '', source: '', date: '', excerpt: '', url: '',
-    category: 'media' as NewsCategory, type: 'media-coverage' as NewsType, tags: '',
+    category: 'others' as NewsCategory, type: 'media-coverage' as NewsType, tags: '',
   })
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
         date: article.date?.slice(0, 10) ?? '',
         excerpt: article.excerpt ?? '',
         url: article.url ?? '',
-        category: article.category ?? 'media',
+        category: article.category ?? 'others',
         type: article.type ?? 'media-coverage',
         tags: (article.tags ?? []).join(', '),
       }

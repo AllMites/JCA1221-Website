@@ -6,10 +6,10 @@ import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { PageSkeleton } from '@/components/PageSkeleton'
 import { NAV_ITEMS } from '@/lib/navigation'
 import { submitContact } from '@/lib/api'
-import { usePageContent, usePartners, getPageValue } from '@/hooks/use-content'
+import { usePageContent, getPageValue } from '@/hooks/use-content'
 import type {
   FormConfig, InquiryType, TimelineOption, TeamContact,
-  OfficeInfo, PartnerLogo,
+  OfficeInfo,
 } from '@/../product/sections/contact-and-partnerships/types'
 
 const FALLBACK_TITLE = "Let's Build Together"
@@ -28,11 +28,7 @@ interface FormConfigWithTitles extends Record<string, unknown> {
 export function ContactPage() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { content, loading: contentLoading } = usePageContent('contact')
-  const { partners, loading: partnersLoading } = usePartners()
-
-  const loading = contentLoading || partnersLoading
-
+  const { content, loading } = usePageContent('contact')
 
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
@@ -55,11 +51,6 @@ export function ContactPage() {
   const timelineOptions: TimelineOption[] = (getPageValue(content, 'form', 'timeline_options') as TimelineOption[]) ?? []
   const teamContacts: TeamContact[] = (getPageValue(content, 'team', 'contacts') as TeamContact[]) ?? []
   const officeInfo = getPageValue(content, 'office', 'info') as OfficeInfo | null
-
-  // Map partners to PartnerLogo shape
-  const partnerLogos: PartnerLogo[] = partners
-    .filter((p) => p.logo)
-    .map((p) => ({ name: p.name, imageUrl: p.logo! }))
 
   const handleSubmit = (formData: { fullName: string; email: string; organization: string; message: string; phone?: string; role?: string; projectType?: string; estimatedTimeline?: string }) => {
     submitContact({
@@ -105,7 +96,6 @@ export function ContactPage() {
               mapEmbedUrl: '',
               hoursNote: '',
             }}
-            partnerLogos={partnerLogos}
             onSubmitBasic={handleSubmit}
             onSubmitDetailed={handleSubmit}
           />
