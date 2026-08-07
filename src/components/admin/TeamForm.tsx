@@ -107,7 +107,7 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
     }
   }
 
-  const inputBase = 'w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const inputBase = 'w-full min-h-9 px-3 py-1 text-sm rounded-md bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400'
 
@@ -172,7 +172,7 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Links (JSON)</label>
-        <textarea value={linksJson} onChange={(e) => setLinksJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"type":"linkedin","label":"LinkedIn","url":"https://..."},{"type":"email","label":"Email","url":"mailto:..."}]' />
+        <textarea value={linksJson} onChange={(e) => setLinksJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-md bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"type":"linkedin","label":"LinkedIn","url":"https://..."},{"type":"email","label":"Email","url":"mailto:..."}]' />
       </div>
 
       <div>

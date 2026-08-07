@@ -120,7 +120,7 @@ export function LoginPage() {
   }
 
   // Shared input classes
-  const inputBase = 'w-full px-4 py-2.5 text-sm rounded-xl bg-slate-50 dark:bg-white/5 border outline-none text-slate-900 dark:text-white placeholder:text-slate-400 transition-all duration-200'
+  const inputBase = 'w-full min-h-9 px-3 py-1 text-sm rounded-md bg-slate-50 dark:bg-white/5 border outline-none text-slate-900 dark:text-white placeholder:text-slate-400 transition-all duration-200'
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400 shadow-[0_0_0_1px_rgba(248,113,113,0.15)]'
 

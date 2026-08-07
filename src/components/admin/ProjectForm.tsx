@@ -158,7 +158,7 @@ export function ProjectForm({ project, onSave, onCancel }: ProjectFormProps) {
     }
   }
 
-  const inputBase = 'w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const inputBase = 'w-full min-h-9 px-3 py-1 text-sm rounded-md bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400'
 
@@ -232,17 +232,17 @@ export function ProjectForm({ project, onSave, onCancel }: ProjectFormProps) {
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Stats (JSON)</label>
-        <textarea value={statsJson} onChange={(e) => setStatsJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"label":"Population Served","value":"300,000+"}]' />
+        <textarea value={statsJson} onChange={(e) => setStatsJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-md bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"label":"Population Served","value":"300,000+"}]' />
       </div>
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Technology (JSON)</label>
-        <textarea value={technologyJson} onChange={(e) => setTechnologyJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='{"description":"SBR technology...","tags":["SBR","Biological"]}' />
+        <textarea value={technologyJson} onChange={(e) => setTechnologyJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-md bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='{"description":"SBR technology...","tags":["SBR","Biological"]}' />
       </div>
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Impact Metrics (JSON)</label>
-        <textarea value={impactMetricsJson} onChange={(e) => setImpactMetricsJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"label":"Water Treated","value":"50M L/day","improvement":"+30%"}]' />
+        <textarea value={impactMetricsJson} onChange={(e) => setImpactMetricsJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-md bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"label":"Water Treated","value":"50M L/day","improvement":"+30%"}]' />
       </div>
 
       <div className="grid grid-cols-3 gap-4">

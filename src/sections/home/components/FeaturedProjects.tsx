@@ -62,7 +62,7 @@ function TiltCard({ project }: { project: ProjectCard }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group block rounded-xl overflow-hidden
+      className="group h-full flex flex-col rounded-xl overflow-hidden
         bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm
         border border-white/20 dark:border-white/10
         shadow-sm
@@ -95,7 +95,7 @@ function TiltCard({ project }: { project: ProjectCard }) {
       </div>
 
       {/* Content */}
-      <div className="p-5" style={{ transform: 'translateZ(0)' }}>
+      <div className="p-5 flex flex-col flex-1" style={{ transform: 'translateZ(0)' }}>
         <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-1.5">
           <MapPin size={12} />
           {project.location}
@@ -111,7 +111,7 @@ function TiltCard({ project }: { project: ProjectCard }) {
 
         {/* Mini stats */}
         {metrics.length > 0 && (
-          <div className="flex gap-5 pt-3 border-t border-slate-200 dark:border-slate-800">
+          <div className="flex gap-5 pt-3 mt-auto border-t border-slate-200 dark:border-slate-800">
             {metrics.map((m, i) => (
               <div key={i}>
                 <p className="text-base font-bold font-mono text-slate-700 dark:text-slate-300">
@@ -160,7 +160,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
         <ScrollReveal staggerChildren={0.1} viewportMargin="-40px 0px">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.slice(0, 3).map((project) => (
-              <RevealItem key={project.id}>
+              <RevealItem key={project.id} className="h-full">
                 <TiltCard project={project} />
               </RevealItem>
             ))}
