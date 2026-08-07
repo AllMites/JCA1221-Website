@@ -97,13 +97,22 @@ function runCycle({ label, n, base, baselineCommits }) {
 
   const routed = preflight(base);
 
-  sh('git', ['add', '-A']);
+  /* Only the scratch dir, never `git add -A`: the first run of this harness redirected
+     its own stdout into the worktree, `-A` committed that file in cycle 1, and node's
+     4 KB stdout buffer flushed into it again during cycle 8 — so the tree was dirty at
+     the check and the cycle failed. The gate assertion was right; the harness was
+     staging a file it was still writing. Commit what the cycle authored, nothing else. */
+  sh('git', ['add', 'src/soak']);
   /* deliberately not --no-verify: the pre-commit hook runs gates/run.sh a second time,
      which is the point — the per-commit stage is part of what has to still be there on
      cycle 8, and the only way to see it is to let it fire every cycle. */
   const commit = sh('git', ['commit', '-m', `soak(${label}): cycle ${n}`]);
 
-  const dirty = git('status', '--porcelain');
+  /* Tracked modifications only. An untracked file in the worktree is somebody's
+     scratch, not branch state the gate is responsible for; a *modified tracked* file
+     after a commit means the cycle left the tree describing a different commit than
+     HEAD, which is exactly the staleness gates/git-tree-guard.sh exists to catch. */
+  const dirty = git('status', '--porcelain', '--untracked-files=no');
   const commits = Number(git('rev-list', '--count', 'HEAD'));
   const logLines = countLines(PREFLIGHT_LOG);
 
