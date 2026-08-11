@@ -146,8 +146,8 @@ function evaluate(spec, opts = {}) {
 
 /* The default set answers the two questions worth asking before anything expensive is
    spawned: is there work here, and does the repo's own gate layer accept it. A secret
-   scan and a lint pass belong here too — they arrive as spec entries once
-   gates/review-lint.sh lands (audit R2), not as more code in this file. */
+   scan and a lint pass belong here too — gates/preflight.js's own spec adds
+   gates/review-lint.js as a third probe, not as more code in this file. */
 function defaultSpec(base = 'main') {
   return [
     /* Inverted on purpose: `--quiet` exits 1 when a diff exists, and that is the healthy
