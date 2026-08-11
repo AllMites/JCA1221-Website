@@ -24,18 +24,13 @@
 # --max-warnings=0 --cache`, and lint becomes a standing invariant instead of a
 # diff filter.
 #
-# There is deliberately no --fast tier. The only per-edit-cheap check this repo
-# could run today is ESLint at ~1.9s per file, which is not cheap, so the
-# PostToolUse hook just marks the turn dirty and `Stop` runs this once. Add a
-# fast tier when there is an invariants layer worth under ~200ms to put in it.
+# --fast tier: gates/invariants.js only, on the named files — no tsc -b, no full
+# ESLint (both measured too slow per-edit in this repo, ~1.9s/file for ESLint
+# alone). `PostToolUse` calls `sh gates/run.sh --fast <file>` on every edit;
+# `Stop` still runs the full tier once per turn.
 set -eu
 
 cd "$(dirname "$0")/.."
-
-# Must run before anything else measures the tree: HEAD moved by plumbing leaves
-# the index and working tree stale, and then every verdict below is about the
-# wrong commit.
-sh gates/git-tree-guard.sh || exit 1
 
 fail=0
 
@@ -51,6 +46,34 @@ run() {
     printf 'ok   %s\n' "$label"
   fi
 }
+
+# --fast: invariants only, on the named files. Placed after run() is defined
+# (POSIX sh runs top-to-bottom — calling run() before that point is a runtime
+# failure) and exits before the tree guard below, so a fast-tier call never
+# pays the guard's cost. That is safe to skip here for the same reason it is
+# safe in the full tier: the guard is about the index vs HEAD, not about what
+# files got passed on the command line, and a fast-tier call makes no git
+# writes of its own.
+if [ "${1:-}" = "--fast" ]; then
+  shift
+  fast_files=""
+  for f in "$@"; do
+    case "$f" in
+      *-check.js) continue ;;
+      *.ts|*.tsx|*.js|*.jsx) fast_files="$fast_files $f" ;;
+    esac
+  done
+  if [ -n "$fast_files" ]; then
+    # shellcheck disable=SC2086
+    run "invariants" node gates/invariants.js $fast_files
+  fi
+  exit $fail
+fi
+
+# Must run before anything else measures the tree: HEAD moved by plumbing leaves
+# the index and working tree stale, and then every verdict below is about the
+# wrong commit.
+sh gates/git-tree-guard.sh || exit 1
 
 # First base ref that actually exists. `main` is absent in a CI checkout that only
 # fetched the PR head, and GATE_BASE is how the merge queue and CI name theirs.
@@ -93,6 +116,7 @@ lint_diff() {
 
 run "typecheck" npx tsc -b
 run "lint" lint_diff
+run "invariants" node gates/invariants.js
 
 # A glob, not a list. A check that has to be added to a list somewhere else is a
 # check that eventually is not: write <name>-check.js at the repo root and it is

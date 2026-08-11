@@ -83,6 +83,18 @@ function preflightSpec(base, cwd) {
       args: ['-c', `test -n "$(git status --porcelain --untracked-files=all)$(git diff --name-only ${base}...HEAD)"`],
       inconclusive_exit: [1, 127],
     },
+    /* Runs gates/review-lint.js from *this* checkout (an absolute path), not the
+       target's own copy — the rule set has to be identical on every card, and a
+       worktree that happens not to carry gates/review-lint.js must not turn a
+       missing tool into a rejection. exit 2 is review-lint's own "cannot answer"
+       code (bad base ref, root is not a git repo). */
+    {
+      id: 'review-lint',
+      kind: 'command',
+      cmd: 'node',
+      args: [path.resolve(__dirname, 'review-lint.js'), '--diff', base, `--root=${cwd}`],
+      inconclusive_exit: [2],
+    },
     {
       id: 'gates',
       kind: 'command',
@@ -123,7 +135,7 @@ function appendLog(cwd, report) {
   try {
     fs.appendFileSync(file, JSON.stringify(logLine(report, cwd)) + '\n', 'utf8');
     return file;
-  } catch (e) {
+  } catch {
     return null;
   }
 }
