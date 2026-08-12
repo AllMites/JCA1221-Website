@@ -1,28 +1,22 @@
 #!/usr/bin/env python3
 """
-JCA1221 content audit — VERIFY script (task t_2b9bd140)
+JCA1221 content audit — VERIFY script (task t_2b9bd140, run 3)
 
 Independently verifies that the Supabase content state matches the audit change
-list targets after the update task (t_e3bbb5ac) applied CL-01 / CL-06 / CL-07.
+list targets after BOTH update rounds:
+  round 1 (t_e3bbb5ac): CL-01 / CL-06 / CL-07
+  round 2 (this task, green light 2026-08-12): CL-02 / CL-04 / CL-05 / CL-08 / CL-09 / CL-10 / CL-11 / CL-12
 
 Checks performed (all via fresh service-role reads):
-  1. TARGET rows — the 3 applied changes must hold their exact target values:
-       CL-01  team_members.id=08dd2da4-cb21-4983-a8d4-772d0294606f
-              credentials == 'UP Diliman (Magna Cum Laude)'   (was '*** UP Diliman (...')
-       CL-06  tech_widgets.id=e003ce08-d3d3-44b0-b2cc-b0259617df3f
-              published == false  (visitor_portfolio, was true)
-       CL-07  tech_widgets.id=54a56e94-df51-490e-aba7-f6fe1eb13fb0
-              published == false  (process_flow, was true)
-     Each target check also asserts its natural-key guard (name / widget_type)
-     so a wrong-row write would fail loudly.
+  1. TARGET rows — all 11 applied changes must hold their exact target values,
+     each with a natural-key guard so a wrong-row write fails loudly.
   2. UNINTENDED rows — every other row in the 8 content tables must still match
      the pre-update baseline snapshot (attachment targets.json from t_e301d363)
-     field-for-field. Rows visible only to the service key (unpublished) are
-     reported as pre-existing additions and must NOT be one of the target PKs.
-  3. Guard row — monitoring widget 61b10fab-451a-4769-9c03-16eae9496300 must
-     still be published=true (it was explicitly NOT part of the change list).
-  4. Audit log — if the audit_log table is readable, list UPDATE events in the
-     apply window to confirm exactly the 3 target rows were written.
+     field-for-field. Target rows may differ ONLY in their target field(s).
+  3. Guard rows — monitoring widget 61b10fab must still be published=true;
+     Zara's credentials must still be empty (CL-03 not applied); other team
+     members untouched.
+  4. Audit log — if readable, list UPDATE events in the apply windows.
 
 Usage: python3 verify_content_changes.py [--baseline <targets.json>] [--change-list <change-list.json>]
 Env required: SUPABASE_URL, SUPABASE_SERVICE_KEY (loaded from repo .env.local by default)
@@ -34,41 +28,119 @@ import sys
 import urllib.error
 import urllib.request
 
+# Each target: table, pk, natural-key guard(s), and a list of (field-or-jsonpath, expected, was)
+# jsonpath is a tuple of keys/indices into the row value for jsonb columns.
 EXPECTED = {
+    # ── round 1 (t_e3bbb5ac) ──
     "CL-01": {
         "table": "team_members",
         "pk": "08dd2da4-cb21-4983-a8d4-772d0294606f",
         "guard": {"name": "Jehremiah C. Asis"},
-        "field": "credentials",
-        "target": "UP Diliman (Magna Cum Laude)",
-        "was": "*** UP Diliman (Magna Cum Laude)",
+        "checks": [("credentials", "UP Diliman (Magna Cum Laude)", "*** UP Diliman (Magna Cum Laude)")],
     },
     "CL-06": {
         "table": "tech_widgets",
         "pk": "e003ce08-d3d3-44b0-b2cc-b0259617df3f",
         "guard": {"widget_type": "visitor_portfolio"},
-        "field": "published",
-        "target": False,
-        "was": True,
+        "checks": [("published", False, True)],
     },
     "CL-07": {
         "table": "tech_widgets",
         "pk": "54a56e94-df51-490e-aba7-f6fe1eb13fb0",
         "guard": {"widget_type": "process_flow"},
-        "field": "published",
-        "target": False,
-        "was": True,
+        "checks": [("published", False, True)],
+    },
+    # ── round 2 (this task, green light) ──
+    "CL-02": {
+        "table": "team_members",
+        "pk": "cb5ae9a2-0b66-42a3-9ecf-cb3f2af278e2",
+        "guard": {"name": "Odysseus C. Alfon"},
+        "checks": [("credentials", "Chem. Engr., BS Chemical Engineering, University of San Agustin", "Chem. Engr.")],
+    },
+    "CL-04": {
+        "table": "page_content",
+        "pk": "ba5f631e-ef39-4b79-b6fb-802822cbb37e",
+        "guard": {"key": "title"},
+        "checks": [("value", "Founder & President", "Founder & Chairman")],
+    },
+    "CL-05": {
+        "table": "page_content",
+        "pk": "5854d7a0-ff7c-4ff0-b984-812f022f100c",
+        "guard": {"key": "profile"},
+        "checks": [("value.role", "Founder & President, JCA 1221 Holdings Inc.", "Founder & CEO, JCA 1221 Holdings Inc.")],
+    },
+    "CL-08": {
+        "table": "csr_projects",
+        "pk": "e2a23c2f-185a-4f0c-a837-368346162a92",
+        "guard": {"slug": "siargao-community-waste"},
+        "checks": [("description",
+                    "Community-led waste segregation and collection program in Del Carmen and surrounding barangays — turning diverted waste into soil enhancer for local farms and recycled water for aquaculture, while building research and education partnerships ahead of the pyrolysis facility launch.",
+                    "Community-led waste segregation and collection program in Del Carmen and surrounding barangays, building local capacity ahead of the pyrolysis facility launch.")],
+    },
+    "CL-09": {
+        "table": "csr_projects",
+        "pk": "828e8279-c090-4b4d-94f2-2f80366fb7ec",
+        "guard": {"slug": "puerto-princesa-learning-center"},
+        "checks": [("description",
+                    "On-site learning center at the Puerto Princesa facility, hosting students and community members for research education on water quality, wastewater treatment, aquaculture, and coastal ecosystem restoration.",
+                    "On-site learning center at the Puerto Princesa facility, educating students and community members about water quality, wastewater treatment, and coastal ecosystem restoration.")],
+    },
+    "CL-10": {
+        "table": "page_content",
+        "pk": "446222d9-1b1d-4e98-b119-9b51e2dbaacb",
+        "guard": {"key": "pillars"},
+        "checks": [
+            ("value[0].subPoints[0].title", "Solutions First Mentality",
+             "Full transparency in procurement"),
+            ("value[0].subPoints[0].description",
+             "We approach every project by pulling the understanding, required resources, and context, tailor fitting every solution to ensure success.",
+             "Every contract, every supplier, every cost is documented and auditable. Government partners and investors get complete visibility into where their money goes at every stage."),
+            ("value[0].subPoints[2].title", "Long Term Stability",
+             "Solutions First Mentality"),
+            ("value[0].subPoints[2].description",
+             "Our solutions match current needs with available resources that produce immediate impact with long-term benefits. We build with flexibility that allows for expansion to meet future needs and available resources. The result: high-impact sustainable solutions",
+             "We approach every project by pulling the understanding, required resources, and context, tailor fitting every solution to ensure success."),
+        ],
+    },
+    "CL-11": {
+        "table": "page_content",
+        "pk": "446222d9-1b1d-4e98-b119-9b51e2dbaacb",
+        "guard": {"key": "pillars"},
+        "checks": [
+            ("value[2].subPoints[2].title", "Knowledge transfer, not dependency",
+             "Long Term Stability"),
+            ("value[2].subPoints[2].description",
+             "Every facility includes a Learning Center component. We train local operators, share technical knowledge, and build capacity so communities own their environmental future.",
+             "Our solutions match current needs with available resources that produce immediate impact with long-term benefits. We build with flexibility that allows for expansion to meet future needs and available resources. The result: high-impact sustainable solutions."),
+        ],
+    },
+    "CL-12": {
+        "table": "page_content",
+        "pk": "446222d9-1b1d-4e98-b119-9b51e2dbaacb",
+        "guard": {"key": "pillars"},
+        "checks": [
+            ("value[1].description",
+             "Our systems mimic nature's cleaning processes. Microorganisms do the heavy lifting — no harsh chemicals, no energy-intensive brute force. For solid waste, we design with the environment in mind by meeting and exceeding regulatory standards.",
+             "Nature doesn't produce waste — everything cycles. Our treatment systems follow the same principle: wastewater becomes clean water, solid waste becomes energy, and what was once pollution becomes productive."),
+            ("value[1].subPoints[0].title", "Recycled water returns to the ecosystem",
+             "Our systems mimic nature's cleaning processes"),
+            ("value[1].subPoints[1].title", "Pyrolysis transforms solid waste into energy",
+             "Recycled water returns to the ecosystem"),
+        ],
     },
 }
 
-# Non-content / infra tables are out of scope for the diff, but we still query
-# tech-relevant tables for the guard + full-row inventory.
+# Rows whose target field(s) may differ from baseline — keyed by (table, pk).
+# Everything else must match the baseline field-for-field.
+TARGET_KEYS = {(s["table"], s["pk"]) for s in EXPECTED.values()}
+
 CONTENT_TABLES = [
     "projects", "project_awards", "news_articles", "team_members",
     "csr_projects", "partners", "tech_widgets", "page_content",
 ]
 
-APPLY_WINDOW = "2026-08-12T00:50:00Z"  # update ran ~00:55–00:59 local (UTC+8)
+APPLY_WINDOW_1 = "2026-08-12T00:50:00Z"   # round 1 ran ~00:55–00:59 local (UTC+8)
+APPLY_WINDOW_2 = "2026-08-12T11:15:00Z"   # round 2 ran ~11:15 local (UTC+8)
 
 
 def _env_local_candidates():
@@ -128,17 +200,34 @@ def req(path):
         return e.code, e.read().decode(errors="replace")[:2000]
 
 
+def json_get(obj, path):
+    """Resolve 'a.b[0].c' style path into an object."""
+    cur = obj
+    import re
+    for part in re.split(r"(?<=\])\.|\.", path):
+        # handle [n] suffixes
+        m = re.match(r"^([^[]*)(\[(\d+)\])?$", part)
+        key = m.group(1)
+        idx = m.group(3)
+        if key:
+            if not isinstance(cur, dict) or key not in cur:
+                return None
+            cur = cur[key]
+        if idx is not None:
+            if not isinstance(cur, list) or int(idx) >= len(cur):
+                return None
+            cur = cur[int(idx)]
+    return cur
+
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     baseline_path = None
-    change_list_path = None
     args = sys.argv[1:]
     while args:
         a = args.pop(0)
         if a == "--baseline":
             baseline_path = args.pop(0)
-        elif a == "--change-list":
-            change_list_path = args.pop(0)
         else:
             sys.exit(f"unknown arg: {a}")
 
@@ -178,14 +267,13 @@ def main():
         check(f"{cid} natural-key guard", guard_ok,
               f"{spec['table']} {spec['pk']} guard {spec['guard']} -> "
               f"actual {json.dumps({k: row.get(k) for k in spec['guard']})}")
-        actual = row.get(spec["field"])
-        check(f"{cid} target value", actual == spec["target"],
-              f"{spec['table']}.{spec['field']} = {json.dumps(actual)} (expected {json.dumps(spec['target'])}, was {json.dumps(spec['was'])})")
+        for field, expected, was in spec["checks"]:
+            actual = json_get(row, field)
+            check(f"{cid} {field}", actual == expected,
+                  f"{spec['table']}.{field} = {json.dumps(actual)} "
+                  f"(expected {json.dumps(expected)}, was {json.dumps(was)})")
 
     # ---- 2. unintended-change diff vs baseline ----
-    # Baseline quirks handled here (survey artifacts, not data drift):
-    #   * "manifest" pseudo-table of empty objects — skip (no real ids)
-    #   * long URLs were TRUNCATED in the survey's targets.json — prefix-match url
     base_tables = baseline.get("tables", {})
     for t, base_tbl in base_tables.items():
         base_rows = [b for b in base_tbl.get("rows", []) if b.get("id")]
@@ -197,18 +285,15 @@ def main():
             if cr is None:
                 check(f"{t} baseline row {bid} still exists", False, "row missing from current read")
                 continue
-            target_pk = any(spec["pk"] == bid for spec in EXPECTED.values())
+            is_target = (t, bid) in TARGET_KEYS
             for fld in br:
                 if fld == "id":
                     continue
                 base_v, cur_v = br[fld], cr.get(fld)
                 if base_v == cur_v:
                     continue
-                # intended change on a target row's target field
-                if target_pk:
-                    spec = next((s for s in EXPECTED.values() if s["pk"] == bid), None)
-                    if spec and fld == spec["field"]:
-                        continue
+                if is_target:
+                    continue  # target rows may differ in their intended fields
                 # survey-truncated URL baseline (prefix still matches)
                 if fld == "url" and isinstance(base_v, str) and isinstance(cur_v, str) \
                         and cur_v.startswith(base_v):
@@ -216,45 +301,50 @@ def main():
                 check(f"{t} row {bid[:8]} field {fld} unchanged", False,
                       f"baseline {json.dumps(base_v)} != current {json.dumps(cur_v)}")
         extra_ids = [rid for rid in cur_by_id if rid not in {b.get("id") for b in base_rows}]
-        target_pks = {spec["pk"] for spec in EXPECTED.values()}
+        target_pks = {s["pk"] for s in EXPECTED.values()}
         for rid in extra_ids:
             if rid in target_pks:
-                continue  # target rows are handled above even if not in anon baseline
+                continue
             extra = cur_by_id[rid]
-            # pre-existing unpublished row — must not carry a recent updated_at in the apply window
             ts = extra.get("updated_at") or extra.get("created_at") or ""
-            touched_recently = isinstance(ts, str) and ts >= APPLY_WINDOW
+            touched_recently = isinstance(ts, str) and (ts >= APPLY_WINDOW_1 or ts >= APPLY_WINDOW_2)
             check(f"{t} extra row {rid[:8]} is pre-existing unpublished", not touched_recently,
                   f"row visible only to service key (unpublished in baseline); id={rid} "
                   f"name/title={extra.get('name') or extra.get('title') or extra.get('key')} "
                   f"updated_at={ts}")
 
-    # ---- 3. guard row ----
+    # ---- 3. guard rows ----
     tw = {r.get("id"): r for r in current.get("tech_widgets", [])}
     mon = tw.get("61b10fab-451a-4769-9c03-16eae9496300")
     check("monitoring widget still published",
           mon is not None and mon.get("published") is True,
           f"monitoring widget (61b10fab) published={mon.get('published') if mon else 'MISSING'} (must stay true)")
+    tm = {r.get("id"): r for r in current.get("team_members", [])}
+    zara = tm.get("ccae2ba3-b83f-429f-a759-6ed1efc72017")
+    check("Zara credentials still empty (CL-03 not applied)",
+          zara is not None and zara.get("credentials") in (None, ""),
+          f"Zara credentials={zara.get('credentials') if zara else 'MISSING'} (must stay empty)")
+    const = tm.get("56176145-d10d-40e3-98c6-396b2e2617a8")
+    check("Constantine credentials untouched",
+          const is not None and const.get("credentials") == "Atty., UP Diliman (cum laude)",
+          f"Constantine credentials={const.get('credentials') if const else 'MISSING'}")
 
-    # ---- 4. updated_at window scan (any row written during the apply window?) ----
-    # audit_log is empty (0 rows even for service role), so instead scan every
-    # content table for rows whose updated_at falls inside the apply window.
+    # ---- 4. updated_at window scan (any row written outside the target set?) ----
     touched = {}
     for t in CONTENT_TABLES:
-        rows = current.get(t, [])
-        for r in rows:
+        for r in current.get(t, []):
             ts = r.get("updated_at")
-            if isinstance(ts, str) and ts >= APPLY_WINDOW:
+            if isinstance(ts, str) and (ts >= APPLY_WINDOW_1 or ts >= APPLY_WINDOW_2):
                 touched.setdefault(t, []).append((r.get("id"), ts))
-    expected_pks = {spec["pk"] for spec in EXPECTED.values()}
+    expected_pks = {s["pk"] for s in EXPECTED.values()}
     unexpected = [(t, rid, ts) for t, lst in touched.items() for rid, ts in lst if rid not in expected_pks]
-    check("no rows written outside the 3 targets during apply window",
+    check("no rows written outside the 11 targets during apply windows",
           not unexpected,
-          f"rows with updated_at >= {APPLY_WINDOW}: "
-          f"{[(t, rid[:8], ts) for t, rid, ts in unexpected] or 'only the 3 target rows'}")
+          f"rows with updated_at in apply windows: "
+          f"{[(t, rid[:8], ts) for t, rid, ts in unexpected] or 'only the 11 target rows'}")
     target_touched = [(t, rid[:8]) for t, lst in touched.items() for rid, _ in lst if rid in expected_pks]
     results.append(("target rows carry fresh updated_at (informational)", True,
-                    f"rows freshly written: {target_touched or 'no updated_at column on most content tables — window scan best-effort only'}"))
+                    f"rows freshly written: {target_touched or 'no updated_at column on most content tables — best-effort'}"  ))
 
     # ---- report ----
     print(f"Supabase project: {BASE}")
