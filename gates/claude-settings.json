@@ -6,9 +6,8 @@
     "repo because .claude/settings.json is a per-machine file that also carries model,",
     "permission and MCP settings a developer may already have set — copying over it is",
     "a decision for whoever owns the checkout, not for the repo).",
-    "PostToolUse runs gates/run.sh --fast on the edited file (~200ms, invariants.js",
-    "only) and blocks with exit 2 if it fails; either way it marks the turn dirty.",
-    "Stop runs the whole of gates/run.sh once and blocks with exit 2 if it fails."
+    "PostToolUse marks the turn dirty (~30ms); Stop runs the whole of gates/run.sh once",
+    "and blocks with exit 2 if it fails."
   ],
   "hooks": {
     "PostToolUse": [

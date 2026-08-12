@@ -38,10 +38,6 @@ verify-*.png
 # Local Netlify folder
 .netlify
 
-# Python bytecode (gates/runner.py + runner-tests generate __pycache__ when run)
-__pycache__/
-*.pyc
-
 # Obsidian graph output
 graphify-out/
 

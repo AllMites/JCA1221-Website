@@ -6,12 +6,11 @@
    findable by opening gates/. .claude/settings.json holds only the wiring.
 
    Two events, one gate:
-     PostToolUse  runs `gates/run.sh --fast` (invariants.js only, ~200ms) on the one
-                  file just edited, and blocks on exit 2 the same way Stop does — a
-                  fast-tier failure is caught immediately after the edit rather than
-                  at the end of the turn. Marks the turn dirty either way, so Stop
-                  still runs the full suite once even when the fast tier is clean
-                  (invariants.js is a small subset of what tsc/ESLint catch).
+     PostToolUse  marks the turn dirty and returns. It runs no checks, because the
+                  cheapest thing this repo can check today is ESLint at ~1.9s per
+                  file — at ~40 edits a card that is over a minute of pure latency
+                  for a verdict `Stop` is about to give anyway. Add a fast tier to
+                  gates/run.sh and call it from here once one exists that is cheap.
      Stop         the full suite, but only if something was actually edited this
                   turn. Without that condition every conversational reply pays ~6s.
 
@@ -48,8 +47,8 @@ function readInput() {
   try { return JSON.parse(raw); } catch { return {}; }
 }
 
-function runGate(extraArgs) {
-  const r = spawnSync('sh', [path.join(REPO, 'gates', 'run.sh'), ...(extraArgs || [])], {
+function runGate() {
+  const r = spawnSync('sh', [path.join(REPO, 'gates', 'run.sh')], {
     cwd: REPO,
     encoding: 'utf8',
     timeout: 150000,
@@ -74,17 +73,6 @@ if (event === 'PostToolUse') {
   /* No git dir (archive extract, template copy): the marker cannot be written, so
      the Stop tier below just always runs. Fail open on liveness, closed on verdict. */
   if (MARKER) { try { fs.writeFileSync(MARKER, ''); } catch { /* Stop still runs */ } }
-
-  const { ok, output, crashed } = runGate(['--fast', abs]);
-  if (crashed) process.exit(0); // a hung fast gate must not wedge the session
-  if (!ok) {
-    process.stdout.write(JSON.stringify({ decision: 'block', reason: output }));
-    process.stderr.write(
-      `The fast gate is failing on ${file}. Same invariants Stop would catch anyway — ` +
-      `fixing it now is cheaper than finding out at the end of the turn.\n\n${output}`
-    );
-    process.exit(2);
-  }
   process.exit(0);
 }
 
