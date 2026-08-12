@@ -17,7 +17,6 @@ export default function ContactPreview() {
       timelineOptions={data.timelineOptions}
       teamContacts={teamContacts}
       officeInfo={data.officeInfo}
-      partnerLogos={data.partnerLogos}
       onSubmitBasic={(formData) => void formData}
       onSubmitDetailed={(formData) => void formData}
     />

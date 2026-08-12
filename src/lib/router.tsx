@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { PageTransitionOutlet } from '@/components/PageTransition'
 import { PageSkeleton, HeroPageSkeleton, DetailPageSkeleton } from '@/components/PageSkeleton'
 
@@ -39,8 +39,8 @@ const TeamPage = lazy(() =>
 const NewsPage = lazy(() =>
   import('@/pages/NewsPage').then((m) => ({ default: m.NewsPage })),
 )
-const HelpPage = lazy(() =>
-  import('@/pages/HelpPage').then((m) => ({ default: m.HelpPage })),
+const FaqPage = lazy(() =>
+  import('@/pages/FaqPage').then((m) => ({ default: m.FaqPage })),
 )
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
@@ -102,6 +102,7 @@ function getSkeleton(pathname: string) {
 
 // ─── Suspense wrapper that picks right skeleton ─────────────────────────────
 
+// eslint-disable-next-line react-refresh/only-export-components
 function Suspended({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={getSkeleton(window.location.pathname)}>
@@ -130,7 +131,8 @@ export const router = createBrowserRouter([
       { path: '/contact', element: <ContactPage /> },
       { path: '/team', element: <TeamPage /> },
       { path: '/news', element: <NewsPage /> },
-      { path: '/help', element: <HelpPage /> },
+      { path: '/faqs', element: <FaqPage /> },
+      { path: '/help', element: <Navigate to="/faqs" replace /> },
       { path: '/privacy', element: <PrivacyPage /> },
       { path: '/terms', element: <TermsPage /> },
 

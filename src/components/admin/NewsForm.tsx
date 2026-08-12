@@ -10,7 +10,7 @@ interface NewsFormProps {
 
 type FieldErrors = Partial<Record<keyof Partial<NewsArticle> | 'tags', string>>
 
-const CATEGORIES: NewsCategory[] = ['awards', 'projects', 'policy', 'expansion', 'media']
+const CATEGORIES: NewsCategory[] = ['awards', 'projects', 'others']
 const TYPES: NewsType[] = ['media-coverage', 'award', 'feature']
 
 export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
@@ -19,7 +19,7 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10))
   const [excerpt, setExcerpt] = useState('')
   const [url, setUrl] = useState('')
-  const [category, setCategory] = useState<NewsCategory>('media')
+  const [category, setCategory] = useState<NewsCategory>('others')
   const [type, setType] = useState<NewsType>('media-coverage')
   const [tags, setTags] = useState('')
   const [saving, setSaving] = useState(false)
@@ -35,7 +35,7 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
   // ── Form state preservation ──────────────────────────────────────────────
   const savedFormRef = useRef({
     title: '', source: '', date: '', excerpt: '', url: '',
-    category: 'media' as NewsCategory, type: 'media-coverage' as NewsType, tags: '',
+    category: 'others' as NewsCategory, type: 'media-coverage' as NewsType, tags: '',
   })
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
         date: article.date?.slice(0, 10) ?? '',
         excerpt: article.excerpt ?? '',
         url: article.url ?? '',
-        category: article.category ?? 'media',
+        category: article.category ?? 'others',
         type: article.type ?? 'media-coverage',
         tags: (article.tags ?? []).join(', '),
       }
@@ -131,12 +131,17 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
     }
   }
 
-  const inputBase = 'w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const inputBase = 'w-full h-field px-field-x py-field-y text-sm rounded-field bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const textareaBase = inputBase.replace('h-field', 'min-h-field')
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400'
 
   function inputClass(field: keyof FieldErrors) {
     return `${inputBase} ${fieldErrors[field] ? inputError : inputNormal}`
+  }
+
+  function textareaClass(field: keyof FieldErrors) {
+    return `${textareaBase} ${fieldErrors[field] ? inputError : inputNormal}`
   }
 
   return (
@@ -224,7 +229,7 @@ export function NewsForm({ article, onSave, onCancel }: NewsFormProps) {
           onChange={(e) => { setExcerpt(e.target.value.slice(0, EXCERPT_MAX)); clearFieldError('excerpt') }}
           rows={3}
           maxLength={EXCERPT_MAX}
-          className={`${inputClass('excerpt')} resize-none`}
+          className={`${textareaClass('excerpt')} resize-none`}
         />
         <p className="text-right text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-0.5">{excerpt.length}/{EXCERPT_MAX}</p>
         {fieldErrors.excerpt && (

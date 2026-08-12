@@ -5,7 +5,7 @@ import { HelpView } from '@/sections/faq/HelpView'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { NAV_ITEMS } from '@/lib/navigation'
 
-export function HelpPage() {
+export function FaqPage() {
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -17,9 +17,9 @@ export function HelpPage() {
   return (
     <>
       <PageSEO
-        title="Help & Documentation — JCA 1221 Holdings"
+        title="FAQs — JCA 1221 Holdings"
         description="Find answers to frequently asked questions about partnering with JCA1221 Holdings, explore our glossary of environmental infrastructure terms, and download our capability statement."
-        canonical="https://jca1221.com/help"
+        canonical="https://jca1221.com/faqs"
       />
       <AppShell
         navigationItems={navItems}

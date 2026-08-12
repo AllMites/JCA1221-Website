@@ -96,12 +96,17 @@ export function PageContentForm({ content, onSave, onCancel }: PageContentFormPr
     setShowConfirm(false)
   }
 
-  const inputBase = 'w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const inputBase = 'w-full h-field px-field-x py-field-y text-sm rounded-field bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const textareaBase = inputBase.replace('h-field', 'min-h-field')
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400'
 
   function inputClass(field: keyof FieldErrors) {
     return `${inputBase} ${fieldErrors[field] ? inputError : inputNormal}`
+  }
+
+  function textareaClass(field: keyof FieldErrors) {
+    return `${textareaBase} ${fieldErrors[field] ? inputError : inputNormal}`
   }
 
   return (
@@ -142,7 +147,7 @@ export function PageContentForm({ content, onSave, onCancel }: PageContentFormPr
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Value *</label>
-        <textarea value={value} onChange={(e) => { setValue(e.target.value.slice(0, VALUE_MAX)); clearFieldError('value') }} required rows={4} maxLength={VALUE_MAX} className={`${inputClass('value')} resize-none`} />
+        <textarea value={value} onChange={(e) => { setValue(e.target.value.slice(0, VALUE_MAX)); clearFieldError('value') }} required rows={4} maxLength={VALUE_MAX} className={`${textareaClass('value')} resize-none`} />
         <p className="text-right text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-0.5">{value.length}/{VALUE_MAX}</p>
         {fieldErrors.value && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.value}</p>}
       </div>

@@ -104,8 +104,8 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
     savedFormRef.current = { name, slug, category, description, story, location, heroImage, statsJson, timelineJson, sdgTagsStr, galleryStr, linkedProjectId, order }
 
     let stats = []; let timeline = []
-    try { stats = JSON.parse(statsJson) } catch {}
-    try { timeline = JSON.parse(timelineJson) } catch {}
+    try { stats = JSON.parse(statsJson) } catch { /* invalid JSON, keep default */ }
+    try { timeline = JSON.parse(timelineJson) } catch { /* invalid JSON, keep default */ }
 
     try {
       await onSave({
@@ -132,12 +132,17 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
     }
   }
 
-  const inputBase = 'w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const inputBase = 'w-full h-field px-field-x py-field-y text-sm rounded-field bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
+  const textareaBase = inputBase.replace('h-field', 'min-h-field')
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400'
 
   function inputClass(field: keyof FieldErrors) {
     return `${inputBase} ${fieldErrors[field] ? inputError : inputNormal}`
+  }
+
+  function textareaClass(field: keyof FieldErrors) {
+    return `${textareaBase} ${fieldErrors[field] ? inputError : inputNormal}`
   }
 
   return (
@@ -186,23 +191,23 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Description *</label>
-        <textarea value={description} onChange={(e) => { setDescription(e.target.value); clearFieldError('description') }} required rows={3} className={`${inputClass('description')} resize-none`} />
+        <textarea value={description} onChange={(e) => { setDescription(e.target.value); clearFieldError('description') }} required rows={3} className={`${textareaClass('description')} resize-none`} />
         {fieldErrors.description && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.description}</p>}
       </div>
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Story (narrative, Markdown-compatible)</label>
-        <textarea value={story} onChange={(e) => setStory(e.target.value)} rows={5} className={inputBase + ' ' + inputNormal + ' resize-none'} />
+        <textarea value={story} onChange={(e) => setStory(e.target.value)} rows={5} className={textareaBase + ' ' + inputNormal + ' resize-none'} />
       </div>
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Stats (JSON)</label>
-        <textarea value={statsJson} onChange={(e) => setStatsJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"label":"Trees Planted","value":"1,200"}]' />
+        <textarea value={statsJson} onChange={(e) => setStatsJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-field bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"label":"Trees Planted","value":"1,200"}]' />
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">Timeline (JSON)</label>
-        <textarea value={timelineJson} onChange={(e) => setTimelineJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"date":"2024-01","title":"Project Launch","description":"Started...","photo":null}]' />
+        <label className="block text-xs font-medium text-slate-500 mb-1">Newsletter Entries (JSON)</label>
+        <textarea value={timelineJson} onChange={(e) => setTimelineJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-field bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"date":"2024-01","title":"...","description":"...","photo":null}]' />
       </div>
 
       <div>

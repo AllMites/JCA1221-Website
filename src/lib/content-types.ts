@@ -1,7 +1,7 @@
 // ── Enums ──
 export type ProjectStatus = 'operational' | 'development' | 'planning'
 export type PartnerType = 'LGU' | 'national_agency' | 'private_sector' | 'community' | 'regulatory'
-export type NewsCategory = 'awards' | 'projects' | 'policy' | 'expansion' | 'media'
+export type NewsCategory = 'awards' | 'projects' | 'others' | 'policy' | 'expansion' | 'media'
 export type NewsType = 'media-coverage' | 'award' | 'feature'
 export type WidgetType = 'process_flow' | 'comparison_table' | 'video_carousel' | 'monitoring' | 'visitor_portfolio'
 export type AuditAction = 'create' | 'update' | 'delete'
@@ -94,7 +94,8 @@ export interface TeamMember {
 }
 
 // ── CSR ──
-export interface CsrTimelineEntry {
+// DB column is `timeline` but rendered as newsletter entries.
+export interface CsrNewsletterEntry {
   date: string
   title: string
   description: string
@@ -111,7 +112,7 @@ export interface CsrProject {
   location: string
   hero_image: string | null
   stats: ProjectStat[]
-  timeline: CsrTimelineEntry[]
+  timeline: CsrNewsletterEntry[]
   sdg_tags: string[]
   gallery: string[]
   linked_project_id: string | null

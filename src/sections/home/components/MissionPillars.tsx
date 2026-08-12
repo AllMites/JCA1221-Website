@@ -33,7 +33,7 @@ const DEFAULT_PILLARS: Pillar[] = [
 function NeumorphicPillarCard({ pillar }: { pillar: Pillar }) {
   return (
     <div
-      className="group p-6 sm:p-8 rounded-xl cursor-pointer select-none transition-all duration-200
+      className="group p-card rounded-card cursor-pointer select-none transition-all duration-200
         bg-white/60 dark:bg-slate-800/60
         shadow-[3px_3px_8px_rgba(0,0,0,0.06),-2px_-2px_6px_rgba(255,255,255,0.9)]
         dark:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-2px_-2px_6px_rgba(255,255,255,0.03)]
@@ -42,7 +42,7 @@ function NeumorphicPillarCard({ pillar }: { pillar: Pillar }) {
         active:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.08),inset_-1px_-1px_3px_rgba(255,255,255,0.6)]
         dark:active:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.4),inset_-1px_-1px_2px_rgba(255,255,255,0.05)]"
     >
-      <h3 className="font-bold font-heading text-lg text-slate-800 dark:text-slate-200 mb-2">
+      <h3 className="font-bold font-heading text-card-title text-slate-800 dark:text-slate-200 mb-2">
         {pillar.title}
       </h3>
       <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -71,7 +71,7 @@ export function MissionPillars({ tagline, taglineSub, pillars }: MissionPillarsP
         </ScrollReveal>
 
         {/* Pillar cards */}
-        <ScrollReveal staggerChildren={0.1} viewportMargin="-40px 0px" className="grid md:grid-cols-3 gap-6">
+        <ScrollReveal staggerChildren={0.1} viewportMargin="-40px 0px" className="grid md:grid-cols-3 gap-card">
           {displayPillars.map((pillar) => (
             <RevealItem key={pillar.title}>
               <NeumorphicPillarCard pillar={pillar} />

@@ -23,7 +23,7 @@ export interface NewsArticle {
   type: 'press-release' | 'media-coverage' | 'award' | 'feature'
 }
 
-export type NewsCategory = 'all' | 'awards' | 'projects' | 'policy' | 'expansion' | 'media'
+export type NewsCategory = 'all' | 'awards' | 'projects' | 'others' | 'policy' | 'expansion' | 'media'
 
 export interface NewsSectionData {
   /** Section heading */

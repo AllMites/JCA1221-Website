@@ -33,7 +33,7 @@ export function ProjectCardItem({ project, onClick }: ProjectCardItemProps) {
   return (
     <button
       onClick={onClick}
-      className="group w-full text-left rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-blue-400/50 dark:hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/5 transition-all duration-500 cursor-pointer"
+      className="group h-full flex flex-col w-full text-left rounded-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-blue-400/50 dark:hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/5 transition-all duration-500 cursor-pointer"
     >
       {/* Image area */}
       <div className="relative h-48 sm:h-56 bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-950 dark:to-slate-800 overflow-hidden">
@@ -74,7 +74,7 @@ export function ProjectCardItem({ project, onClick }: ProjectCardItemProps) {
       </div>
 
       {/* Content */}
-      <div className="p-5 sm:p-6">
+      <div className="p-card flex flex-col flex-1">
         {/* Location */}
         <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-3">
           <MapPin size={12} className="shrink-0" />
@@ -82,16 +82,16 @@ export function ProjectCardItem({ project, onClick }: ProjectCardItemProps) {
         </div>
 
         {/* Project name */}
-        <h3 className="font-bold font-heading text-slate-900 dark:text-white text-lg leading-tight mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+        <h3 className="font-bold font-heading text-slate-900 dark:text-white text-card-title leading-tight mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
           {project.name}
         </h3>
 
         {/* Key metric */}
-        <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
+        <div className="pt-3 mt-auto border-t border-slate-100 dark:border-slate-800">
           <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium mb-0.5">
             {project.keyMetric.label}
           </p>
-          <p className="text-lg font-bold font-heading text-slate-900 dark:text-white tabular-nums">
+          <p className="text-lg font-bold font-mono text-slate-900 dark:text-white tabular-nums">
             {project.keyMetric.value}
           </p>
         </div>
