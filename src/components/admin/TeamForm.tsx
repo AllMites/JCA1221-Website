@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { AlertCircle } from 'lucide-react'
-import type { TeamMember } from '@/lib/content-types'
+import type { TeamMember, TeamMemberLink } from '@/lib/content-types'
+import { TagPillInput, LinksEditor, ImagePicker } from '@/components/content-editors'
 
 interface TeamFormProps {
   member?: TeamMember | null
@@ -14,11 +15,11 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
   const [name, setName] = useState('')
   const [role, setRole] = useState('')
   const [credentials, setCredentials] = useState('')
-  const [photo, setPhoto] = useState('')
+  const [photo, setPhoto] = useState<string | null>(null)
   const [bio, setBio] = useState('')
   const [quote, setQuote] = useState('')
-  const [expertiseStr, setExpertiseStr] = useState('')
-  const [linksJson, setLinksJson] = useState('[]')
+  const [expertise, setExpertise] = useState<string[]>([])
+  const [links, setLinks] = useState<TeamMemberLink[]>([])
   const [order, setOrder] = useState('0')
   const [saving, setSaving] = useState(false)
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
@@ -29,27 +30,15 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
 
   useEffect(() => {
     if (member) {
-      const vals: Record<string, string> = {
-        name: member.name,
-        role: member.role,
-        credentials: member.credentials ?? '',
-        photo: member.photo ?? '',
-        bio: member.bio ?? '',
-        quote: member.quote ?? '',
-        expertiseStr: (member.expertise ?? []).join(', '),
-        linksJson: JSON.stringify(member.links ?? [], null, 2),
-        order: (member.order ?? 0).toString(),
-      }
-      setName(vals.name)
-      setRole(vals.role)
-      setCredentials(vals.credentials)
-      setPhoto(vals.photo)
-      setBio(vals.bio)
-      setQuote(vals.quote)
-      setExpertiseStr(vals.expertiseStr)
-      setLinksJson(vals.linksJson)
-      setOrder(vals.order)
-      savedFormRef.current = vals
+      setName(member.name)
+      setRole(member.role)
+      setCredentials(member.credentials ?? '')
+      setPhoto(member.photo ?? null)
+      setBio(member.bio ?? '')
+      setQuote(member.quote ?? '')
+      setExpertise(member.expertise ?? [])
+      setLinks(member.links ?? [])
+      setOrder((member.order ?? 0).toString())
     }
   }, [member])
 
@@ -81,10 +70,7 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
     if (!validate()) return
 
     setSaving(true)
-    savedFormRef.current = { name, role, credentials, photo, bio, quote, expertiseStr, linksJson, order }
-
-    let links = []
-    try { links = JSON.parse(linksJson) } catch { /* invalid JSON, keep default */ }
+    savedFormRef.current = { name, role, credentials, photo: photo ?? '', bio, quote, order }
 
     try {
       await onSave({
@@ -92,10 +78,10 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
         name: name.trim(),
         role: role.trim(),
         credentials: credentials.trim() || null,
-        photo: photo.trim() || null,
+        photo: photo?.trim() || null,
         bio: bio.trim(),
         quote: quote.trim() || null,
-        expertise: expertiseStr.split(',').map(e => e.trim()).filter(Boolean),
+        expertise,
         links,
         order: parseInt(order) || 0,
         published: member?.published ?? true,
@@ -147,16 +133,14 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-medium text-slate-500 mb-1">Credentials</label>
-          <input value={credentials} onChange={(e) => setCredentials(e.target.value)} placeholder="e.g. PhD, PE, MBA" className={inputBase + ' ' + inputNormal} />
-        </div>
-        <div>
-          <label className="block text-xs font-medium text-slate-500 mb-1">Photo URL</label>
-          <input value={photo} onChange={(e) => { setPhoto(e.target.value); clearFieldError('photo') }} className={inputClass('photo')} />
-          {fieldErrors.photo && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.photo}</p>}
-        </div>
+      <div>
+        <label className="block text-xs font-medium text-slate-500 mb-1">Credentials</label>
+        <input value={credentials} onChange={(e) => setCredentials(e.target.value)} placeholder="e.g. PhD, PE, MBA" className={inputBase + ' ' + inputNormal} />
+      </div>
+
+      <div>
+        <ImagePicker label="Photo" value={photo} onChange={(url) => { setPhoto(url); clearFieldError('photo') }} />
+        {fieldErrors.photo && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.photo}</p>}
       </div>
 
       <div>
@@ -171,18 +155,18 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">Expertise (comma separated)</label>
-        <input value={expertiseStr} onChange={(e) => setExpertiseStr(e.target.value)} placeholder="Water Treatment, PPP, Environmental Engineering" className={inputBase + ' ' + inputNormal} />
+        <label className="block text-xs font-medium text-slate-500 mb-1">Expertise</label>
+        <TagPillInput value={expertise} onChange={setExpertise} placeholder="Water Treatment, PPP, Environmental Engineering" />
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">Links (JSON)</label>
-        <textarea value={linksJson} onChange={(e) => setLinksJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-field bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"type":"linkedin","label":"LinkedIn","url":"https://..."},{"type":"email","label":"Email","url":"mailto:..."}]' />
+        <label className="block text-xs font-medium text-slate-500 mb-1">Links</label>
+        <LinksEditor value={links} onChange={setLinks} />
       </div>
 
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Order</label>
-        <input type="number" value={order} onChange={(e) => setOrder(e.target.value)} className={inputBase + ' ' + inputNormal} style={{width:'120px'}} />
+        <input type="number" value={order} onChange={(e) => setOrder(e.target.value)} className={inputBase + ' ' + inputNormal} style={{ width: '120px' }} />
       </div>
 
       <div className="flex gap-2 pt-2">
