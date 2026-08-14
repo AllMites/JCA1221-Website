@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { AlertCircle } from 'lucide-react'
 import type { PageContent } from '@/lib/content-types'
+import { PageContentValueEditor } from '@/components/content-editors'
 
 interface PageContentFormProps {
   content?: PageContent | null
@@ -8,33 +9,43 @@ interface PageContentFormProps {
   onCancel: () => void
 }
 
-type FieldErrors = Partial<Record<'page' | 'key' | 'value', string>>
+type FieldErrors = Partial<Record<'page' | 'section' | 'key' | 'value', string>>
+
+function isValueEmpty(v: unknown): boolean {
+  if (v == null) return true
+  if (typeof v === 'string') return v.trim() === ''
+  if (typeof v === 'object') return Object.values(v as Record<string, unknown>).every((x) => !x || (typeof x === 'string' && !x.trim()))
+  return false
+}
 
 export function PageContentForm({ content, onSave, onCancel }: PageContentFormProps) {
   const [page, setPage] = useState('')
+  const [section, setSection] = useState('')
   const [key, setKey] = useState('')
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<unknown>('')
   const [order, setOrder] = useState('0')
   const [saving, setSaving] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
-  // ── Character limits ────────────────────────────────────────────────────
-  const VALUE_MAX = 5000
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
   const [submitError, setSubmitError] = useState('')
 
   // ── Form state preservation ──────────────────────────────────────────────
-  const savedFormRef = useRef<Record<string, string>>({})
+  const savedFormRef = useRef<{ page: string; section: string; key: string; value: unknown; order: string }>({
+    page: '', section: '', key: '', value: '', order: '0',
+  })
 
   useEffect(() => {
     if (content) {
-      const vals: Record<string, string> = {
+      const vals = {
         page: content.page ?? '',
+        section: content.section ?? '',
         key: content.key ?? '',
-        value: (content.value as string) ?? '',
+        value: content.value ?? '',
         order: (content.order ?? 0).toString(),
       }
       setPage(vals.page)
+      setSection(vals.section)
       setKey(vals.key)
       setValue(vals.value)
       setOrder(vals.order)
@@ -55,9 +66,10 @@ export function PageContentForm({ content, onSave, onCancel }: PageContentFormPr
   function validate(): boolean {
     const errs: FieldErrors = {}
     if (!page) errs.page = 'Please select a page'
+    if (!section.trim()) errs.section = 'Section is required'
     if (!key.trim()) errs.key = 'Content key is required'
     else if (!/^[a-z0-9_]+$/.test(key.trim().toLowerCase().replace(/\s+/g, '_'))) errs.key = 'Key must contain only lowercase letters, numbers, and underscores'
-    if (!value.trim()) errs.value = 'Content value is required'
+    if (isValueEmpty(value)) errs.value = 'Content value is required'
     setFieldErrors(errs)
     return Object.keys(errs).length === 0
   }
@@ -74,14 +86,15 @@ export function PageContentForm({ content, onSave, onCancel }: PageContentFormPr
   async function confirmSave() {
     setShowConfirm(false)
     setSaving(true)
-    savedFormRef.current = { page, key, value, order }
+    savedFormRef.current = { page, section, key, value, order }
 
     try {
       await onSave({
         id: content?.id,
         page: page.trim(),
+        section: section.trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, ''),
         key: key.trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, ''),
-        value: value.trim(),
+        value,
         order: parseInt(order) || 0,
         published: content?.published ?? true,
       })
@@ -97,16 +110,11 @@ export function PageContentForm({ content, onSave, onCancel }: PageContentFormPr
   }
 
   const inputBase = 'w-full h-field px-field-x py-field-y text-sm rounded-field bg-white dark:bg-white/5 border outline-none text-slate-900 dark:text-white transition-all duration-200'
-  const textareaBase = inputBase.replace('h-field', 'min-h-field')
   const inputNormal = 'border-slate-200 dark:border-white/10 focus:border-blue-400/50'
   const inputError = 'border-red-400/50 dark:border-red-400/30 focus:border-red-400'
 
   function inputClass(field: keyof FieldErrors) {
     return `${inputBase} ${fieldErrors[field] ? inputError : inputNormal}`
-  }
-
-  function textareaClass(field: keyof FieldErrors) {
-    return `${textareaBase} ${fieldErrors[field] ? inputError : inputNormal}`
   }
 
   return (
@@ -139,16 +147,20 @@ export function PageContentForm({ content, onSave, onCancel }: PageContentFormPr
           {fieldErrors.page && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.page}</p>}
         </div>
         <div>
-          <label className="block text-xs font-medium text-slate-500 mb-1">Key *</label>
-          <input value={key} onChange={(e) => { setKey(e.target.value); clearFieldError('key') }} required placeholder="hero_title" className={inputClass('key')} />
-          {fieldErrors.key && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.key}</p>}
+          <label className="block text-xs font-medium text-slate-500 mb-1">Section *</label>
+          <input value={section} onChange={(e) => { setSection(e.target.value); clearFieldError('section') }} required placeholder="hero" className={inputClass('section')} />
+          {fieldErrors.section && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.section}</p>}
         </div>
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">Value *</label>
-        <textarea value={value} onChange={(e) => { setValue(e.target.value.slice(0, VALUE_MAX)); clearFieldError('value') }} required rows={4} maxLength={VALUE_MAX} className={`${textareaClass('value')} resize-none`} />
-        <p className="text-right text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-0.5">{value.length}/{VALUE_MAX}</p>
+        <label className="block text-xs font-medium text-slate-500 mb-1">Key *</label>
+        <input value={key} onChange={(e) => { setKey(e.target.value); clearFieldError('key') }} required placeholder="content" className={inputClass('key')} />
+        {fieldErrors.key && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.key}</p>}
+      </div>
+
+      <div>
+        <PageContentValueEditor page={page} section={section} contentKey={key} value={value} onChange={(v) => { setValue(v); clearFieldError('value') }} />
         {fieldErrors.value && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.value}</p>}
       </div>
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { AlertCircle } from 'lucide-react'
-import type { CsrProject } from '@/lib/content-types'
+import type { CsrProject, ProjectStat, CsrNewsletterEntry } from '@/lib/content-types'
+import { RepeatableRowEditor, TagPillInput, ImagePicker, type RowFieldDef } from '@/components/content-editors'
 
 interface CsrFormProps {
   csr?: CsrProject | null
@@ -9,6 +10,18 @@ interface CsrFormProps {
 }
 
 type FieldErrors = Partial<Record<'name' | 'slug' | 'description' | 'heroImage', string>>
+
+const STAT_FIELDS: RowFieldDef[] = [
+  { name: 'label', label: 'Label', type: 'text' },
+  { name: 'value', label: 'Value', type: 'text' },
+]
+
+const TIMELINE_FIELDS: RowFieldDef[] = [
+  { name: 'date', label: 'Date', type: 'text', placeholder: '2024-01' },
+  { name: 'title', label: 'Title', type: 'text' },
+  { name: 'description', label: 'Description', type: 'textarea' },
+  { name: 'photo', label: 'Photo', type: 'image' },
+]
 
 export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
   const [name, setName] = useState('')
@@ -25,11 +38,11 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
   const [description, setDescription] = useState('')
   const [story, setStory] = useState('')
   const [location, setLocation] = useState('')
-  const [heroImage, setHeroImage] = useState('')
-  const [statsJson, setStatsJson] = useState('[]')
-  const [timelineJson, setTimelineJson] = useState('[]')
-  const [sdgTagsStr, setSdgTagsStr] = useState('')
-  const [galleryStr, setGalleryStr] = useState('')
+  const [heroImage, setHeroImage] = useState<string | null>(null)
+  const [stats, setStats] = useState<ProjectStat[]>([])
+  const [timeline, setTimeline] = useState<CsrNewsletterEntry[]>([])
+  const [sdgTags, setSdgTags] = useState<string[]>([])
+  const [gallery, setGallery] = useState<string[]>([])
   const [linkedProjectId, setLinkedProjectId] = useState('')
   const [order, setOrder] = useState('0')
   const [saving, setSaving] = useState(false)
@@ -41,35 +54,19 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
 
   useEffect(() => {
     if (csr) {
-      const vals: Record<string, string> = {
-        name: csr.name,
-        slug: csr.slug,
-        category: csr.category ?? '',
-        description: csr.description ?? '',
-        story: csr.story ?? '',
-        location: csr.location ?? '',
-        heroImage: csr.hero_image ?? '',
-        statsJson: JSON.stringify(csr.stats ?? [], null, 2),
-        timelineJson: JSON.stringify(csr.timeline ?? [], null, 2),
-        sdgTagsStr: (csr.sdg_tags ?? []).join(', '),
-        galleryStr: (csr.gallery ?? []).join(', '),
-        linkedProjectId: csr.linked_project_id ?? '',
-        order: (csr.order ?? 0).toString(),
-      }
-      setName(vals.name)
-      setSlug(vals.slug)
-      setCategory(vals.category)
-      setDescription(vals.description)
-      setStory(vals.story)
-      setLocation(vals.location)
-      setHeroImage(vals.heroImage)
-      setStatsJson(vals.statsJson)
-      setTimelineJson(vals.timelineJson)
-      setSdgTagsStr(vals.sdgTagsStr)
-      setGalleryStr(vals.galleryStr)
-      setLinkedProjectId(vals.linkedProjectId)
-      setOrder(vals.order)
-      savedFormRef.current = vals
+      setName(csr.name)
+      setSlug(csr.slug)
+      setCategory(csr.category ?? '')
+      setDescription(csr.description ?? '')
+      setStory(csr.story ?? '')
+      setLocation(csr.location ?? '')
+      setHeroImage(csr.hero_image ?? null)
+      setStats(csr.stats ?? [])
+      setTimeline(csr.timeline ?? [])
+      setSdgTags(csr.sdg_tags ?? [])
+      setGallery(csr.gallery ?? [])
+      setLinkedProjectId(csr.linked_project_id ?? '')
+      setOrder((csr.order ?? 0).toString())
     }
   }, [csr])
 
@@ -101,11 +98,7 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
     if (!validate()) return
 
     setSaving(true)
-    savedFormRef.current = { name, slug, category, description, story, location, heroImage, statsJson, timelineJson, sdgTagsStr, galleryStr, linkedProjectId, order }
-
-    let stats = []; let timeline = []
-    try { stats = JSON.parse(statsJson) } catch { /* invalid JSON, keep default */ }
-    try { timeline = JSON.parse(timelineJson) } catch { /* invalid JSON, keep default */ }
+    savedFormRef.current = { name, slug, category, description, story, location, heroImage: heroImage ?? '', linkedProjectId, order }
 
     try {
       await onSave({
@@ -116,11 +109,11 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
         description: description.trim(),
         story: story.trim() || null,
         location: location.trim(),
-        hero_image: heroImage.trim() || null,
+        hero_image: heroImage?.trim() || null,
         stats,
         timeline,
-        sdg_tags: sdgTagsStr.split(',').map(t => t.trim()).filter(Boolean),
-        gallery: galleryStr.split(',').map(g => g.trim()).filter(Boolean),
+        sdg_tags: sdgTags,
+        gallery,
         linked_project_id: linkedProjectId.trim() || null,
         order: parseInt(order) || 0,
         published: csr?.published ?? true,
@@ -184,8 +177,7 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">Hero Image URL</label>
-        <input value={heroImage} onChange={(e) => { setHeroImage(e.target.value); clearFieldError('heroImage') }} className={inputClass('heroImage')} />
+        <ImagePicker label="Hero Image" value={heroImage} onChange={(url) => { setHeroImage(url); clearFieldError('heroImage') }} />
         {fieldErrors.heroImage && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.heroImage}</p>}
       </div>
 
@@ -201,24 +193,33 @@ export function CsrForm({ csr, onSave, onCancel }: CsrFormProps) {
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">Stats (JSON)</label>
-        <textarea value={statsJson} onChange={(e) => setStatsJson(e.target.value)} rows={3} className="w-full px-3 py-2 text-xs font-mono rounded-field bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"label":"Trees Planted","value":"1,200"}]' />
+        <label className="block text-xs font-medium text-slate-500 mb-1">Stats</label>
+        <RepeatableRowEditor
+          rows={stats as unknown as Record<string, string>[]}
+          onChange={(rows) => setStats(rows as unknown as ProjectStat[])}
+          fields={STAT_FIELDS}
+          addLabel="Add stat"
+          emptyRow={{ label: '', value: '' }}
+        />
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">Newsletter Entries (JSON)</label>
-        <textarea value={timelineJson} onChange={(e) => setTimelineJson(e.target.value)} rows={4} className="w-full px-3 py-2 text-xs font-mono rounded-field bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:border-blue-400/50 text-slate-900 dark:text-white resize-none" placeholder='[{"date":"2024-01","title":"...","description":"...","photo":null}]' />
+        <label className="block text-xs font-medium text-slate-500 mb-1">Newsletter Entries</label>
+        <RepeatableRowEditor
+          rows={timeline as unknown as Record<string, string>[]}
+          onChange={(rows) => setTimeline(rows as unknown as CsrNewsletterEntry[])}
+          fields={TIMELINE_FIELDS}
+          addLabel="Add entry"
+          emptyRow={{ date: '', title: '', description: '', photo: '' }}
+        />
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">SDG Tags (comma-separated)</label>
-        <input value={sdgTagsStr} onChange={(e) => setSdgTagsStr(e.target.value)} placeholder="SDG 14, SDG 13, SDG 11" className={inputBase + ' ' + inputNormal} />
+        <label className="block text-xs font-medium text-slate-500 mb-1">SDG Tags</label>
+        <TagPillInput value={sdgTags} onChange={setSdgTags} placeholder="SDG 14, SDG 13, SDG 11" />
       </div>
 
-      <div>
-        <label className="block text-xs font-medium text-slate-500 mb-1">Gallery (comma-separated URLs)</label>
-        <input value={galleryStr} onChange={(e) => setGalleryStr(e.target.value)} className={inputBase + ' ' + inputNormal} />
-      </div>
+      <ImagePicker multiple label="Gallery" value={gallery} onChange={setGallery} />
 
       <div className="grid grid-cols-2 gap-4">
         <div>
