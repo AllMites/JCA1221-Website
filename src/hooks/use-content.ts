@@ -19,12 +19,15 @@ async function fetchPublished<T>(table: string, column = 'created_at', ascending
 
 async function fetchBySlug<T>(table: string, slug: string): Promise<T | null> {
   if (!hasSupabaseCredentials) return null
+  // maybeSingle() instead of single(): single() sends an "exactly one row"
+  // Accept header and Supabase answers 406 when zero rows match (e.g. old
+  // UUID links looked up as slugs). maybeSingle() cleanly returns null.
   const { data, error } = await supabase
     .from(table)
     .select('*')
     .eq('slug', slug)
     .eq('published', true)
-    .single()
+    .maybeSingle()
   if (error) return null
   return data as T
 }
@@ -98,7 +101,7 @@ export function useProject(slug: string) {
           .select('*')
           .eq('id', slug)
           .eq('published', true)
-          .single()
+          .maybeSingle()
         p = data as Project | null
       }
       if (!p) { setProject(null); setLoading(false); return }
