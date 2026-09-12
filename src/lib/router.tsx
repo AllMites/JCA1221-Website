@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter, Navigate, ScrollRestoration } from 'react-router-dom'
 import { PageTransitionOutlet } from '@/components/PageTransition'
 import { PageSkeleton, HeroPageSkeleton, DetailPageSkeleton } from '@/components/PageSkeleton'
 
@@ -116,9 +116,12 @@ function Suspended({ children }: { children: React.ReactNode }) {
 export const router = createBrowserRouter([
   {
     element: (
-      <Suspended>
-        <PageTransitionOutlet />
-      </Suspended>
+      <>
+        <Suspended>
+          <PageTransitionOutlet />
+        </Suspended>
+        <ScrollRestoration />
+      </>
     ),
     children: [
       // ═══ JCA 1221 Website Routes ═══
