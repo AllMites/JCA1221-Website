@@ -81,14 +81,10 @@
     <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@2.0.4/dist/html2canvas-pro.min.js" defer></script>
     <script defer>window.html2canvas = window.html2canvasPro</script>
     <script src="/scripts/liquidGL.js" defer></script>
-    <script>
-      // Register service worker for PWA offline support
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker.register('/sw.js', { scope: '/' })
-        })
-      }
-    </script>
+    <!--
+      No service worker is registered. /sw.js is a tombstone that unregisters the
+      old cache-first worker for returning visitors; see the comment in that file.
+    -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

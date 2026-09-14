@@ -1,97 +1,31 @@
-// Service worker for JCA 1221 Holdings
-// Simple stale-while-revalidate pattern — serves cached assets instantly, updates cache in background.
+// Tombstone service worker.
+//
+// The previous SW served same-origin images and scripts cache-first with a
+// hardcoded cache name, so any file at a stable path (/images/**, /logo-nav.png,
+// /scripts/liquidGL.js) was pinned to whatever bytes were first seen. Replacing
+// an image on disk changed nothing for returning visitors until they hard-reloaded.
+// It also wrapped asset fetches in respondWith() with no timeout, so a stalled
+// chunk request hung forever behind the route skeleton.
+//
+// The CDN plus the immutable /assets/* headers already cover real caching, so the
+// SW is gone rather than repaired. THIS FILE MUST STAY DEPLOYED: an installed SW
+// is only evictable by a newer SW script at the same URL. Browsers re-check
+// /sw.js on in-scope navigations even though nothing calls register() any more.
+// Safe to delete once the install base has turned over (a year is plenty).
 
-const CACHE = 'jca1221-v1'
+self.addEventListener('install', () => self.skipWaiting())
 
-const PRECACHE_URLS = [
-  '/',
-  '/index.html',
-]
-
-// Install: pre-cache shell
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE).then((cache) => {
-      return cache.addAll(PRECACHE_URLS).catch(() => {
-        // Individual failures are non-fatal — the page still works online
-      })
-    })
-  )
-  // Activate immediately — don't wait for old SW to release
-  self.skipWaiting()
-})
-
-// Activate: purge old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))
-      )
-    })
-  )
-  // Claim all clients so the new SW controls pages immediately
-  self.clients.claim()
-})
-
-// Fetch: stale-while-revalidate for navigation + assets
-self.addEventListener('fetch', (event) => {
-  const { request } = event
-  const url = new URL(request.url)
-
-  // Only handle GET requests from our own origin
-  if (request.method !== 'GET') return
-  if (url.origin !== self.location.origin) return
-
-  // Skip browser extensions and non-http(s)
-  if (!url.protocol.startsWith('http')) return
-
-  // Skip analytics / tracking requests
-  if (url.pathname.includes('analytics') || url.pathname.includes('gtag')) return
-
-  // Navigation requests: network-first (SPA — we want fresh HTML)
-  if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const cloned = response.clone()
-          caches.open(CACHE).then((cache) => cache.put(request, cloned))
-          return response
-        })
-        .catch(() => {
-          // Offline: serve cached shell
-          return caches.match(request).then((cached) => cached || caches.match('/'))
-        })
-    )
-    return
-  }
-
-  // Static assets: cache-first (JS, CSS, fonts, images — fingerprinted URLs are immutable)
-  if (
-    url.pathname.match(/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff2?|ttf|eot)$/) ||
-    url.pathname.startsWith('/assets/')
-  ) {
-    event.respondWith(
-      caches.match(request).then((cached) => {
-        if (cached) return cached
-        return fetch(request).then((response) => {
-          const cloned = response.clone()
-          caches.open(CACHE).then((cache) => cache.put(request, cloned))
-          return response
-        })
-      })
-    )
-    return
-  }
-
-  // Everything else: network-first fallback to cache
-  event.respondWith(
-    fetch(request)
-      .then((response) => {
-        const cloned = response.clone()
-        caches.open(CACHE).then((cache) => cache.put(request, cloned))
-        return response
-      })
-      .catch(() => caches.match(request))
+    (async () => {
+      for (const key of await caches.keys()) await caches.delete(key)
+      await self.registration.unregister()
+      // Reload open tabs so they drop the stale assets they are already showing.
+      // No register() call remains in index.html, so nothing reinstalls and this
+      // cannot loop.
+      for (const client of await self.clients.matchAll({ type: 'window' })) {
+        client.navigate(client.url)
+      }
+    })(),
   )
 })

@@ -1,93 +1,144 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, type ComponentType } from 'react'
 import { createBrowserRouter, Navigate, ScrollRestoration } from 'react-router-dom'
 import { PageTransitionOutlet } from '@/components/PageTransition'
 import { PageSkeleton, HeroPageSkeleton, DetailPageSkeleton } from '@/components/PageSkeleton'
 
+// ─── Chunk loading ─────────────────────────────────────────────────────────
+
+const CHUNK_TIMEOUT_MS = 8_000
+const RELOAD_KEY = 'jca_chunk_reload'
+
+/**
+ * Guards against a reload loop when the chunk is genuinely unreachable (server
+ * down) rather than merely stale. One reload per 30s window.
+ */
+function mayReload(): boolean {
+  try {
+    const last = Number(sessionStorage.getItem(RELOAD_KEY) ?? 0)
+    if (Date.now() - last < 30_000) return false
+    sessionStorage.setItem(RELOAD_KEY, String(Date.now()))
+  } catch {
+    // Private mode / storage disabled: reloading is still the better outcome.
+  }
+  return true
+}
+
+/**
+ * Route chunks are fetched at navigation time, and two failure modes leave the
+ * Suspense skeleton on screen forever: a request that stalls and never settles,
+ * and a deploy that rotates asset hashes so an already-open tab asks for a chunk
+ * that no longer exists. Neither recovers on its own.
+ *
+ * Race the import against a timeout, retry once, then reload — which re-fetches
+ * index.html and with it the current hashes. The pending promise returned on the
+ * reload path keeps the skeleton up for the moment the reload takes to commit.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function lazyRetry<T extends ComponentType<any>>(load: () => Promise<{ default: T }>) {
+  const attempt = () =>
+    Promise.race([
+      load(),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('chunk load timed out')), CHUNK_TIMEOUT_MS),
+      ),
+    ])
+
+  return lazy(() =>
+    attempt()
+      .catch(attempt)
+      .catch((err) => {
+        if (!mayReload()) throw err
+        window.location.reload()
+        return new Promise<{ default: T }>(() => {})
+      }),
+  )
+}
+
 // ─── Lazy-loaded pages (code-split per route) ──────────────────────────────
 
-const HomePage = lazy(() =>
+const HomePage = lazyRetry(() =>
   import('@/pages/HomePage').then((m) => ({ default: m.HomePage })),
 )
 // HomeAltPage disabled — file does not exist on disk
-// const HomeAltPage = lazy(() =>
+// const HomeAltPage = lazyRetry(() =>
 //   import('@/pages/HomeAltPage').then((m) => ({ default: m.HomeAltPage })),
 // )
-const AboutPage = lazy(() =>
+const AboutPage = lazyRetry(() =>
   import('@/pages/AboutPage').then((m) => ({ default: m.AboutPage })),
 )
-const ProjectsPage = lazy(() =>
+const ProjectsPage = lazyRetry(() =>
   import('@/pages/ProjectsPage').then((m) => ({ default: m.ProjectsPage })),
 )
-const ProjectDetailPage = lazy(() =>
+const ProjectDetailPage = lazyRetry(() =>
   import('@/pages/ProjectDetailPage').then((m) => ({ default: m.ProjectDetailPage })),
 )
-const ContactPage = lazy(() =>
+const ContactPage = lazyRetry(() =>
   import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage })),
 )
-const PrivacyPage = lazy(() =>
+const PrivacyPage = lazyRetry(() =>
   import('@/pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })),
 )
-const TermsPage = lazy(() =>
+const TermsPage = lazyRetry(() =>
   import('@/pages/TermsPage').then((m) => ({ default: m.TermsPage })),
 )
-const TechnologyPage = lazy(() =>
+const TechnologyPage = lazyRetry(() =>
   import('@/pages/TechnologyPage').then((m) => ({ default: m.TechnologyPage })),
 )
-const TeamPage = lazy(() =>
+const TeamPage = lazyRetry(() =>
   import('@/pages/TeamPage').then((m) => ({ default: m.TeamPage })),
 )
-const NewsPage = lazy(() =>
+const NewsPage = lazyRetry(() =>
   import('@/pages/NewsPage').then((m) => ({ default: m.NewsPage })),
 )
-const FaqPage = lazy(() =>
+const FaqPage = lazyRetry(() =>
   import('@/pages/FaqPage').then((m) => ({ default: m.FaqPage })),
 )
-const NotFoundPage = lazy(() =>
+const NotFoundPage = lazyRetry(() =>
   import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 )
-const LoginPage = lazy(() =>
+const LoginPage = lazyRetry(() =>
   import('@/pages/LoginPage').then((m) => ({ default: m.LoginPage })),
 )
-const AdminPage = lazy(() =>
+const AdminPage = lazyRetry(() =>
   import('@/pages/AdminPage').then((m) => ({ default: m.AdminPage })),
 )
-const EditorPage = lazy(() => import('@/pages/EditorPage'))
+const EditorPage = lazyRetry(() => import('@/pages/EditorPage'))
 
 // Design OS pages
-const ProductPage = lazy(() =>
+const ProductPage = lazyRetry(() =>
   import('@/components/ProductPage').then((m) => ({ default: m.ProductPage })),
 )
-const DataShapePage = lazy(() =>
+const DataShapePage = lazyRetry(() =>
   import('@/components/DataShapePage').then((m) => ({ default: m.DataShapePage })),
 )
-const DesignPage = lazy(() =>
+const DesignPage = lazyRetry(() =>
   import('@/components/DesignPage').then((m) => ({ default: m.DesignPage })),
 )
-const SectionsPage = lazy(() =>
+const SectionsPage = lazyRetry(() =>
   import('@/components/SectionsPage').then((m) => ({ default: m.SectionsPage })),
 )
-const SectionPage = lazy(() =>
+const SectionPage = lazyRetry(() =>
   import('@/components/SectionPage').then((m) => ({ default: m.SectionPage })),
 )
-const ScreenDesignPage = lazy(() =>
+const ScreenDesignPage = lazyRetry(() =>
   import('@/components/ScreenDesignPage').then((m) => ({
     default: m.ScreenDesignPage,
   })),
 )
-const ScreenDesignFullscreen = lazy(() =>
+const ScreenDesignFullscreen = lazyRetry(() =>
   import('@/components/ScreenDesignPage').then((m) => ({
     default: m.ScreenDesignFullscreen,
   })),
 )
-const ShellDesignPage = lazy(() =>
+const ShellDesignPage = lazyRetry(() =>
   import('@/components/ShellDesignPage').then((m) => ({ default: m.ShellDesignPage })),
 )
-const ShellDesignFullscreen = lazy(() =>
+const ShellDesignFullscreen = lazyRetry(() =>
   import('@/components/ShellDesignPage').then((m) => ({
     default: m.ShellDesignFullscreen,
   })),
 )
-const ExportPage = lazy(() =>
+const ExportPage = lazyRetry(() =>
   import('@/components/ExportPage').then((m) => ({ default: m.ExportPage })),
 )
 
