@@ -1,8 +1,8 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useMemo } from 'react'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-export type ShaderVariant = 'slate' | 'blue' | 'emerald' | 'amber' | 'light' | 'dark' | 'dots' | 'leaves' | 'ripples' | 'currents' | 'bubbles'
+export type ShaderVariant = 'slate' | 'blue' | 'emerald' | 'amber' | 'light' | 'dark' | 'dots' | 'leaves' | 'ripples' | 'currents' | 'bubbles' | 'tide'
 
 export interface ShaderBackgroundProps {
   variant: ShaderVariant
@@ -105,7 +105,7 @@ function ensureTime() {
 // VARIANTS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function drawSlate(ctx: CanvasRenderingContext2D, w: number, h: number, _t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawSlate(ctx: CanvasRenderingContext2D, w: number, h: number, _t: number, rgb: RGB) {
   const rng = mulberry32(42)
   drawGrid(ctx, w, h, 80, 'rgba(148,163,184,0.10)')
   drawGrid(ctx, w, h, 240, 'rgba(148,163,184,0.05)')
@@ -127,7 +127,7 @@ function drawSlate(ctx: CanvasRenderingContext2D, w: number, h: number, _t: numb
   applyGrain(ctx, w, h, 8, rng, rgb)
 }
 
-function drawDark(ctx: CanvasRenderingContext2D, w: number, h: number, _t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawDark(ctx: CanvasRenderingContext2D, w: number, h: number, _t: number, rgb: RGB) {
   const rng = mulberry32(99)
   drawGrid(ctx, w, h, 120, 'rgba(180,170,160,0.07)')
 
@@ -146,7 +146,7 @@ function drawDark(ctx: CanvasRenderingContext2D, w: number, h: number, _t: numbe
   applyGrain(ctx, w, h, 12, rng, rgb)
 }
 
-function drawBlue(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawBlue(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB) {
   const rng = mulberry32(7)
 
   drawOrb(ctx, w * 0.28 + Math.sin(t * 0.28) * 50, h * 0.38 + Math.cos(t * 0.23) * 30, w * 0.6, 'rgba(0,0,0,0.20)')
@@ -177,7 +177,7 @@ function drawBlue(ctx: CanvasRenderingContext2D, w: number, h: number, t: number
   applyGrain(ctx, w, h, 10, rng, rgb)
 }
 
-function drawEmerald(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawEmerald(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB) {
   const rng = mulberry32(23)
   const N = 22
   for (let i = 0; i < N; i++) {
@@ -207,7 +207,7 @@ function drawEmerald(ctx: CanvasRenderingContext2D, w: number, h: number, t: num
   applyGrain(ctx, w, h, 8, rng, rgb)
 }
 
-function drawAmber(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawAmber(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB) {
   const rng = mulberry32(77)
   for (let i = 0; i < 18; i++) {
     const y0 = (h / 19) * (i + 1)
@@ -224,7 +224,7 @@ function drawAmber(ctx: CanvasRenderingContext2D, w: number, h: number, t: numbe
   applyGrain(ctx, w, h, 10, rng, rgb)
 }
 
-function drawLight(ctx: CanvasRenderingContext2D, w: number, h: number, _t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawLight(ctx: CanvasRenderingContext2D, w: number, h: number, _t: number, rgb: RGB) {
   const rng = mulberry32(11)
   for (let y = 0; y < h; y += 3) {
     const roll = rng()
@@ -294,7 +294,7 @@ function drawDots(ctx: CanvasRenderingContext2D, w: number, h: number, t: number
 
 // ─── Leaves variant — voronoi + perlin, organic tissue / leaves ─────────────────
 
-function drawLeaves(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawLeaves(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB) {
   const seed = 42
   const spacing = Math.max(60, Math.min(w, h) / 10)
   const cols = Math.floor(w / spacing) - 1
@@ -354,7 +354,7 @@ function drawLeaves(ctx: CanvasRenderingContext2D, w: number, h: number, t: numb
 
 // ─── Ripples variant — expanding concentric arcs ────────────────────────────────
 
-function drawRipples(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawRipples(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB) {
   const count = 4
   const cycle = 4 // seconds per full ripple cycle
   const maxRadius = Math.max(w, h) * 0.4
@@ -387,7 +387,7 @@ function drawRipples(ctx: CanvasRenderingContext2D, w: number, h: number, t: num
 
 // ─── Currents variant — flowing horizontal wave ribbons ─────────────────────────
 
-function drawCurrents(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawCurrents(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB) {
   const lines = 8
   for (let i = 0; i < lines; i++) {
     const y0 = (h / (lines + 1)) * (i + 1)
@@ -411,7 +411,7 @@ function drawCurrents(ctx: CanvasRenderingContext2D, w: number, h: number, t: nu
 
 // ─── Bubbles variant — rising circles with wobble ───────────────────────────────
 
-function drawBubbles(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB, _mouse: MouseState | null) {
+function drawBubbles(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB) {
   const count = 25
   const speed = 0.3
 
@@ -446,6 +446,33 @@ function drawBubbles(ctx: CanvasRenderingContext2D, w: number, h: number, t: num
   }
 }
 
+// ─── Tide variant — slow horizontal band oscillation ────────────────────────────
+
+function drawTide(ctx: CanvasRenderingContext2D, w: number, h: number, t: number, rgb: RGB) {
+  const bands = 4
+  for (let i = 0; i < bands; i++) {
+    const baseY = (h / (bands + 1)) * (i + 1)
+    const phase = spatialNoise(i * 7, 0, 500) * Math.PI * 2
+    const speed = 0.08 + spatialNoise(i * 7 + 1, 0, 600) * 0.04
+    const amplitude = h * 0.04 + spatialNoise(i * 7 + 2, 0, 700) * h * 0.03
+    const thickness = h * 0.04 + spatialNoise(i * 7 + 3, 0, 800) * h * 0.025
+    const alpha = 0.04 + spatialNoise(i * 7 + 4, 0, 900) * 0.06
+
+    const yOff = Math.sin(t * speed + phase) * amplitude
+    const y = baseY + yOff
+
+    // Draw band as a soft-edged horizontal gradient
+    const grad = ctx.createLinearGradient(0, y - thickness, 0, y + thickness)
+    grad.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`)
+    grad.addColorStop(0.3, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha.toFixed(3)})`)
+    grad.addColorStop(0.5, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${(alpha * 1.4).toFixed(3)})`)
+    grad.addColorStop(0.7, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha.toFixed(3)})`)
+    grad.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`)
+    ctx.fillStyle = grad
+    ctx.fillRect(0, y - thickness, w, thickness * 2)
+  }
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // DISPATCH
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -456,10 +483,10 @@ const DRAW: Record<ShaderVariant, DrawFn> = {
   slate: drawSlate, dark: drawDark, blue: drawBlue, emerald: drawEmerald,
   amber: drawAmber, light: drawLight, dots: drawDots,
   leaves: drawLeaves, ripples: drawRipples, currents: drawCurrents,
-  bubbles: drawBubbles,
+  bubbles: drawBubbles, tide: drawTide,
 }
 
-const ANIMATED: Set<ShaderVariant> = new Set(['blue', 'emerald', 'amber', 'dots', 'leaves', 'ripples', 'currents', 'bubbles'])
+const ANIMATED: Set<ShaderVariant> = new Set(['blue', 'emerald', 'amber', 'dots', 'leaves', 'ripples', 'currents', 'bubbles', 'tide'])
 
 // ─── Default background colors per variant (when bgColor prop not provided) ───
 
@@ -475,6 +502,7 @@ const DEFAULT_BG: Record<ShaderVariant, RGB> = {
   ripples: [30, 58, 95],    // blue-900
   currents:[15, 23, 42],    // slate-900
   bubbles: [23, 37, 84],    // blue-950
+  tide:    [69, 26, 3],     // amber-950
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -555,8 +583,14 @@ export function ShaderBackground({
     }
   }, [tracksMouse])
 
-  // Resolve background RGB — from prop, or default for variant
-  const rgb = bgColor ? hexToRgb(bgColor) : DEFAULT_BG[variant]
+  // Resolve background RGB — from prop, or default for variant.
+  // Memoized so the draw effect below can depend on the array itself: hexToRgb
+  // returns a fresh array per call, which would otherwise restart the animation
+  // on every render.
+  const rgb = useMemo(
+    () => (bgColor ? hexToRgb(bgColor) : DEFAULT_BG[variant]),
+    [bgColor, variant],
+  )
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -566,7 +600,7 @@ export function ShaderBackground({
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
     let live = true
 
-    const frame = (_ms: number) => {
+    const frame = () => {
       if (!live) return
       const r = container.getBoundingClientRect()
       if (r.width === 0 || r.height === 0) { rafRef.current = requestAnimationFrame(frame); return }
@@ -589,7 +623,7 @@ export function ShaderBackground({
     rafRef.current = requestAnimationFrame(frame)
 
     return () => { live = false; ro.disconnect(); cancelAnimationFrame(rafRef.current) }
-  }, [variant, isAnimated, visible, tracksMouse, ...rgb])
+  }, [variant, isAnimated, visible, tracksMouse, rgb])
 
   if (typeof window === 'undefined') return null
 
