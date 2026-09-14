@@ -13,7 +13,7 @@ export function TeamMemberCard({ member, index }: TeamMemberCardProps) {
 
   return (
     <div
-      className={`group relative rounded-card backdrop-blur-xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.10)] dark:hover:shadow-[0_8px_40px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden ${
+      className={`group relative flex flex-col rounded-card backdrop-blur-xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.10)] dark:hover:shadow-[0_8px_40px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden ${
         isEven ? 'md:flex-row' : 'md:flex-row-reverse'
       }`}
     >
