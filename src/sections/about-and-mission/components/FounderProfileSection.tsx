@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { FounderProfile } from '@/../product/sections/about-and-mission/types'
 import { User, Quote } from 'lucide-react'
 import { ShaderBackground } from '@/components/ShaderBackground'
@@ -8,6 +9,7 @@ interface FounderProfileSectionProps {
 }
 
 export function FounderProfileSection({ profile }: FounderProfileSectionProps) {
+  const [photoError, setPhotoError] = useState(false)
   return (
     <section className="relative py-20 sm:py-28 overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950">
       <ShaderBackground variant="light" opacity={0.5} />
@@ -27,9 +29,18 @@ export function FounderProfileSection({ profile }: FounderProfileSectionProps) {
           {/* Left column: Photo + Name + Signature quote */}
           <div className="lg:w-[380px] shrink-0">
             <div className="rounded-xl backdrop-blur-xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-slate-900/60 shadow-[0_8px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.04)] p-8 text-center">
-              {/* Photo placeholder — liquid glass circle */}
-              <GlassPill as="div" className="w-28 h-28 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-900 dark:to-slate-800 border-4 border-white/30 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.10)] flex items-center justify-center" aria-label={`Photo of ${profile.name}`}>
-                <User size={40} className="text-blue-400 dark:text-blue-300" />
+              {/* Photo — real headshot when available, liquid glass placeholder otherwise */}
+              <GlassPill as="div" className="w-28 h-28 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-slate-200 dark:from-blue-900 dark:to-slate-800 border-4 border-white/30 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.10)] flex items-center justify-center overflow-hidden" aria-label={`Photo of ${profile.name}`}>
+                {profile.photo && !photoError ? (
+                  <img
+                    src={profile.photo}
+                    alt={profile.name}
+                    onError={() => setPhotoError(true)}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <User size={40} className="text-blue-400 dark:text-blue-300" />
+                )}
               </GlassPill>
 
               {/* Name */}

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { MapPin, Phone, Mail, Clock, User } from 'lucide-react'
 import { GlassPill } from '@/components/GlassPill'
 import type {
@@ -69,12 +70,22 @@ interface TeamContactCardProps {
 }
 
 function TeamContactCard({ contact }: TeamContactCardProps) {
+  const [photoError, setPhotoError] = useState(false)
   return (
     <div className={cardSurface}>
       <div className="flex items-center gap-4 mb-3">
-        {/* Avatar placeholder */}
-        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-500/20 dark:to-cyan-500/20 border border-blue-200 dark:border-blue-400/20 flex items-center justify-center flex-shrink-0">
-          <User className="w-5 h-5 text-blue-600 dark:text-blue-300" />
+        {/* Avatar — real photo when available, gradient placeholder otherwise */}
+        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-500/20 dark:to-cyan-500/20 border border-blue-200 dark:border-blue-400/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+          {contact.imageUrl && !photoError ? (
+            <img
+              src={contact.imageUrl}
+              alt={contact.name}
+              onError={() => setPhotoError(true)}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <User className="w-5 h-5 text-blue-600 dark:text-blue-300" />
+          )}
         </div>
         <div>
           <h5 className="text-sm font-heading font-semibold text-slate-900 dark:text-white leading-tight">
