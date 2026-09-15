@@ -223,7 +223,7 @@ WHERE NOT EXISTS (SELECT 1 FROM news_articles WHERE url = 'https://www.youtube.c
 
 INSERT INTO team_members (id, name, role, credentials, photo, bio, quote, expertise, links, "order", published)
 SELECT gen_random_uuid(), 'Jehremiah C. Asis', 'Founder & CEO', 'Atty.',
-       '/images/team/jehri-asis.jpg',
+       '/images/team/jehremiah-asis.jpg',
        'Former corporate lawyer who pivoted to environmental infrastructure after a near-fatal car accident reframed his purpose. Conceptualized and led the Puerto Princesa Water Reclamation and Learning Center — the Philippines'' first combined septage and sewage treatment facility. Combines project finance expertise with a deep technical understanding of biological treatment processes, drawn from years of aquarium science.',
        'Pollution is the same whether it happens in an urban center or a remote barangay. That''s why we go where others won''t.',
        ARRAY['Public-Private Partnerships', 'Project Finance Law', 'Biological Treatment Systems', 'Environmental Policy'],
@@ -390,7 +390,7 @@ VALUES (
   '{
     "name": "Jehremiah C. Asis",
     "role": "Founder & CEO, JCA 1221 Holdings Inc.",
-    "photo": "/images/team/jehri-asis.jpg",
+    "photo": "/images/team/jehremiah-asis.jpg",
     "signatureQuote": "If people can''t afford to clean polluted water, the environment will continue to suffer. That''s why we go where others won''t.",
     "quotes": [
       {"text": "Pollution is the same whether it happens in an urban center or a remote barangay. The water doesn''t care about jurisdiction.", "context": "On why JCA 1221 works in underserved communities"},
@@ -601,7 +601,7 @@ VALUES (
       "email": "jhasis@jca1221.com",
       "phone": "+63 2 8123 4567",
       "inquiryCategories": ["Investment Partnerships", "Strategic Direction"],
-      "imageUrl": "/images/team/jehremiah-asis.png"
+      "imageUrl": "/images/team/jehremiah-asis.jpg"
     },
     {
       "id": "partnerships",
