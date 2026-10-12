@@ -1,17 +1,12 @@
 # Implementation brief — In-page interactive CMS
 
 Sources (read in full before implementing, do not re-derive):
-- Audit: `docs/cms-json-audit.md` (task t_9a760c54, written in `.worktrees/t_9a760c54`,
-  not yet merged to this branch — copy it in or read it from that worktree path).
-- Plan: `docs/cms-inline-editor-plan.md` (task t_be30e2b4, written in
-  `.worktrees/t_be30e2b4`, not yet merged to this branch — same caveat).
+- Audit: `docs/cms-json-audit.md` (task t_9a760c54).
+- Plan: `docs/cms-inline-editor-plan.md` (task t_be30e2b4).
 - Visual baseline: `DESIGN.md` and `src/index.css` (this repo, current branch) —
   authoritative for every token cited below.
 
-No production code was changed by this brief. Both source worktrees above
-have uncommitted files (`git status --short` shows the two docs as `??`) —
-whoever implements should bring those two files onto their branch (copy, not
-regenerate) so the reasoning trail stays intact.
+No production code was changed by this brief.
 
 ---
 
