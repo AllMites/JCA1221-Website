@@ -147,6 +147,24 @@ export function useTeam() {
   return { members, loading, error, reload: load }
 }
 
+// One published member by NFC card slug (/team/:slug). Slugs are stored
+// lowercase, so the lookup is case-insensitive for hand-typed URLs.
+export function useTeamMemberBySlug(slug: string) {
+  // loading is derived: true until the result for the current slug arrives.
+  const [result, setResult] = useState<{ slug: string; member: TeamMember | null } | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    fetchBySlug<TeamMember>('team_members', slug.toLowerCase())
+      .catch(() => null)
+      .then((member) => { if (!cancelled) setResult({ slug, member }) })
+    return () => { cancelled = true }
+  }, [slug])
+
+  const loading = result?.slug !== slug
+  return { member: loading ? null : result.member, loading }
+}
+
 // ── CSR ──
 export function useCsrProjects() {
   const [projects, setProjects] = useState<CsrProject[]>([])

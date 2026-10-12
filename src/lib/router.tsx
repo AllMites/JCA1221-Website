@@ -87,6 +87,9 @@ const TechnologyPage = lazyRetry(() =>
 const TeamPage = lazyRetry(() =>
   import('@/pages/TeamPage').then((m) => ({ default: m.TeamPage })),
 )
+const CardPage = lazyRetry(() =>
+  import('@/pages/CardPage').then((m) => ({ default: m.CardPage })),
+)
 const NewsPage = lazyRetry(() =>
   import('@/pages/NewsPage').then((m) => ({ default: m.NewsPage })),
 )
@@ -184,6 +187,8 @@ export const router = createBrowserRouter([
       { path: '/technology', element: <TechnologyPage /> },
       { path: '/contact', element: <ContactPage /> },
       { path: '/team', element: <TeamPage /> },
+      // NFC calling cards — intentionally unlinked and noindex
+      { path: '/team/:slug', element: <CardPage /> },
       { path: '/news', element: <NewsPage /> },
       { path: '/faqs', element: <FaqPage /> },
       { path: '/help', element: <Navigate to="/faqs" replace /> },

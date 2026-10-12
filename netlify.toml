@@ -32,3 +32,10 @@
   status = 200
 
 # Headers are in public/_headers (Netlify reads this file automatically)
+
+# NFC calling-card pages (/team/:slug) — reachable only via the card, kept
+# out of search. Header (not robots.txt Disallow) so crawlers still see it.
+[[headers]]
+  for = "/team/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
