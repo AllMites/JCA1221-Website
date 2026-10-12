@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { AlertCircle } from 'lucide-react'
 import type { TeamMember, TeamMemberLink } from '@/lib/content-types'
 import { TagPillInput, LinksEditor, ImagePicker } from '@/components/content-editors'
+import { normalizeCardSlug, isValidCardSlug } from '@/lib/card-slug'
 
 interface TeamFormProps {
   member?: TeamMember | null
@@ -9,7 +10,7 @@ interface TeamFormProps {
   onCancel: () => void
 }
 
-type FieldErrors = Partial<Record<'name' | 'role' | 'bio' | 'photo', string>>
+type FieldErrors = Partial<Record<'name' | 'role' | 'bio' | 'photo' | 'slug', string>>
 
 export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
   const [name, setName] = useState('')
@@ -63,6 +64,8 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
     if (!bio.trim()) errs.bio = 'Bio is required'
     else if (bio.trim().length < 10) errs.bio = 'Bio must be at least 10 characters'
     if (photo && !/^(https?:\/\/|\/)/.test(photo.trim())) errs.photo = 'Please enter a valid URL or path starting with /'
+    const cardSlug = normalizeCardSlug(slug)
+    if (cardSlug && !isValidCardSlug(cardSlug)) errs.slug = 'Use lowercase letters and numbers only (e.g. zarasee)'
     setFieldErrors(errs)
     return Object.keys(errs).length === 0
   }
@@ -87,7 +90,7 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
         quote: quote.trim() || null,
         expertise,
         links,
-        slug: slug.trim().toLowerCase() || null,
+        slug: normalizeCardSlug(slug) || null,
         phone: phone.replace(/[^\d+]/g, '') || null,
         order: parseInt(order) || 0,
         published: member?.published ?? true,
@@ -173,8 +176,9 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-medium text-slate-500 mb-1">Card URL slug</label>
-          <input value={slug} onChange={(e) => setSlug(e.target.value)} placeholder="e.g. zarasee" className={inputBase + ' ' + inputNormal} />
-          <p className="mt-1 text-xs text-slate-400">jca1221.com/team/{slug.trim().toLowerCase() || '<slug>'} — lowercase letters and numbers only</p>
+          <input value={slug} onChange={(e) => { setSlug(e.target.value); clearFieldError('slug') }} placeholder="e.g. zarasee" className={inputClass('slug')} />
+          {fieldErrors.slug && <p className="flex items-center gap-1 mt-1 text-xs text-red-500 dark:text-red-400"><AlertCircle className="w-3 h-3 flex-shrink-0" />{fieldErrors.slug}</p>}
+          <p className="mt-1 text-xs text-slate-400">jca1221.com/team/{normalizeCardSlug(slug) || '<slug>'} — lowercase letters and numbers only</p>
         </div>
         <div>
           <label className="block text-xs font-medium text-slate-500 mb-1">Mobile number</label>

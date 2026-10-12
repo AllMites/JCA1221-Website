@@ -151,18 +151,45 @@ export function useTeam() {
 // lowercase, so the lookup is case-insensitive for hand-typed URLs.
 export function useTeamMemberBySlug(slug: string) {
   // loading is derived: true until the result for the current slug arrives.
-  const [result, setResult] = useState<{ slug: string; member: TeamMember | null } | null>(null)
+  // A failed request (offline, timeout) is reported as `error`, not as a
+  // missing member, so the card can offer a retry instead of a 404.
+  const [result, setResult] = useState<{ slug: string; member: TeamMember | null; error: boolean } | null>(null)
+  const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
     let cancelled = false
-    fetchBySlug<TeamMember>('team_members', slug.toLowerCase())
-      .catch(() => null)
-      .then((member) => { if (!cancelled) setResult({ slug, member }) })
+    const done = (member: TeamMember | null, error: boolean) => {
+      if (!cancelled) setResult({ slug, member, error })
+    }
+    if (!hasSupabaseCredentials) {
+      done(null, false)
+    } else {
+      Promise.resolve(
+        supabase
+          .from('team_members')
+          .select('*')
+          .eq('slug', slug.toLowerCase())
+          .eq('published', true)
+          .maybeSingle(),
+      )
+        .then(({ data, error }) => done((data as TeamMember | null) ?? null, !!error))
+        .catch(() => done(null, true))
+    }
     return () => { cancelled = true }
-  }, [slug])
+  }, [slug, attempt])
+
+  const retry = useCallback(() => {
+    setResult(null)
+    setAttempt((n) => n + 1)
+  }, [])
 
   const loading = result?.slug !== slug
-  return { member: loading ? null : result.member, loading }
+  return {
+    member: loading ? null : result.member,
+    error: loading ? false : result.error,
+    loading,
+    retry,
+  }
 }
 
 // ── CSR ──

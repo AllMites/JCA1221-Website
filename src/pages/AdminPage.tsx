@@ -212,11 +212,12 @@ export function AdminPage() {
   }, [activeTab, fetchTeam])
 
   async function handleTeamSave(data: Partial<TeamMember>) {
-    if (data.id) {
-      await supabase.from('team_members').update(data).eq('id', data.id)
-    } else {
-      await supabase.from('team_members').insert(data)
-    }
+    // Throw so TeamForm shows the error and keeps the edits (e.g. a slug
+    // rejected by the format CHECK or UNIQUE constraint).
+    const { error } = data.id
+      ? await supabase.from('team_members').update(data).eq('id', data.id)
+      : await supabase.from('team_members').insert(data)
+    if (error) throw error
     setEditingMember(null)
     setCreatingMember(false)
     fetchTeam()

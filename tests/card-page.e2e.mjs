@@ -87,6 +87,19 @@ await check('unknown slug -> 404 page', async () => {
   await page.getByText('Page not found').waitFor({ timeout: 10000 })
 })
 
+await check('network failure -> retry state, not 404', async () => {
+  const p2 = await context.newPage()
+  await p2.route('**/rest/v1/**', (route) => route.abort('internetdisconnected'))
+  await p2.goto(`${BASE}/team/jehremiahasis`)
+  await p2.getByRole('button', { name: /try again/i }).waitFor({ timeout: 30000 })
+  assert.equal(await p2.getByText('Page not found').count(), 0)
+  await p2.unrouteAll()
+  await stubSupabase(p2)
+  await p2.getByRole('button', { name: /try again/i }).click()
+  await p2.getByRole('heading', { name: 'Jehremiah C. Asis' }).waitFor({ timeout: 10000 })
+  await p2.close()
+})
+
 await check('/team does not link to card pages', async () => {
   await page.goto(`${BASE}/team`)
   await page.getByText('Meet Our Team').first().waitFor({ timeout: 10000 })

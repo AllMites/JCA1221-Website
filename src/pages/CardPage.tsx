@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { Phone, Mail, Linkedin, Download } from 'lucide-react'
+import { Phone, Mail, Linkedin, Download, RefreshCw } from 'lucide-react'
 import { PageSEO } from '@/components/PageSEO'
 import { PageSkeleton } from '@/components/PageSkeleton'
 import { NotFoundPage } from '@/pages/NotFoundPage'
@@ -41,9 +41,21 @@ const secondaryAction = `${actionClass} text-slate-700 dark:text-slate-200 bg-wh
 
 export function CardPage() {
   const { slug = '' } = useParams()
-  const { member, loading } = useTeamMemberBySlug(slug)
+  const { member, loading, error, retry } = useTeamMemberBySlug(slug)
 
   if (loading) return <PageSkeleton />
+  if (error) {
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center px-4 text-center">
+        <PageSEO title="JCA 1221 Holdings" description="Contact card" noIndex />
+        <p className="text-slate-700 dark:text-slate-200 font-heading font-medium">Couldn't load this contact card.</p>
+        <p className="mt-1 text-sm text-slate-400">Check your connection and try again.</p>
+        <button type="button" onClick={retry} className={`${primaryAction} mt-6 max-w-[240px]`}>
+          <RefreshCw size={16} /> Try again
+        </button>
+      </div>
+    )
+  }
   if (!member) return <NotFoundPage />
 
   const emailLink = member.links?.find((l) => l.type === 'email') ?? null
