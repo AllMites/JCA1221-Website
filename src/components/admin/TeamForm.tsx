@@ -20,6 +20,8 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
   const [quote, setQuote] = useState('')
   const [expertise, setExpertise] = useState<string[]>([])
   const [links, setLinks] = useState<TeamMemberLink[]>([])
+  const [slug, setSlug] = useState('')
+  const [phone, setPhone] = useState('')
   const [order, setOrder] = useState('0')
   const [saving, setSaving] = useState(false)
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
@@ -38,6 +40,8 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
       setQuote(member.quote ?? '')
       setExpertise(member.expertise ?? [])
       setLinks(member.links ?? [])
+      setSlug(member.slug ?? '')
+      setPhone(member.phone ?? '')
       setOrder((member.order ?? 0).toString())
     }
   }, [member])
@@ -70,7 +74,7 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
     if (!validate()) return
 
     setSaving(true)
-    savedFormRef.current = { name, role, credentials, photo: photo ?? '', bio, quote, order }
+    savedFormRef.current = { name, role, credentials, photo: photo ?? '', bio, quote, slug, phone, order }
 
     try {
       await onSave({
@@ -83,6 +87,8 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
         quote: quote.trim() || null,
         expertise,
         links,
+        slug: slug.trim().toLowerCase() || null,
+        phone: phone.replace(/[^\d+]/g, '') || null,
         order: parseInt(order) || 0,
         published: member?.published ?? true,
       })
@@ -162,6 +168,18 @@ export function TeamForm({ member, onSave, onCancel }: TeamFormProps) {
       <div>
         <label className="block text-xs font-medium text-slate-500 mb-1">Links</label>
         <LinksEditor value={links} onChange={setLinks} />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-medium text-slate-500 mb-1">Card URL slug</label>
+          <input value={slug} onChange={(e) => setSlug(e.target.value)} placeholder="e.g. zarasee" className={inputBase + ' ' + inputNormal} />
+          <p className="mt-1 text-xs text-slate-400">jca1221.com/team/{slug.trim().toLowerCase() || '<slug>'} — lowercase letters and numbers only</p>
+        </div>
+        <div>
+          <label className="block text-xs font-medium text-slate-500 mb-1">Mobile number</label>
+          <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+639171234567" className={inputBase + ' ' + inputNormal} />
+        </div>
       </div>
 
       <div>

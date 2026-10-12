@@ -89,6 +89,10 @@ export interface TeamMember {
   quote: string | null
   expertise: string[]
   links: TeamMemberLink[]
+  /** NFC card URL: jca1221.com/team/<slug> */
+  slug: string | null
+  /** E.164 mobile number, shown on the card page */
+  phone: string | null
   order: number
   published: boolean
 }
