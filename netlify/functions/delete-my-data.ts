@@ -3,6 +3,7 @@ import type { Handler, HandlerEvent } from '@netlify/functions'
 import { supabase } from '../lib/supabase'
 import { sendMail } from '../lib/send-email'
 import { json } from '../lib/cors'
+import { esc } from '../lib/email-templates'
 
 /**
  * Public endpoint for users to request data deletion.
@@ -16,18 +17,18 @@ function hashIP(ip: string): string {
   return createHash('sha256').update(ip).digest('hex').slice(0, 16)
 }
 
-async function checkRateLimit(ipHash: string): Promise<'ok' | 'too-fast' | 'too-many'> {
+// ponytail: in-memory per instance — resets on cold start and isn't shared
+// across instances. Move to a Supabase table if abuse shows up.
+// (Can't count `submissions` rows: deletion requests never insert any.)
+const hits = new Map<string, number[]>()
+
+function checkRateLimit(ipHash: string): 'ok' | 'too-fast' | 'too-many' {
   const n = Date.now()
-  const wa = new Date(n - RATE_WINDOW_SEC * 1000)
-  const ha = new Date(n - 3600 * 1000)
-  const { data: recent } = await supabase
-    .from('submissions').select('id', { count: 'exact', head: true })
-    .eq('source_ip_hash', ipHash).gte('created_at', wa.toISOString())
-  if (recent && recent.length > 0) return 'too-fast'
-  const { count: hourly } = await supabase
-    .from('submissions').select('id', { count: 'exact', head: true })
-    .eq('source_ip_hash', ipHash).gte('created_at', ha.toISOString())
-  if (hourly && hourly >= RATE_MAX_HR) return 'too-many'
+  const recent = (hits.get(ipHash) ?? []).filter((t) => n - t < 3600 * 1000)
+  if (recent.some((t) => n - t < RATE_WINDOW_SEC * 1000)) return 'too-fast'
+  if (recent.length >= RATE_MAX_HR) return 'too-many'
+  recent.push(n)
+  hits.set(ipHash, recent)
   return 'ok'
 }
 
@@ -51,7 +52,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
   const ipHash = hashIP(event.headers["client-ip"]
     ?? event.headers["x-forwarded-for"]?.split(",")[0]?.trim()
     ?? "0.0.0.0")
-  const rateStatus = await checkRateLimit(ipHash)
+  const rateStatus = checkRateLimit(ipHash)
   if (rateStatus === "too-fast") {
     return json({ error: "Please wait before submitting again" }, 429)
   }
@@ -122,7 +123,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     await sendMail({
       to: adminEmail,
       subject: `Data deletion request: ${email}`,
-      html: `<p>${name} (${email}) has requested data deletion. ${matched.length} submissions soft-deleted.</p>`,
+      html: `<p>${esc(name)} (${esc(email)}) has requested data deletion. ${matched.length} submissions soft-deleted.</p>`,
       text: `${name} (${email}) — ${matched.length} submissions soft-deleted.`,
     })
   }

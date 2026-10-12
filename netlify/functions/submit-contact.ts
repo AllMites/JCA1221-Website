@@ -58,13 +58,13 @@ async function checkRateLimit(ipHash: string): Promise<'ok' | 'too-fast' | 'too-
   const hourAgo = new Date(Date.now() - 3600 * 1000)
 
   // Recent attempt (within 30s window)?
-  const { data: recent } = await supabase
+  const { count: recent } = await supabase
     .from('submissions')
     .select('id', { count: 'exact', head: true })
     .eq('source_ip_hash', ipHash)
     .gte('created_at', windowAgo.toISOString())
 
-  if (recent && recent.length > 0) return 'too-fast'
+  if (recent && recent > 0) return 'too-fast'
 
   // Hourly limit
   const { count: hourly } = await supabase
